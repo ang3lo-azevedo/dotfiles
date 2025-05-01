@@ -1,0 +1,21 @@
+{
+    "additional-repositories": ["multilib"],
+    "archinstall-language": "English",
+    "audio_config": "pipewire",
+    "bootloader": "grub",
+    "debug": false,
+    "disk_config": {
+        "config_type": "default_layout"
+    },
+    "hostname": "pc-angelo",
+    "kernels": [
+      "linux"
+    ],
+    "locale_config": {
+      "kb_layout": "pt",
+      "sys_enc": "UTF-8",
+      "sys_lang": "en_US"
+    },
+    "packages": ["rclone"],
+    "swap": true
+  }
