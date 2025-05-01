@@ -1,0 +1,3 @@
+[submodule "archpostinstall"]
+	path = archpostinstall
+	url = https://github.com/ang3lo-azevedo/archpostinstall
