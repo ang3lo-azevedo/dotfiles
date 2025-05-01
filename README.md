@@ -1,40 +1,11 @@
-# dotfiles
+# Dotfiles
 
-My personal dotfiles and arch install configuration
+My personal dotfiles and Arch Linux installation configuration.
 
-# Arch Linux Configuration
+## Overview
 
-The Arch Linux install is based on *archinstall* (TODO -> Improve external links) with my default install configuration
+This repository contains my personal dotfiles and configuration scripts for setting up a fresh Arch Linux installation. The setup is designed to be automated and reproducible.
 
-The TUI is made using gum
-
-The scripting was done using Bash Infinity
-
-## IN DEVELOPMENT
-
-# What to do after reinstalling arch
-
-- Change make to use multithread (https://wiki.archlinux.org/title/Makepkg#Improving_build_times)
-- Enable parallel downloads on pacman (https://wiki.archlinux.org/title/Pacman#Enabling_parallel_downloads)
-- Install NVIDIA drivers
-- Install pacmac-all
-- Install yay
-- Install chaotic-aur
-- Install tldr and wikiman
-- Install and configure zsh
-- Install and cofigure Hyprland
-- Install and configure wezterm
-- Install and configure docker
-- Install and configure KVM with whonix
-- Install and configure rclone
-- Install and configure KeePassXC
-- Install and configure Zen Browser
-- Install and configure Vesktop
-- Install and configure cursor
-- Install and configure Android Studio
-- Install and configure MPV
-- Install Steam, lutris
-- Install KDE Connect
-- Install and configure nvim
-- Install and configure ghostty
-- Install and configure oh my zsh and oh my tmux
+### Tools Used
+- **archinstall**: [archinstall](https://wiki.archlinux.org/title/Archinstall) - A tool for setting up a fresh Arch Linux installation
+- **archpostinstall**: [archpostinstall](https://github.com/ang3lo-azevedo/archpostinstall) - A tool for the post-installation of Arch Linux
