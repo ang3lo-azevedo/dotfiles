@@ -1,0 +1,14 @@
+git
+tldr
+wikiman
+rclone
+ghostty
+cursor
+mpv
+zen-browser
+keepassxc
+docker
+docker-compose
+qemu
+libvirt
+virt-manager
