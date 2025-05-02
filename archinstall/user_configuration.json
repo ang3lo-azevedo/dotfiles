@@ -1,0 +1,128 @@
+{
+    "archinstall-language": "English",
+    "audio_config": {
+        "audio": "pipewire"
+    },
+    "bootloader": "Grub",
+    "custom_commands": [],
+    "disk_config": {
+        "config_type": "manual_partitioning",
+        "device_modifications": [
+            {
+                "device": "/dev/nvme0n1",
+                "partitions": [
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": [
+                            "boot",
+                            "esp"
+                        ],
+                        "fs_type": "fat32",
+                        "mount_options": [],
+                        "mountpoint": "/boot",
+                        "obj_id": "27d3140f-3bb1-4a61-8532-6a63e44de1bf",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "GiB",
+                            "value": 1
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "MiB",
+                            "value": 1
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    },
+                    {
+                        "btrfs": [],
+                        "dev_path": null,
+                        "flags": [],
+                        "fs_type": "ext4",
+                        "mount_options": [],
+                        "mountpoint": "/",
+                        "obj_id": "9aa9a61e-45e7-4e45-b33d-aa82cdeff42c",
+                        "size": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 511035047936
+                        },
+                        "start": {
+                            "sector_size": {
+                                "unit": "B",
+                                "value": 512
+                            },
+                            "unit": "B",
+                            "value": 1074790400
+                        },
+                        "status": "create",
+                        "type": "primary"
+                    }
+                ],
+                "wipe": true
+            }
+        ]
+    },
+    "disk_encryption": {
+        "encryption_type": "luks",
+        "lvm_volumes": [],
+        "partitions": [
+            "9aa9a61e-45e7-4e45-b33d-aa82cdeff42c"
+        ]
+    },
+    "hostname": "pc-angelo",
+    "kernels": [
+        "linux"
+    ],
+    "locale_config": {
+        "kb_layout": "pt-latin1",
+        "sys_enc": "UTF-8",
+        "sys_lang": "en_US"
+    },
+    "mirror_config": {
+        "custom_repositories": [],
+        "custom_servers": [],
+        "mirror_regions": {
+            "Portugal": [
+                "http://ftp.rnl.tecnico.ulisboa.pt/pub/archlinux/$repo/os/$arch",
+                "https://ftp.rnl.tecnico.ulisboa.pt/pub/archlinux/$repo/os/$arch",
+                "http://glua.ua.pt/pub/archlinux/$repo/os/$arch",
+                "https://glua.ua.pt/pub/archlinux/$repo/os/$arch",
+                "http://mirrors.up.pt/pub/archlinux/$repo/os/$arch",
+                "https://mirrors.up.pt/pub/archlinux/$repo/os/$arch",
+                "http://mirror.leitecastro.com/archlinux/$repo/os/$arch",
+                "https://mirror.leitecastro.com/archlinux/$repo/os/$arch"
+            ]
+        },
+        "optional_repositories": []
+    },
+    "network_config": {
+        "type": "iso"
+    },
+    "ntp": true,
+    "packages": [
+        "ghostty",
+        "git",
+        "hyprland",
+        "keepassxc",
+        "rclone",
+        "tldr",
+        "wikiman",
+        "mpv"
+    ],
+    "parallel_downloads": 0,
+    "services": [],
+    "swap": true,
+    "timezone": "Europe/Lisbon",
+    "version": null
+}
