@@ -1,13 +1,76 @@
-# Ignore all files
+# Dotfiles Gitignore
+# This file controls which configuration files are tracked in the repository
+
+# =============================================================================
+# GLOBAL IGNORE RULES
+# =============================================================================
+
+# Ignore all directories by default
 */
+
+# Ignore common system files
 *.dirs
 *.locale
+*.log
+*.tmp
+*.cache
+*.lock
 
-# Don't ignore specific directories
-!niri
-!waybar
-!fuzzel
-!mako
-!swaylock
-!ghostty
-!mpv
+# =============================================================================
+# TRACKED CONFIGURATIONS
+# =============================================================================
+
+# Window Manager Components
+!niri/
+!waybar/
+!waybar/scripts/
+!fuzzel/
+!fuzzel/scripts/
+!mako/
+!swaylock/
+
+# Applications
+!ghostty/
+!mpv/
+
+# =============================================================================
+# SPECIFIC IGNORE RULES
+# =============================================================================
+
+# Ignore cache and temporary files in tracked directories
+**/cache/
+**/tmp/
+**/*.cache
+**/*.tmp
+**/*.log
+
+# Ignore backup files
+**/*.bak
+**/*.backup
+**/*~
+
+# Ignore lock files
+**/*.lock
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Ignore node modules if any
+**/node_modules/
+
+# Ignore build artifacts
+**/dist/
+**/build/
+**/.build/
+
+# Ignore IDE files
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*~
+
+# Ignore OS generated files
+**/.DS_Store
+**/Thumbs.db
+**/.Trash-*/
