@@ -1,11 +1,13 @@
 # Ignore all files
-*
+*/
+*.dirs
+*.locale
 
 # Don't ignore specific directories
-!fuzzel/
-!ghostty/
-!mako/
-!mpv/
-!niri/
-!waybar/
-!swaylock/
+!fuzzel
+!ghostty
+!mako
+!mpv
+!niri
+!waybar
+!swaylock
