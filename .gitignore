@@ -4,10 +4,10 @@
 *.locale
 
 # Don't ignore specific directories
-!fuzzel
-!ghostty
-!mako
-!mpv
 !niri
 !waybar
+!fuzzel
+!mako
 !swaylock
+!ghostty
+!mpv
