@@ -1,11 +1,11 @@
+# Ignore all files
 *
 
-!README.md
-!.gitignore
-!fuzzel
-!ghostty
-!mako
-!mpv
-!niri
-!waybar
-!swaylock
+# Don't ignore specific directories
+!fuzzel/
+!ghostty/
+!mako/
+!mpv/
+!niri/
+!waybar/
+!swaylock/
