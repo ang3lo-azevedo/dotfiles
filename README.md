@@ -44,7 +44,7 @@ Simple and efficient setup using CachyOS (Arch-based with performance optimizati
 sudo pacman -S niri waybar fuzzel mako swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu
 
 # Clone repository
-git clone --recursive https://github.com/your-username/dotfiles.git ~/.config
+git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
 ```
 
 ## Structure
