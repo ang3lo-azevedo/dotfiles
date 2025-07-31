@@ -1,5 +1,10 @@
 # Dotfiles
 
+[![CachyOS](https://img.shields.io/badge/OS-CachyOS-blue?style=flat-square&logo=archlinux)](https://cachyos.org/)
+[![Niri](https://img.shields.io/badge/WM-Niri-purple?style=flat-square)](https://github.com/smithay/niri)
+[![Wayland](https://img.shields.io/badge/Display-Wayland-green?style=flat-square)](https://wayland.freedesktop.org/)
+[![zsh](https://img.shields.io/badge/Shell-zsh-orange?style=flat-square&logo=gnu-bash)](https://www.zsh.org/)
+
 My personal Linux system configurations for CachyOS with Niri as window manager.
 
 ![Screenshot](https://github.com/user-attachments/assets/41f27464-a888-48be-840e-224584a6bc45)
@@ -8,41 +13,48 @@ My personal Linux system configurations for CachyOS with Niri as window manager.
 
 ## Setup Summary
 
-Simple and efficient setup using CachyOS (Arch-based with performance optimizations) with Wayland and Niri as a rolling window manager. Minimal color usage, direct and effective workflow with Fuzzel handling most menu interactions for a streamlined development environment.
+Simple and efficient setup using **CachyOS** (Arch-based with performance optimizations) with **Wayland** and **Niri** as a rolling window manager. Minimal color usage, direct and effective workflow with **Fuzzel** handling most menu interactions for a streamlined development environment.
 
 ## System
 
-- **OS**: [CachyOS](https://cachyos.org/)
-- **Bootloader**: [systemd-boot](https://systemd.io/BOOT_LOADER_INTERFACE/)
-- **Window Manager**: [Niri](https://github.com/smithay/niri)
+| Component | Choice | Link |
+|-----------|--------|------|
+| **OS** | CachyOS | [Website](https://cachyos.org/) |
+| **Bootloader** | systemd-boot | [Docs](https://systemd.io/BOOT_LOADER_INTERFACE/) |
+| **Window Manager** | Niri | [GitHub](https://github.com/smithay/niri) |
+| **Shell** | zsh | [Website](https://www.zsh.org/) |
 
 ## Window Manager Components
 
-- **[Niri](https://github.com/smithay/niri)**: Window manager and compositor
-- **[Waybar](https://github.com/Alexays/Waybar)**: Status bar
-- **[Fuzzel](https://codeberg.org/dnkl/fuzzel)**: Application launcher
-- **[Mako](https://github.com/emersion/mako)**: Notifications
-- **[Swaylock](https://github.com/swaywm/swaylock)**: Lock screen
-- **[xwayland-satellite](https://github.com/smithay/niri)**: XWayland support for Niri
-- **[polkit-mate](https://github.com/mate-desktop/mate-polkit)**: Authentication agent
-- **[swaybg](https://github.com/swaywm/swaybg)**: Background wallpaper
-- **[swayidle](https://github.com/swaywm/swayidle)**: Idle management daemon
-- **[wlsunset](https://gitlab.com/chinstrap/wlsunset)**: Automatic screen temperature adjustment
-- **[cliphist](https://github.com/sentriz/cliphist)**: Clipboard history
-- **[bzmenu](https://github.com/0pointer/bzmenu)**: Bluetooth device menu
-- **[iwmenu](https://github.com/0pointer/iwmenu)**: Network interface menu
+| Component | Description | Link |
+|-----------|-------------|------|
+| **[Niri](https://github.com/smithay/niri)** | Window manager and compositor | [GitHub](https://github.com/smithay/niri) |
+| **[Waybar](https://github.com/Alexays/Waybar)** | Status bar | [GitHub](https://github.com/Alexays/Waybar) |
+| **[Fuzzel](https://codeberg.org/dnkl/fuzzel)** | Application launcher | [Codeberg](https://codeberg.org/dnkl/fuzzel) |
+| **[Mako](https://github.com/emersion/mako)** | Notifications | [GitHub](https://github.com/emersion/mako) |
+| **[Swaylock](https://github.com/swaywm/swaylock)** | Lock screen | [GitHub](https://github.com/swaywm/swaylock) |
+| **[xwayland-satellite](https://github.com/smithay/niri)** | XWayland support for Niri | [GitHub](https://github.com/smithay/niri) |
+| **[polkit-mate](https://github.com/mate-desktop/mate-polkit)** | Authentication agent | [GitHub](https://github.com/mate-desktop/mate-polkit) |
+| **[swaybg](https://github.com/swaywm/swaybg)** | Background wallpaper | [GitHub](https://github.com/swaywm/swaybg) |
+| **[swayidle](https://github.com/swaywm/swayidle)** | Idle management daemon | [GitHub](https://github.com/swaywm/swayidle) |
+| **[wlsunset](https://gitlab.com/chinstrap/wlsunset)** | Automatic screen temperature adjustment | [GitLab](https://gitlab.com/chinstrap/wlsunset) |
+| **[cliphist](https://github.com/sentriz/cliphist)** | Clipboard history | [GitHub](https://github.com/sentriz/cliphist) |
+| **[bzmenu](https://github.com/0pointer/bzmenu)** | Bluetooth device menu | [GitHub](https://github.com/0pointer/bzmenu) |
+| **[iwmenu](https://github.com/0pointer/iwmenu)** | Network interface menu | [GitHub](https://github.com/0pointer/iwmenu) |
 
 ## Applications
 
-- **[Ghostty](https://github.com/mitchellh/ghostty)**: Terminal
-- **[Cursor](https://cursor.sh/)**: Code editor
-- **[MPV](https://mpv.io/)**: Media player
-- **[Nautilus](https://wiki.gnome.org/Apps/Files)**: File manager
-- **[Stremio](https://www.stremio.com/)**: Streaming platform
-- **[Grayjay](https://gitlab.futo.org/videostreaming/Grayjay.Desktop)**: YouTube client
-- **[Zen Browser](https://github.com/zen-browser/desktop)**: Privacy-focused browser
-- **[Equibop](https://github.com/Equicord/Equibop)**: Discord client
-- **[virt-manager](https://github.com/virt-manager/virt-manager)**: Virtual machine manager
+| Application | Description | Link |
+|-------------|-------------|------|
+| **[Ghostty](https://github.com/mitchellh/ghostty)** | Terminal | [GitHub](https://github.com/mitchellh/ghostty) |
+| **[Cursor](https://cursor.sh/)** | Code editor | [Website](https://cursor.sh/) |
+| **[MPV](https://mpv.io/)** | Media player | [Website](https://mpv.io/) |
+| **[Nautilus](https://wiki.gnome.org/Apps/Files)** | File manager | [GNOME Wiki](https://wiki.gnome.org/Apps/Files) |
+| **[Stremio](https://www.stremio.com/)** | Streaming platform | [Website](https://www.stremio.com/) |
+| **[Grayjay](https://gitlab.futo.org/videostreaming/Grayjay.Desktop)** | YouTube client | [GitLab](https://gitlab.futo.org/videostreaming/Grayjay.Desktop) |
+| **[Zen Browser](https://github.com/zen-browser/desktop)** | Privacy-focused browser | [GitHub](https://github.com/zen-browser/desktop) |
+| **[Equibop](https://github.com/Equicord/Equibop)** | Discord client | [GitHub](https://github.com/Equicord/Equibop) |
+| **[virt-manager](https://github.com/virt-manager/virt-manager)** | Virtual machine manager | [GitHub](https://github.com/virt-manager/virt-manager) |
 
 ## Installation
 
@@ -76,3 +88,11 @@ git submodule update --remote
 # Backup before updates
 cp -r ~/.config ~/.config.backup
 ```
+
+---
+
+<div align="center">
+
+**If this repository was helpful to you, consider giving it a star!**
+
+</div>
