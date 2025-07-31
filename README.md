@@ -4,6 +4,8 @@ My personal Linux system configurations for CachyOS with Niri as window manager.
 
 ![Screenshot](https://github.com/user-attachments/assets/41f27464-a888-48be-840e-224584a6bc45)
 
+![Screenshot](https://github.com/user-attachments/assets/4283a0c9-5b2b-4d75-9fc0-090fb4ba83ec)
+
 ## Setup Summary
 
 Simple and efficient setup using CachyOS (Arch-based with performance optimizations) with Wayland and Niri as a rolling window manager. Minimal color usage, direct and effective workflow with Fuzzel handling most menu interactions for a streamlined development environment.
@@ -36,6 +38,11 @@ Simple and efficient setup using CachyOS (Arch-based with performance optimizati
 - **[Cursor](https://cursor.sh/)**: Code editor
 - **[MPV](https://mpv.io/)**: Media player
 - **[Nautilus](https://wiki.gnome.org/Apps/Files)**: File manager
+- **[Stremio](https://www.stremio.com/)**: Streaming platform
+- **[Grayjay](https://gitlab.futo.org/videostreaming/Grayjay.Desktop)**: YouTube client
+- **[Zen Browser](https://github.com/zen-browser/desktop)**: Privacy-focused browser
+- **[Equibop](https://github.com/Equicord/Equibop)**: Discord client
+- **[virt-manager](https://github.com/virt-manager/virt-manager)**: Virtual machine manager
 
 ## Installation
 
@@ -53,15 +60,11 @@ git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
 ~/.config/
 ├── niri/           # Window manager
 ├── waybar/         # Status bar
-├── ghostty/        # Terminal
-├── Cursor/         # Code editor
-├── mpv/            # Media player
-├── fuzzel/         # Launcher
+├── fuzzel/         # Application launcher
 ├── mako/           # Notifications
 ├── swaylock/       # Lock screen
-├── gtk-3.0/        # GTK theme
-├── nautilus/       # File manager
-└── pulse/          # Audio
+├── ghostty/        # Terminal
+└── mpv/            # Media player
 ```
 
 ## Maintenance
