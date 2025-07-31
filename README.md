@@ -2,6 +2,8 @@
 
 My personal Linux system configurations for CachyOS with Niri as window manager.
 
+![Screenshot](https://github.com/user-attachments/assets/41f27464-a888-48be-840e-224584a6bc45)
+
 ## Setup Summary
 
 Simple and efficient setup using CachyOS (Arch-based with performance optimizations) with Wayland and Niri as a rolling window manager. Minimal color usage, direct and effective workflow with Fuzzel handling most menu interactions for a streamlined development environment.
