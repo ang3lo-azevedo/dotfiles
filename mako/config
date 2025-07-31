@@ -1,0 +1,21 @@
+sort=-time
+layer=overlay
+background-color=#222222
+width=500
+height=120
+border-size=1
+border-color=#333333
+border-radius=3
+icons=0
+font=IBMPlexMono 11
+default-timeout=5000
+padding=10
+
+[urgency=low]
+border-color=#333333
+
+[urgency=normal]
+border-color=#555555
+
+[urgency=high]
+border-color=#aaaaaa

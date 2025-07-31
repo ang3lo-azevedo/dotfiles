@@ -1,0 +1,151 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 5,
+
+    "modules-left": ["privacy"],
+    "modules-center": ["clock"],
+    "modules-right": ["custom/wlsunset", "backlight", "wireplumber", "battery", "network", "bluetooth", "idle_inhibitor", "power-profiles-daemon", "tray"],
+
+    "clock": {
+        "format": "{:%d.%m %H:%M:%S}",
+        "interval":1
+    },
+
+    "custom/wlsunset":{
+        "interval": "once",
+        "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
+        "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
+        "on-click-middle": "wlsunset",
+        "signal": 1, // SIGRTMIN+1 or 35
+        "return-type": "json",
+        "format": "{icon}",
+        "tooltip-format": "wlsunset: {alt}",
+        "format-icons": {
+            "off": "○",
+            "on": "☾"
+        }
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}%",
+        //"format-icons": [""],
+        "reverse-scrolling": true
+        //"format-icons": ["","","",""],
+    },
+
+    "wireplumber": {
+        "format": "\udb81\udd7e  {volume}%",
+        "max-volume": 100,
+        "scroll-step": 1,
+        "reverse-scrolling": true
+    },
+
+    "battery": {
+        "bat": "BAT1",
+        "interval": 60,
+        "format": "{icon}  {capacity}%",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "\uf4bc  {used:0.1f}G"
+    },
+
+    "temperature": {
+        "format": "{temperatureC}°C"
+    },
+
+    "network": {
+        "format": "",
+        "format-ethernet": "\udb83\udc9d",
+        "format-wifi": "{icon}",
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "iwmenu -l fuzzel"
+    },
+
+    "bluetooth": {
+        "format-on": "",
+        "format-off": "",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂴",
+        //"format-connected-battery": "󰂴  {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "bzmenu -l fuzzel"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "\udb80\udd76",
+            "deactivated": "\udb83\udfaa"
+        }
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": "  {}%",
+        "max-length": 10
+    },
+
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+
+    "privacy": {
+	"icon-spacing": 4,
+	"icon-size": 18,
+	"transition-duration": 250,
+	"modules": [
+		{
+			"type": "screenshare",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		},
+		{
+			"type": "audio-out",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		},
+		{
+			"type": "audio-in",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		}
+	],
+	"ignore-monitor": true,
+	"ignore": [
+		{
+			"type": "audio-in",
+			"name": "cava"
+		},
+		{
+			"type": "screenshare",
+			"name": "obs"
+		}
+	]
+},
+}
