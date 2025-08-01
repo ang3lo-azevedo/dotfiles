@@ -19,41 +19,42 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 
 | Component | Choice | Link |
 |-----------|--------|------|
-| **OS** | CachyOS | [Website](https://cachyos.org/) |
-| **Bootloader** | systemd-boot | [Docs](https://systemd.io/BOOT_LOADER_INTERFACE/) |
-| **Window Manager** | Niri | [GitHub](https://github.com/smithay/niri) |
-| **Shell** | zsh | [Website](https://www.zsh.org/) |
+| **OS** | CachyOS | [GitHub](https://github.com/CachyOS/linux-cachyos) |
+| **Bootloader** | systemd-boot | [GitHub](https://github.com/systemd/systemd) |
+| **Window Manager** | Niri | [GitHub](https://github.com/YaLTeR/niri) |
+| **Shell** | zsh | [GitHub](https://github.com/zsh-users/zsh) |
 
 ## Window Manager Components
 
 | Component | Description | Link |
 |-----------|-------------|------|
-| **[Niri](https://github.com/smithay/niri)** | Window manager and compositor | [GitHub](https://github.com/smithay/niri) |
+| **[Niri](https://github.com/YaLTeR/niri)** | Window manager and compositor | [GitHub](https://github.com/YaLTeR/niri) |
 | **[Waybar](https://github.com/Alexays/Waybar)** | Status bar | [GitHub](https://github.com/Alexays/Waybar) |
 | **[Fuzzel](https://codeberg.org/dnkl/fuzzel)** | Application launcher | [Codeberg](https://codeberg.org/dnkl/fuzzel) |
 | **[Mako](https://github.com/emersion/mako)** | Notifications | [GitHub](https://github.com/emersion/mako) |
 | **[Swaylock](https://github.com/swaywm/swaylock)** | Lock screen | [GitHub](https://github.com/swaywm/swaylock) |
-| **[xwayland-satellite](https://github.com/smithay/niri)** | XWayland support for Niri | [GitHub](https://github.com/smithay/niri) |
+| **[xwayland-satellite](https://github.com/Supreeeme/xwayland-satellite)** | XWayland support for Niri | [GitHub](https://github.com/Supreeeme/xwayland-satellite) |
 | **[polkit-mate](https://github.com/mate-desktop/mate-polkit)** | Authentication agent | [GitHub](https://github.com/mate-desktop/mate-polkit) |
 | **[swaybg](https://github.com/swaywm/swaybg)** | Background wallpaper | [GitHub](https://github.com/swaywm/swaybg) |
 | **[swayidle](https://github.com/swaywm/swayidle)** | Idle management daemon | [GitHub](https://github.com/swaywm/swayidle) |
 | **[wlsunset](https://gitlab.com/chinstrap/wlsunset)** | Automatic screen temperature adjustment | [GitLab](https://gitlab.com/chinstrap/wlsunset) |
 | **[cliphist](https://github.com/sentriz/cliphist)** | Clipboard history | [GitHub](https://github.com/sentriz/cliphist) |
-| **[bzmenu](https://github.com/0pointer/bzmenu)** | Bluetooth device menu | [GitHub](https://github.com/0pointer/bzmenu) |
-| **[iwmenu](https://github.com/0pointer/iwmenu)** | Network interface menu | [GitHub](https://github.com/0pointer/iwmenu) |
+| **[bzmenu](https://github.com/e-tho/bzmenu)** | Bluetooth device menu | [GitHub](https://github.com/e-tho/bzmenu) |
+| **[iwmenu](https://github.com/e-tho/iwmenu)** | Network interface menu | [GitHub](https://github.com/e-tho/iwmenu) |
 
 ## Applications
 
 | Application | Description | Link |
 |-------------|-------------|------|
 | **[Ghostty](https://github.com/mitchellh/ghostty)** | Terminal | [GitHub](https://github.com/mitchellh/ghostty) |
-| **[Cursor](https://cursor.sh/)** | Code editor | [Website](https://cursor.sh/) |
-| **[MPV](https://mpv.io/)** | Media player | [Website](https://mpv.io/) |
-| **[Nautilus](https://wiki.gnome.org/Apps/Files)** | File manager | [GNOME Wiki](https://wiki.gnome.org/Apps/Files) |
-| **[Stremio](https://www.stremio.com/)** | Streaming platform | [Website](https://www.stremio.com/) |
+| **[VS Code](https://code.visualstudio.com/)** | Code editor | [GitHub](https://github.com/microsoft/vscode) |
+| **[MPV](https://mpv.io/)** | Media player | [GitHub](https://github.com/mpv-player/mpv) |
+| **[Nautilus](https://wiki.gnome.org/Apps/Files)** | File manager | [GitHub](https://github.com/GNOME/nautilus) |
+| **[Legcord](https://github.com/legcord/legcord)** | Discord client | [GitHub](https://github.com/legcord/legcord) |
+| **[Stremio](https://www.stremio.com/)** | Streaming platform | [GitHub](https://github.com/Stremio/stremio-shell) |
 | **[Grayjay](https://gitlab.futo.org/videostreaming/Grayjay.Desktop)** | YouTube client | [GitLab](https://gitlab.futo.org/videostreaming/Grayjay.Desktop) |
 | **[Zen Browser](https://github.com/zen-browser/desktop)** | Privacy-focused browser | [GitHub](https://github.com/zen-browser/desktop) |
-| **[Equibop](https://github.com/Equicord/Equibop)** | Discord client | [GitHub](https://github.com/Equicord/Equibop) |
+| **Spotify** | Music streaming | - |
 | **[virt-manager](https://github.com/virt-manager/virt-manager)** | Virtual machine manager | [GitHub](https://github.com/virt-manager/virt-manager) |
 
 ## Installation
