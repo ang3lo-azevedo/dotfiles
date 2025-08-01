@@ -49,13 +49,9 @@
 #network,
 #bluetooth,
 #battery,
-#custom-updates {
-    padding-right: 1em 
-}
-
+#custom-updates,
 #power-profiles-daemon {
-    padding-right: 0;
-    margin-right: -1.2em;
+    padding-right: 1em 
 }
 
 #power-profiles-daemon .power-icon {
