@@ -11,6 +11,7 @@
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
         "interval": 1,
+        "locale": "en_US.UTF-8",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",
@@ -53,9 +54,9 @@
         "scroll-step": 1,
         "reverse-scrolling": true,
         "format-icons": {
-            "default": ["\uf026", "\uf027", "\uf028"],
-            "muted": ["\uf026"]
-        }
+            "default": ["\uf026", "\uf027", "\uf028"]
+        },
+        "format-muted": "\uf026",
     },
 
     "battery": {

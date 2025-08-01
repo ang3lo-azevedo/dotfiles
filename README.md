@@ -24,6 +24,15 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 | **Window Manager** | Niri | [GitHub](https://github.com/YaLTeR/niri) |
 | **Shell** | zsh | [GitHub](https://github.com/zsh-users/zsh) |
 
+## Theming
+
+| Component | Theme | Description |
+|-----------|-------|-------------|
+| **GTK Applications** | Adwaita Dark | Default GNOME dark theme for GTK apps |
+| **Qt Applications** | Adwaita Dark | Qt applications follow GTK theme via qt5ct |
+| **Cursor Theme** | Adwaita | Consistent cursor appearance across all apps |
+| **Color Scheme** | Dark Mode | System-wide dark theme preference |
+
 ## Window Manager Components
 
 | Component | Description | Link |
@@ -41,7 +50,7 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 | **[cliphist](https://github.com/sentriz/cliphist)** | Clipboard history | [GitHub](https://github.com/sentriz/cliphist) |
 | **[bzmenu](https://github.com/e-tho/bzmenu)** | Bluetooth device menu | [GitHub](https://github.com/e-tho/bzmenu) |
 | **[iwmenu](https://github.com/e-tho/iwmenu)** | Network interface menu | [GitHub](https://github.com/e-tho/iwmenu) |
-//| **[syshud](https://github.com/System64fumo/syshud)** | System HUD overlay | [GitHub](https://github.com/System64fumo/syshud) |
+| **[syshud](https://github.com/System64fumo/syshud)** | System HUD overlay | [GitHub](https://github.com/System64fumo/syshud) |
 
 ## Applications
 

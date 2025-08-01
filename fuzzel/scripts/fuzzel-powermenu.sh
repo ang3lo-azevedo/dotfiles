@@ -106,11 +106,8 @@ case $SELECTION in
 		COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 5 -p "> ")"
 		case $COMPONENT_SELECTION in
 			*"Restart Waybar")
-				pkill waybar
 				sleep 0.5
-				~/.config/waybar/scripts/start-waybar.sh &  # Adjust path as needed
-				# or simply use waybar if it's in PATH
-				# waybar &
+				~/.config/waybar/scripts/start-waybar.sh &
 				notify-send "Component Restart" "Waybar restarted"
 				;;
 			*"Restart Mako")
