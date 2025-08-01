@@ -8,7 +8,7 @@ case $SELECTION in
 	*"Suspend")
 		systemctl suspend;;
 	*"Log out")
-		swaymsg exit;;
+		niri quit;;
 	*"Reboot")
 		systemctl reboot;;
 	*"Reboot to UEFI")
