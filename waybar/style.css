@@ -1,6 +1,6 @@
 @define-color foreground #eeeeee;
 @define-color foreground-inactive #aaaaaa;
-@define-color background rgba(255, 255, 255, 0);
+@define-color background black;
 
 * {
     font-family: JetBrainsMono Nerd Font;
@@ -38,4 +38,12 @@
 #bluetooth,
 #battery {
     padding-right: 1em 
+}
+
+#battery.warning {
+    color: #f9e2af;
+}
+
+#battery.critical {
+    color: #f38ba8;
 }

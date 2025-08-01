@@ -41,6 +41,7 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 | **[cliphist](https://github.com/sentriz/cliphist)** | Clipboard history | [GitHub](https://github.com/sentriz/cliphist) |
 | **[bzmenu](https://github.com/e-tho/bzmenu)** | Bluetooth device menu | [GitHub](https://github.com/e-tho/bzmenu) |
 | **[iwmenu](https://github.com/e-tho/iwmenu)** | Network interface menu | [GitHub](https://github.com/e-tho/iwmenu) |
+//| **[syshud](https://github.com/System64fumo/syshud)** | System HUD overlay | [GitHub](https://github.com/System64fumo/syshud) |
 
 ## Applications
 
@@ -61,7 +62,7 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 
 ```bash
 # Install dependencies
-sudo pacman -S niri waybar fuzzel mako swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu
+sudo pacman -S niri waybar fuzzel mako swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu syshud
 
 # Clone repository
 git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
