@@ -177,7 +177,7 @@
             "spotify": "\uf1bc",
         },
         "status-icons": {
-            "paused": "\uf04c",
+            "paused": "\uf04b",
             "playing": "\uf04c"
         },
         "max-length": 30,
