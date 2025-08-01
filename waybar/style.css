@@ -40,10 +40,10 @@
     padding-right: 1em 
 }
 
-#battery.warning {
+#battery.warning .icon {
     color: #f9e2af;
 }
 
-#battery.critical {
+#battery.critical .icon {
     color: #f38ba8;
 }
