@@ -297,12 +297,12 @@ spawn-at-startup "xwayland-satellite"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 
 spawn-at-startup "swaybg" "-c" "#000000"
-spawn-at-startup "waybar"
+spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
 spawn-at-startup "mako"
 spawn-at-startup "swayidle" "-w" "timeout" "601" "niri msg action power-off-monitors" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f"
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
-spawn-at-startup "sh" "~/.config/waybar/scripts/wlsunset.sh"
+spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.

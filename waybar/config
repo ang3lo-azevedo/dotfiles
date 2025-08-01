@@ -6,7 +6,7 @@
 
     "modules-left": ["privacy"],
     "modules-center": ["clock"],
-    "modules-right": ["idle_inhibitor", "power-profiles-daemon", "tray", "custom/wlsunset", "backlight", "wireplumber", "network", "bluetooth", "battery"],
+    "modules-right": ["tray", "custom/wlsunset", "backlight", "wireplumber", "battery", "network", "bluetooth"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -31,29 +31,31 @@
         "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
         "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
         "on-click-middle": "wlsunset",
-        "signal": 1, // SIGRTMIN+1 or 35
+        "signal": 1,
         "return-type": "json",
-        "format": "{icon}",
+        "format": "{icon} ",
         "tooltip-format": "wlsunset: {alt}",
         "format-icons": {
-            "off": "○",
-            "on": "☾"
+            "off": "\uf185",
+            "on": "\uf186"
         }
     },
 
     "backlight": {
         "device": "intel_backlight",
         "format": "{percent}%",
-        //"format-icons": [""],
-        "reverse-scrolling": true,
-        //"format-icons": ["","","",""],
+        "reverse-scrolling": true
     },
 
     "wireplumber": {
-        "format": "\udb81\udd7e  {volume}%",
+        "format": "{icon}  {volume}%",
         "max-volume": 100,
         "scroll-step": 1,
-        "reverse-scrolling": true
+        "reverse-scrolling": true,
+        "format-icons": {
+            "default": ["\uf026", "\uf027", "\uf028"],
+            "muted": ["\uf026"]
+        }
     },
 
     "battery": {
@@ -61,23 +63,20 @@
         "interval": 60,
         "format": "{icon}  {capacity}%",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
-    },
-
-    "memory": {
-        "interval": 30,
-        "format": "\uf4bc  {used:0.1f}G"
-    },
-
-    "temperature": {
-        "format": "{temperatureC}°C"
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "tooltip-format": "{timeTo} {capacity}%"
     },
 
     "network": {
         "format": "",
-        "format-ethernet": "\udb83\udc9d",
+        "format-ethernet": "\uf6ff",
         "format-wifi": "{icon}",
-        "format-disconnected": "\udb83\udc9c",
-        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "format-disconnected": "",
+        //"format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "format-icons": ["\uf6aa", "\uf6ab", "\uf1eb"],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
@@ -105,15 +104,9 @@
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
-            "activated": "\udb80\udd76",
-            "deactivated": "\udb83\udfaa"
+            "activated": "",
+            "deactivated": ""
         }
-    },
-
-    "cpu": {
-        "interval": 10,
-        "format": "  {}%",
-        "max-length": 10
     },
 
     "power-profiles-daemon": {
@@ -121,44 +114,44 @@
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
-            "default": "",
-            "performance": "",
-            "balanced": "",
-            "power-saver": ""
+            "default": "\uf0e7",
+            "performance": "\uf0e7",
+            "balanced": "\uf24e",
+            "power-saver": "\uf240"
         }
     },
 
     "privacy": {
-	"icon-spacing": 4,
-	"icon-size": 18,
-	"transition-duration": 250,
-	"modules": [
-		{
-			"type": "screenshare",
-			"tooltip": true,
-			"tooltip-icon-size": 24
-		},
-		{
-			"type": "audio-out",
-			"tooltip": true,
-			"tooltip-icon-size": 24
-		},
-		{
-			"type": "audio-in",
-			"tooltip": true,
-			"tooltip-icon-size": 24
-		}
-	],
-	"ignore-monitor": true,
-	"ignore": [
-		{
-			"type": "audio-in",
-			"name": "cava"
-		},
-		{
-			"type": "screenshare",
-			"name": "obs"
-		}
-	]
-},
+        "icon-spacing": 4,
+        "icon-size": 18,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ],
+        "ignore-monitor": true,
+        "ignore": [
+            {
+                "type": "audio-in",
+                "name": "cava"
+            },
+            {
+                "type": "screenshare",
+                "name": "obs"
+            }
+        ]
+    }
 }
