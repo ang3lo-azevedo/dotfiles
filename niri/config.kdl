@@ -318,6 +318,9 @@ spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
 spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 
+// Auto-start applications in specific workspaces using script
+spawn-at-startup "~/.config/niri/scripts/startup-apps.sh"
+
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
@@ -383,6 +386,24 @@ window-rule {
 window-rule {
     geometry-corner-radius 15
     clip-to-geometry true
+}
+
+// Open Spotify in workspace 1
+window-rule {
+    match app-id="spotify"
+    open-on-workspace "1"
+}
+
+// Open browser in workspace 2  
+window-rule {
+    match app-id="zen-alpha"
+    open-on-workspace "2"
+}
+
+// Open VS Code in workspace 3
+window-rule {
+    match app-id="code"
+    open-on-workspace "3"
 }
 
 binds {

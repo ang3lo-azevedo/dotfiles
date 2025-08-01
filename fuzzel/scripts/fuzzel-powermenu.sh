@@ -13,9 +13,13 @@ get_idle_status() {
 # Get current values
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
-SELECTION="$(printf "\uf021 Restart Components\n\uf011 Power Menu\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 4 -p "> ")"
+SELECTION="$(printf "\uf1de Edit Niri Config\n\uf021 Restart Components\n\uf011 Power Menu\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 4 -p "> ")"
 
 case $SELECTION in
+	*"Edit Niri Config"*)
+		# Open Niri config.kdl in VS Code with dotfiles workspace
+		code ~/.config ~/.config/niri/config.kdl
+		;;
 	*"Power Menu"*)
 		# Show system power submenu
 		SYSTEM_SELECTION="$(printf "\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI\n\uf071 Force Restart\n\uf011 Shutdown System" | fuzzel --dmenu -l 8 -p "> ")"
