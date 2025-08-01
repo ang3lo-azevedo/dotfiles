@@ -34,7 +34,7 @@
             "pending-updates": " "
         },
         "exec-if": "which waybar-updates",
-        "exec": "waybar-updates",
+        "exec": "waybar-updates -n",
         "on-click": "ghostty -e sh -c 'paru -Syu; echo \"Press enter to continue...\"; read line'"
     },
 
