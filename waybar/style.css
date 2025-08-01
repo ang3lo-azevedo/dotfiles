@@ -29,15 +29,13 @@
 
 #cpu,
 #memory,
-#wireplumber,
-#battery,
+#tray,
 #idle_inhibitor,
-#language,
+#power-profiles-daemon,
+#backlight,
+#wireplumber,
 #network,
 #bluetooth,
-#backlight,
-#custom-wlsunset,
-#power-profiles-daemon,
-#tray {
+#battery {
     padding-right: 1em 
 }
