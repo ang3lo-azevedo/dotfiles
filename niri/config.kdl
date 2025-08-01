@@ -394,7 +394,7 @@ binds {
     Mod+E hotkey-overlay-title="Open Explorer: ranger" { spawn "ranger"; }
     Mod+A hotkey-overlay-title="Open Editor: VS Code" { spawn "code"; }
     Mod+S hotkey-overlay-title="Open Music Player: Spotify" { spawn "spotify"; }
-    Mod+Z hotkey-overlay-title="Open Discord: Legcord" { spawn "legcord"; }
+    Mod+Z hotkey-overlay-title="Open Discord: Equibop" { spawn "equibop"; }
     Mod+G hotkey-overlay-title="Open YouTube: Grayjay" { spawn "grayjay"; }
     Mod+X hotkey-overlay-title="Open Stremio" { spawn "stremio"; }
 
@@ -646,7 +646,7 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete hotkey-hoverlay-title="Power Menu" { spawn "~/.config/fuzzel/scripts/fuzzel-powermenu.sh"; }
+    Ctrl+Alt+Delete hotkey-overlay-title="Power Menu" { spawn "~/.config/fuzzel/scripts/fuzzel-powermenu.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
