@@ -17,6 +17,10 @@
 *.lock
 *.list
 
+# Ignore user-specific configuration files
+dolphinrc
+yin_yang_dev.json
+
 # =============================================================================
 # TRACKED CONFIGURATIONS
 # =============================================================================

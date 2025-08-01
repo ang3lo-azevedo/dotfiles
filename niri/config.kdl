@@ -11,7 +11,8 @@ environment {
     GTK_THEME "Adwaita:dark"
     
     // Qt Theme
-    QT_QPA_PLATFORMTHEME "qt5ct"
+    GTK2_RC_FILES "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+    //QT_QPA_PLATFORMTHEME "qt5ct"
     QT_STYLE_OVERRIDE "adwaita-dark"
     
     // Icon Theme
@@ -433,8 +434,7 @@ binds {
     F9 allow-when-locked=true { spawn "~/.config/niri/scripts/keyboard-brightness.sh";}
 
     // Touchpad keys
-    //XF86TouchpadToggle { spawn "synclient" "TouchpadOff=0"; }
-
+    //ztXF86TouchpadToggle allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
