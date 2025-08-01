@@ -1,32 +1,5 @@
 #!/bin/bash
 
-# Get current power profile for display
-get_current_profile() {
-    if command -v powerprofilesctl >/dev/null 2>&1; then
-        current=$(powerprofilesctl get 2>/dev/null)
-        if [ $? -eq 0 ] && [ -n "$current" ]; then
-            case $current in
-                "performance")
-                    echo "\uf0e7  Performance (current)"
-                    ;;
-                "balanced")
-                    echo "\uf24e   Balanced (current)"
-                    ;;
-                "power-saver")
-                    echo "\uf240   Power Saver (current)"
-                    ;;
-                *)
-                    echo "\uf0e7 $current (current)"
-                    ;;
-            esac
-        else
-            echo "\uf071 Not available"
-        fi
-    else
-        echo "\uf071 Not available"
-    fi
-}
-
 # Get current idle inhibitor status
 get_idle_status() {
     # Check if idle inhibitor is active by looking for systemd-inhibit process
@@ -37,35 +10,10 @@ get_idle_status() {
     fi
 }
 
-# Function to set power profile with error handling
-set_power_profile() {
-    local profile=$1
-    if command -v powerprofilesctl >/dev/null 2>&1; then
-        # Execute the command and capture the exit code
-        powerprofilesctl set "$profile" 2>/dev/null
-        local exit_code=$?
-        
-        if [ $exit_code -eq 0 ]; then
-            # Verify the change was applied
-            local new_profile=$(powerprofilesctl get 2>/dev/null)
-            if [ "$new_profile" = "$profile" ]; then
-                notify-send "Power Profile" "Successfully switched to $profile mode"
-            else
-                notify-send "Power Profile" "Failed to switch to $profile mode (current: $new_profile)"
-            fi
-        else
-            notify-send "Power Profile" "Failed to switch to $profile mode (exit code: $exit_code)"
-        fi
-    else
-        notify-send "Power Profile" "powerprofilesctl not available"
-    fi
-}
-
 # Get current values
-CURRENT_PROFILE=$(get_current_profile)
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
-SELECTION="$(printf "\uf021 Restart Components\n\uf011 Power Menu\n\uf1e6 Manage Power Profile\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 4 -p "> ")"
+SELECTION="$(printf "\uf021 Restart Components\n\uf011 Power Menu\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 4 -p "> ")"
 
 case $SELECTION in
 	*"Power Menu"*)
@@ -106,8 +54,9 @@ case $SELECTION in
 		COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 5 -p "> ")"
 		case $COMPONENT_SELECTION in
 			*"Restart Waybar")
+				pkill waybar
 				sleep 0.5
-				~/.config/waybar/scripts/start-waybar.sh &
+				~/.config/waybar/scripts/start-waybar.sh
 				notify-send "Component Restart" "Waybar restarted"
 				;;
 			*"Restart Mako")
@@ -130,43 +79,6 @@ case $SELECTION in
 				mako &
 				wlsunset &
 				notify-send "Component Restart" "All components restarted"
-				;;
-			"")
-				# Handle ESC key press (empty selection)
-				exec "$0"
-				;;
-		esac
-		;;
-	*"Power Profile"*)
-		# Get current profile for display in submenu
-		current=$(powerprofilesctl get 2>/dev/null)
-		perf_indicator=""
-		balanced_indicator=""
-		saver_indicator=""
-		
-		case $current in
-			"performance")
-				perf_indicator=" (current)"
-				;;
-			"balanced")
-				balanced_indicator=" (current)"
-				;;
-			"power-saver")
-				saver_indicator=" (current)"
-				;;
-		esac
-		
-		# Show power profile submenu
-		PROFILE_SELECTION="$(printf "\uf0e7 Performance Mode%s\n\uf24e Balanced Mode%s\n\uf240 Power Saver Mode%s" "$perf_indicator" "$balanced_indicator" "$saver_indicator" | fuzzel --dmenu -l 4 -p "> ")"
-		case $PROFILE_SELECTION in
-			*"Performance Mode")
-				set_power_profile "performance"
-				;;
-			*"Balanced Mode")
-				set_power_profile "balanced"
-				;;
-			*"Power Saver Mode")
-				set_power_profile "power-saver"
 				;;
 			"")
 				# Handle ESC key press (empty selection)

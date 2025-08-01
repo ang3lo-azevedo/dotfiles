@@ -4,9 +4,9 @@
     "height": 24,
     "spacing": 5,
 
-    "modules-left": ["privacy"],
+    "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "custom/wlsunset", "backlight", "wireplumber", "battery", "network", "bluetooth"],
+    "modules-right": ["tray", "custom/updates", "custom/wlsunset", "backlight", "wireplumber", "power-profiles-daemon", "battery", "network", "bluetooth"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -27,11 +27,25 @@
         }
     },
 
+    "custom/updates": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "format-icons": {
+            "has-updates": "󱍷",
+            "updated": "󰏗",
+            "error": "󰅙"
+        },
+        "exec": "~/.config/waybar/scripts/check-updates.sh",
+        "interval": 3600,
+        "on-click": "ghostty -e sh -c 'sudo pacman -Syu; echo \"Press enter to continue...\"; read line'",
+        "on-click-right": "pkill -SIGRTMIN+8 waybar",
+        "signal": 8
+    },
+
     "custom/wlsunset":{
         "interval": "once",
         "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
         "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
-        "on-click-middle": "wlsunset",
         "signal": 1,
         "return-type": "json",
         "format": "{icon} ",
@@ -116,14 +130,13 @@
     },
 
     "power-profiles-daemon": {
-        "format": "{icon}",
+        "format": "{icon}   ",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
-            "default": "\uf0e7",
             "performance": "\uf0e7",
-            "balanced": "\uf24e",
-            "power-saver": "\uf240"
+            "balanced": "\uf1ce",
+            "power-saver": "\uf06c"
         }
     },
 
@@ -134,11 +147,6 @@
         "modules": [
             {
                 "type": "screenshare",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-out",
                 "tooltip": true,
                 "tooltip-icon-size": 24
             },
@@ -159,5 +167,20 @@
                 "name": "obs"
             }
         ]
+    },
+
+    "mpris": {
+        "format": "{player_icon} {status_icon}",
+        "format-paused": "{player_icon} {status_icon}",
+        "player-icons": {
+            "default": "\uf001",
+            "spotify": "\uf1bc",
+        },
+        "status-icons": {
+            "paused": "\uf04c",
+            "playing": "\uf04c"
+        },
+        "max-length": 30,
+        "interval": 1,
     }
 }

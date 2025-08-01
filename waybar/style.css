@@ -27,17 +27,54 @@
     padding-left: 1em
 }
 
+#mpris {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#mpris.paused {
+    color: @foreground-inactive;
+}
+
+#mpris.playing {
+    color: @foreground;
+}
+
 #cpu,
 #memory,
 #tray,
 #idle_inhibitor,
-#power-profiles-daemon,
 #backlight,
 #wireplumber,
 #network,
 #bluetooth,
-#battery {
+#battery,
+#custom-updates {
     padding-right: 1em 
+}
+
+#power-profiles-daemon {
+    padding-right: 0;
+    margin-right: -1.2em;
+}
+
+#power-profiles-daemon .power-icon {
+    font-size: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    padding: 1px 2px;
+}
+
+#custom-updates.has-updates {
+    color: #f9e2af;
+}
+
+#custom-updates.updated {
+    color: #a6e3a1;
+}
+
+#custom-updates.error {
+    color: #f38ba8;
 }
 
 #battery.warning .icon {
