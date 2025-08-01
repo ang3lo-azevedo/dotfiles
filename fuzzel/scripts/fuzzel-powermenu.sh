@@ -77,7 +77,7 @@ case $SELECTION in
 			*"Suspend System")
 				systemctl suspend;;
 			*"Log Out")
-				# Try Niri first with correct syntax, then fallback to other methods
+				# Try Niri first, then fallback to other methods
 				if command -v niri >/dev/null 2>&1 && pgrep -f "niri --session" >/dev/null 2>&1; then
 					niri msg action quit
 				elif [ -n "$XDG_SESSION_ID" ]; then
