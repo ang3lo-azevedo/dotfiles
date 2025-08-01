@@ -6,7 +6,7 @@
 
     "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "custom/updates", "custom/wlsunset", "backlight", "wireplumber", "power-profiles-daemon", "battery", "network", "bluetooth"],
+    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "power-profiles-daemon", "battery", "network", "bluetooth"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -27,19 +27,15 @@
         }
     },
 
-    "custom/updates": {
-        "format": "{icon} {}",
+    "custom/pacman": {
+        "format": "{icon}{0}",
         "return-type": "json",
         "format-icons": {
-            "has-updates": "󱍷",
-            "updated": "󰏗",
-            "error": "󰅙"
+            "pending-updates": " "
         },
-        "exec": "~/.config/waybar/scripts/check-updates.sh",
-        "interval": 3600,
-        "on-click": "ghostty -e sh -c 'sudo pacman -Syu; echo \"Press enter to continue...\"; read line'",
-        "on-click-right": "pkill -SIGRTMIN+8 waybar",
-        "signal": 8
+        "exec-if": "which waybar-updates",
+        "exec": "waybar-updates",
+        "on-click": "ghostty -e sh -c 'paru -Syu; echo \"Press enter to continue...\"; read line'"
     },
 
     "custom/wlsunset":{
@@ -74,19 +70,16 @@
     },
 
     "battery": {
-        "bat": "BAT1",
         "interval": 5,
         "format": "{icon}  {capacity}%",
-        "format-charging": "{icon}  {capacity}%",
-        "format-plugged": "",
+        //"format-charging": "{icon}  {capacity}%",
         "format-full": "",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
         "states": {
             "good": 95,
             "warning": 30,
             "critical": 15
-        },
-        "tooltip-format": "{timeTo} {capacity}%"
+        }
     },
 
     "network": {
@@ -115,27 +108,8 @@
         "on-click": "bzmenu -l fuzzel"
     },
 
-    "tray": {
-        "icon-size": 16,
-        "spacing": 16,
-        "expand": false,
-        "icons": {
-            "spotify": "\uf1bc"
-        }
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-
     "power-profiles-daemon": {
-        "format": "{icon}",
-        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-        "tooltip": true,
+        //"tooltip-format": "Power profile: {profile}",
         "format-icons": {
             "performance": "\uf0e7",
             "balanced": "\uf1ce",
@@ -144,8 +118,8 @@
     },
 
     "privacy": {
-        "icon-spacing": 16,
-        "icon-size": 16,
+        "icon-spacing": 18,
+        "icon-size": 18,
         "transition-duration": 250,
         "modules": [
             {
@@ -161,10 +135,6 @@
         ],
         "ignore-monitor": true,
         "ignore": [
-            {
-                "type": "audio-in",
-                "name": "cava"
-            },
             {
                 "type": "screenshare",
                 "name": "obs"
