@@ -6,7 +6,7 @@
 
     "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "power-profiles-daemon", "battery", "network", "bluetooth"],
+    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "network", "bluetooth", "power-profiles-daemon", "battery"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -54,12 +54,13 @@
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "{percent}%",
+        "format": "{percent}% ",
+        //"format-icons": ["\uf0eb", "\uf042", "\uf111"],
         "reverse-scrolling": true
     },
 
     "wireplumber": {
-        "format": "{icon}  {volume}%",
+        "format": "{icon}",
         "max-volume": 100,
         "scroll-step": 1,
         "reverse-scrolling": true,
@@ -67,6 +68,8 @@
             "default": ["\uf026", "\uf027", "\uf028"]
         },
         "format-muted": "\uf026",
+        "tooltip-format": "{node_name} ({volume}%)",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
 
     "battery": {
@@ -96,10 +99,10 @@
     },
 
     "bluetooth": {
-        "format-on": "\uf294",
-        "format-off": "\uf295",
-        "format-disabled": "󰂲",
-        "format-connected": "󰂴",
+        "format-on": "\uf294 ",
+        "format-off": "\uf295 ",
+        "format-disabled": "󰂲 ",
+        "format-connected": "󰂴 ",
         //"format-connected-battery": "󰂴  {device_battery_percentage}%",
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
