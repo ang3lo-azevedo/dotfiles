@@ -15,6 +15,7 @@
 *.tmp
 *.cache
 *.lock
+*.list
 
 # =============================================================================
 # TRACKED CONFIGURATIONS
@@ -22,6 +23,7 @@
 
 # Window Manager Components
 !niri/
+!niri/scripts/
 !waybar/
 !waybar/scripts/
 !fuzzel/

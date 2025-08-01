@@ -365,14 +365,7 @@ window-rule {
     // block-out-from "screencast"
 }
 
-// Set open-maximized to true for Firefox
-window-rule {
-    match app-id=r#"^zen-browser$"#
-    open-maximized true
-}
-
-// Example: enable rounded corners for all windows.
-// (This example rule is commented out with a "/-" in front.)
+// Enable rounded corners for all windows.
 window-rule {
     geometry-corner-radius 15
     clip-to-geometry true
@@ -410,12 +403,25 @@ binds {
     // Note: the entire command goes as a single argument in the end.
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
+    // Fn keys
+
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    // Brightness keys
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "2%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "2%-"; }
+
+    // Keyboard brightness (The keyboard key doesn't work)
+    F9 allow-when-locked=true { spawn "~/.config/niri/scripts/keyboard-brightness.sh";}
+
+    // Touchpad keys
+    //XF86TouchpadToggle { spawn "synclient" "TouchpadOff=0"; }
+
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -640,7 +646,7 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
+    Ctrl+Alt+Delete { spawn "~/.config/fuzzel/scripts/fuzzel-powermenu.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.

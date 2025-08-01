@@ -6,11 +6,24 @@
 
     "modules-left": ["privacy"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/wlsunset", "backlight", "wireplumber", "battery", "network", "bluetooth", "idle_inhibitor", "power-profiles-daemon", "tray"],
+    "modules-right": ["idle_inhibitor", "power-profiles-daemon", "tray", "custom/wlsunset", "backlight", "wireplumber", "network", "bluetooth", "battery"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
-        "interval":1
+        "interval": 1,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "days": "<span color='#cccccc'>{}</span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        }
     },
 
     "custom/wlsunset":{
@@ -32,7 +45,7 @@
         "device": "intel_backlight",
         "format": "{percent}%",
         //"format-icons": [""],
-        "reverse-scrolling": true
+        "reverse-scrolling": true,
         //"format-icons": ["","","",""],
     },
 
