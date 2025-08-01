@@ -65,7 +65,7 @@ set_power_profile() {
 CURRENT_PROFILE=$(get_current_profile)
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
-SELECTION="$(printf "\uf011 Power Menu\n\uf1e6 Manage Power Profile\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 3 -p "> ")"
+SELECTION="$(printf "\uf021 Restart Components\n\uf011 Power Menu\n\uf1e6 Manage Power Profile\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 4 -p "> ")"
 
 case $SELECTION in
 	*"Power Menu"*)
@@ -95,6 +95,45 @@ case $SELECTION in
 				pkexec "echo b > /proc/sysrq-trigger";;
 			*"Shutdown System")
 				systemctl poweroff;;
+			"")
+				# Handle ESC key press (empty selection)
+				exec "$0"
+				;;
+		esac
+		;;
+	*"Restart Components"*)
+		# Show component restart submenu
+		COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 5 -p "> ")"
+		case $COMPONENT_SELECTION in
+			*"Restart Waybar")
+				pkill waybar
+				sleep 0.5
+				~/.config/waybar/scripts/start-waybar.sh &  # Adjust path as needed
+				# or simply use waybar if it's in PATH
+				# waybar &
+				notify-send "Component Restart" "Waybar restarted"
+				;;
+			*"Restart Mako")
+				pkill mako
+				sleep 0.5
+				mako &
+				notify-send "Component Restart" "Mako restarted"
+				;;
+			*"Restart wlsunset")
+				pkill wlsunset
+				sleep 0.5
+				wlsunset &
+				notify-send "Component Restart" "wlsunset restarted"
+				;;
+			*"Restart All Components")
+				# Restart all main components
+				pkill waybar mako wlsunset
+				sleep 1
+				waybar &
+				mako &
+				wlsunset &
+				notify-send "Component Restart" "All components restarted"
+				;;
 			"")
 				# Handle ESC key press (empty selection)
 				exec "$0"

@@ -5,6 +5,18 @@
 
 environment {
     DISPLAY ":0"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    
+    // GTK Theme
+    GTK_THEME "Adwaita:dark"
+    
+    // Qt Theme
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    QT_STYLE_OVERRIDE "adwaita-dark"
+    
+    // Icon Theme
+    //XCURSOR_THEME "Adwaita"
+    //XCURSOR_SIZE "24"
 }
 
 // Input device configuration.
@@ -296,6 +308,7 @@ layout {
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 
+//spawn-at-startup "syshud"
 spawn-at-startup "swaybg" "-c" "#000000"
 spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
 spawn-at-startup "mako"
@@ -391,7 +404,7 @@ binds {
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+B hotkey-overlay-title="Open Browser: Zen" { spawn "zen-browser"; }
-    Mod+E hotkey-overlay-title="Open Explorer: ranger" { spawn "ranger"; }
+    Mod+E hotkey-overlay-title="Open Explorer: Nautilus" { spawn "nautilus"; }
     Mod+A hotkey-overlay-title="Open Editor: VS Code" { spawn "code"; }
     Mod+S hotkey-overlay-title="Open Music Player: Spotify" { spawn "spotify"; }
     Mod+Z hotkey-overlay-title="Open Discord: Equibop" { spawn "equibop"; }

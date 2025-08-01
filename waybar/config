@@ -62,8 +62,12 @@
         "bat": "BAT1",
         "interval": 60,
         "format": "{icon}  {capacity}%",
+        "format-charging": "{icon}  {capacity}%",
+        "format-plugged": "",
+        "format-full": "",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
         "states": {
+            "good": 95,
             "warning": 30,
             "critical": 15
         },
@@ -74,9 +78,9 @@
         "format": "",
         "format-ethernet": "\uf6ff",
         "format-wifi": "{icon}",
-        "format-disconnected": "",
-        //"format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
-        "format-icons": ["\uf6aa", "\uf6ab", "\uf1eb"],
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        //"format-icons": ["\uf6aa", "\uf6ab", "\uf1eb"],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
@@ -84,8 +88,8 @@
     },
 
     "bluetooth": {
-        "format-on": "",
-        "format-off": "",
+        "format-on": "\uf294",
+        "format-off": "\uf295",
         "format-disabled": "󰂲",
         "format-connected": "󰂴",
         //"format-connected-battery": "󰂴  {device_battery_percentage}%",
@@ -98,7 +102,8 @@
 
     "tray": {
         "icon-size": 16,
-        "spacing": 16
+        "spacing": 16,
+        "expand": false,
     },
 
     "idle_inhibitor": {
