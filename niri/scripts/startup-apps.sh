@@ -24,25 +24,19 @@ wait_for_niri() {
 # Wait for Niri to be ready
 wait_for_niri
 
-# Wait a bit more to stabilize
-sleep 2
-
 # Open Spotify in workspace 1 (current)
 echo "Opening Spotify in workspace 1..."
 spotify &
-sleep 1
 
 # Go to workspace 2 and open browser
 echo "Opening browser in workspace 2..."
 niri msg action focus-workspace 2
-sleep 0.5
 zen-browser &
-sleep 2
+sleep 2  # Wait for browser to open
 
 # Open VS Code in the same workspace (to the right of browser)
 echo "Opening VS Code to the right of browser..."
 code ~/.config &
-sleep 1
 
 # Return to workspace 1
 echo "Returning to workspace 1..."

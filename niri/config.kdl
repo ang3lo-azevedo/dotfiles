@@ -328,6 +328,14 @@ spawn-at-startup "~/.config/niri/scripts/startup-apps.sh"
 // After enabling or disabling this, you need to restart the apps for this to take effect.
 prefer-no-csd
 
+// Define named workspaces
+workspace "other"
+
+workspace "browser"
+
+workspace "dev"
+
+
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
 // The path is formatted with strftime(3) to give you the screenshot date and time.
@@ -388,22 +396,16 @@ window-rule {
     clip-to-geometry true
 }
 
-// Open Spotify in workspace 1
+// Open Spotify in workspace spotify
 window-rule {
     match app-id="spotify"
-    open-on-workspace "1"
+    open-on-workspace "other"
 }
 
-// Open browser in workspace 2  
+// Open browser in workspace browser  
 window-rule {
     match app-id="zen-alpha"
-    open-on-workspace "2"
-}
-
-// Open VS Code in workspace 3
-window-rule {
-    match app-id="code"
-    open-on-workspace "3"
+    open-on-workspace "browser"
 }
 
 binds {

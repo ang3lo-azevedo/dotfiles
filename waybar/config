@@ -75,7 +75,7 @@
 
     "battery": {
         "bat": "BAT1",
-        "interval": 60,
+        "interval": 5,
         "format": "{icon}  {capacity}%",
         "format-charging": "{icon}  {capacity}%",
         "format-plugged": "",
@@ -119,6 +119,9 @@
         "icon-size": 16,
         "spacing": 16,
         "expand": false,
+        "icons": {
+            "spotify": "\uf1bc"
+        }
     },
 
     "idle_inhibitor": {
@@ -130,7 +133,7 @@
     },
 
     "power-profiles-daemon": {
-        "format": "{icon}   ",
+        "format": "{icon}",
         "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
         "tooltip": true,
         "format-icons": {
@@ -141,8 +144,8 @@
     },
 
     "privacy": {
-        "icon-spacing": 4,
-        "icon-size": 18,
+        "icon-spacing": 16,
+        "icon-size": 16,
         "transition-duration": 250,
         "modules": [
             {
@@ -174,13 +177,13 @@
         "format-paused": "{player_icon} {status_icon}",
         "player-icons": {
             "default": "\uf001",
-            "spotify": "\uf1bc",
+            "spotify": "\uf1bc"
         },
         "status-icons": {
             "paused": "\uf04b",
             "playing": "\uf04c"
         },
         "max-length": 30,
-        "interval": 1,
+        "interval": 1
     }
 }
