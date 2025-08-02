@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# Function to save session with error handling
+save_session() {
+    local action="$1"
+    
+    if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+        echo "Saving session before $action..."
+        if ~/.config/niri/scripts/save-session.sh; then
+            notify-send "Session Saved" "Current session saved before $action" --expire-time=2000
+            sleep 0.5
+            return 0
+        else
+            notify-send "Session Save Failed" "Could not save session before $action" --urgency=critical --expire-time=3000
+            return 1
+        fi
+    else
+        notify-send "Session Save Error" "Save session script not found or not executable" --urgency=critical --expire-time=3000
+        return 1
+    fi
+}
+
 # Get current idle inhibitor status
 get_idle_status() {
     # Check if idle inhibitor is active by looking for systemd-inhibit process
@@ -29,12 +49,7 @@ case $SELECTION in
 			*"Suspend System")
 				systemctl suspend;;
 			*"Log Out")
-				# Save current session before logging out
-				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
-					~/.config/niri/scripts/save-session.sh
-					notify-send "Session Saved" "Current session saved before logout"
-					sleep 1
-				fi
+				save_session "logout"
 				
 				# Try Niri first, then fallback to other methods
 				if command -v niri >/dev/null 2>&1 && pgrep -f "niri --session" >/dev/null 2>&1; then
@@ -47,36 +62,16 @@ case $SELECTION in
 				fi
 				;;
 			*"Restart System")
-				# Save current session before restarting
-				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
-					~/.config/niri/scripts/save-session.sh
-					notify-send "Session Saved" "Current session saved before restart"
-					sleep 1
-				fi
+				save_session "system restart"
 				systemctl reboot;;
 			*"Restart to UEFI")
-				# Save current session before restarting to UEFI
-				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
-					~/.config/niri/scripts/save-session.sh
-					notify-send "Session Saved" "Current session saved before restart to UEFI"
-					sleep 1
-				fi
+				save_session "UEFI restart"
 				systemctl reboot --firmware-setup;;
 			*"Force Restart")
-				# Save current session before force restart
-				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
-					~/.config/niri/scripts/save-session.sh
-					notify-send "Session Saved" "Current session saved before force restart"
-					sleep 1
-				fi
+				save_session "force restart"
 				pkexec "echo b > /proc/sysrq-trigger";;
 			*"Shutdown System")
-				# Save current session before shutdown
-				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
-					~/.config/niri/scripts/save-session.sh
-					notify-send "Session Saved" "Current session saved before shutdown"
-					sleep 1
-				fi
+				save_session "shutdown"
 				systemctl poweroff;;
 			"")
 				# Handle ESC key press (empty selection)

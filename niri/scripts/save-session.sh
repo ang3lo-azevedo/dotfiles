@@ -11,29 +11,13 @@ true > "$SESSION_FILE"
 
 echo "Saving current session..."
 
-# Save current workspace to the session file first
-CURRENT_WORKSPACE_LINE=$(niri msg workspaces | awk '/\*/')
-CURRENT_WORKSPACE_ID=$(echo "$CURRENT_WORKSPACE_LINE" | awk '{print $2}')
-CURRENT_WORKSPACE_NAME=$(echo "$CURRENT_WORKSPACE_LINE" | awk '{print $3}' | sed 's/"//g')
-
-# Use workspace name if available, otherwise use ID
-if [[ -n "$CURRENT_WORKSPACE_NAME" && "$CURRENT_WORKSPACE_NAME" != "" ]]; then
-    CURRENT_WORKSPACE="$CURRENT_WORKSPACE_NAME"
-else
-    CURRENT_WORKSPACE="$CURRENT_WORKSPACE_ID"
-fi
-
-if [[ -n "$CURRENT_WORKSPACE" ]]; then
-    echo "CURRENT_WORKSPACE:$CURRENT_WORKSPACE" >> "$SESSION_FILE"
-    echo "Current workspace detected: $CURRENT_WORKSPACE"
-fi
-
-# Get all windows and their workspaces
-# Parse the niri msg windows output to extract app_id and workspace
+# Get focused window info and all windows with their workspaces
+# Parse the niri msg windows output to extract app_id, workspace, and focus status
 niri msg windows | awk '
 /^Window ID/ { 
     window_id = $3
     gsub(/:$/, "", window_id)
+    is_focused = ($0 ~ /\(focused\)/) ? "true" : "false"
 }
 /^  App ID:/ { 
     app_id = $3
@@ -43,20 +27,47 @@ niri msg windows | awk '
 /^  Workspace ID:/ { 
     workspace_id = $3
     if (app_id != "" && app_id != "null" && workspace_id != "") {
+        if (is_focused == "true") {
+            print "FOCUSED_APP:" app_id
+        }
         print app_id ":" workspace_id
     }
     app_id = ""
     workspace_id = ""
-}' | while IFS=':' read -r app_id workspace; do
-    # Skip empty or invalid entries
-    if [[ -n "$app_id" && "$app_id" != "null" && "$app_id" != "unknown" ]]; then
-        echo "$app_id:$workspace" >> "$SESSION_FILE"
+    is_focused = ""
+}' | while IFS=':' read -r key value; do
+    # Handle focused app entry
+    if [[ "$key" == "FOCUSED_APP" ]]; then
+        echo "FOCUSED_APP:$value" >> "$SESSION_FILE"
+        echo "Focused app detected: $value"
+    # Skip empty or invalid entries for regular apps
+    elif [[ -n "$key" && "$key" != "null" && "$key" != "unknown" && -n "$value" ]]; then
+        echo "$key:$value" >> "$SESSION_FILE"
     fi
 done
 
-# Remove duplicates while preserving order
+# Remove duplicates while preserving order and sort by workspace, then by preference
 if [[ -f "$SESSION_FILE" ]]; then
-    awk '!seen[$0]++' "$SESSION_FILE" > "${SESSION_FILE}.tmp" && mv "${SESSION_FILE}.tmp" "$SESSION_FILE"
+    # Create temporary file with sorted content
+    {
+        # First, output focused app line if it exists
+        grep "^FOCUSED_APP:" "$SESSION_FILE" || true
+        
+        # Then output applications sorted by workspace, with preferred order within each workspace
+        grep -v "^FOCUSED_APP:" "$SESSION_FILE" | sort -t: -k2,2n -k1,1 | awk -F: '
+        {
+            # Define preference order for applications
+            pref_order["Spotify"] = 1
+            pref_order["code"] = 2
+            pref_order["zen"] = 3
+            pref_order["com.mitchellh.ghostty"] = 4
+            
+            # Default preference for unknown apps
+            if (!(pref_order[$1])) pref_order[$1] = 99
+            
+            print pref_order[$1] ":" $0
+        }' | sort -t: -k1,1n -k3,3n | cut -d: -f2-
+    } > "${SESSION_FILE}.tmp" && mv "${SESSION_FILE}.tmp" "$SESSION_FILE"
 fi
 
 echo "Session saved to $SESSION_FILE"
