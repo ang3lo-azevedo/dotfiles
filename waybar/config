@@ -6,7 +6,7 @@
 
     "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "network", "bluetooth", "power-profiles-daemon", "battery"],
+    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "bluetooth", "network", "power-profiles-daemon", "battery"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
