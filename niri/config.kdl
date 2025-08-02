@@ -318,8 +318,8 @@ spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
 spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 
-// Auto-start applications in specific workspaces using script
-spawn-at-startup "~/.config/niri/scripts/startup-apps.sh"
+// Auto-start applications - restore previous session or start default apps
+spawn-at-startup "~/.config/niri/scripts/restore-session.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -683,6 +683,9 @@ binds {
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete hotkey-overlay-title="Power Menu" { spawn "~/.config/fuzzel/scripts/fuzzel-powermenu.sh"; }
+
+    // Save current session manually
+    Mod+Shift+S hotkey-overlay-title="Save Session" { spawn "~/.config/niri/scripts/save-session.sh"; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.

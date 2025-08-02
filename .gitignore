@@ -50,6 +50,9 @@ yin_yang_dev.json
 **/*.tmp
 **/*.log
 
+# Ignore session files (user-specific runtime data)
+niri/session.txt
+
 # Ignore backup files
 **/*.bak
 **/*.backup

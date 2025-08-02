@@ -29,6 +29,13 @@ case $SELECTION in
 			*"Suspend System")
 				systemctl suspend;;
 			*"Log Out")
+				# Save current session before logging out
+				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+					~/.config/niri/scripts/save-session.sh
+					notify-send "Session Saved" "Current session saved before logout"
+					sleep 1
+				fi
+				
 				# Try Niri first, then fallback to other methods
 				if command -v niri >/dev/null 2>&1 && pgrep -f "niri --session" >/dev/null 2>&1; then
 					niri msg action quit
@@ -40,12 +47,36 @@ case $SELECTION in
 				fi
 				;;
 			*"Restart System")
+				# Save current session before restarting
+				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+					~/.config/niri/scripts/save-session.sh
+					notify-send "Session Saved" "Current session saved before restart"
+					sleep 1
+				fi
 				systemctl reboot;;
 			*"Restart to UEFI")
+				# Save current session before restarting to UEFI
+				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+					~/.config/niri/scripts/save-session.sh
+					notify-send "Session Saved" "Current session saved before restart to UEFI"
+					sleep 1
+				fi
 				systemctl reboot --firmware-setup;;
 			*"Force Restart")
+				# Save current session before force restart
+				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+					~/.config/niri/scripts/save-session.sh
+					notify-send "Session Saved" "Current session saved before force restart"
+					sleep 1
+				fi
 				pkexec "echo b > /proc/sysrq-trigger";;
 			*"Shutdown System")
+				# Save current session before shutdown
+				if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+					~/.config/niri/scripts/save-session.sh
+					notify-send "Session Saved" "Current session saved before shutdown"
+					sleep 1
+				fi
 				systemctl poweroff;;
 			"")
 				# Handle ESC key press (empty selection)
