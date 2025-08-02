@@ -21,6 +21,26 @@ wait_for_niri() {
     return 1
 }
 
+# Function to wait for application window to appear
+wait_for_app_window() {
+    local app_id="$1"
+    local max_wait=10
+    local wait_count=0
+    
+    echo "Waiting for $app_id window to appear..."
+    while [ $wait_count -lt $max_wait ]; do
+        if niri msg windows | grep -q "App ID: \"$app_id\""; then
+            echo "$app_id window detected"
+            return 0
+        fi
+        sleep 0.5
+        wait_count=$((wait_count + 1))
+    done
+    
+    echo "Warning: $app_id window not detected after ${max_wait}s"
+    return 1
+}
+
 # Function to launch application
 launch_app() {
     local app_id="$1"
@@ -53,21 +73,21 @@ launch_app() {
 
     echo "Launching application: $app_id in workspace $workspace_id..."
     
-    # First, switch to the target workspace
-    niri msg action focus-workspace "$workspace_id"
-    sleep 0.5
-    
     # Launch the application (use eval to handle commands with arguments)
     eval "$app_path" &
     local app_pid=$!
     
-    # Wait a bit for the application to start
-    sleep 2
+    # Wait for the application window to appear
+    wait_for_app_window "$app_id"
     
     # Ensure the window is in the correct workspace
+    echo "Moving $app_id to workspace $workspace_id..."
     niri msg action move-window-to-workspace "$workspace_id"
     
-    echo "Launched $app_id (PID: $app_pid) in workspace $workspace_id"
+    # Brief pause to let the move complete
+    sleep 0.3
+    
+    echo "✓ Launched $app_id (PID: $app_pid) in workspace $workspace_id"
 }
 
 # Wait for Niri to be ready
@@ -99,27 +119,56 @@ if [[ -n "$FOCUSED_APP" ]]; then
     echo "Will focus on: $FOCUSED_APP"
 fi
 
-# Restore applications
+# Restore applications with improved timing
+echo "Starting application restoration..."
 for app_entry in "${APPS_TO_RESTORE[@]}"; do
     IFS=':' read -r app_id workspace <<< "$app_entry"
     if [[ -n "$app_id" && -n "$workspace" ]]; then
         launch_app "$app_id" "$workspace"
+        
+        # Small delay between launching applications to avoid overwhelming the system
+        sleep 0.5
     fi
 done
+
+echo "All applications launched, waiting for stabilization..."
+sleep 2
 
 echo "Session restoration completed"
 
 # Focus on the specific app that was focused if saved
 if [[ -n "$FOCUSED_APP" ]]; then
-    echo "Waiting for applications to fully load..."
-    sleep 3
-    echo "Focusing on last focused application: $FOCUSED_APP"
+    echo "Attempting to focus on last focused application: $FOCUSED_APP"
     
-    # Try multiple approaches to focus the application
-    if ! niri msg action focus-window --app-id "$FOCUSED_APP" 2>/dev/null; then
-        echo "Fallback: trying alternative focus method..."
-        niri msg action focus-window "$FOCUSED_APP" 2>/dev/null || true
+    # Wait for all applications to be fully loaded and positioned
+    focus_attempts=0
+    max_focus_attempts=5
+    
+    while [ $focus_attempts -lt $max_focus_attempts ]; do
+        # Check if the focused app window exists
+        if niri msg windows | grep -q "App ID: \"$FOCUSED_APP\""; then
+            echo "Found $FOCUSED_APP window, attempting to focus..."
+            
+            # Try to focus the application
+            if niri msg action focus-window --app-id "$FOCUSED_APP" 2>/dev/null; then
+                echo "✓ Successfully focused on $FOCUSED_APP"
+                break
+            elif niri msg action focus-window "$FOCUSED_APP" 2>/dev/null; then
+                echo "✓ Successfully focused on $FOCUSED_APP (fallback method)"
+                break
+            fi
+        fi
+        
+        focus_attempts=$((focus_attempts + 1))
+        echo "Focus attempt $focus_attempts/$max_focus_attempts failed, retrying in 1s..."
+        sleep 1
+    done
+    
+    if [ $focus_attempts -eq $max_focus_attempts ]; then
+        echo "⚠ Could not focus on $FOCUSED_APP after $max_focus_attempts attempts"
     fi
 else
     echo "No focused application to restore"
 fi
+
+echo "Session restoration process finished"
