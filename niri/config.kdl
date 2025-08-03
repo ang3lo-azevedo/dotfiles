@@ -306,16 +306,29 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
+// X11 applications
 spawn-at-startup "xwayland-satellite"
+
+// Polkit authentication agent
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 
 //spawn-at-startup "syshud"
+// Background
 spawn-at-startup "swaybg" "-c" "#000000"
+
+// Top bar with hot-reload
 spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
-spawn-at-startup "mako"
+
+// Notification and notification center daemon with hot-reload
+spawn-at-startup "~/.config/swaync/scripts/start-swaync.sh"
+
+// Idle management
 spawn-at-startup "swayidle" "-w" "timeout" "601" "niri msg action power-off-monitors" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f"
+
+// Clipboard history
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
+// Night light
 spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 
 // Auto-start applications - restore previous session or start default apps
@@ -458,6 +471,10 @@ binds {
 
     // Touchpad keys
     //ztXF86TouchpadToggle allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
+
+    // Notification controls
+    Mod+N hotkey-overlay-title="Toggle Notification Center" { spawn "swaync-client" "-t" "-sw"; }
+    Mod+Shift+N hotkey-overlay-title="Toggle Do Not Disturb" { spawn "swaync-client" "-d" "-sw"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,

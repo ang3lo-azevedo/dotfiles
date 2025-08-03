@@ -48,7 +48,8 @@
 #network,
 #battery,
 #custom-pacman,
-#power-profiles-daemon {
+#power-profiles-daemon,
+#custom-notification {
     padding-right: 1em 
 }
 
