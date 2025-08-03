@@ -1,5 +1,54 @@
 #!/bin/bash
 
+# Get current idle inhibitor status
+get_idle_status() {
+    # Check if idle inhibitor is active by looking for systemd-inhibit process
+    if pgrep -f "systemd-inhibit.*idle" >/dev/null 2>&1; then
+        echo " Disable Idle Inhibitor"
+    else
+        echo " Enable Idle Inhibitor"
+    fi
+}
+
+# Check if Ventoy USB is connected
+check_ventoy_usb() {
+    # Quick check for Ventoy label
+    if lsblk -f | grep -i "ventoy" >/dev/null 2>&1; then
+        return 0
+    fi
+    
+    # Check for USB devices that might be Ventoy
+    # Look for USB storage devices with specific filesystems
+    for device in /dev/sd[a-z]; do
+        if [ -b "$device" ]; then
+            # Check if it's a USB device
+            if udevadm info --query=property --name="$device" 2>/dev/null | grep -q "ID_BUS=usb"; then
+                # Check partitions for Ventoy indicators
+                for part in "${device}"[0-9]*; do
+                    if [ -b "$part" ]; then
+                        # Try to mount and check for Ventoy directory
+                        mount_point=$(mktemp -d 2>/dev/null) || continue
+                        if mount "$part" "$mount_point" 2>/dev/null; then
+                            if [ -d "$mount_point/ventoy" ] || [ -f "$mount_point/ventoy/ventoy.json" ]; then
+                                umount "$mount_point" 2>/dev/null
+                                rmdir "$mount_point" 2>/dev/null
+                                return 0
+                            fi
+                            umount "$mount_point" 2>/dev/null
+                        fi
+                        rmdir "$mount_point" 2>/dev/null
+                    fi
+                done
+            fi
+        fi
+    done
+    
+    return 1
+}
+
+# Get current values
+CURRENT_IDLE_STATUS=$(get_idle_status)
+
 # Function to save session with error handling
 save_session() {
     local action="$1"
@@ -33,8 +82,21 @@ get_idle_status() {
 # Get current values
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
+# Build menu options dynamically
+MENU_OPTIONS="\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI"
+
+# Add Ventoy option if USB is connected
+if check_ventoy_usb; then
+    MENU_OPTIONS="$MENU_OPTIONS\n\uf287 Restart to Ventoy"
+fi
+
+MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System\n\uf085 Tools Menu"
+
+# Count menu items for fuzzel -l parameter
+MENU_COUNT=$(echo -e "$MENU_OPTIONS" | wc -l)
+
 # Main menu with power options and tools submenu
-SELECTION="$(printf "\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI\n\uf071 Force Restart\n\uf011 Shutdown System\n\uf085 Tools Menu" | fuzzel --dmenu -l 8 -p "> ")"
+SELECTION="$(printf "$MENU_OPTIONS" | fuzzel --dmenu -l "$MENU_COUNT" -p "> ")"
 
 case $SELECTION in
 	*"Lock Screen")
@@ -60,6 +122,62 @@ case $SELECTION in
 	*"Restart to UEFI")
 		save_session "UEFI restart"
 		systemctl reboot --firmware-setup;;
+	*"Restart to Ventoy")
+		save_session "Ventoy restart"
+		# Find Ventoy USB device and set it as next boot device
+		ventoy_device=""
+		
+		# First try to find device by label
+		ventoy_device=$(lsblk -o NAME,LABEL | grep -i ventoy | head -1 | awk '{print "/dev/" $1}' | sed 's/[0-9]*$//')
+		
+		# If not found by label, search manually
+		if [ -z "$ventoy_device" ]; then
+			for device in /dev/sd[a-z]; do
+				if [ -b "$device" ]; then
+					# Check if it's a USB device
+					if udevadm info --query=property --name="$device" 2>/dev/null | grep -q "ID_BUS=usb"; then
+						# Check partitions for Ventoy indicators
+						for part in "${device}"[0-9]*; do
+							if [ -b "$part" ]; then
+								mount_point=$(mktemp -d 2>/dev/null) || continue
+								if mount "$part" "$mount_point" 2>/dev/null; then
+									if [ -d "$mount_point/ventoy" ] || [ -f "$mount_point/ventoy/ventoy.json" ]; then
+										ventoy_device="$device"
+										umount "$mount_point" 2>/dev/null
+										rmdir "$mount_point" 2>/dev/null
+										break 2
+									fi
+									umount "$mount_point" 2>/dev/null
+								fi
+								rmdir "$mount_point" 2>/dev/null
+							fi
+						done
+					fi
+				fi
+			done
+		fi
+		
+		if [ -n "$ventoy_device" ]; then
+			# Use efibootmgr to set Ventoy as next boot device
+			if command -v efibootmgr >/dev/null 2>&1; then
+				# Try to find existing Ventoy boot entry
+				ventoy_entry=$(efibootmgr | grep -i ventoy | head -1 | cut -c5-8)
+				if [ -n "$ventoy_entry" ]; then
+					pkexec efibootmgr -n "$ventoy_entry"
+					notify-send "Ventoy Boot" "Set to boot from Ventoy on next restart"
+				else
+					notify-send "Ventoy Boot" "Ventoy boot entry not found in UEFI, creating temporary boot..."
+					# Create a one-time boot entry for the USB device
+					pkexec efibootmgr -c -d "$ventoy_device" -p 1 -L "Ventoy (Temp)" -l "\\EFI\\BOOT\\BOOTX64.EFI"
+				fi
+			else
+				notify-send "Ventoy Boot" "efibootmgr not available, rebooting normally..."
+			fi
+			systemctl reboot
+		else
+			notify-send "Ventoy Error" "Could not find Ventoy USB device" --urgency=critical
+		fi
+		;;
 	*"Force Restart")
 		save_session "force restart"
 		pkexec "echo b > /proc/sysrq-trigger";;
