@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+# Waybar wlsunset toggle script
+
 if pgrep wlsunset >/dev/null 2>&1; then
     killall -9 wlsunset >/dev/null 2>&1
 else
@@ -19,4 +23,6 @@ else
     latitude=$(echo $CONTENT | jq .lat)
     wlsunset -l $latitude -L $longitude >/dev/null 2>&1 &
 fi
-pkill -35 waybar
+
+# Update waybar
+pkill -RTMIN+1 waybar
