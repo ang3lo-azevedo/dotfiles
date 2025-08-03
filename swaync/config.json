@@ -49,9 +49,9 @@
     "title",
     "dnd",
     "buttons-grid",
-    "mpris",
-    "volume",
     "backlight",
+    "volume",
+    "mpris",
     "notifications"
   ],
   "widget-config": {
@@ -72,7 +72,8 @@
       "actions": [
         {
           "label": "󰖔",
-          "command": "~/.config/swaync/scripts/toggle-wlsunset.sh"
+          "command": "~/.config/swaync/scripts/toggle-wlsunset.sh",
+          "update-command": "~/.config/swaync/scripts/get-wlsunset-icon.sh"
         }
       ]
     },
