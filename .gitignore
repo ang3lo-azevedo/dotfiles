@@ -30,6 +30,8 @@ yin_yang_dev.json
 !niri/scripts/
 !waybar/
 !waybar/scripts/
+!swaync/
+!swaync/scripts/
 !fuzzel/
 !fuzzel/scripts/
 !mako/

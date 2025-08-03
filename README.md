@@ -40,7 +40,7 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 | **[Niri](https://github.com/YaLTeR/niri)** | Window manager and compositor | [GitHub](https://github.com/YaLTeR/niri) |
 | **[Waybar](https://github.com/Alexays/Waybar)** | Status bar | [GitHub](https://github.com/Alexays/Waybar) |
 | **[Fuzzel](https://codeberg.org/dnkl/fuzzel)** | Application launcher | [Codeberg](https://codeberg.org/dnkl/fuzzel) |
-| **[Mako](https://github.com/emersion/mako)** | Notifications | [GitHub](https://github.com/emersion/mako) |
+| **[Swaync](https://github.com/ErikReider/SwayNotificationCenter)** | Notification center with widgets | [GitHub](https://github.com/ErikReider/SwayNotificationCenter) |
 | **[Swaylock](https://github.com/swaywm/swaylock)** | Lock screen | [GitHub](https://github.com/swaywm/swaylock) |
 | **[xwayland-satellite](https://github.com/Supreeeme/xwayland-satellite)** | XWayland support for Niri | [GitHub](https://github.com/Supreeeme/xwayland-satellite) |
 | **[polkit-mate](https://github.com/mate-desktop/mate-polkit)** | Authentication agent | [GitHub](https://github.com/mate-desktop/mate-polkit) |
@@ -71,7 +71,7 @@ Simple and efficient setup using **CachyOS** (Arch-based with performance optimi
 
 ```bash
 # Install dependencies
-sudo pacman -S niri waybar fuzzel mako swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu syshud
+sudo pacman -S niri waybar fuzzel swaync swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu syshud
 
 # Clone repository
 git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
@@ -84,7 +84,7 @@ git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
 ├── niri/           # Window manager
 ├── waybar/         # Status bar
 ├── fuzzel/         # Application launcher
-├── mako/           # Notifications
+├── swaync/         # Notification center
 ├── swaylock/       # Lock screen
 ├── ghostty/        # Terminal
 └── mpv/            # Media player

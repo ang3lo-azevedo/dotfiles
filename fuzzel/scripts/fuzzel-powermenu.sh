@@ -83,14 +83,14 @@ get_idle_status() {
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
 # Build menu options dynamically
-MENU_OPTIONS="\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI"
+MENU_OPTIONS="\uf085 Tools Menu\n\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI"
 
 # Add Ventoy option if USB is connected
 if check_ventoy_usb; then
     MENU_OPTIONS="$MENU_OPTIONS\n\uf287 Restart to Ventoy"
 fi
 
-MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System\n\uf085 Tools Menu"
+MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System"
 
 # Count menu items for fuzzel -l parameter
 MENU_COUNT=$(echo -e "$MENU_OPTIONS" | wc -l)
@@ -194,7 +194,7 @@ case $SELECTION in
 				;;
 			*"Restart Components"*)
 				# Show component restart submenu
-				COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 5 -p "> ")"
+				COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf0f3 Restart Swaync\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 6 -p "> ")"
 				case $COMPONENT_SELECTION in
 					*"Restart Waybar")
 						pkill waybar
@@ -208,6 +208,12 @@ case $SELECTION in
 						mako &
 						notify-send "Component Restart" "Mako restarted"
 						;;
+					*"Restart Swaync")
+						pkill swaync
+						sleep 0.5
+						swaync &
+						notify-send "Component Restart" "Swaync restarted"
+						;;
 					*"Restart wlsunset")
 						pkill wlsunset
 						sleep 0.5
@@ -216,10 +222,11 @@ case $SELECTION in
 						;;
 					*"Restart All Components")
 						# Restart all main components
-						pkill waybar mako wlsunset
+						pkill waybar mako swaync wlsunset
 						sleep 1
 						waybar &
 						mako &
+						swaync &
 						wlsunset &
 						notify-send "Component Restart" "All components restarted"
 						;;
