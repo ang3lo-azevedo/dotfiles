@@ -194,7 +194,7 @@ case $SELECTION in
 				;;
 			*"Restart Components"*)
 				# Show component restart submenu
-				COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf1d8 Restart Mako\n\uf0f3 Restart Swaync\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 6 -p "> ")"
+				COMPONENT_SELECTION="$(printf "\uf0fe Restart Waybar\n\uf0f3 Restart Swaync\n\uf186 Restart wlsunset\n\uf1b2 Restart All Components" | fuzzel --dmenu -l 6 -p "> ")"
 				case $COMPONENT_SELECTION in
 					*"Restart Waybar")
 						pkill waybar
@@ -202,16 +202,10 @@ case $SELECTION in
 						~/.config/waybar/scripts/start-waybar.sh
 						notify-send "Component Restart" "Waybar restarted"
 						;;
-					*"Restart Mako")
-						pkill mako
-						sleep 0.5
-						mako &
-						notify-send "Component Restart" "Mako restarted"
-						;;
 					*"Restart Swaync")
 						pkill swaync
 						sleep 0.5
-						swaync &
+						~/.config/swaync/scripts/start-swaync.sh &
 						notify-send "Component Restart" "Swaync restarted"
 						;;
 					*"Restart wlsunset")
@@ -222,11 +216,10 @@ case $SELECTION in
 						;;
 					*"Restart All Components")
 						# Restart all main components
-						pkill waybar mako swaync wlsunset
+						pkill waybar swaync wlsunset
 						sleep 1
 						waybar &
-						mako &
-						swaync &
+						~/.config/swaync/scripts/start-swaync.sh &
 						wlsunset &
 						notify-send "Component Restart" "All components restarted"
 						;;

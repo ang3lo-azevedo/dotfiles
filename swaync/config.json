@@ -45,13 +45,13 @@
     }
   },
   "widgets": [
+    "backlight",
+    "volume",
+    "buttons-grid",
+    "mpris",
     "inhibitors",
     "title",
     "dnd",
-    "buttons-grid",
-    "backlight",
-    "volume",
-    "mpris",
     "notifications"
   ],
   "widget-config": {
@@ -80,8 +80,6 @@
     "label": {
       "max-lines": 5,
       "text": "Label Text"
-    },
-    "mpris": {
     },
     "volume": {
       "label": "󰕾"
