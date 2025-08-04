@@ -92,7 +92,7 @@
         "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
         "signal": 1,
         "return-type": "json",
-        "format": "{icon} ",
+        "format": "{icon}",
         "tooltip-format": "wlsunset: {alt}",
         "format-icons": {
             "off": "\uf185",
@@ -120,7 +120,7 @@
 
     "battery": {
         "interval": 5,
-        "format": "{icon}  {capacity}% ",
+        "format": "{icon}  {capacity}%",
         "format-full": "",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
         "states": {
@@ -147,10 +147,10 @@
     },
 
     "bluetooth": {
-        "format-on": "\uf294 ",
-        "format-off": "\uf295 ",
-        "format-disabled": "󰂲 ",
-        "format-connected": "󰂴 ",
+        "format-on": "\uf294",
+        "format-off": "\uf295",
+        "format-disabled": "",
+        "format-connected": "󰂴",
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
@@ -162,9 +162,9 @@
 
     "power-profiles-daemon": {
         "format-icons": {
-            "performance": "\uf0e7 ",
-            "balanced": "\uf1ce ",
-            "power-saver": "\uf06c "
+            "performance": "\uf0e7",
+            "balanced": "\uf1ce",
+            "power-saver": "\uf06c"
         },
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"

@@ -23,13 +23,10 @@
     color: @foreground-inactive;
 }
 
-#privacy {
+#privacy,
+#mpris,
+#custom-waybar-scrolling-mpris {
     padding-left: 1em
-}
-
-#mpris {
-    padding-left: 1em;
-    padding-right: 1em;
 }
 
 #mpris.paused {
@@ -40,22 +37,16 @@
     color: @foreground;
 }
 
-#cpu,
-#memory,
-#tray,
-#idle_inhibitor,
-#wireplumber,
-#network,
 #custom-pacman,
+#tray,
+#custom-wlsunset,
+#wireplumber,
+#bluetooth,
+#network,
+#power-profiles-daemon,
+#battery,
 #custom-notification {
     padding-right: 1em 
-}
-
-#power-profiles-daemon .power-icon {
-    font-size: 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 3px;
-    padding: 1px 2px;
 }
 
 #custom-updates.has-updates {

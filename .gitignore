@@ -37,6 +37,7 @@
 !scripts/**
 !auto-performance/
 !auto-performance/**
+!bootstrap.sh
 
 # Bootloader Configuration
 !refind/
