@@ -6,9 +6,36 @@
     "on-scroll-up": "swaync-client -op",
     "on-scroll-down": "swaync-client -cp",
 
-    "modules-left": ["privacy", "mpris"],
+    "modules-left": ["privacy", "mpris", "custom/waybar-scrolling-mpris"],
     "modules-center": ["clock"],
     "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "wireplumber", "bluetooth", "network", "battery", "custom/notification"],
+
+    "mpris": {
+        "format": "{player_icon}  {status_icon}",
+        "format-paused": "{player_icon}  {status_icon}",
+        "player-icons": {
+            "default": "\uf001",
+            "spotify": "\uf1bc"
+        },
+        "status-icons": {
+            "paused": "\uf04b",
+            "playing": "\uf04c"
+        },
+        "interval": 1,
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/waybar-scrolling-mpris": {
+        "format": "{}",
+        "display-format": "{artist} - {title} ",
+        "exec": "~/.config/waybar/scripts/waybar-scrolling-mpris ~/.config/waybar/config",
+        "icons": {
+            "Paused": "\uf04b",
+            "Playing": "\uf04c"
+        },
+        "length": 20
+    },
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -77,7 +104,7 @@
 
     "battery": {
         "interval": 5,
-        "format": "{icon}  {capacity}%",
+        "format": "{icon}  {capacity}% ",
         "format-full": "",
         "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
         "states": {
@@ -155,19 +182,8 @@
         "on-scroll-down": "swaync-client -cp"
     },
 
-    "mpris": {
-        "format": "{player_icon} {status_icon}",
-        "format-paused": "{player_icon} {status_icon}",
-        "player-icons": {
-            "default": "\uf001",
-            "spotify": "\uf1bc"
-        },
-        "status-icons": {
-            "paused": "\uf04b",
-            "playing": "\uf04c"
-        },
-        "max-length": 30,
-        "interval": 1,
+    "tray": {
+        "spacing": 16,
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },

@@ -58,7 +58,9 @@
       ]
     },
     "volume": {
-      "label": "󰕾"
+      "label": "󰕾",
+      "show-per-app": true,
+      "show-per-app-label": true
     },
     "backlight": {
       "label": "󰃞"
@@ -70,19 +72,19 @@
     },
     "menubar#label": {
       "menu#powermode-buttons": {
-        "label": "\uf1e6", 
+        "label": "\uf0e4", 
         "position": "right",
         "actions": [ 
           {
-            "label": "Performance",
+            "label": "\uf0e7 Performance",
             "command": "powerprofilesctl set performance"
           },
           {
-            "label": "Balanced",
+            "label": "\uf1ce Balanced",
             "command": "powerprofilesctl set balanced"
           },
           {
-            "label": "Power-saver",
+            "label": "\uf06c Power-saver",
             "command": "powerprofilesctl set power-saver"
           }
         ]
@@ -92,19 +94,27 @@
         "position": "right",
         "actions": [ 
           {
-            "label": " Reboot",
-            "command": "systemctl reboot"
-          },
-          {
-            "label": " Lock",
+            "label": "\uf023 Lock Screen",
             "command": "swaylock -f --image ~/.config/wallpapers/snow_woods.jpg"
           },
           {
-            "label": " Logout",
-            "command": "swaymsg exit"
+            "label": "\uf236 Suspend System",
+            "command": "systemctl suspend"
           },
           {
-            "label": " Shut down",
+            "label": "\uf023 Log Out",
+            "command": "niri msg action quit"
+          },
+          {
+            "label": "\uf021 Restart System",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": "\uf085 Restart to UEFI",
+            "command": "systemctl reboot --firmware-setup"
+          },
+          {
+            "label": "\uf011 Shutdown System",
             "command": "systemctl poweroff"
           }
         ]
