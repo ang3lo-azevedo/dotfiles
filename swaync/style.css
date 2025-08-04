@@ -69,11 +69,11 @@
 
 /* MPRIS Widget */
 .widget-mpris {
-  background: #1a1a1a;
+  background: transparent;
   padding: 8px;
   margin: 4px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
 }
 
 .widget-mpris .widget-mpris-title {
@@ -104,11 +104,11 @@
 
 /* Volume Widget */
 .widget-volume {
-  background: #1a1a1a;
-  padding: 8px;
-  margin: 4px 8px;
+  background: transparent;
+  padding: 4px 8px;
+  margin: 2px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
 }
 
 .widget-volume .widget-volume-label {
@@ -118,38 +118,38 @@
 }
 
 .widget-volume scale {
-  min-height: 4px;
+  min-height: 2px;
   min-width: 150px;
 }
 
 .widget-volume scale trough {
-  border-radius: 4px;
+  border-radius: 2px;
   background: #2a2a2a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  min-height: 6px;
+  border: none;
+  min-height: 3px;
 }
 
 .widget-volume scale highlight {
   background: #eeeeee;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .widget-volume scale slider {
   background: #eeeeee;
-  border: 2px solid #eeeeee;
+  border: 1px solid #eeeeee;
   border-radius: 50%;
-  margin: -4px;
-  min-width: 14px;
-  min-height: 14px;
+  margin: -3px;
+  min-width: 10px;
+  min-height: 10px;
 }
 
 /* Backlight Widget */
 .widget-backlight {
-  background: #1a1a1a;
-  padding: 8px;
-  margin: 4px 8px;
+  background: transparent;
+  padding: 4px 8px;
+  margin: 2px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
 }
 
 .widget-backlight .widget-backlight-label {
@@ -159,29 +159,29 @@
 }
 
 .widget-backlight scale {
-  min-height: 4px;
+  min-height: 2px;
   min-width: 150px;
 }
 
 .widget-backlight scale trough {
-  border-radius: 4px;
+  border-radius: 2px;
   background: #2a2a2a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  min-height: 6px;
+  border: none;
+  min-height: 3px;
 }
 
 .widget-backlight scale highlight {
   background: #eeeeee;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .widget-backlight scale slider {
   background: #eeeeee;
-  border: 2px solid #eeeeee;
+  border: 1px solid #eeeeee;
   border-radius: 50%;
-  margin: -4px;
-  min-width: 14px;
-  min-height: 14px;
+  margin: -3px;
+  min-width: 10px;
+  min-height: 10px;
 }
 
 /* Buttons Grid Widget (wlsunset) */

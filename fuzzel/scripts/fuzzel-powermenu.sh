@@ -96,7 +96,7 @@ MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System"
 MENU_COUNT=$(echo -e "$MENU_OPTIONS" | wc -l)
 
 # Main menu with power options and tools submenu
-SELECTION="$(printf "$MENU_OPTIONS" | fuzzel --dmenu -l "$MENU_COUNT" -p "> ")"
+SELECTION="$(printf "$MENU_OPTIONS" | fuzzel --dmenu l-l "$MENU_COUNT" -p "> ")"
 
 case $SELECTION in
 	*"Lock Screen")
