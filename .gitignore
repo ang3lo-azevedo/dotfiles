@@ -38,6 +38,10 @@
 !auto-performance/
 !auto-performance/**
 
+# Bootloader Configuration
+!refind/
+!refind/**
+
 # Git configuration
 !.gitignore
 
