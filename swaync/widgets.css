@@ -1,0 +1,5 @@
+/* swaync-widgets generated CSS *//* widget wlsunset */
+.widget-buttons-grid>flowbox>flowboxchild:nth-child(1)>button{background: @transparent; border: 2px solid @surface0;}
+.widget-buttons-grid>flowbox>flowboxchild:nth-child(1)>button:hover{background: @transparent; border: 2px solid @surface1;}
+.widget-buttons-grid>flowbox>flowboxchild:nth-child(1)>button>label{color: @text;}
+.widget-buttons-grid>flowbox>flowboxchild:nth-child(1)>button:hover>label{color: @text;}

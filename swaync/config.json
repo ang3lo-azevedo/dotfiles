@@ -26,40 +26,18 @@
   "hide-on-clear": false,
   "hide-on-action": true,
   "script-fail-notify": true,
-  "scripts": {
-    "example-script": {
-      "exec": "echo 'Do something...'",
-      "urgency": "Normal"
-    },
-    "example-action-script": {
-      "exec": "echo 'Do something actionable!'",
-      "urgency": "Normal",
-      "run-on": "action"
-    }
-  },
-  "notification-visibility": {
-    "example-name": {
-      "state": "muted",
-      "urgency": "Low",
-      "app-name": "Spotify"
-    }
-  },
   "widgets": [
-    "backlight",
-    "volume",
+    "menubar#label",
     "buttons-grid",
+    "backlight",
+    "backlight#KB",
+    "volume",
     "mpris",
-    "inhibitors",
     "title",
     "dnd",
     "notifications"
   ],
   "widget-config": {
-    "inhibitors": {
-      "text": "Inhibitors",
-      "button-text": "Clear All",
-      "clear-all-button": true
-    },
     "title": {
       "text": "Notifications",
       "clear-all-button": true,
@@ -71,21 +49,84 @@
     "buttons-grid": {
       "actions": [
         {
-          "label": "󰖔",
-          "command": "~/.config/swaync/scripts/toggle-wlsunset.sh",
-          "update-command": "~/.config/swaync/scripts/get-wlsunset-icon.sh"
+          "label": "󰕾 Volume",
+          "command": "swaync volume"
+        },
+        {
+          "label": "󰃞 Brightness",
+          "command": "swaync backlight"
+        },
+        {
+          "label": "󰖟 MPRIS",
+          "command": "swaync mpris"
+        },
+        {
+          "label": " Keyboard Backlight",
+          "command": "swaync backlight#KB"
         }
       ]
-    },
-    "label": {
-      "max-lines": 5,
-      "text": "Label Text"
     },
     "volume": {
       "label": "󰕾"
     },
     "backlight": {
       "label": "󰃞"
-    }
+    },
+    "backlight#KB": {
+      "label": " ",
+      "device": "samsung-galaxybook::kbd_backlight",
+      "subsystem": "leds"
+    },
+    "menubar#label": {
+      "menu#power-buttons": {
+        "label": "", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": " Reboot",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": " Lock",
+            "command": "swaylock -f --image ~/.config/wallpapers/snow_woods.jpg"
+          },
+          {
+            "label": " Logout",
+            "command": "swaymsg exit"
+          },
+          {
+            "label": " Shut down",
+            "command": "systemctl poweroff"
+          }
+        ]
+      },
+      "menu#powermode-buttons": {
+        "label": "", 
+        "position": "left",
+        "actions": [ 
+          {
+            "label": "Performance",
+            "command": "powerprofilesctl set performance"
+          },
+          {
+            "label": "Balanced",
+            "command": "powerprofilesctl set balanced"
+          },
+          {
+            "label": "Power-saver",
+            "command": "powerprofilesctl set power-saver"
+          }
+        ]
+      },
+      "buttons#topbar-buttons": {
+        "position": "left",
+        "actions": [
+          {
+            "label": "",
+            "command": "grim"
+          }
+        ]
+      }
+    },
   }
 }

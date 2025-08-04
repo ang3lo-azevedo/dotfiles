@@ -8,7 +8,7 @@
 
     "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "backlight", "wireplumber", "bluetooth", "network", "power-profiles-daemon", "battery", "custom/notification"],
+    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "wireplumber", "bluetooth", "network", "power-profiles-daemon", "battery", "custom/notification"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -40,7 +40,7 @@
         "exec": "waybar-updates -n",
         "on-click": "ghostty -e sh -c 'paru -Syu'",
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "custom/wlsunset":{
@@ -56,7 +56,7 @@
             "on": "\uf186"
         },
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "backlight": {
@@ -86,7 +86,7 @@
             "critical": 15
         },
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "network": {
@@ -100,7 +100,7 @@
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "iwmenu -l fuzzel",
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "bluetooth": {
@@ -114,7 +114,7 @@
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "power-profiles-daemon": {
@@ -125,7 +125,7 @@
         },"on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp",
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "privacy": {
@@ -152,7 +152,7 @@
             }
         ],
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "mpris": {
@@ -169,7 +169,7 @@
         "max-length": 30,
         "interval": 1,
         "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-down": "swaync-client -cp"
     },
 
     "custom/notification": {
