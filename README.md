@@ -170,6 +170,7 @@ git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
 
 # Run automated bootstrap script
 cd ~/.config
+chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
@@ -188,6 +189,13 @@ sudo pacman -S niri waybar fuzzel swaync swaylock ghostty mpv xwayland-satellite
 
 # Clone repository
 git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
+
+# Make scripts executable
+chmod +x ~/.config/waybar/scripts/*.sh
+chmod +x ~/.config/niri/scripts/*.sh
+chmod +x ~/.config/fuzzel/scripts/*.sh
+chmod +x ~/.config/scripts/*.sh
+chmod +x ~/.config/bootstrap.sh
 
 # Setup auto-performance service
 cd ~/.config/auto-performance
