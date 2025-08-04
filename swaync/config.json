@@ -28,7 +28,6 @@
   "script-fail-notify": true,
   "widgets": [
     "menubar#label",
-    "buttons-grid",
     "backlight",
     "backlight#KB",
     "volume",
@@ -49,20 +48,12 @@
     "buttons-grid": {
       "actions": [
         {
-          "label": "󰕾 Volume",
-          "command": "swaync volume"
+          "label": "\udb82\udd28",
+          "command": "iwmenu -l fuzzel"
         },
         {
-          "label": "󰃞 Brightness",
-          "command": "swaync backlight"
-        },
-        {
-          "label": "󰖟 MPRIS",
-          "command": "swaync mpris"
-        },
-        {
-          "label": " Keyboard Backlight",
-          "command": "swaync backlight#KB"
+          "label": "\uf294",
+          "command": "bzmenu -l fuzzel"
         }
       ]
     },
@@ -78,6 +69,24 @@
       "subsystem": "leds"
     },
     "menubar#label": {
+      "menu#powermode-buttons": {
+        "label": "\uf1e6", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": "Performance",
+            "command": "powerprofilesctl set performance"
+          },
+          {
+            "label": "Balanced",
+            "command": "powerprofilesctl set balanced"
+          },
+          {
+            "label": "Power-saver",
+            "command": "powerprofilesctl set power-saver"
+          }
+        ]
+      },
       "menu#power-buttons": {
         "label": "", 
         "position": "right",
@@ -99,34 +108,7 @@
             "command": "systemctl poweroff"
           }
         ]
-      },
-      "menu#powermode-buttons": {
-        "label": "", 
-        "position": "left",
-        "actions": [ 
-          {
-            "label": "Performance",
-            "command": "powerprofilesctl set performance"
-          },
-          {
-            "label": "Balanced",
-            "command": "powerprofilesctl set balanced"
-          },
-          {
-            "label": "Power-saver",
-            "command": "powerprofilesctl set power-saver"
-          }
-        ]
-      },
-      "buttons#topbar-buttons": {
-        "position": "left",
-        "actions": [
-          {
-            "label": "",
-            "command": "grim"
-          }
-        ]
       }
-    },
+    }
   }
 }
