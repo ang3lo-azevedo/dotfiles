@@ -23,8 +23,8 @@
 !fuzzel/**
 !swaylock/
 !swaylock/**
-!systemd/user/
-!systemd/user/**
+!systemd/
+!systemd/**
 
 # Applications
 !ghostty/
