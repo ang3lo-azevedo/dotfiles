@@ -207,14 +207,10 @@
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-        "notification": "<span foreground='red'><sup></sup></span>",
-        "none": "",
-        "dnd-notification": "<span foreground='red'><sup></sup></span>",
-        "dnd-none": "",
-        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
-        "inhibited-none": "",
-        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
-        "dnd-inhibited-none": ""
+        "notification": "\uf0f3<span foreground='red'><sup></sup></span>",
+        "none": "\uf0f3",
+        "dnd-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
+        "dnd-none": "\uf1f6"
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
