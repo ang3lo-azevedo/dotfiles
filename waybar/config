@@ -28,7 +28,7 @@
 
     "custom/waybar-scrolling-mpris": {
         "format": "{}",
-        "display-format": "{artist} - {title} ",
+        "display-format": "{title} {artist} ",
         "exec": "~/.config/waybar/scripts/waybar-scrolling-mpris ~/.config/waybar/config",
         "icons": {
             "Paused": "\uf04b",
