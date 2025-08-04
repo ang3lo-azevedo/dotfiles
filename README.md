@@ -162,6 +162,26 @@ The session management system provides comprehensive state preservation:
 
 ## Installation
 
+### Quick Setup (Recommended)
+
+```bash
+# Clone repository
+git clone --recursive https://github.com/ang3lo-azevedo/dotfiles.git ~/.config
+
+# Run automated bootstrap script
+cd ~/.config
+./bootstrap.sh
+```
+
+The bootstrap script will automatically:
+- Install all required dependencies
+- Initialize git submodules  
+- Setup auto-performance service
+- Configure rEFInd management
+- Set up all scripts and permissions
+
+### Manual Installation
+
 ```bash
 # Install dependencies
 sudo pacman -S niri waybar fuzzel swaync swaylock ghostty mpv xwayland-satellite polkit-mate swaybg swayidle wl-clipboard wlsunset cliphist bzmenu iwmenu syshud refind
@@ -182,12 +202,24 @@ chmod +x setup-refind.sh
 ```
 
 **Note**: Most EFI system partitions use FAT32, which doesn't support symlinks. The script automatically detects this and uses a copy-based sync mechanism instead.
+
+## Quick Start
+
+After installation, reboot your system and:
+
+1. **Configure Display Manager**: Set up your display manager to start Niri session
+2. **Test Components**: 
+   - Press Super key to open Fuzzel launcher
+   - Check notification center with `swaync-client -t`
+   - Test power menu with the fuzzel power menu script
+3. **Verify Services**: Check auto-performance with `systemctl --user status auto-performance@$USER.service`
 ```
 
 ## Structure
 
 ```
 ~/.config/
+├── bootstrap.sh        # Automated setup script
 ├── niri/               # Window manager
 │   └── scripts/        # Niri automation scripts
 ├── waybar/             # Status bar
