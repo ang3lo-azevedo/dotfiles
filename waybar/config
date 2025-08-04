@@ -8,7 +8,7 @@
 
     "modules-left": ["privacy", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "wireplumber", "bluetooth", "network", "power-profiles-daemon", "battery", "custom/notification"],
+    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "wireplumber", "bluetooth", "network", "battery", "custom/notification"],
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",

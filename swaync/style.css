@@ -199,10 +199,10 @@
   border-radius: 6px;
   color: #eeeeee;
   margin: 2px;
-  padding: 8px 12px;
-  min-width: 40px;
-  min-height: 40px;
-  font-size: 16px;
+  padding: 6px 8px;
+  min-width: 32px;
+  min-height: 32px;
+  font-size: 14px;
 }
 
 .widget-buttons-grid button:hover {
@@ -211,6 +211,62 @@
 }
 
 .widget-buttons-grid button:active {
+  background: #1a1a1a;
+}
+
+/* Menubar Widget */
+.widget-menubar {
+  background: transparent;
+  padding: 4px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.widget-menubar button {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #eeeeee;
+  margin: 1px;
+  padding: 4px 6px;
+  min-width: 24px;
+  min-height: 24px;
+  font-size: 12px;
+}
+
+.widget-menubar button:hover {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+.widget-menubar button:active {
+  background: #1a1a1a;
+}
+
+.widget-menubar menu {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.widget-menubar menu menuitem {
+  background: transparent;
+  border-radius: 4px;
+  color: #eeeeee;
+  padding: 8px 12px;
+  margin: 2px;
+  font-size: 14px;
+}
+
+.widget-menubar menu menuitem:hover {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+.widget-menubar menu menuitem:active {
   background: #1a1a1a;
 }
 
