@@ -7,9 +7,11 @@
 
 My personal Linux system configurations for CachyOS with Niri as window manager.
 
-![Screenshot](https://github.com/user-attachments/assets/41f27464-a888-48be-840e-224584a6bc45)
+![Screenshot](https://github.com/user-attachments/assets/1ef97088-009f-4057-b50d-f780c1e17055)
 
-![Screenshot](https://github.com/user-attachments/assets/4283a0c9-5b2b-4d75-9fc0-090fb4ba83ec)
+![Screenshot](https://github.com/user-attachments/assets/9b720767-7de0-4e10-82cf-917bbb908fd3)
+
+![Screenshot](https://github.com/user-attachments/assets/8534ea57-1427-497e-be2d-31c415e97bf2)
 
 ## Setup Summary
 
