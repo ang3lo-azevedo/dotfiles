@@ -6,20 +6,36 @@
     "on-scroll-up": "swaync-client -op",
     "on-scroll-down": "swaync-client -cp",
 
-    "modules-left": ["privacy", "mpris", "custom/waybar-scrolling-mpris"],
-    "modules-center": ["clock"],
-    "modules-right": ["custom/pacman", "tray", "custom/wlsunset", "wireplumber", "bluetooth", "network", "battery", "custom/notification"],
+    "modules-left": [
+        "privacy",
+        "mpris",
+        "custom/waybar-scrolling-mpris"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/pacman",
+        "tray",
+        "custom/wlsunset",
+        "wireplumber",
+        "bluetooth",
+        "network",
+        "power-profiles-daemon","battery",
+        "custom/notification"
+    ],
 
     "mpris": {
         "format": "{player_icon}  {status_icon}",
-        "format-paused": "{player_icon}  {status_icon}",
         "player-icons": {
             "default": "\uf001",
-            "spotify": "\uf1bc"
+            "spotify": "\uf1bc",
+            "chromium": "\uf0ac"
         },
         "status-icons": {
             "paused": "\uf04b",
-            "playing": "\uf04c"
+            "playing": "\uf04c",
+            "stopped": "\uf0c8"
         },
         "interval": 1,
         "on-scroll-up": "swaync-client -op",
@@ -146,11 +162,10 @@
 
     "power-profiles-daemon": {
         "format-icons": {
-            "performance": "\uf0e7",
-            "balanced": "\uf1ce",
-            "power-saver": "\uf06c"
-        },"on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp",
+            "performance": "\uf0e7 ",
+            "balanced": "\uf1ce ",
+            "power-saver": "\uf06c "
+        },
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },
