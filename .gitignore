@@ -57,10 +57,6 @@
 niri/session.txt
 auto-performance/auto-performance.log
 
-# Ignore specific unwanted directories
-mako/
-kiorc
-
 # Ignore backup files
 **/*.bak
 **/*.backup
