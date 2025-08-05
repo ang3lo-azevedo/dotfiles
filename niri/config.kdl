@@ -341,14 +341,6 @@ spawn-at-startup "~/.config/niri/scripts/restore-session.sh"
 // After enabling or disabling this, you need to restart the apps for this to take effect.
 prefer-no-csd
 
-// Define named workspaces
-workspace "other"
-
-workspace "browser"
-
-workspace "dev"
-
-
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
 // The path is formatted with strftime(3) to give you the screenshot date and time.
@@ -407,12 +399,6 @@ window-rule {
 window-rule {
     geometry-corner-radius 15
     clip-to-geometry true
-}
-
-// Open browser in workspace browser  
-window-rule {
-    match app-id="zen-alpha"
-    open-on-workspace "browser"
 }
 
 binds {
