@@ -147,7 +147,7 @@
     },
 
     "bluetooth": {
-        "format-on": "\uf294",
+        "format-on": "\uf294 ",
         "format-off": "\uf295",
         "format-disabled": "",
         "format-connected": "󰂴",
