@@ -18,6 +18,12 @@ environment {
     // Icon Theme
     //XCURSOR_THEME "Adwaita"
     //XCURSOR_SIZE "24"
+    
+    // For Electron apps (like Grayjay) to respect scaling
+    ELECTRON_FORCE_DEVICE_SCALE_FACTOR "1.5"
+    
+    // Include Flatpak applications in application launchers
+    XDG_DATA_DIRS "/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
 }
 
 // Input device configuration.
