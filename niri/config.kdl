@@ -4,7 +4,10 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
+    // Display used for xwayland
     DISPLAY ":0"
+
+    // This is used by Electron applications to determine the platform to wayland
     ELECTRON_OZONE_PLATFORM_HINT "auto"
     
     // GTK Theme
@@ -14,10 +17,6 @@ environment {
     GTK2_RC_FILES "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
     //QT_QPA_PLATFORMTHEME "qt5ct"
     QT_STYLE_OVERRIDE "adwaita-dark"
-    
-    // Icon Theme
-    //XCURSOR_THEME "Adwaita"
-    //XCURSOR_SIZE "24"
     
     // For Electron apps (like Grayjay) to respect scaling
     ELECTRON_FORCE_DEVICE_SCALE_FACTOR "1.5"
