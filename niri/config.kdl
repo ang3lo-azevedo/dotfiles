@@ -105,7 +105,7 @@ output "eDP-1" {
     //mode "2880x1800"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    //scale 1
+    scale 1.5
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -137,7 +137,7 @@ output "DP-1" {
     mode "1920x1080"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    //scale 1
+    //scale 0.8
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
