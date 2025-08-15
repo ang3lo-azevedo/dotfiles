@@ -38,6 +38,7 @@
 !auto-performance/
 !auto-performance/**
 !bootstrap.sh
+!necessary-verbs.sh
 
 # Bootloader Configuration
 !refind/
