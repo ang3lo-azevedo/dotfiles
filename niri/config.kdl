@@ -15,14 +15,17 @@ environment {
     
     // Qt Theme
     GTK2_RC_FILES "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
-    //QT_QPA_PLATFORMTHEME "qt5ct"
-    QT_STYLE_OVERRIDE "adwaita-dark"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    //QT_STYLE_OVERRIDE "Adwaita-Dark"
     
     // For Electron apps (like Grayjay) to respect scaling
     ELECTRON_FORCE_DEVICE_SCALE_FACTOR "1.5"
     
     // Include Flatpak applications in application launchers
     XDG_DATA_DIRS "/usr/local/share:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share"
+
+    // Libvirt URI
+    LIBVIRT_DEFAULT_URI "qemu:///system"
 }
 
 // Input device configuration.
@@ -137,7 +140,7 @@ output "DP-1" {
     mode "1920x1080"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
-    scale 0.75
+    //scale 0.75
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
