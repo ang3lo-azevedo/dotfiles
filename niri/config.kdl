@@ -9,6 +9,16 @@ environment {
 
     // This is used by Electron applications to determine the platform to wayland
     ELECTRON_OZONE_PLATFORM_HINT "auto"
+
+    // This is used by Qt applications to determine the platform to wayland
+    QT_QPA_PLATFORM "wayland"
+
+    // Disable window decorations for Qt applications
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+
+    // Session variables
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
     
     // GTK Theme
     GTK_THEME "Adwaita:dark"
@@ -87,6 +97,9 @@ input {
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
+
+    focus-follows-mouse // Automatically focus windows under the mouse pointer
+    workspace-auto-back-and-forth // Enable workspace back & forth switching
 }
 
 // You can configure outputs by their name, which you can find
@@ -318,7 +331,7 @@ layout {
 spawn-at-startup "xwayland-satellite"
 
 // Polkit authentication agent
-spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
+spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1" "&"
 
 //spawn-at-startup "syshud"
 // Background
