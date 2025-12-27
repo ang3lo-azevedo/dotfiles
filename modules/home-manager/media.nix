@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 let
-  mpvConfigPath = "${config.home.homeDirectory}/.config/dotfiles/home/ang3lo/config/mpv";
+  mpvConfigPath = "${config.home.homeDirectory}/.config/mpv";
 in
 {
   home.packages = with pkgs; [
