@@ -13,11 +13,14 @@ environment {
     // This is used by Qt applications to determine the platform to wayland
     QT_QPA_PLATFORM "wayland"
 
+    //WAYLAND_DISPLAY XDG_SESSION_TYPE "x11" 
+    GBM_BACKEND "dri"
+
     // Disable window decorations for Qt applications
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
 
     // Session variables
-    XDG_SESSION_TYPE "wayland"
+    //XDG_SESSION_TYPE "wayland"
     XDG_CURRENT_DESKTOP "niri"
     
     // GTK Theme
@@ -36,6 +39,9 @@ environment {
 
     // Libvirt URI
     LIBVIRT_DEFAULT_URI "qemu:///system"
+
+    // PowerShell shenanigans
+    POWERSHELL_TELEMETRY_OPTOUT "1"
 }
 
 // Input device configuration.
@@ -73,6 +79,10 @@ input {
         // disabled-on-external-mouse
     }
 
+    touch {
+        map-to-output "eDP-1"
+    }
+
     mouse {
         // off
         // natural-scroll
@@ -96,9 +106,9 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    // focus-follows-mouse  max-scroll-amount="0%"
 
-    focus-follows-mouse // Automatically focus windows under the mouse pointer
+    // focus-follows-mouse // Automatically focus windows under the mouse pointer
     workspace-auto-back-and-forth // Enable workspace back & forth switching
 }
 
@@ -327,6 +337,9 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
+// Update DBus environment for Wayland and current desktop
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+
 // X11 applications
 spawn-at-startup "xwayland-satellite"
 
@@ -384,7 +397,6 @@ animations {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {

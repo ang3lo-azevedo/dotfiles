@@ -17,3 +17,4 @@ ring-ver-color=000000
 ring-clear-color=cccccc
 ring-wrong-color=000000
 text-wrong-color=ffffff
+ignore-empty-password

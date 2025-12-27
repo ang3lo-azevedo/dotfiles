@@ -95,3 +95,5 @@ auto-performance/auto-performance.log
 **/*secret*
 **/*password*
 **/*token*
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md
