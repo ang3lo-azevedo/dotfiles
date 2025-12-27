@@ -32,9 +32,10 @@
       upgrade = "sudo nixos-rebuild switch --upgrade --flake .#pc-angelo";
     };
 
-    initExtra = ''
-      # Custom zsh configuration
-      export PATH=$HOME/.local/bin:$PATH
+    initContent = ''
+      # NixOS rebuild aliases
+      alias reb="sudo nixos-rebuild switch --flake .#"
+      alias rebd="sudo nixos-rebuild switch --flake .# --impure"
     '';
   };
 }
