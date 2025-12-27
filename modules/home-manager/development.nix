@@ -4,6 +4,7 @@
   virtualisation.docker.enable = true;
 
   home.packages = with pkgs; [
+    devenv
     git
     gh
     vscode
