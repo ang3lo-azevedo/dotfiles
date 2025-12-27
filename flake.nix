@@ -30,9 +30,17 @@
 
     # Input for Proton-CachyOS
     nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, mango, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, mango, zen-browser, ... } @ inputs:
     let
       # Define your systems and architectures
       systems = [ "x86_64-linux" ];
@@ -58,7 +66,6 @@
           # Add overlays for NUR and Chaotic
           {
             nixpkgs.overlays = [
-              inputs.nur.repos.x71c9.overlay
               inputs.chaotic.overlays.default
             ];
           }
@@ -75,7 +82,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit inputs mango;
+              inherit inputs mango zen-browser;
               inherit mpv-config;
             };
           }

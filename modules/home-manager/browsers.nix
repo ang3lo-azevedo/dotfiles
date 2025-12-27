@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
-    zen-browser
+    inputs.zen-browser.packages.${pkgs.system}.default
     ungoogled-chromium
   ];
 }
