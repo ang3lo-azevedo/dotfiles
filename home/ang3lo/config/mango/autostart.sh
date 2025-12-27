@@ -1,9 +1,6 @@
 # Update DBus environment
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
-# X11 applications support
-xwayland-satellite &
-
 # Polkit authentication agent
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 

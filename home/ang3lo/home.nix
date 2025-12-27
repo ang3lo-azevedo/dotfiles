@@ -8,13 +8,13 @@
 		../../modules/home-manager
 	];
 
-	programs.home-manager.enable = true;
+	#programs.home-manager.enable = true;
 
-	wayland.windowManager.mango = {
-		enable = true;
-		settings = builtins.readFile ./config/mango/config.conf;
-		autostart_sh = builtins.readFile ./config/mango/autostart.sh;
-	};
+	#wayland.windowManager.mango = {
+	#	enable = true;
+	#	settings = builtins.readFile ./config/mangowc/config.conf;
+	#	autostart_sh = builtins.readFile ./config/mangowc/autostart.sh;
+	#};
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage

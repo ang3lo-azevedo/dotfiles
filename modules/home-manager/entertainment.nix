@@ -1,10 +1,7 @@
-{ pkgs, spicetify-nix, ... }:
+{ pkgs, ... }:
 {
-  imports = [ spicetify-nix.homeManagerModules.default ];
-
-  programs.spicetify.enable = true;
-
   home.packages = with pkgs; [
     eqibop
+    spicetify-cli
   ];
 }
