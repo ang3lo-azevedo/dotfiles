@@ -25,18 +25,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for Spicetify
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Input for Proton-CachyOS
     nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
   };
 
-  outputs = { self, nixpkgs, home-manager, mango, spicetify-nix, ... } @ inputs: {
-
+  outputs = { self, nixpkgs, home-manager, mango, ... } @ inputs: {
     # NixOS configuration for pc-ang3lo
     nixosConfigurations.pc-angelo = nixpkgs.lib.nixosSystem {
       modules = [
@@ -52,7 +45,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-          home-manager.extraSpecialArgs = { inherit spicetify-nix mango; };
+          home-manager.extraSpecialArgs = { inherit mango; };
         }
       ];
     };

@@ -6,8 +6,11 @@
     ./vr.nix
   ];
 
+  # Enable Steam
   programs.steam = {
     enable = true;
+
+    # Add the CachyOS Proton
     extraCompatPackages = [
       inputs.nix-proton-cachyos.packages.${system}.proton-cachyos
     ];
