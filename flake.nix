@@ -13,6 +13,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nyx Chaotic Repository
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     # Input for Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
