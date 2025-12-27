@@ -58,7 +58,7 @@
           # Add overlays for NUR and Chaotic
           {
             nixpkgs.overlays = [
-              inputs.nur.overlays.default
+              inputs.nur.repos.x71c9.overlay
               inputs.chaotic.overlays.default
             ];
           }
