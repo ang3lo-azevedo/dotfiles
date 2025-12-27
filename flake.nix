@@ -44,12 +44,9 @@
         };
 
       # Workaround for Nix issues #4423 & #6633 where flakes may not
-      # correctly recognize local submodules. This forces the flake's own
-      # source to be materialized with submodules included.
-      src = builtins.path { path = ./.; submodules = true; };
-
-      # Pass submodules as arguments from the materialized source
-      mpv-config = "${src}/home/ang3lo/config/mpv";
+      # correctly recognize local submodules. `self` refers to the flake's
+      # own source tree, which should include submodules.
+      mpv-config = "${self}/home/ang3lo/config/mpv";
 
     in
     {
