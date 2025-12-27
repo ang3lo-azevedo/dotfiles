@@ -55,6 +55,13 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          # Add overlays for NUR and Chaotic
+          {
+            nixpkgs.overlays = [
+              inputs.nur.overlays.default
+              inputs.chaotic.overlays.default
+            ];
+          }
           ./hosts/pc-ang3lo/configuration.nix
 
           mango.nixosModules.mango
