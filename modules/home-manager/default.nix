@@ -6,7 +6,7 @@
     ./browsers.nix
     ./development.nix
     ./entertainment.nix
-    ./gaming.nix
+    ./gaming
     ./media.nix
     ./utilities.nix
   ];
