@@ -1,8 +1,5 @@
 { pkgs, ... }:
 {
-  # Add Docker support
-  virtualisation.docker.enable = true;
-
   home.packages = with pkgs; [
     devenv
     git

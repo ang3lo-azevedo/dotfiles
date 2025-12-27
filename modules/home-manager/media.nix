@@ -1,11 +1,14 @@
-{ pkgs, config, ... }:
-let
-  mpvConfigPath = "${config.home.homeDirectory}/.config/mpv";
-in
+{ pkgs, mpv-config, ... }:
 {
+  # MPV player configuration from a submodule
+  home.file.".config/mpv" = {
+    source = mpv-config;
+    recursive = true;
+  };
+
   home.packages = with pkgs; [
     mpv
-    grayjay
+    # grayjay # Flake is broken
   ];
 
   programs.mpv = {
@@ -15,16 +18,9 @@ in
     };
   };
 
-  # Link the entire mpv config directory from the submodule
-  home.file.".config/mpv" = {
-    source = ../home/ang3lo/config/mpv;
-    recursive = true;
-  };
-
   # Ensure mpv cache directory exists
   home.file.".cache/mpv/.keep".text = "";
-  
+
   # Create screenshots directory
-  xdg.userDirs.pictures = "${config.home.homeDirectory}/Pictures";
   home.file."Pictures/mpv-screenshots/.keep".text = "";
 }

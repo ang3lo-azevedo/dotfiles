@@ -35,6 +35,8 @@
   outputs = { self, nixpkgs, home-manager, mango, ... } @ inputs: {
     # NixOS configuration for pc-ang3lo
     nixosConfigurations.pc-angelo = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./hosts/pc-ang3lo/configuration.nix
 
@@ -48,24 +50,20 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-          home-manager.extraSpecialArgs = { inherit mango; };
+          home-manager.extraSpecialArgs = {
+            inherit inputs mango;
+            mpv-config = ./home/ang3lo/config/mpv;
+          };
         }
       ];
     };
 
     # NixOS configuration for server-ang3lo
     nixosConfigurations.server-ang3lo = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
       modules = [
         ./hosts/server-ang3lo/configuration.nix
       ];
     };  
-
-    # Dev shell for development
-    devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
-      buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
-        git
-        vim
-      ];
-    };
   };
 }
