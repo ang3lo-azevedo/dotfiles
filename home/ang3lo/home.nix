@@ -1,16 +1,22 @@
-{ config, pkgs, spicetify-nix, ... }:
+{ config, pkgs, spicetify-nix, mango, ... }:
 {
 	home.username = "ang3lo";
 	home.homeDirectory = "/home/ang3lo";
 
 	imports = [
-		./modules/development.nix
-		./modules/entertainment.nix
-		./modules/gaming.nix
-		./modules/utilities.nix
+		mango.hmModules.mango
+        ./modules/graphical/browser.nix
+        ./modules/graphical/mpv.nix
+        ./modules/modules/entertainment.nix
 	];
 
 	programs.home-manager.enable = true;
+
+	wayland.windowManager.mango = {
+		enable = true;
+		settings = builtins.readFile ./config/mango/config.conf;
+		autostart_sh = builtins.readFile ./config/mango/autostart.sh;
+	};
 
     # This value determines the home Manager release that your
     # configuration is compatible with. This helps avoid breakage
