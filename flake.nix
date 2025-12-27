@@ -30,6 +30,9 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Input for Proton-CachyOS
+    nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
   };
 
   outputs = { self, nixpkgs, home-manager, mango, spicetify-nix, ... } @ inputs: {
