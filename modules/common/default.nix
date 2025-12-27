@@ -2,6 +2,9 @@
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
   time.timeZone = "UTC";
   i18n.defaultLocale = "en_US.UTF-8";
 
