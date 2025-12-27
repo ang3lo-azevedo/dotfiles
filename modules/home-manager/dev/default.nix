@@ -1,12 +1,13 @@
 { pkgs, ... }:
 {
   imports = [
-    ./mpv.nix
+    ./zsh.nix
   ];
 
   home.packages = with pkgs; [
-    grayjay
-    spotify
-    spicetify-cli
+    devenv
+    git
+    gh
+    vscode
   ];
 }

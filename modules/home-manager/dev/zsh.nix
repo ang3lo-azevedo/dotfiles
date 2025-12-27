@@ -1,12 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = with pkgs; [
-    devenv
-    git
-    gh
-    vscode
-  ];
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;

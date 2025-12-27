@@ -4,8 +4,7 @@
   # Import individual categories as needed
   imports = [
     ./browsers
-    ./development.nix
-    ./entertainment.nix
+    ./dev
     ./gaming
     ./media
     ./utilities.nix
