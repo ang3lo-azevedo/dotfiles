@@ -5,4 +5,6 @@
   ];
 
   networking.hostName = "pc-angelo";
+
+  services.displayManager.ly.enable = true;
 }
