@@ -4,7 +4,6 @@
     ../../modules/nixos/common.nix
   ];
 
-  networking.hostName = "server-ang3lo";
   console.keyMap = "pt-latin1";
 
   users.users.t3lmo = {

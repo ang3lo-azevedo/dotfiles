@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Update DBus environment
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
