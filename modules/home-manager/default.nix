@@ -7,7 +7,7 @@
     ./development.nix
     ./entertainment.nix
     ./gaming
-    ./media.nix
+    ./media
     ./utilities.nix
   ];
 }
