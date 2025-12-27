@@ -58,7 +58,7 @@
 
     in
     {
-      # NixOS configuration for pc-ang3lo
+      # NixOS configuration for pc-angelo
       nixosConfigurations.pc-angelo = mkNixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
@@ -89,11 +89,11 @@
         ];
       };
 
-      # NixOS configuration for server-ang3lo
-      nixosConfigurations.server-ang3lo = mkNixosSystem {
+      # NixOS configuration for server-angelo
+      nixosConfigurations.server-angelo = mkNixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./hosts/server-ang3lo/configuration.nix
+          ./hosts/server-angelo/configuration.nix
         ];
       };
     };
