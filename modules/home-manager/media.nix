@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     grayjay
-    # grayjay # Flake is broken
   ];
 
   programs.mpv = {
