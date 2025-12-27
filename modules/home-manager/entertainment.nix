@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    eqibop
+    spotify
     spicetify-cli
   ];
 }
