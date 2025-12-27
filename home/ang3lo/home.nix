@@ -5,9 +5,7 @@
 
 	imports = [
 		mango.hmModules.mango
-        ./modules/graphical/browser.nix
-        ./modules/graphical/mpv.nix
-        ./modules/modules/entertainment.nix
+		../../modules/home-manager
 	];
 
 	programs.home-manager.enable = true;
