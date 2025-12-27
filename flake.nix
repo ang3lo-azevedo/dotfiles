@@ -33,8 +33,9 @@
   };
 
   outputs = { self, nixpkgs, home-manager, mango, spicetify-nix, ... } @ inputs: {
+
+    # NixOS configuration for pc-ang3lo
     nixosConfigurations.pc-angelo = nixpkgs.lib.nixosSystem {
-      #specialArgs = { inherit inputs; };
       modules = [
         ./hosts/pc-ang3lo/configuration.nix
 
@@ -53,6 +54,14 @@
       ];
     };
 
+    # NixOS configuration for server-ang3lo
+    nixosConfigurations.server-ang3lo = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./hosts/server-ang3lo/configuration.nix
+      ];
+    };  
+
+    # Dev shell for development
     devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
       buildInputs = with nixpkgs.legacyPackages.x86_64-linux; [
         git
