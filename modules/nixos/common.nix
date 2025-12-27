@@ -6,6 +6,9 @@
     trusted-users = [ "root" "ang3lo" ];
   };
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
