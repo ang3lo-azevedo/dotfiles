@@ -32,38 +32,53 @@
     nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
   };
 
-  outputs = { self, nixpkgs, home-manager, mango, ... } @ inputs: {
-    # NixOS configuration for pc-ang3lo
-    nixosConfigurations.pc-angelo = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./hosts/pc-ang3lo/configuration.nix
+  outputs = { self, nixpkgs, home-manager, mango, ... } @ inputs:
+    let
+      # Define your systems and architectures
+      systems = [ "x86_64-linux" ];
 
-        mango.nixosModules.mango
-        {
-          programs.mango.enable = true;
-        }
+      # Helper function to generate a NixOS system configuration
+      mkNixosSystem = { system, modules, specialArgs }:
+        nixpkgs.lib.nixosSystem {
+          inherit system modules specialArgs;
+        };
 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-          home-manager.extraSpecialArgs = {
-            inherit inputs mango;
-            mpv-config = ./home/ang3lo/config/mpv;
-          };
-        }
-      ];
+      # Pass submodules as arguments
+      mpv-config = ./home/ang3lo/config/mpv;
+
+    in
+    {
+      # NixOS configuration for pc-ang3lo
+      nixosConfigurations.pc-angelo = mkNixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/pc-ang3lo/configuration.nix
+
+          mango.nixosModules.mango
+          {
+            programs.mango.enable = true;
+          }
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs mango;
+              inherit mpv-config;
+            };
+          }
+        ];
+      };
+
+      # NixOS configuration for server-ang3lo
+      nixosConfigurations.server-ang3lo = mkNixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/server-ang3lo/configuration.nix
+        ];
+      };
     };
-
-    # NixOS configuration for server-ang3lo
-    nixosConfigurations.server-ang3lo = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ./hosts/server-ang3lo/configuration.nix
-      ];
-    };  
-  };
 }
