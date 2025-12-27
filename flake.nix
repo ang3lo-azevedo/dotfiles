@@ -7,7 +7,11 @@
     # Latest stable branch of nixpkgs, used for version rollback
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Extra Inputs
+    # Nix User Repository for additional packages
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Input for Home Manager
     home-manager = {

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ../../modules/common
+    ../../modules/nixos/common.nix
   ];
 
   networking.hostName = "pc-angelo";
