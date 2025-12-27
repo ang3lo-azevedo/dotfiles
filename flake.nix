@@ -43,8 +43,13 @@
           inherit system modules specialArgs;
         };
 
-      # Pass submodules as arguments
-      mpv-config = ./home/ang3lo/config/mpv;
+      # Workaround for Nix issues #4423 & #6633 where flakes may not
+      # correctly recognize local submodules. This forces the flake's own
+      # source to be materialized with submodules included.
+      src = builtins.path { path = ./.; submodules = true; };
+
+      # Pass submodules as arguments from the materialized source
+      mpv-config = "${src}/home/ang3lo/config/mpv";
 
     in
     {
