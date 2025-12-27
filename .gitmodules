@@ -1,7 +1,0 @@
-[submodule "mpv"]
-	path = mpv
-	url = https://github.com/ang3lo-azevedo/mpv
-
-[submodule "refind/themes/rEFInd-minimal-black"]
-	path = refind/themes/rEFInd-minimal-black
-	url = https://github.com/andersfischernielsen/rEFInd-minimal-black
