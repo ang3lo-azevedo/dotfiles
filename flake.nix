@@ -69,7 +69,7 @@
               inputs.chaotic.overlays.default
             ];
           }
-          ./hosts/pc-ang3lo/configuration.nix
+          ./hosts/pc-angelo/configuration.nix
 
           mango.nixosModules.mango
           {
