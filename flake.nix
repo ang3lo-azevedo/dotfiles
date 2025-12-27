@@ -28,9 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for Proton-CachyOS
-    nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
-
+    # Input for Zen Browser
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs = {
@@ -38,6 +36,9 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    # Input for Proton-CachyOS
+    nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
   };
 
   outputs = { self, nixpkgs, home-manager, mango, zen-browser, ... } @ inputs:
