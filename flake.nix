@@ -57,9 +57,6 @@
             inherit system modules specialArgs;
         };
 
-        # Workaround for Nix issues #4423 & #6633 where flakes may not
-        # correctly recognize local submodules. `self` refers to the flake's
-        # own source tree, which should include submodules.
         mpv-config = "${self}/home/ang3lo/config/mpv";
 
         # Reusable pc-angelo configuration
@@ -83,9 +80,10 @@
                     };
                 }
 
-                # Sops
+                # Sops for managing secrets
                 sops-nix.nixosModules.sops
 
+                # Mango Window Compositor
                 mango.nixosModules.mango
                 {
                     programs.mango.enable = true;
