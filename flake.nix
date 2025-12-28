@@ -106,20 +106,8 @@
       # NixOS configuration for test-vm
       nixosConfigurations.test-vm = mkNixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
         modules = [
-          # Add overlays for NUR and Chaotic
-          {
-            nixpkgs.overlays = [
-              inputs.chaotic.overlays.default
-            ];
-          }
           ./hosts/test-vm/configuration.nix
-
-          mango.nixosModules.mango
-          {
-            programs.mango.enable = true;
-          }
 
           home-manager.nixosModules.home-manager
           {
