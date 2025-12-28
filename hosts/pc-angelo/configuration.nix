@@ -31,7 +31,11 @@
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
 
   sops.secrets = {
-    user_password.format = "yaml";
-    root_password.format = "yaml";
+    user_password = {
+      neededForUsers = true;
+    };
+    root_password = {
+      neededForUsers = true;
+    };
   };
 }

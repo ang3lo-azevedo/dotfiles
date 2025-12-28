@@ -59,10 +59,10 @@
     isNormalUser = true;
     description = "ang3lo";
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    initialPassword = config.sops.secrets.user_password.path;
+    hashedPasswordFile = config.sops.secrets.user_password.path;
   };
 
-  users.users.root.initialPassword = config.sops.secrets.root_password.path;
+  users.users.root.hashedPasswordFile = config.sops.secrets.root_password.path;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
