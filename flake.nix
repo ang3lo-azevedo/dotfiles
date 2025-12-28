@@ -72,8 +72,7 @@
         # own source tree, which should include submodules.
         mpv-config = "${self}/home/ang3lo/config/mpv";
 
-        # Make the test-vm disko configuration be the same as pc-angelo
-        diskoConfigurations.test-vm = import ./hosts/pc-angelo/disko.nix;
+
 
         # Reusable pc-angelo configuration
         pc-angelo-config = {
@@ -119,10 +118,6 @@
         };
 
         # NixOS configuration for test-vm
-        nixosConfigurations.test-vm = mkNixosSystem (pc-angelo-config // {
-          modules = pc-angelo-config.modules ++ [
-            ./hosts/test-vm/configuration.nix
-          ];
-        });
+        nixosConfigurations.test-vm = mkNixosSystem pc-angelo-config;
     };
 }
