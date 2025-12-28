@@ -75,13 +75,8 @@
     {
         diskoConfigurations = {
             test-vm = import ./hosts/pc-angelo/disko.nix {
-            inherit (nixpkgs) lib;
-            # We pass a "mock" config so the CLI knows which device to use
-            config = { myDisko.device = "/dev/sda"; }; 
-            };
-            pc-angelo = import ./hosts/pc-angelo/disko.nix {
-            inherit (nixpkgs) lib;
-            config = { myDisko.device = "/dev/nvme0n1"; };
+                inherit (nixpkgs) lib;
+                config = { myDisko.device = "/dev/sda"; }; 
             };
         };
 
