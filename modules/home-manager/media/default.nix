@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   imports = [
-    ./mpv.nix
+    #./mpv.nix
   ];
 
   home.packages = with pkgs; [
-    grayjay
-    spotify
-    spicetify-cli
+    #grayjay
+    #spotify
+    #spicetify-cli
   ];
 }
