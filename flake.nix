@@ -139,7 +139,7 @@
                 disko.nixosModules.disko
                 ./hosts/pc-angelo/disko.nix    # Shared layout
                 { myDisko.device = "/dev/sda"; } # Override for VM
-                ./hosts/test-vm/pc-angelo-configuration.nix
+                ./hosts/pc-angelo/configuration.nix
 
                 # Add overlays for NUR and Chaotic
                 {
