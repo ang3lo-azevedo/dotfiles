@@ -12,6 +12,7 @@
   ];
 
   myDisko.device = "/dev/sda";
+  diskoConfigurations.test-vm = import ../pc-angelo/disko.nix;
 
   # Use the same hostname and display manager as pc-angelo
   networking.hostName = "pc-angelo";
