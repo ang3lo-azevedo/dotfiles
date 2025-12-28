@@ -20,4 +20,16 @@
   networking.hostName = "pc-angelo"; # Define your hostname.
   
   services.displayManager.ly.enable = true;
+
+  # Plymouth boot splash
+  services.plymouth = {
+    enable = true;
+  };
+
+  boot.initrd.plymouth = {
+    enable = true;
+    theme = "spinner";
+  };
+
+  environment.systemPackages = with pkgs; [ plymouth ];
 }
