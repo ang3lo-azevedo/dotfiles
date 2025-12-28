@@ -1,84 +1,82 @@
 {
-  description = "NixOS systems and tools by ang3lo-azevedo";
+    description = "NixOS systems and tools by ang3lo-azevedo";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    inputs = {
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Latest stable branch of nixpkgs, used for version rollback
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+        # Latest stable branch of nixpkgs, used for version rollback
+        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Nix User Repository for additional packages
-    /*nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Nyx Chaotic Repository
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    */
-
-    # Input for Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Input for sops
-    sops-nix = {
-        url = "github:Mic92/sops-nix";
+        # Nix User Repository for additional packages
+        /*nur = {
+        url = "github:nix-community/NUR";
         inputs.nixpkgs.follows = "nixpkgs";
-    };
+        };
 
-    # Input for Disko
-    disko = {
-        url = "github:nix-community/disko";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
+        # Nyx Chaotic Repository
+        chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+        */
 
-    # Input for MangoWC window compositor
-    mango = {
-      url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+        # Input for Home Manager
+        home-manager = {
+            url = "github:nix-community/home-manager";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
-    # Input for Zen Browser
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
+        # Input for sops
+        sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
 
-    firefox-addons = {
-        url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-        inputs.nixpkgs.follows = "nixpkgs";
+        # Input for Disko
+        disko = {
+            url = "github:nix-community/disko";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # Input for MangoWC window compositor
+        mango = {
+            url = "github:DreamMaoMao/mango";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # Input for Zen Browser
+        zen-browser = {
+            url = "github:0xc000022070/zen-browser-flake";
+            inputs = {
+                nixpkgs.follows = "nixpkgs";
+                home-manager.follows = "home-manager";
+            };
+        };
+
+        firefox-addons = {
+            url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
-  };
 
   outputs = { self, nixpkgs, home-manager, sops-nix, disko, mango, zen-browser, ... } @ inputs:
     let
-      # Define your systems and architectures
-      systems = [ "x86_64-linux" ];
+        # Define your systems and architectures
+        systems = [ "x86_64-linux" ];
 
-      # Helper function to generate a NixOS system configuration
-      mkNixosSystem = { system, modules, specialArgs }:
-        nixpkgs.lib.nixosSystem {
-          inherit system modules specialArgs;
+        # Helper function to generate a NixOS system configuration
+        mkNixosSystem = { system, modules, specialArgs }:
+            nixpkgs.lib.nixosSystem {
+            inherit system modules specialArgs;
         };
 
-      # Workaround for Nix issues #4423 & #6633 where flakes may not
-      # correctly recognize local submodules. `self` refers to the flake's
-      # own source tree, which should include submodules.
-      mpv-config = "${self}/home/ang3lo/config/mpv";
+        # Workaround for Nix issues #4423 & #6633 where flakes may not
+        # correctly recognize local submodules. `self` refers to the flake's
+        # own source tree, which should include submodules.
+        mpv-config = "${self}/home/ang3lo/config/mpv";
 
-    in
-    {
-        # Make the test-vm disko be the same as pc-angelo
+        # Make the test-vm disko configuration be the same as pc-angelo
         diskoConfigurations.test-vm = import ./hosts/pc-angelo/disko.nix;
 
-        # NixOS configuration for pc-angelo
-        nixosConfigurations.pc-angelo = mkNixosSystem {
+        # Reusable pc-angelo configuration
+        pc-angelo-config = {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
@@ -107,6 +105,10 @@
                 }
             ];
         };
+    in
+    {
+        # NixOS configuration for pc-angelo
+        nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
 
         # NixOS configuration for server-angelo
         nixosConfigurations.server-angelo = mkNixosSystem {
@@ -117,6 +119,10 @@
         };
 
         # NixOS configuration for test-vm
-        nixosConfigurations.test-vm = nixosConfigurations.pc-angelo
+        nixosConfigurations.test-vm = mkNixosSystem (pc-angelo-config // {
+          modules = pc-angelo-config.modules ++ [
+            ./hosts/test-vm/configuration.nix
+          ];
+        });
     };
 }
