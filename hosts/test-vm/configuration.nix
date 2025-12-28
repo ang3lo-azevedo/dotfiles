@@ -2,7 +2,7 @@
 {
   imports = [
     # IMPORTANT: Use the VM's own hardware configuration
-    ./hardware-configuration.nix
+    /etc/nixos/hardware-configuration.nix
 
     # Import the same software modules as pc-angelo
     ../../modules/nixos/common.nix
