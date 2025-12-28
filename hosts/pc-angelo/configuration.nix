@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    #./hardware-configuration.nix
+    ./disko.nix
     ../../modules/nixos/common.nix
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/virtualisation.nix
