@@ -7,7 +7,7 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -44,7 +44,7 @@
   console.keyMap = "pt-latin1";
 
   # Enable sound.
-  services.pulseaudio.enable = true;
+  # services.pulseaudio.enable = true;
   # OR
   # services.pipewire = {
   #   enable = true;
