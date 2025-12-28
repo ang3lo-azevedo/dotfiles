@@ -73,7 +73,9 @@
 
     in
     {
-        diskoConfigurations.test-vm = import ./hosts/pc-angelo/disko.nix;
+        diskoConfigurations.test-vm = import ./hosts/pc-angelo/disko.nix { 
+            device = "/dev/vda"; 
+        };
 
         # NixOS configuration for pc-angelo
         nixosConfigurations.pc-angelo = mkNixosSystem {
@@ -81,7 +83,7 @@
             specialArgs = { inherit inputs; };
             modules = [
                 disko.nixosModules.disko        # Add Disko module
-                ./hosts/pc-angelo/disko.nix
+                (import ./hosts/pc-angelo/disko.nix { device = "/dev/vda"; })
                 ./hosts/pc-angelo/configuration.nix
 
                 # Home Manager
@@ -127,8 +129,7 @@
             specialArgs = { inherit inputs; };
             modules = [
                 disko.nixosModules.disko
-                ./hosts/pc-angelo/disko.nix    # Shared layout
-                { myDisko.device = "/dev/sda"; } # Override for VM
+                (import ./hosts/pc-angelo/disko.nix { device = "/dev/nvme0n1"; })
                 ./hosts/pc-angelo/configuration.nix
 
                 # Add overlays for NUR and Chaotic
