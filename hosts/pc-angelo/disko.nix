@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, device ? "/dev/sda", ... }:
 
 {
   options.myDisko = {
