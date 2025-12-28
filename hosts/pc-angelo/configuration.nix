@@ -7,7 +7,7 @@
     ../../modules/nixos/virtualisation.nix
   ];
 
-  networking.hostName = "pc-angelo" # Define your hostname.
+  networking.hostName = "pc-angelo"; # Define your hostname.
   
   services.displayManager.ly.enable = true;
 }
