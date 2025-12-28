@@ -1,14 +1,6 @@
 { config, lib, ... }:
 
 {
-  options.myDisko = {
-    device = lib.mkOption {
-      type = lib.types.str;
-      default = "/dev/nvme0n1";
-      description = "The block device to partition.";
-    };
-  };
-
   config = {
     disko.devices = {
       disk = {
