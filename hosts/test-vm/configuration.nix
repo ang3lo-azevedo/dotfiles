@@ -1,8 +1,7 @@
 { ... }:
 {
   imports = [
-    ../pc-angelo/disko.nix
-    # IMPORTANT: Use the VM's own hardware configuration
+    # Use the VM's own hardware configuration
     ./hardware-configuration.nix
 
     # Import the same software modules as pc-angelo
@@ -10,8 +9,7 @@
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/virtualisation.nix
   ];
-
-  myDisko.device = "/dev/sda";
+  
   diskoConfigurations.test-vm = import ../pc-angelo/disko.nix;
 
   # Use the same hostname and display manager as pc-angelo
