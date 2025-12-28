@@ -114,7 +114,7 @@
               inputs.chaotic.overlays.default
             ];
           }
-          ./hosts/test-vm/configuration.nix
+          ./hosts/test-vm/pc-angelo-configuration.nix
 
           mango.nixosModules.mango
           {
