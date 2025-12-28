@@ -122,37 +122,40 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          # Add overlays for NUR and Chaotic
-          {
-            nixpkgs.overlays = [
-              inputs.chaotic.overlays.default
-            ];
-          }
-          ./hosts/test-vm/pc-angelo-configuration.nix
+            # Add overlays for NUR and Chaotic
+            {
+                nixpkgs.overlays = [
+                inputs.chaotic.overlays.default
+                ];
+            }
+            ./hosts/test-vm/pc-angelo-configuration.nix
 
-          mango.nixosModules.mango
-          {
-            programs.mango.enable = true;
-          }
+            import ./hosts/pc-angelo/disko.nix;
+            myDisko.device = "/dev/sda";
 
-          sops-nix.nixosModules.sops
-          {
-            sops.defaultSopsFile = ../../secrets/secrets.yaml;
-            sops.age.keyFile = "/home/ang3lo/.config/sops/age/keys.txt";
-            sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-            sops.age.generateKey = true;
-          }
+            mango.nixosModules.mango
+            {
+                programs.mango.enable = true;
+            }
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-            home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser;
-              inherit mpv-config;
-            };
-          }
+            sops-nix.nixosModules.sops
+            {
+                sops.defaultSopsFile = ../../secrets/secrets.yaml;
+                sops.age.keyFile = "/home/ang3lo/.config/sops/age/keys.txt";
+                sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                sops.age.generateKey = true;
+            }
+
+            home-manager.nixosModules.home-manager
+            {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+                home-manager.extraSpecialArgs = {
+                inherit inputs mango zen-browser;
+                inherit mpv-config;
+                };
+            }
         ];
       };
     };
