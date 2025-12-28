@@ -7,8 +7,6 @@
     ../../modules/nixos/virtualisation.nix
   ];
 
-  services.openssh.enable = true;
-
   # Ensure the system knows to open the LUKS container
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-partlabel/disk-main-luks";
@@ -21,12 +19,15 @@
 
   networking.hostName = "pc-angelo"; # Define your hostname.
   
+  # Enable the Ly display manager
   services.displayManager.ly.enable = true;
 
+  # Enable Plymouth for a nice boot splash screen
   boot.plymouth = {
     enable = true;
   };
 
+  # Make sure systemd is enabled in initrd for plymouth
   boot.initrd.systemd.enable = true;
 
   # Provision secrets with sops-nix:
