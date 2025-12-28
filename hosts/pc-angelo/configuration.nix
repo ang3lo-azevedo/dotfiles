@@ -30,7 +30,8 @@
   # Provision secrets with sops-nix: make `user-password` available
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
 
-  sops.secrets.user_password = {
-    format = "yaml";
+  sops.secrets = {
+    user_password.format = "yaml";
+    root_password.format = "yaml";
   };
 }

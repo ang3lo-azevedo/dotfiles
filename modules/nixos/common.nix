@@ -62,6 +62,8 @@
     initialPassword = config.sops.secrets.user_password.path;
   };
 
+  users.users.root.initialPassword = config.sops.secrets.root_password.path;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   
