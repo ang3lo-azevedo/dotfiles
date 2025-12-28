@@ -27,7 +27,7 @@
     enable = true;
   };
 
-  # Provision secrets with sops-nix: make `user-password` available
+  # Provision secrets with sops-nix:
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
 
   sops.secrets = {
