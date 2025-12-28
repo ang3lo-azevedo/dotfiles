@@ -7,6 +7,8 @@
     ../../modules/nixos/virtualisation.nix
   ];
 
+  services.openssh.enable = true;
+
   # Ensure the system knows to open the LUKS container
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-partlabel/disk-main-luks";
@@ -23,6 +25,14 @@
 
   boot.plymouth = {
     enable = true;
+  };
+
+  # Provision secrets with sops-nix: make `user-password` available
+  sops.defaultSopsFile = ../../secrets/secrets.yaml;
+  # YAML is the default 
+  #sops.defaultSopsFormat = "yaml";
+  sops.secrets.user_password = {
+    format = "yaml";
   };
 
   #boot.initrd.systemd.enable = true;
