@@ -59,6 +59,7 @@
     isNormalUser = true;
     description = "ang3lo";
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    initialPassword = config.sops.secrets.user_password.path;
   };
 
   # Allow unfree packages
