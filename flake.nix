@@ -103,6 +103,7 @@
             ];
         };
 
+        # Reusable server-angelo configuration
         server-angelo-config = {
             system = "x86_64-linux";
             modules = [
