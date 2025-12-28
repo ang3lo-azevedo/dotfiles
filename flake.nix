@@ -73,12 +73,7 @@
 
     in
     {
-        diskoConfigurations = {
-            test-vm = import ./hosts/pc-angelo/disko.nix {
-                inherit (nixpkgs) lib;
-                #config = { myDisko.device = "/dev/vda"; }; 
-            };
-        };
+        diskoConfigurations.test-vm = import ./hosts/pc-angelo/disko.nix;
 
         # NixOS configuration for pc-angelo
         nixosConfigurations.pc-angelo = mkNixosSystem {
