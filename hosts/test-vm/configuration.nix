@@ -16,10 +16,11 @@
 
   # Override the bootloader from common.nix
   # Use GRUB for this BIOS-style VM instead of systemd-boot (UEFI)
-  boot.loader.systemd-boot.enable = false;
+  /*boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {
     enable = true;
     device = "/dev/vda"; # Or "/dev/sda" depending on your VM setup
     useOSProber = true;
   };
+  */
 }
