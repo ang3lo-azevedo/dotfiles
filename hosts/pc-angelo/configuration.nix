@@ -27,6 +27,8 @@
     enable = true;
   };
 
+  boot.initrd.systemd.enable = true;
+
   # Provision secrets with sops-nix:
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
 
@@ -38,4 +40,7 @@
       neededForUsers = true;
     };
   };
+}
+
+
 }
