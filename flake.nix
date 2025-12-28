@@ -109,7 +109,7 @@
             modules = [
                 ./hosts/server-angelo/configuration.nix
             ];
-        }
+        };
     in
     {
         # NixOS configuration for pc-angelo
