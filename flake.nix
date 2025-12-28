@@ -9,8 +9,8 @@
 
         # Nix User Repository for additional packages
         /*nur = {
-        url = "github:nix-community/NUR";
-        inputs.nixpkgs.follows = "nixpkgs";
+            url = "github:nix-community/NUR";
+            inputs.nixpkgs.follows = "nixpkgs";
         };
 
         # Nyx Chaotic Repository
@@ -72,8 +72,6 @@
         # own source tree, which should include submodules.
         mpv-config = "${self}/home/ang3lo/config/mpv";
 
-
-
         # Reusable pc-angelo configuration
         pc-angelo-config = {
             system = "x86_64-linux";
@@ -104,18 +102,20 @@
                 }
             ];
         };
+
+        server-angelo-config = {
+            system = "x86_64-linux";
+            modules = [
+                ./hosts/server-angelo/configuration.nix
+            ];
+        }
     in
     {
         # NixOS configuration for pc-angelo
         nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
 
         # NixOS configuration for server-angelo
-        nixosConfigurations.server-angelo = mkNixosSystem {
-            system = "x86_64-linux";
-            modules = [
-            ./hosts/server-angelo/configuration.nix
-            ];
-        };
+        nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
 
         # NixOS configuration for test-vm
         nixosConfigurations.test-vm = mkNixosSystem pc-angelo-config;
