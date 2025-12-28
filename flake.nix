@@ -22,9 +22,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for 
+    # Input for sops
     sops-nix = {
         url = "github:Mic92/sops-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Input for Disko
+    disko = {
+        url = "github:nix-community/disko";
         inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -49,7 +55,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, mango, zen-browser, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, sops-nix, disko, mango, zen-browser, ... } @ inputs:
     let
       # Define your systems and architectures
       systems = [ "x86_64-linux" ];
