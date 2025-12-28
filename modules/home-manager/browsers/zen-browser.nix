@@ -12,7 +12,7 @@
       violentmonkey
       darkreader
       bitwarden
-      #TorBox Control missing
+      # TorBox Control missing
       duckduckgo-privacy-essentials
       wayback-machine
       user-agent-string-switcher
