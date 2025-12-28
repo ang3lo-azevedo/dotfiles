@@ -43,7 +43,7 @@
     };
 
     # Input for Proton-CachyOS
-    nix-proton-cachyos.url = "github:kimjongbing/nix-proton-cachyos";
+    nix-proton-cachyos.url = "github:CG-GeisT/nix-proton-cachyos";
   };
 
   outputs = { self, nixpkgs, home-manager, mango, zen-browser, ... } @ inputs:
