@@ -7,16 +7,6 @@
         # Latest stable branch of nixpkgs, used for version rollback
         nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-        # Nix User Repository for additional packages
-        /*nur = {
-            url = "github:nix-community/NUR";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
-        # Nyx Chaotic Repository
-        chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-        */
-
         # Input for Home Manager
         home-manager = {
             url = "github:nix-community/home-manager";
