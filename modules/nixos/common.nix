@@ -62,11 +62,13 @@
     hashedPasswordFile = config.sops.secrets.user_password.path;
   };
 
+  # Set root password
   users.users.root.hashedPasswordFile = config.sops.secrets.root_password.path;
+
+  users.mutableUsers = false; # Forbid changing user settings outside of NixOS configuration.
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
