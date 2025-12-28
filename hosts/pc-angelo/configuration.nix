@@ -21,15 +21,10 @@
   
   services.displayManager.ly.enable = true;
 
-  # Plymouth boot splash
-  services.plymouth = {
-    enable = true;
-  };
-
-  boot.initrd.plymouth = {
+  boot.plymouth = {
     enable = true;
     theme = "spinner";
   };
 
-  environment.systemPackages = with pkgs; [ plymouth ];
+  boot.initrd.systemd.enable = true;
 }
