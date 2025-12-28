@@ -22,6 +22,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Input for 
+    sops-nix = {
+        url = "github:Mic92/sops-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for MangoWC window compositor
     mango = {
       url = "github:DreamMaoMao/mango";
@@ -69,29 +75,34 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
-          # Add overlays for NUR and Chaotic
-          {
-            nixpkgs.overlays = [
-              inputs.chaotic.overlays.default
-            ];
-          }
-          ./hosts/pc-angelo/configuration.nix
+            ./hosts/pc-angelo/configuration.nix
 
-          mango.nixosModules.mango
-          {
-            programs.mango.enable = true;
-          }
+            # Home Manager
+            home-manager.nixosModules.home-manager
+            {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+                home-manager.extraSpecialArgs = {
+                inherit inputs mango zen-browser;
+                inherit mpv-config;
+                };
+            }
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-            home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser;
-              inherit mpv-config;
-            };
-          }
+            # Sops
+            sops-nix.nixosModules.sops
+
+            # Add overlays for NUR and Chaotic
+            {
+                nixpkgs.overlays = [
+                inputs.chaotic.overlays.default
+                ];
+            }
+
+            mango.nixosModules.mango
+            {
+                programs.mango.enable = true;
+            }
         ];
       };
 
