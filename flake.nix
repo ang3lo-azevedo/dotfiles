@@ -49,7 +49,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, mango, zen-browser, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, mango, zen-browser, sops-nix, ... } @ inputs:
     let
       # Define your systems and architectures
       systems = [ "x86_64-linux" ];
@@ -127,6 +127,14 @@
           mango.nixosModules.mango
           {
             programs.mango.enable = true;
+          }
+
+          sops-nix.nixosModules.sops
+          {
+            sops.defaultSopsFile = ../../secrets/secrets.yaml;
+            sops.age.keyFile = "/home/ang3lo/.config/sops/age/keys.txt";
+            sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+            sops.age.generateKey = true;
           }
 
           home-manager.nixosModules.home-manager
