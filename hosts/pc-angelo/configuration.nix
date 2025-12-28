@@ -29,11 +29,8 @@
 
   # Provision secrets with sops-nix: make `user-password` available
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  # YAML is the default 
-  #sops.defaultSopsFormat = "yaml";
+
   sops.secrets.user_password = {
     format = "yaml";
   };
-
-  #boot.initrd.systemd.enable = true;
 }
