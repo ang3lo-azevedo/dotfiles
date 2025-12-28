@@ -4,8 +4,9 @@
     ../../modules/nixos/common.nix
   ];
 
-  console.keyMap = "pt-latin1";
-
+  networking.hostName = "server-angelo"; # Define your hostname.
+ 
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.t3lmo = {
     isNormalUser = true;
     description = "t3lmo";

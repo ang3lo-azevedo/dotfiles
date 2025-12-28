@@ -102,5 +102,36 @@
           ./hosts/server-angelo/configuration.nix
         ];
       };
+
+      # NixOS configuration for test-vm
+      nixosConfigurations.test-vm = mkNixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          # Add overlays for NUR and Chaotic
+          {
+            nixpkgs.overlays = [
+              inputs.chaotic.overlays.default
+            ];
+          }
+          ./hosts/test-vm/configuration.nix
+
+          mango.nixosModules.mango
+          {
+            programs.mango.enable = true;
+          }
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs mango zen-browser;
+              inherit mpv-config;
+            };
+          }
+        ];
+      };
     };
 }
