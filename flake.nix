@@ -73,87 +73,105 @@
 
     in
     {
-      # NixOS configuration for pc-angelo
-      nixosConfigurations.pc-angelo = mkNixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-            ./hosts/pc-angelo/configuration.nix
+        diskoConfigurations = {
+            test-vm = import ./hosts/pc-angelo/disko.nix {
+            inherit (nixpkgs) lib;
+            # We pass a "mock" config so the CLI knows which device to use
+            config = { myDisko.device = "/dev/sda"; }; 
+            };
+            pc-angelo = import ./hosts/pc-angelo/disko.nix {
+            inherit (nixpkgs) lib;
+            config = { myDisko.device = "/dev/nvme0n1"; };
+            };
+        };
 
-            # Home Manager
-            home-manager.nixosModules.home-manager
-            {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-                home-manager.extraSpecialArgs = {
-                inherit inputs mango zen-browser;
-                inherit mpv-config;
-                };
-            }
+        # NixOS configuration for pc-angelo
+        nixosConfigurations.pc-angelo = mkNixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+                disko.nixosModules.disko        # Add Disko module
+                ./hosts/pc-angelo/disko.nix
+                ./hosts/pc-angelo/configuration.nix
 
-            # Sops
-            sops-nix.nixosModules.sops
+                # Home Manager
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+                    home-manager.extraSpecialArgs = {
+                    inherit inputs mango zen-browser;
+                    inherit mpv-config;
+                    };
+                }
 
-            # Add overlays for NUR and Chaotic
-            {
-                nixpkgs.overlays = [
-                inputs.chaotic.overlays.default
-                ];
-            }
+                # Sops
+                sops-nix.nixosModules.sops
 
-            mango.nixosModules.mango
-            {
-                programs.mango.enable = true;
-            }
-        ];
-      };
+                # Add overlays for NUR and Chaotic
+                {
+                    nixpkgs.overlays = [
+                    inputs.chaotic.overlays.default
+                    ];
+                }
 
-      # NixOS configuration for server-angelo
-      nixosConfigurations.server-angelo = mkNixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/server-angelo/configuration.nix
-        ];
-      };
+                mango.nixosModules.mango
+                {
+                    programs.mango.enable = true;
+                }
+            ];
+        };
 
-      # NixOS configuration for test-vm
-      nixosConfigurations.test-vm = mkNixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-            # Add overlays for NUR and Chaotic
-            {
-                nixpkgs.overlays = [
-                inputs.chaotic.overlays.default
-                ];
-            }
-            ./hosts/test-vm/pc-angelo-configuration.nix
+        # NixOS configuration for server-angelo
+        nixosConfigurations.server-angelo = mkNixosSystem {
+            system = "x86_64-linux";
+            modules = [
+            ./hosts/server-angelo/configuration.nix
+            ];
+        };
 
-            mango.nixosModules.mango
-            {
-                programs.mango.enable = true;
-            }
+        # NixOS configuration for test-vm
+        nixosConfigurations.test-vm = mkNixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs; };
+            modules = [
+                disko.nixosModules.disko
+                ./hosts/pc-angelo/disko.nix    # Shared layout
+                { myDisko.device = "/dev/sda"; } # Override for VM
+                ./hosts/test-vm/pc-angelo-configuration.nix
 
-            sops-nix.nixosModules.sops
-            {
-                sops.defaultSopsFile = ../../secrets/secrets.yaml;
-                sops.age.keyFile = "/home/ang3lo/.config/sops/age/keys.txt";
-                sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-                sops.age.generateKey = true;
-            }
+                # Add overlays for NUR and Chaotic
+                {
+                    nixpkgs.overlays = [
+                    inputs.chaotic.overlays.default
+                    ];
+                }
+                
+                mango.nixosModules.mango
+                {
+                    programs.mango.enable = true;
+                }
 
-            home-manager.nixosModules.home-manager
-            {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-                home-manager.extraSpecialArgs = {
-                inherit inputs mango zen-browser;
-                inherit mpv-config;
-                };
-            }
-        ];
-      };
+                sops-nix.nixosModules.sops
+                {
+                    sops.defaultSopsFile = ../../secrets/secrets.yaml;
+                    sops.age.keyFile = "/home/ang3lo/.config/sops/age/keys.txt";
+                    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+                    sops.age.generateKey = true;
+                }
+
+                home-manager.nixosModules.home-manager
+                {
+                    home-manager.useGlobalPkgs = true;
+                    home-manager.useUserPackages = true;
+                    home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+                    home-manager.extraSpecialArgs = {
+                    inherit inputs mango zen-browser;
+                    inherit mpv-config;
+                    };
+                }
+            ];
+        };
     };
 }
