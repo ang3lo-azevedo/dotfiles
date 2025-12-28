@@ -5,8 +5,8 @@
     enable = true;
 
     # Add the CachyOS Proton
-    extraCompatPackages = [
-      inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
-    ];
+    # extraCompatPackages = [
+    #   inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
+    # ];
   };
 }
