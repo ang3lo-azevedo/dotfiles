@@ -65,7 +65,8 @@
   # Set root password
   users.users.root.hashedPasswordFile = config.sops.secrets.root_password.path;
 
-  users.mutableUsers = false; # Forbid changing user settings outside of NixOS configuration.
+  # Forbid changing user settings outside of NixOS configuration.
+  users.mutableUsers = false; 
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

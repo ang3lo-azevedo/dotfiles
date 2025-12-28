@@ -81,7 +81,7 @@
                 }
 
                 # Sops for managing secrets
-                sops-nix.nixosModules.sops
+                inputs.sops-nix.nixosModules.sops
 
                 # Mango Window Compositor
                 mango.nixosModules.mango
