@@ -131,7 +131,7 @@
                 ./hosts/pc-angelo/disko.nix
                 ./hosts/pc-angelo/configuration.nix
 
-                { disko.devices.disk.main.device = lib.mkForce "/dev/vda"; }
+                #{ disko.devices.disk.main.device = lib.mkForce "/dev/vda"; }
 
                 # Add overlays for NUR and Chaotic
                 {
