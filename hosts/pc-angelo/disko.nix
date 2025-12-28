@@ -14,7 +14,7 @@
       disk = {
         main = {
           type = "disk";
-          device = config.myDisko.device;
+          device = "/dev/vda";
           content = {
             type = "gpt";
             partitions = {
