@@ -130,9 +130,6 @@
             }
             ./hosts/test-vm/pc-angelo-configuration.nix
 
-            import ./hosts/pc-angelo/disko.nix;
-            myDisko.device = "/dev/sda";
-
             mango.nixosModules.mango
             {
                 programs.mango.enable = true;
