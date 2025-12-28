@@ -30,15 +30,7 @@
   # Make sure systemd is enabled in initrd for plymouth
   boot.initrd.systemd.enable = true;
 
-  # Provision secrets with sops-nix:
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-
-  sops.secrets = {
-    user_password = {
-      neededForUsers = true;
-    };
-    root_password = {
-      neededForUsers = true;
-    };
-  };
+  # Provision secrets with Agenix
+  age.secrets.user_password.file = ../../secrets/user_password.age;
+  age.secrets.root_password.file = ../../secrets/root_password.age;
 }

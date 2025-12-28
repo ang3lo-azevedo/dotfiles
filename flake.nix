@@ -13,11 +13,8 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # Input for sops
-        sops-nix = {
-            url = "github:Mic92/sops-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        # Input for Agenix (for managing secrets)
+        agenix.url = "github:ryantm/agenix";
 
         # Input for Disko
         disko = {
@@ -46,7 +43,7 @@
         };
     };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, disko, mango, zen-browser, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, agenix, disko, mango, zen-browser, ... } @ inputs:
     let
         # Define your systems and architectures
         systems = [ "x86_64-linux" ];
@@ -80,8 +77,8 @@
                     };
                 }
 
-                # Sops for managing secrets
-                inputs.sops-nix.nixosModules.sops
+                # Agenix for secrets management
+                agenix.nixosModules.default
 
                 # Mango Window Compositor
                 mango.nixosModules.mango
