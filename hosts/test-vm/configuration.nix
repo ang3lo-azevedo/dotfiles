@@ -1,8 +1,9 @@
 { ... }:
 {
   imports = [
+    ../../../disko.nix
     # IMPORTANT: Use the VM's own hardware configuration
-    ../../modules/nixos/disko.nix
+    ./hardware-configuration.nix
 
     # Import the same software modules as pc-angelo
     ../../modules/nixos/common.nix
