@@ -8,6 +8,6 @@
     devenv
     git
     gh
-    vscode
+    #vscode
   ];
 }
