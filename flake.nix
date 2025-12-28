@@ -47,9 +47,6 @@
         url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
         inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Input for Proton-CachyOS
-    nix-proton-cachyos.url = "github:CG-GeisT/nix-proton-cachyos";
   };
 
   outputs = { self, nixpkgs, home-manager, mango, zen-browser, ... } @ inputs:
