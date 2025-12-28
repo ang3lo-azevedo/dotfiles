@@ -2,7 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/disko.nix
+    ../../../disko.nix
     ../../modules/nixos/common.nix
     ../../modules/nixos/gaming.nix
     ../../modules/nixos/virtualisation.nix
