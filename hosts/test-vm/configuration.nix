@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../../../disko.nix
+    ../pc-angelo/disko.nix
     # IMPORTANT: Use the VM's own hardware configuration
     ./hardware-configuration.nix
 
