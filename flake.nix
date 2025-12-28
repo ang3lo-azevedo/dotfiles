@@ -76,7 +76,7 @@
         diskoConfigurations = {
             test-vm = import ./hosts/pc-angelo/disko.nix {
                 inherit (nixpkgs) lib;
-                config = { myDisko.device = "/dev/sda"; }; 
+                config = { myDisko.device = "/dev/vda"; }; 
             };
         };
 
