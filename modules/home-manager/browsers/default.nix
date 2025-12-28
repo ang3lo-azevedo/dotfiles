@@ -1,9 +1,9 @@
 { pkgs, ... }:
 {
   imports = [
-    ./zen-browser.nix
+    #./zen-browser.nix
   ];
   home.packages = with pkgs; [
-    ungoogled-chromium
+    #ungoogled-chromium
   ];
 }
