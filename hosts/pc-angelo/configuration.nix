@@ -32,4 +32,6 @@
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
+
+  environment.systemPackages = [ pkgs.foot ];
 }
