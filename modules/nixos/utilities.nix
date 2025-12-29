@@ -4,6 +4,5 @@
     fastfetch
     git
     gh
-    ghostty
   ];
 }
