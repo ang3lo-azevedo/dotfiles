@@ -4,5 +4,6 @@
     ./waybar.nix
     ./fuzzel.nix
     ./swaybg.nix
+    ./swaync.nix
   ];
 }
