@@ -59,14 +59,14 @@
     isNormalUser = true;
     description = "ang3lo";
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    hashedPasswordFile = config.age.secrets.user_password.path;
+    # hashedPasswordFile = config.age.secrets.user_password.path;
   };
 
   # Set root password
-  users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
+  # users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
 
   # Forbid changing user settings outside of NixOS configuration.
-  #users.mutableUsers = false;
+  # users.mutableUsers = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
