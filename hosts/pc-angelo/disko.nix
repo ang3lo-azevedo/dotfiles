@@ -41,7 +41,9 @@
         lvs = {
           swap = {
             size = "32G";
-            content = { type = "swap"; };
+            content = {
+              type = "swap";
+            };
           };
           root = {
             size = "100%FREE";
@@ -49,9 +51,24 @@
               type = "btrfs";
               extraArgs = [ "-f" ];
               subvolumes = {
-                "/root" = { mountpoint = "/"; mountOptions = [ "compress=zstd" "noatime" ]; };
-                "/home" = { mountpoint = "/home"; mountOptions = [ "compress=zstd" ]; };
-                "/nix" = { mountpoint = "/nix"; mountOptions = [ "compress=zstd" "noatime" ]; };
+                "/root" = {
+                  mountpoint = "/";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
+                "/home" = {
+                  mountpoint = "/home";
+                  mountOptions = [ "compress=zstd" ];
+                };
+                "/nix" = {
+                  mountpoint = "/nix";
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                };
               };
             };
           };
