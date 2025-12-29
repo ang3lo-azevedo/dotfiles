@@ -16,7 +16,7 @@
   wayland.windowManager.mango = {
     enable = true;
     #settings = builtins.readFile ./config/mango/config.conf;
-    #autostart_sh = builtins.readFile ./config/mango/autostart.sh;
+    autostart_sh = builtins.readFile ./config/mango/autostart.sh;
   };
 
   # This value determines the home Manager release that your
