@@ -1,13 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./zsh.nix
-  ];
-
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     fastfetch
     git
     gh
-    pkgs.ghostty
+    ghostty
   ];
 }
