@@ -1,0 +1,124 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "positionX": "right",
+  "positionY": "top",
+  "layer": "overlay",
+  "control-center-layer": "top",
+  "layer-shell": true,
+  "cssPriority": "application",
+  "control-center-margin-top": 0,
+  "control-center-margin-bottom": 0,
+  "control-center-margin-right": 0,
+  "control-center-margin-left": 0,
+  "notification-inline-replies": false,
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "timeout": 10,
+  "timeout-low": 5,
+  "timeout-critical": 0,
+  "fit-to-screen": true,
+  "control-center-width": 500,
+  "control-center-height": 600,
+  "notification-window-width": 500,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+  "widgets": [
+    "menubar#label",
+    "backlight",
+    "backlight#KB",
+    "volume",
+    "mpris",
+    "title",
+    "dnd",
+    "notifications"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "dnd": {
+      "text": "Do Not Disturb"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "\udb82\udd28",
+          "command": "iwmenu -l fuzzel"
+        },
+        {
+          "label": "\uf294",
+          "command": "bzmenu -l fuzzel"
+        }
+      ]
+    },
+    "volume": {
+      "label": "󰕾",
+      "show-per-app": true,
+      "show-per-app-label": true
+    },
+    "backlight": {
+      "label": "󰃞"
+    },
+    "backlight#KB": {
+      "label": " ",
+      "device": "samsung-galaxybook::kbd_backlight",
+      "subsystem": "leds"
+    },
+    "menubar#label": {
+      "menu#powermode-buttons": {
+        "label": "\uf0e4", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": "\uf0e7 Performance",
+            "command": "powerprofilesctl set performance"
+          },
+          {
+            "label": "\uf1ce Balanced",
+            "command": "powerprofilesctl set balanced"
+          },
+          {
+            "label": "\uf06c Power-saver",
+            "command": "powerprofilesctl set power-saver"
+          }
+        ]
+      },
+      "menu#power-buttons": {
+        "label": "", 
+        "position": "right",
+        "actions": [ 
+          {
+            "label": "\uf023 Lock Screen",
+            "command": "swaylock -f --image ~/.config/wallpapers/snow_woods.jpg"
+          },
+          {
+            "label": "\uf236 Suspend System",
+            "command": "systemctl suspend"
+          },
+          {
+            "label": "\uf023 Log Out",
+            "command": "niri msg action quit"
+          },
+          {
+            "label": "\uf021 Restart System",
+            "command": "systemctl reboot"
+          },
+          {
+            "label": "\uf085 Restart to UEFI",
+            "command": "systemctl reboot --firmware-setup"
+          },
+          {
+            "label": "\uf011 Shutdown System",
+            "command": "systemctl poweroff"
+          }
+        ]
+      }
+    }
+  }
+}

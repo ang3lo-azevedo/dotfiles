@@ -1,6 +1,10 @@
+let
+  # Path (relative to this file) to the repo directory containing waybar configs
+  waybarDir = ../../../home/ang3lo/.config/waybar;
+in
 {
   programs.waybar.enable = true;
 
-  xdg.configFile."waybar/config".source = ../../../home/ang3lo/.config/waybar/config;
-  xdg.configFile."waybar/style.css".source = ../../../home/ang3lo/config/waybar/style.css;
+  xdg.configFile."waybar/config".source = "${waybarDir}/config";
+  xdg.configFile."waybar/style.css".source = "${waybarDir}/style.css";
 }
