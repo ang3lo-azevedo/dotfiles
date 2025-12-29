@@ -2,6 +2,7 @@
   imports = [
     ./disko.nix
     ../../modules/nixos
+    ../../modules/nixos/nerd-fonts.nix
   ];
 
   # Ensure the system knows to open the LUKS container
@@ -37,6 +38,4 @@
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
-
-  #environment.systemPackages = [ pkgs.foot ];
 }
