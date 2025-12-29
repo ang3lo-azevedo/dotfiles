@@ -56,8 +56,6 @@
     }@inputs:
     let
       lib = nixpkgs.lib;
-      # Define your systems and architectures
-      systems = [ "x86_64-linux" ];
 
       # Helper function to generate a NixOS system configuration
       mkNixosSystem =
