@@ -72,8 +72,8 @@
                     home-manager.useUserPackages = true;
                     home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
                     home-manager.extraSpecialArgs = {
-                    inherit inputs mango zen-browser;
-                    inherit mpv-config;
+                        inherit inputs mango zen-browser;
+                        inherit mpv-config;
                     };
                 }
 
