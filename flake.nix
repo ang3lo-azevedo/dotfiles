@@ -16,7 +16,7 @@
         # Input for Agenix (for managing secrets)
         agenix.url = "github:ryantm/agenix";
 
-        # Input for Disko
+        # Input for Disko (disk partitioning tool)
         disko = {
             url = "github:nix-community/disko";
             inputs.nixpkgs.follows = "nixpkgs";
