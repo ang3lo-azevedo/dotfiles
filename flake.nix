@@ -45,6 +45,7 @@
 
   outputs = { self, nixpkgs, home-manager, agenix, disko, mango, zen-browser, ... } @ inputs:
     let
+        lib = nixpkgs.lib;
         # Define your systems and architectures
         systems = [ "x86_64-linux" ];
 
@@ -56,15 +57,23 @@
 
         mpv-config = "${self}/home/ang3lo/config/mpv";
 
-        # Reusable pc-angelo configuration
-        pc-angelo-config = {
+        # Helper function to generate a reusable host configuration
+        mkHostConfig = { hostname, modules ? [] }: {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
-                disko.nixosModules.disko
-                ./hosts/pc-angelo/disko.nix
-                ./hosts/pc-angelo/configuration.nix
+                { networking.hostName = hostname; }
+                ./hosts/${hostname}/configuration.nix
+            ]
+            ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) ./hosts/${hostname}/disko.nix)
+            ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
+            ++ modules;
+        };
 
+        # Reusable pc-angelo configuration
+        pc-angelo-config = mkHostConfig {
+            hostname = "pc-angelo";
+            modules = [
                 # Home Manager
                 home-manager.nixosModules.home-manager
                 {
@@ -89,11 +98,8 @@
         };
 
         # Reusable server-angelo configuration
-        server-angelo-config = {
-            system = "x86_64-linux";
-            modules = [
-                ./hosts/server-angelo/configuration.nix
-            ];
+        server-angelo-config = mkHostConfig {
+            hostname = "server-angelo";
         };
     in
     {

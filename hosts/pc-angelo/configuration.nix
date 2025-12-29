@@ -15,8 +15,6 @@
   boot.initrd.supportedFilesystems = [ "btrfs" ];
   boot.initrd.availableKernelModules = [ "virtio_pci" "virtio_blk" "virtio_scsi" "ata_piix" "uhci_hcd" ];
 
-  networking.hostName = "pc-angelo"; # Define your hostname.
-  
   # Enable the Ly display manager
   services.displayManager.ly.enable = true;
 
