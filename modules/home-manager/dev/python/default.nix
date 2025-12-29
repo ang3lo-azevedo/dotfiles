@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./trakt-scrobbler.nix
+  ];
+}

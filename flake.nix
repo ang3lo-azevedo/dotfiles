@@ -37,10 +37,17 @@
       };
     };
 
+    # Input for NUR Firefox add-ons to be used with Zen Browser
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Input for trakt-scrobbler Python package
+    trakt-scrobbler-src = {
+      url = "github:iamkroot/trakt-scrobbler";
+      flake = false;
+  };
   };
 
   outputs =
