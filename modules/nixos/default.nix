@@ -4,6 +4,6 @@
   imports = [
     ./gaming.nix
     ./utilities.nix
-    ./virtualization.nix
+    ./virtualisation.nix
   ];
 }

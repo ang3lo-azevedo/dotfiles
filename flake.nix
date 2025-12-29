@@ -102,8 +102,5 @@
 
         # NixOS configuration for server-angelo
         nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
-
-        # NixOS configuration for test-vm
-        nixosConfigurations.test-vm = mkNixosSystem pc-angelo-config;
     };
 }
