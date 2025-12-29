@@ -1,10 +1,9 @@
 {
   programs.fuzzel.enable = true;
   
-  xdg.configFile."fuzzel/config".source = ../../../home/ang3lo/config/fuzzel/config;
+  xdg.configFile."fuzzel/fuzzel.ini".source = ../../../home/ang3lo/config/fuzzel/fuzzel.ini;
 
-  # Deploy fuzzel helper scripts to the user's config and make them executable
-  home.file.".config/fuzzel/scripts/fuzzel-powermenu.sh" = {
+  xdg.configFile."fuzzel/scripts/fuzzel-powermenu.sh" = {
     source = ../../../home/ang3lo/config/fuzzel/scripts/fuzzel-powermenu.sh;
     executable = true;
   };

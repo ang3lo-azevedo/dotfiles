@@ -4,8 +4,8 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 # Polkit authentication agent
 #/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
-# Background
-#swaybg -c "#000000" &
+# wallpaper
+swaybg -c "#000000" &
 
 # top bar
 waybar >/dev/null 2>&1 &

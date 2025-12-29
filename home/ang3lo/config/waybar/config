@@ -134,7 +134,7 @@
 
     "network": {
         "format": "",
-        "format-ethernet": "\uf6ff",
+        "format-ethernet": "\uf796",
         "format-wifi": "{icon}",
         "format-disconnected": "\udb83\udc9c",
         "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
