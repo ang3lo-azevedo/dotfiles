@@ -7,5 +7,6 @@
     #./gaming
     #./media
     #./utilities.nix
+    ./window-manager
   ];
 }

@@ -1,0 +1,224 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 5,
+    "on-scroll-up": "swaync-client -op",
+    "on-scroll-down": "swaync-client -cp",
+
+    "modules-left": [
+        "privacy",
+        "mpris",
+        "custom/waybar-scrolling-mpris"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/pacman",
+        "tray",
+        "custom/wlsunset",
+        "wireplumber",
+        "bluetooth",
+        "network",
+        "power-profiles-daemon","battery",
+        "custom/notification"
+    ],
+
+    "mpris": {
+        "format": "{player_icon}  {status_icon}",
+        "player-icons": {
+            "default": "\uf001",
+            "spotify": "\uf1bc",
+            "chromium": "\uf0ac"
+        },
+        "status-icons": {
+            "paused": "\uf04b",
+            "playing": "\uf04c",
+            "stopped": "\uf0c8"
+        },
+        "interval": 1,
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/waybar-scrolling-mpris": {
+        "format": "{}",
+        "display-format": "{title} {artist} ",
+        "exec": "~/.config/waybar/scripts/waybar-scrolling-mpris ~/.config/waybar/config",
+        "icons": {
+            "Paused": "\uf04b",
+            "Playing": "\uf04c"
+        },
+        "length": 20
+    },
+
+    "clock": {
+        "format": "{:%d.%m %H:%M:%S}",
+        "interval": 1,
+        "locale": "en_US.UTF-8",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "right",
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "days": "<span color='#cccccc'>{}</span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/pacman": {
+        "format": "{icon}{0}",
+        "return-type": "json",
+        "format-icons": {
+            "pending-updates": " "
+        },
+        "exec-if": "which waybar-updates",
+        "exec": "waybar-updates -n",
+        "on-click": "ghostty -e sh -c 'paru -Syu'",
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/wlsunset":{
+        "interval": "once",
+        "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
+        "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
+        "signal": 1,
+        "return-type": "json",
+        "format": "{icon}",
+        "tooltip-format": "wlsunset: {alt}",
+        "format-icons": {
+            "off": "\uf185",
+            "on": "\uf186"
+        },
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{percent}% "
+    },
+
+    "wireplumber": {
+        "format": "{icon}",
+        "max-volume": 100,
+        "format-icons": {
+            "default": ["\uf026", "\uf027", "\uf028"]
+        },
+        "format-muted": "\uf026",
+        "tooltip-format": "{node_name} ({volume}%)",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    },
+
+    "battery": {
+        "interval": 5,
+        "format": "{icon}  {capacity}%",
+        "format-full": "",
+        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "network": {
+        "format": "",
+        "format-ethernet": "\uf6ff",
+        "format-wifi": "{icon}",
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "iwmenu -l fuzzel",
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "bluetooth": {
+        "format-on": "\uf294 ",
+        "format-off": "\uf295",
+        "format-disabled": "",
+        "format-connected": "󰂴",
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "bzmenu -l fuzzel",
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "power-profiles-daemon": {
+        "format-icons": {
+            "performance": "\uf0e7",
+            "balanced": "\uf1ce",
+            "power-saver": "\uf06c"
+        },
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "privacy": {
+        "icon-spacing": 18,
+        "icon-size": 18,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ],
+        "ignore-monitor": true,
+        "ignore": [
+            {
+                "type": "screenshare",
+                "name": "obs"
+            }
+        ],
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "tray": {
+        "spacing": 16,
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+        "notification": "\uf0f3<span foreground='red'><sup></sup></span>",
+        "none": "\uf0f3",
+        "dnd-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
+        "dnd-none": "\uf1f6"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp",
+        "escape": true
+    }
+}
