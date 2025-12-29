@@ -4,7 +4,6 @@
 
   imports = [
     ../../modules/home-manager
-    ../../modules/home-manager/window-manager
   ];
 
   programs.home-manager.enable = true;
