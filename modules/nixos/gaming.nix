@@ -2,11 +2,11 @@
 {
   # Enable Steam at the system level
   #programs.steam = {
-    #enable = true;
+  #enable = true;
 
-    # Add the CachyOS Proton
-    # extraCompatPackages = [
-    #   inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
-    # ];
+  # Add the CachyOS Proton
+  # extraCompatPackages = [
+  #   inputs.nix-proton-cachyos.packages.${pkgs.system}.proton-cachyos
+  # ];
   #};
 }

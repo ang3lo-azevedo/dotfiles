@@ -58,7 +58,10 @@
   users.users.ang3lo = {
     isNormalUser = true;
     description = "ang3lo";
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = config.age.secrets.user_password.path;
   };
 
@@ -79,9 +82,15 @@
   ];
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     # Allow non-root users to use Nix
-    trusted-users = [ "root" "ang3lo" ];
+    trusted-users = [
+      "root"
+      "ang3lo"
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
