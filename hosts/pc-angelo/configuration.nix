@@ -33,5 +33,10 @@
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
 
+  # Enable EVDEV passthrough for better keyboard support in VMs
+  services.xserver.libinput.enable = true;
+  services.xserver.videoDrivers = [ "qxl" ];
+  services.spice-vdagent.enable = true;
+  
   environment.systemPackages = [ pkgs.foot ];
 }
