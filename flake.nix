@@ -68,7 +68,7 @@
           inherit system modules specialArgs;
         };
 
-      mpv-config = "${self}/home/ang3lo/config/mpv";
+      #mpv-config = "${self}/home/ang3lo/config/mpv";
 
       # Helper function to generate a reusable host configuration
       mkHostConfig =
@@ -103,7 +103,7 @@
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
               inherit inputs mango zen-browser;
-              inherit mpv-config;
+              #inherit mpv-config;
             };
           }
 
