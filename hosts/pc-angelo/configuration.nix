@@ -2,9 +2,7 @@
 {
   imports = [
     ./disko.nix
-    ../../modules/nixos/common.nix
-    ../../modules/nixos/gaming.nix
-    ../../modules/nixos/virtualisation.nix
+    ../../modules/nixos
   ];
 
   # Ensure the system knows to open the LUKS container
