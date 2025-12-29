@@ -54,9 +54,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
-  # Identify the SSH host keys to be used with Agenix
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-
   # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.ang3lo = {
     isNormalUser = true;
