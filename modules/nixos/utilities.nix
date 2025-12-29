@@ -5,6 +5,5 @@
     git
     gh
     ghostty
-    foot
   ];
 }
