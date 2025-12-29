@@ -9,7 +9,7 @@
 
   wayland.windowManager.mango = {
     enable = true;
-    #settings = builtins.readFile ./config/mango/config.conf;
-    autostart_sh = builtins.readFile ./config/mango/autostart.sh;
+    #settings = builtins.readFile ../../../home/ang3lo/config/mango/config.conf;
+    autostart_sh = builtins.readFile ../../../home/ang3lo/config/mango/autostart.sh;
   };
 }
