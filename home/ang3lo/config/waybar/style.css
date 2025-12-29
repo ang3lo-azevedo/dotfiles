@@ -1,0 +1,71 @@
+@define-color foreground white;
+@define-color foreground-inactive #aaaaaa;
+@define-color background black;
+
+* {
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 17px;
+    padding: 0;
+    margin: 0;
+}
+
+#waybar {
+    color: @foreground;
+    background-color: @background;
+}
+
+#workspaces button {
+    color: @foreground;
+    padding-left: 0.7em;
+}
+
+#workspaces button.empty {
+    color: @foreground-inactive;
+}
+
+#privacy,
+#mpris,
+#custom-waybar-scrolling-mpris {
+    padding-left: 1em
+}
+
+#mpris.paused {
+    color: @foreground-inactive;
+}
+
+#mpris.playing {
+    color: @foreground;
+}
+
+#custom-pacman,
+#tray,
+#custom-wlsunset,
+#wireplumber,
+#bluetooth.off,
+#bluetooth.connected,
+#network,
+#power-profiles-daemon,
+#battery,
+#custom-notification {
+    padding-right: 1em 
+}
+
+#custom-updates.has-updates {
+    color: #f9e2af;
+}
+
+#custom-updates.updated {
+    color: #a6e3a1;
+}
+
+#custom-updates.error {
+    color: #f38ba8;
+}
+
+#battery.warning .icon {
+    color: #f9e2af;
+}
+
+#battery.critical .icon {
+    color: #f38ba8;
+}

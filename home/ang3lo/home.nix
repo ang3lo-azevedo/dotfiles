@@ -1,23 +1,13 @@
 {
-  mango,
-  ...
-}:
-{
   home.username = "ang3lo";
   home.homeDirectory = "/home/ang3lo";
 
   imports = [
-    mango.hmModules.mango
     ../../modules/home-manager
+    ../../modules/home-manager/window-manager
   ];
 
   programs.home-manager.enable = true;
-
-  wayland.windowManager.mango = {
-    enable = true;
-    #settings = builtins.readFile ./config/mango/config.conf;
-    autostart_sh = builtins.readFile ./config/mango/autostart.sh;
-  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
