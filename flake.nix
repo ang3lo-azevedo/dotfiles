@@ -64,6 +64,9 @@
             modules = [
                 { networking.hostName = hostname; }
                 ./hosts/${hostname}/configuration.nix
+
+                # Agenix for secrets management
+                agenix.nixosModules.default
             ]
             ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) ./hosts/${hostname}/disko.nix)
             ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
@@ -85,9 +88,6 @@
                         inherit mpv-config;
                     };
                 }
-
-                # Agenix for secrets management
-                agenix.nixosModules.default
 
                 # Mango Window Compositor
                 mango.nixosModules.mango
