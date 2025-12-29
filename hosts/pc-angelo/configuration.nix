@@ -32,6 +32,7 @@
 
   # Identify the SSH host key to be used with Agenix
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  bindMounts."/etc/ssh/ssh_host_ed25519_key".isReadOnly = true;
 
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
