@@ -1,4 +1,3 @@
-{ inputs, ... }:
 {
   # NixOS configuration modules organized by category
   imports = [
