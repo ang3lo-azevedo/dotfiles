@@ -14,7 +14,10 @@
     };
 
     # Input for Agenix (for managing secrets)
-    agenix.url = "github:ryantm/agenix";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Input for Disko (disk partitioning tool)
     disko = {
@@ -44,11 +47,20 @@
     };
 
     # Input for Nix VSCode extensions
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
       url = "github:FlameFlag/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Input for Spicetify Nix (Spotify customizer)
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -62,6 +74,7 @@
     , mango
     , zen-browser
     , nix-vscode-extensions
+    , spicetify-nix
     , ...
     }@inputs:
     let
@@ -112,7 +125,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser nix-vscode-extensions;
+              inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix;
               #inherit mpv-config;
             };
           }
