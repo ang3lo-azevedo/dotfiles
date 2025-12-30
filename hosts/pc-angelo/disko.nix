@@ -20,7 +20,7 @@
               };
             };
             luks = {
-              size = "100%";
+              size = "-256G"; # Leave 256GB at the end of the disk unallocated for ntfs partition
               content = {
                 type = "luks";
                 name = "cryptroot";
