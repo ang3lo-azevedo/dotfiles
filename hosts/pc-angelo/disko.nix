@@ -52,6 +52,7 @@
               mountpoint = "/mnt/shared_games";
               mountOptions = [ "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" "nofail" ];
             };
+          };
         };
       };
     };
