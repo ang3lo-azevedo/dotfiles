@@ -6,7 +6,7 @@
     ./dev
     #./gaming
     #./media
-    #./utilities.nix
+    ./utilities
     ./window-manager
   ];
 }
