@@ -12,7 +12,6 @@
             priority = 1;
             size = "512M";
             type = "EF00";
-            #noformat = true;
             content = {
               type = "filesystem";
               format = "vfat";
@@ -25,7 +24,6 @@
           luks = {
             priority = 2;
             size = "50%FREE";
-            #noformat = true;
             content = {
               type = "luks";
               name = "cryptroot";
@@ -40,12 +38,10 @@
           windows_space = {
             priority = 3;
             size = "25%FREE";
-            noformat = true;
           };
           shared_games = {
             priority = 100;
             size = "100%FREE";
-            #noformat = true;
             content = {
               type = "filesystem";
               format = "ntfs";
