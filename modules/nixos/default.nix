@@ -1,9 +1,9 @@
 {
   # NixOS configuration modules organized by category
   imports = [
-    ./common.nix
+    ./configuration.nix
     ./gaming.nix
-    ./utilities.nix
+    ./utilities
     ./virtualisation.nix
   ];
 }
