@@ -5,7 +5,7 @@
     #./browsers
     ./dev
     #./gaming
-    #./media
+    ./media
     ./utilities
     ./window-manager
   ];
