@@ -71,11 +71,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1766846533,
-        "narHash": "sha256-D7XoHk5/daZt3E0K6uCueVxpDYp+cIoCctoTsz5mjfk=",
+        "lastModified": 1767089190,
+        "narHash": "sha256-TaPGpx3KSx9pjmM4C9kdClz/2JlyHQQaprzBYPWowvg=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "e55ad9427895bc94e55b2cb6474ca46773816885",
+        "rev": "bf40463eb8b5becdc657a2262be71d785bbb35ef",
         "type": "gitlab"
       },
       "original": {
@@ -131,11 +131,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766939453,
-        "narHash": "sha256-wYkmpaD4zDLydwsqsBIip90X/eLWiYwncoo3qxm3gHE=",
+        "lastModified": 1767104570,
+        "narHash": "sha256-GKgwu5//R+cLdKysZjGqvUEEOGXXLdt93sNXeb2M/Lk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3613abcbd7cf373a59b7f582260ca6b7bd703eaf",
+        "rev": "e4e78a2cbeaddd07ab7238971b16468cc1d14daf",
         "type": "github"
       },
       "original": {
@@ -153,16 +153,34 @@
         "scenefx": "scenefx"
       },
       "locked": {
-        "lastModified": 1766887727,
-        "narHash": "sha256-kNHRtEakdzuZq2RO/5EWLC1s5PjYLi7fXwxT2ZIm/1g=",
+        "lastModified": 1767066337,
+        "narHash": "sha256-ZihTKeZEj0C9LUTLB7gYPLkcbpbc1ROans4nAPMmi/0=",
         "owner": "DreamMaoMao",
         "repo": "mango",
-        "rev": "af1f7850ee788c6a23085c117d0310f631b9c271",
+        "rev": "d6dbb7a7016501993c75a6eeb38fa2f0d83ab8de",
         "type": "github"
       },
       "original": {
         "owner": "DreamMaoMao",
         "repo": "mango",
+        "type": "github"
+      }
+    },
+    "nix-vscode-extensions": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1767060686,
+        "narHash": "sha256-AiMqg6OT10LQc2uueyHmuiDR+vNLaI7fX+jx20AiloE=",
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
+        "rev": "182831a2f3e2c8fd1ffb2ccc08e584824e0eb1b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-vscode-extensions",
         "type": "github"
       }
     },
@@ -199,11 +217,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1766736597,
-        "narHash": "sha256-BASnpCLodmgiVn0M1MU2Pqyoz0aHwar/0qLkp7CjvSQ=",
+        "lastModified": 1766885793,
+        "narHash": "sha256-P6RVkrM9JLCW6xBjSwHfgTOQ1JwBUma5xe5LI8xAPC0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f560ccec6b1116b22e6ed15f4c510997d99d5852",
+        "rev": "9ef261221d1e72399f2036786498d78c38185c46",
         "type": "github"
       },
       "original": {
@@ -215,11 +233,27 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1766651565,
-        "narHash": "sha256-QEhk0eXgyIqTpJ/ehZKg9IKS7EtlWxF3N7DXy42zPfU=",
+        "lastModified": 1766025857,
+        "narHash": "sha256-Lav5jJazCW4mdg1iHcROpuXqmM94BWJvabLFWaJVJp0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "3e2499d5539c16d0d173ba53552a4ff8547f4539",
+        "rev": "def3da69945bbe338c373fddad5a1bb49cf199ce",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "def3da69945bbe338c373fddad5a1bb49cf199ce",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1766902085,
+        "narHash": "sha256-coBu0ONtFzlwwVBzmjacUQwj3G+lybcZ1oeNSQkgC0M=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c0b0e0fddf73fd517c3471e546c0df87a42d53f4",
         "type": "github"
       },
       "original": {
@@ -236,9 +270,9 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager_2",
         "mango": "mango",
-        "nixpkgs": "nixpkgs_2",
+        "nix-vscode-extensions": "nix-vscode-extensions",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
-        "trakt-scrobbler-src": "trakt-scrobbler-src",
         "zen-browser": "zen-browser"
       }
     },
@@ -275,22 +309,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "trakt-scrobbler-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1762104952,
-        "narHash": "sha256-oN7OR+dqLDXx9pJ9qCCz4qxUdYKOukt3BFnPBonibnA=",
-        "owner": "iamkroot",
-        "repo": "trakt-scrobbler",
-        "rev": "a0f791ba5af385cdb256996559fa6ffdc9be8e02",
-        "type": "github"
-      },
-      "original": {
-        "owner": "iamkroot",
-        "repo": "trakt-scrobbler",
         "type": "github"
       }
     },

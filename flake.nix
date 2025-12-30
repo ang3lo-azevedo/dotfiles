@@ -43,33 +43,30 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for trakt-scrobbler Python package
-    trakt-scrobbler-src = {
-      url = "github:iamkroot/trakt-scrobbler";
-      flake = false;
-  };
+    # Input for Nix VSCode extensions
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      agenix,
-      disko,
-      mango,
-      zen-browser,
-      ...
+    { self
+    , nixpkgs
+    , home-manager
+    , agenix
+    , disko
+    , mango
+    , zen-browser
+    , nix-vscode-extensions
+    , ...
     }@inputs:
     let
       lib = nixpkgs.lib;
 
       # Helper function to generate a NixOS system configuration
       mkNixosSystem =
-        {
-          system,
-          modules,
-          specialArgs,
+        { system
+        , modules
+        , specialArgs
+        ,
         }:
         nixpkgs.lib.nixosSystem {
           inherit system modules specialArgs;
@@ -79,9 +76,9 @@
 
       # Helper function to generate a reusable host configuration
       mkHostConfig =
-        {
-          hostname,
-          modules ? [ ],
+        { hostname
+        , modules ? [ ]
+        ,
         }:
         {
           system = "x86_64-linux";
@@ -109,7 +106,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser;
+              inherit inputs mango zen-browser nix-vscode-extensions;
               #inherit mpv-config;
             };
           }
