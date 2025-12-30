@@ -45,6 +45,12 @@
 
     # Input for Nix VSCode extensions
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
+    nixcord = {
+      url = "github:FlameFlag/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

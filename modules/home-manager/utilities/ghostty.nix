@@ -1,6 +1,7 @@
-{ pkgs, ... }:
+let
+  ghosttyDir = ../../../home/ang3lo/.config/ghostty;
+in
 {
-  home.packages = with pkgs; [
-    ghostty
-  ];
+  programs.ghostty.enable = true;
+  xdg.configFile."ghostty/config".source = ghosttyDir + "/config";
 }
