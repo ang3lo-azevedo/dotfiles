@@ -9,8 +9,10 @@
         type = "gpt";
         partitions = {
           ESP = {
+            priority = 1;
             size = "512M";
             type = "EF00";
+            #noformat = true;
             content = {
               type = "filesystem";
               format = "vfat";
@@ -21,7 +23,9 @@
             };
           };
           luks = {
-            size = "-256G"; # Leave 256GB at the end of the disk unallocated for ntfs partition
+            priority = 2;
+            size = "50%FREE";
+            #noformat = true;
             content = {
               type = "luks";
               name = "cryptroot";
@@ -32,6 +36,22 @@
               };
             };
           };
+          # Windows partition space
+          windows_space = {
+            priority = 3;
+            size = "25%FREE";
+            noformat = true;
+          };
+          shared_games = {
+            priority = 100;
+            size = "100%FREE";
+            #noformat = true;
+            content = {
+              type = "filesystem";
+              format = "ntfs";
+              mountpoint = "/mnt/shared_games";
+              mountOptions = [ "uid=1000" "gid=100" "rw" "user" "exec" "umask=000" "nofail" ];
+            };
         };
       };
     };
