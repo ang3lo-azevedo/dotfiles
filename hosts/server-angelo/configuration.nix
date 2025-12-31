@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../modules/nixos/common.nix
+    ../../modules/system
   ];
 
   # Define a user account. Don't forget to set a password with 'passwd'.
