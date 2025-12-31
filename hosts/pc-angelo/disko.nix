@@ -52,7 +52,7 @@
             };
           };
           shared_games = {
-            priority = 100; # High number priority to be on the end of the disk
+            priority = 100; # High priority number to be on the end of the disk
             size = "100%FREE";
             content = {
               type = "filesystem";
