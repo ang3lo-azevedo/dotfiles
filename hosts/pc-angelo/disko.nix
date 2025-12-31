@@ -34,11 +34,22 @@
               };
             };
           };
-          # Windows partition space
-          windows_space = {
+          windows = {
             priority = 3;
             size = "25%FREE";
-            # Leave unformatted for Windows installation
+            type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
+            content = {
+              type = "filesystem";
+              format = "ntfs";
+              mountpoint = "/mnt/windows";
+              mountOptions = [ 
+                "rw"
+                "uid=1000"
+                "gid=100"
+                "nofail" 
+                "windows_names"
+              ];
+            };
           };
           shared_games = {
             priority = 100; # High number priority to be on the end of the disk
@@ -62,23 +73,6 @@
         };
       };
     };
-
-    # Mount Windows partition
-    # TODO: Enable after Windows installation
-    /*
-    nodev."windows_mount" = {
-      mountpoint = "/mnt/windows";
-      device = "${device}p3";
-      fsType = "ntfs-3g";
-      mountOptions = [ 
-        "rw"
-        "uid=1000"
-        "gid=100"
-        "nofail" 
-        "windows_names"
-      ];
-    };
-    */
 
     # LVM Volume Group and Logical Volumes
     lvm_vg.pool = {
