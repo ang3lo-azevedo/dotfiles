@@ -1,0 +1,43 @@
+---
+- name: Configure Windows Machine
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  tasks:
+    - name: Install Chocolatey package manager
+      ansible.windows.win_shell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      args:
+        creates: C:\ProgramData\chocolatey\choco.exe
+
+    - name: Install software with Chocolatey
+      community.windows.win_chocolatey:
+        name:
+          - 7zip
+          - discord
+          - steam
+        state: present
+
+    - name: Install software with Winget
+      community.windows.win_winget:
+        name:
+          - Mozilla.Firefox
+          - Microsoft.PowerToys
+        state: present
+
+    - name: Enable Windows Subsystem for Linux
+      ansible.windows.win_feature:
+        name: Microsoft-Windows-Subsystem-Linux
+        state: present
+      register: wsl_feature
+
+    - name: Enable Virtual Machine Platform
+      ansible.windows.win_feature:
+        name: VirtualMachinePlatform
+        state: present
+      register: vm_platform_feature
+
+    - name: Reboot if necessary
+      ansible.windows.win_reboot:
+      when: wsl_feature.reboot_required or vm_platform_feature.reboot_required

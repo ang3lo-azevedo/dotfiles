@@ -1,13 +1,7 @@
-Write-Host "Starting Windows Bootstrap..." -ForegroundColor Cyan
+Write-Host "Starting Windows Self-Provisioning Bootstrap..." -ForegroundColor Cyan
 
 # Elevate Privilege Level
 Set-ExecutionPolicy Bypass -Scope Process -Force
-
-# Network Wait (Wait for Wi-Fi/Ethernet to actually initialize)
-Write-Host "Waiting for internet connection..."
-while (!(Test-Connection -ComputerName 1.1.1.1 -Count 1 -ErrorAction SilentlyContinue)) { 
-    Start-Sleep -Seconds 2 
-}
 
 # Install Winget (If not present in LTSC)
 if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -17,20 +11,37 @@ if (!(Get-Command winget -ErrorAction SilentlyContinue)) {
     Add-AppxPackage "$env:TEMP\winget.msixbundle"
 }
 
-# Essential Drivers & Frameworks
-Write-Host "Installing Core Runtimes and Drivers..."
+# Essential Drivers, Frameworks, and Tools for Ansible
+Write-Host "Installing Core Runtimes and Tools..."
 $apps = @(
     "Microsoft.VCRedist.2015+.x64",
     "Microsoft.DotNet.DesktopRuntime.8",
-    "Git.Git" # Needed for Ansible/Repo pulling
+    "Git.Git",
+    "Python.Python.3.11" # Install Python for Ansible
 )
 foreach ($app in $apps) { winget install --id $app --silent --accept-package-agreements --accept-source-agreements }
 
-# Enable WinRM (Crucial for Ansible control)
-Write-Host "Configuring WinRM for Ansible..."
-winrm quickconfig -quiet
-Set-Item -Path WSMan:\localhost\Service\AllowUnencrypted -Value $true
-Set-Item -Path WSMan:\localhost\Service\Auth\Basic -Value $true
-New-NetFirewallRule -Name "WinRM_5985" -DisplayName "Allow WinRM 5985" -Enabled True -Profile Any -Action Allow -Protocol TCP -LocalPort 5985
+# Add Python scripts to PATH
+$env:Path += ";C:\Program Files\Python311\Scripts\"
+[System.Environment]::SetEnvironmentVariable('Path', $env:Path, [System.EnvironmentVariableTarget]::Machine)
 
-Write-Host "Bootstrap Complete. System is ready for Ansible Playbook." -ForegroundColor Green
+# Install Ansible using Pip
+Write-Host "Installing Ansible..."
+pip install ansible pywinrm
+
+# Install required Ansible collections
+Write-Host "Installing Ansible collections..."
+ansible-galaxy collection install community.windows
+ansible-galaxy collection install ansible.windows
+
+# Clone the dotfiles repository
+Write-Host "Cloning configuration repository from GitHub..."
+git clone https://github.com/ang3lo-azevedo/dotfiles.git C:\dotfiles
+
+# Run the local Ansible playbook
+Write-Host "Running local Ansible playbook for self-configuration..."
+$playbookPath = "C:\dotfiles\hosts\pc-angelo-win\playbook.yml"
+$inventoryPath = "C:\dotfiles\hosts\pc-angelo-win\inventory.ini"
+ansible-playbook $playbookPath -i $inventoryPath
+
+Write-Host "Self-provisioning complete." -ForegroundColor Green
