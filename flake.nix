@@ -104,13 +104,15 @@
           specialArgs = { inherit inputs; };
           modules = [
             { networking.hostName = hostname; }
+          ]
+          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (import ./hosts/${hostname}/disko.nix))
+          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
+          ++ [
             ./hosts/${hostname}/configuration.nix
 
             # Agenix for secrets management
             agenix.nixosModules.default
           ]
-          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) ./hosts/${hostname}/disko.nix)
-          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
           ++ modules;
         };
 
@@ -149,5 +151,14 @@
 
       # NixOS configuration for server-angelo
       nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
+
+      # Development Shell
+      devShells.x86_64-linux.default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        packages = with nixpkgs.legacyPackages.x86_64-linux; [
+          nixos-rebuild
+          disko.packages.x86_64-linux.disko
+          agenix.packages.x86_64-linux.default
+        ];
+      };
     };
 }
