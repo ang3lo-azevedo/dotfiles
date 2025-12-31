@@ -12,4 +12,6 @@ in
 {
   "root_password.age".publicKeys = usersAndSystems;
   "user_password.age".publicKeys = usersAndSystems;
+  "wifi-ssid.age".publicKeys = usersAndSystems;
+  "wifi-password.age".publicKeys = usersAndSystems;
 }

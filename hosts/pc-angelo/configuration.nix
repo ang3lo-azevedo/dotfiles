@@ -1,8 +1,12 @@
+{ ... }:
 {
   imports = [
     ./disko.nix
-    ../../modules/nixos
-    ../../modules/nixos/nerd-fonts.nix
+    ../../modules/system
+    ../../modules/system/audio.nix
+    ../../modules/system/bluetooth.nix
+    ../../modules/system/networking/networkmanager.nix
+    ../../modules/system/nerd-fonts.nix
   ];
 
   # Ensure the system knows to open the LUKS container
@@ -38,4 +42,6 @@
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
+  age.secrets.wifi-ssid.file = ../../secrets/wifi-ssid.age;
+  age.secrets.wifi-password.file = ../../secrets/wifi-password.age;
 }
