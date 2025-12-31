@@ -7,6 +7,7 @@
     ../../modules/system/bluetooth.nix
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/nerd-fonts.nix
+    ../../modules/system/services
   ];
 
   # Ensure the system knows to open the LUKS container
