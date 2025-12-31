@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    (import ./disko.nix)
     ../../modules/system
     ../../modules/system/audio.nix
     ../../modules/system/bluetooth.nix
