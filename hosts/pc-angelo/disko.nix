@@ -1,7 +1,7 @@
 let
   mainDiskSize = 500; # In GB
-  ramSize = 2; # In GB
-  device = "/dev/sda";
+  ramSize = 32; # In GB
+  device = "/dev/nvme0n1";
 in
 {
   disko.devices = {
@@ -26,8 +26,8 @@ in
           };
           luks = {
             priority = 2;
-            #size = toString (mainDiskSize / 2) + "G"; # 50% of mainDiskSize
-            size = "25G"; # TODO: Remove after testing
+            size = toString (mainDiskSize / 2) + "G"; # 50% of mainDiskSize
+            #size = "25G"; # TODO: Remove after testing
             content = {
               type = "luks";
               name = "cryptroot";
@@ -40,8 +40,8 @@ in
           };
           windows = {
             priority = 3;
-            #size = toString ((mainDiskSize / 2) / 4) + "G"; # 25% of 50% of mainDiskSize
-            size = "60G"; # TODO: Remove after testing
+            size = toString ((mainDiskSize / 2) / 4) + "G"; # 25% of 50% of mainDiskSize
+            #size = "60G"; # TODO: Remove after testing
             type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
             content = {
               type = "filesystem";

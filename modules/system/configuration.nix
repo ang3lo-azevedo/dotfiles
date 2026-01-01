@@ -58,12 +58,12 @@
       "networkmanager"
     ]; # Enable ‘sudo’ for the user.
     #hashedPasswordFile = config.age.secrets.user_password.path;
-    initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
+    #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
   };
 
   # Set root password
   #users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
-  users.users.root.initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
+  #users.users.root.initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
 
   # Forbid changing user settings outside of NixOS configuration.
   users.mutableUsers = false;
