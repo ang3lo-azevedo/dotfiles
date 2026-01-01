@@ -34,17 +34,17 @@
           };
           windows = {
             priority = 3;
-            size = "25%";
+            size = "50%";
             type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
             content = {
               type = "filesystem";
               format = "ntfs";
               mountpoint = "/mnt/windows";
-              mountOptions = [ 
+              mountOptions = [
                 "rw"
                 "uid=1000"
                 "gid=100"
-                "nofail" 
+                "nofail"
                 "windows_names"
               ];
             };
@@ -56,14 +56,14 @@
               type = "filesystem";
               format = "ntfs";
               mountpoint = "/mnt/shared_games";
-              mountOptions = [ 
-                "uid=1000" 
-                "gid=100" 
-                "rw" 
-                "user" 
+              mountOptions = [
+                "uid=1000"
+                "gid=100"
+                "rw"
+                "user"
                 "exec" # Allows Linux to launch the games
-                "umask=000" 
-                "nofail" 
+                "umask=000"
+                "nofail"
                 "windows_names" # Prevents Linux from creating files Windows can't read
               ];
             };
@@ -83,7 +83,7 @@
           };
         };
         root = {
-          size = "100%";
+          size = "100%FREE";
           content = {
             type = "btrfs";
             extraArgs = [ "-f" ];
