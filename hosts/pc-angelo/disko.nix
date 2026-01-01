@@ -21,7 +21,7 @@
           };
           luks = {
             priority = 2;
-            size = "50%FREE";
+            size = "50%";
             content = {
               type = "luks";
               name = "cryptroot";
@@ -34,7 +34,7 @@
           };
           windows = {
             priority = 3;
-            size = "25%FREE";
+            size = "25%";
             type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
             content = {
               type = "filesystem";
@@ -51,7 +51,7 @@
           };
           shared_games = {
             priority = 100; # High priority number to be on the end of the disk
-            size = "100%FREE";
+            size = "100%";
             content = {
               type = "filesystem";
               format = "ntfs";
@@ -83,7 +83,7 @@
           };
         };
         root = {
-          size = "100%FREE";
+          size = "100%";
           content = {
             type = "btrfs";
             extraArgs = [ "-f" ];
