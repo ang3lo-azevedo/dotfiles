@@ -1,9 +1,7 @@
-{ device ? "/dev/nvme0n1"
-, ...
-}: {
+{
   disko.devices = {
     disk.main = {
-      inherit device;
+      device = "/dev/sda";
       type = "disk";
       content = {
         type = "gpt";
