@@ -1,5 +1,6 @@
 let
   mainDiskSize = 500; # In GB
+  #ramSize = 2; # TODO: Change this to actual 32 after testing
   ramSize = 32; # In GB
   device = "/dev/nvme0n1";
 in
