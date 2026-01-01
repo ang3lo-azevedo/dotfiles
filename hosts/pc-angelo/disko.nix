@@ -1,7 +1,10 @@
+let
+  mainDiskSize = 500; # In GB
+in
 {
   disko.devices = {
     disk.main = {
-      device = "/dev/sda";
+      device = "/dev/sda"; # TODO: Change to actual disk after testing
       type = "disk";
       content = {
         type = "gpt";
@@ -21,7 +24,8 @@
           };
           luks = {
             priority = 2;
-            size = "50%";
+            #size = toString (mainDiskSize / 2) + "G"; # 50% of mainDiskSize
+            size = "25G"; # TODO: Remove after testing
             content = {
               type = "luks";
               name = "cryptroot";
@@ -34,7 +38,8 @@
           };
           windows = {
             priority = 3;
-            size = "50%";
+            #size = toString ((mainDiskSize / 2) / 4) + "G"; # 25% of 50% of mainDiskSize
+            size = "50G"; # TODO: Remove after testing
             type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
             content = {
               type = "filesystem";
@@ -51,7 +56,7 @@
           };
           shared_games = {
             priority = 100; # High priority number to be on the end of the disk
-            size = "100%";
+            size = "100%"; # Use all remaining space
             content = {
               type = "filesystem";
               format = "ntfs";
