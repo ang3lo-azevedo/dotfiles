@@ -1,10 +1,12 @@
 let
   mainDiskSize = 500; # In GB
+  ramSize = 2; # In GB
+  device = "/dev/sda";
 in
 {
   disko.devices = {
     disk.main = {
-      device = "/dev/sda"; # TODO: Change to actual disk after testing
+      device = device;
       type = "disk";
       content = {
         type = "gpt";
@@ -82,7 +84,7 @@ in
       type = "lvm_vg";
       lvs = {
         swap = {
-          size = "32G";
+          size = toString ramSize + "G";
           content = {
             type = "swap";
           };
