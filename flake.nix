@@ -130,7 +130,7 @@
           # Home Manager
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
