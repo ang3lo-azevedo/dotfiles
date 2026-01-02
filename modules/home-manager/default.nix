@@ -2,7 +2,7 @@
   # Home Manager modules organized by category
   # Import individual categories as needed
   imports = [
-    #./browsers
+    ./browsers
     ./dev
     #./gaming
     ./media
