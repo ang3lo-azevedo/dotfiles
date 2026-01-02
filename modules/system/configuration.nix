@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -57,25 +57,35 @@
       "wheel"
       "networkmanager"
     ]; # Enable ‘sudo’ for the user.
-    #hashedPasswordFile = config.age.secrets.user_password.path;
+    hashedPasswordFile = config.age.secrets.user_password.path;
     #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
   };
 
   # Set root password
-  #users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
+  users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
   #users.users.root.initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
 
   # Forbid changing user settings outside of NixOS configuration.
-  users.mutableUsers = false;
+  #users.mutableUsers = false;
+
+  hardware.enableAllFirmware = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  services.pcscd.enable = true;
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    helix # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    age
+    ragenix
+    age-plugin-yubikey
+    yubikey-manager
+    pcsclite
+    pcsc-tools
   ];
 
   nix.settings = {

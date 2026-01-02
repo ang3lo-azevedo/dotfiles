@@ -24,6 +24,14 @@
     "ata_piix"
     "uhci_hcd"
   ];
+  
+  boot.initrd.kernelModules = [ "xe" ];
+  boot.kernelParams = [ "xe.force_probe=*" ];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   # Enable the Ly display manager
   services.displayManager.ly.enable = true;
