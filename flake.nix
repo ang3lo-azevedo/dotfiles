@@ -123,6 +123,11 @@
           ++ modules;
         };
 
+      # Workaround for Nix issues #4423 & #6633 where flakes may not
+      # correctly recognize local submodules. `self` refers to the flake's
+      # own source tree, which should include submodules.
+      mpv-config = "${self}/home/ang3lo/.config/mpv";
+
       # Reusable pc-angelo configuration
       pc-angelo-config = mkHostConfig {
         hostname = "pc-angelo";
@@ -136,7 +141,7 @@
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
               inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix;
-              #inherit mpv-config;
+              inherit mpv-config;
             };
           }
 

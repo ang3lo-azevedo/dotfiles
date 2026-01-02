@@ -9,10 +9,4 @@
     source = mpv-config;
     recursive = true;
   };
-
-  # Ensure mpv cache directory exists
-  home.file.".cache/mpv/.keep".text = "";
-
-  # Create screenshots directory
-  home.file."Pictures/mpv-screenshots/.keep".text = "";
 }
