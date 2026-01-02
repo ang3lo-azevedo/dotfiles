@@ -9,7 +9,7 @@
             hidingAds = true;
             clickingAds = true;
             blockingMalware = true;
-            disableHidingForDNT = true;
+            disableHidingForDNT = false;
             disableClickingForDNT = true;
         };
       };
