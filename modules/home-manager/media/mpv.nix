@@ -1,11 +1,12 @@
-{ mpv-config, ... }:
+{ pkgs, mpv-config, ... }:
 {
-  programs.mpv = {
-    enable = true;
-  };
+  home.packages = [
+    pkgs.mpv
+    pkgs.mpv-handler
+  ];
 
-  # MPV player configuration from a submodule
-  home.file.".config/mpv" = {
+  # MPV player configuration from external git repository
+  xdg.configFile."mpv" = {
     source = mpv-config;
     recursive = true;
   };
