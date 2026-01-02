@@ -69,6 +69,12 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # MPV config
+    mpv-config = {
+      url = "github:ang3lo-azevedo/mpv";
+      flake = false;
+    };
   };
 
   outputs =
@@ -82,6 +88,7 @@
     , zen-browser
     , nix-vscode-extensions
     , spicetify-nix
+    , mpv-config
     , ...
     }@inputs:
     let
@@ -123,10 +130,7 @@
           ++ modules;
         };
 
-      # Workaround for Nix issues #4423 & #6633 where flakes may not
-      # correctly recognize local submodules. `self` refers to the flake's
-      # own source tree, which should include submodules.
-      mpv-config = "${self}/home/ang3lo/.config/mpv";
+      
 
       # Reusable pc-angelo configuration
       pc-angelo-config = mkHostConfig {
