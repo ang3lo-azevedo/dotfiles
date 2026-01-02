@@ -8,5 +8,6 @@
     ./media
     ./utilities
     ./window-manager
+    ./stylix.nix
   ];
 }
