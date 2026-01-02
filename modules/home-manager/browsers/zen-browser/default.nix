@@ -27,7 +27,6 @@ in
           tabs.vertical.right-side = true;
           view.compact = {
             enable-at-startup = true;
-            toolbar-flash-popup = true;
           };
           urlbar.behavior = "float";
         };

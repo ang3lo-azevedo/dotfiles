@@ -357,6 +357,22 @@
         "type": "github"
       }
     },
+    "mpv-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766833661,
+        "narHash": "sha256-GrPzqSCQJbwgeKAMWxd/zaLw+llwizRisk9QI93aN48=",
+        "owner": "ang3lo-azevedo",
+        "repo": "mpv",
+        "rev": "0f8a9a8038618259e507526cec28ac30987469f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ang3lo-azevedo",
+        "repo": "mpv",
+        "type": "github"
+      }
+    },
     "nix-vscode-extensions": {
       "inputs": {
         "nixpkgs": [
@@ -493,6 +509,7 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager_2",
         "mango": "mango",
+        "mpv-config": "mpv-config",
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs",
