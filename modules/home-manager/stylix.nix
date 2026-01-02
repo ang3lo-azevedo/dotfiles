@@ -2,6 +2,6 @@
 {
     stylix = {
         enable = true;
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/mathias.yaml";
+        base16Scheme = "${pkgs.base16-schemes}/share/themes/irblack.yaml";
     };
 }

@@ -8,7 +8,6 @@
     fastfetch
     git
     gh
-    pcmanfm
     nautilus
   ];
 
