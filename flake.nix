@@ -145,6 +145,9 @@
           {
             programs.mango.enable = true;
           }
+
+          # Stylix
+          stylix.nixosModules.stylix
         ];
       };
 

@@ -1,8 +1,10 @@
+{ inputs, ... }:
 {
   home.username = "ang3lo";
   home.homeDirectory = "/home/ang3lo";
 
   imports = [
+    inputs.stylix.homeModules.stylix
     ../../modules/home-manager
   ];
 
