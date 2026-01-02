@@ -54,6 +54,9 @@
         #  - vs-seti
         #  - material-icon-theme
         "workbench.iconTheme" = "material-icon-theme";
+
+        # Whether to show a confirmation before removing a request and its associated edits.
+	      "chat.editing.confirmEditRequestRemoval" = false;
       };
       extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
         alexandre-lavoie.vs-ctf
