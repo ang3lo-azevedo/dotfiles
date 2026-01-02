@@ -42,7 +42,7 @@
 
     # Input for NUR Firefox add-ons to be used with Zen Browser
     firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      url = "github:osipog/nix-firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
