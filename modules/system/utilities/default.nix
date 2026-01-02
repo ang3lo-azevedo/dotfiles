@@ -9,6 +9,8 @@
     git
     gh
     nautilus
+    pavucontrol
+    wlr-randr
   ];
 
   services.gvfs.enable = true;
