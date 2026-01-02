@@ -95,6 +95,7 @@
         mtxr.sqltools
         naco-siren.gradle-language
         pinage404.nix-extension-pack
+        PKief.material-icon-theme
         platformio.platformio-ide
         redhat.java
         richardwillis.vscode-gradle-extension-pack
