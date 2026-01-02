@@ -5,6 +5,7 @@ let
 in
 {
   services.swaync.enable = true;
+  stylix.targets.swaync.enable = false;
 
   # Use lib.mkForce so these home-manager `xdg.configFile` entries have
   # priority over other module definitions and avoid conflicting values.

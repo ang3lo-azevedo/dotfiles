@@ -4,6 +4,7 @@ let
 in
 {
   programs.waybar.enable = true;
+  stylix.targets.waybar.enable = false;
 
   xdg.configFile."waybar/config".source = "${waybarDir}/config";
   xdg.configFile."waybar/style.css".source = "${waybarDir}/style.css";
