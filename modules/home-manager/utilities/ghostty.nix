@@ -4,6 +4,5 @@ let
 in
 {
   programs.ghostty.enable = true;
-  stylix.targets.ghostty.enable = false;
-  xdg.configFile."ghostty/config".source = lib.mkForce (ghosttyDir + "/config");
+  #xdg.configFile."ghostty/config".source = lib.mkForce (ghosttyDir + "/config");
 }

@@ -6,5 +6,6 @@
     ./fuzzel.nix
     ./swaybg.nix
     ./swaync.nix
+    ./wlsunset.nix
   ];
 }
