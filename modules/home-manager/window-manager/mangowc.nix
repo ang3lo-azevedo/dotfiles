@@ -11,12 +11,22 @@ let
   # Path (relative to this file) to the repo directory containing mango configs
   mangoDir = ../../../home/ang3lo/.config/mango;
 
-  # Read directory entries and filter to only `.conf` files
+  # Read directory entries
   mangoFiles = builtins.attrNames (builtins.readDir mangoDir);
-  confFiles = builtins.filter (f: builtins.match ".*\\.conf$" f != null) mangoFiles;
+  
+  # Filter for .conf and .sh files
+  relevantFiles = builtins.filter (f: builtins.match ".*\\.(conf|sh)$" f != null) mangoFiles;
+
+  # Helper to create the config entry
+  mkEntry = f: {
+    name = "mango/${f}";
+    value = {
+      source = "${mangoDir}/${f}";
+    } // (if builtins.match ".*\\.sh$" f != null then { executable = true; } else {});
+  };
 
   # Convert the list of filenames into an attrs set of xdg.configFile entries
-  mangoConfigAttrs = builtins.listToAttrs (map (f: { name = "mango/${f}"; value = { source = "${mangoDir}/${f}"; }; }) confFiles);
+  mangoConfigAttrs = builtins.listToAttrs (map mkEntry relevantFiles);
 in
 {
   imports = [
