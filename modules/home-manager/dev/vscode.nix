@@ -27,8 +27,13 @@
 	        colorTheme = "Perfect Dark Theme";
         };
 
-        # Confirm before synchronizing Git repositories.
-	      git.confirmSync = false;
+	      git = {
+          # Confirm before synchronizing Git repositories.
+          confirmSync = false;
+
+          # When set to true, commits will automatically be fetched from the default remote of the current Git repository. Setting to `all` will fetch from all remotes.
+          autofetch = true;
+        };
       };
       extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
         alexandre-lavoie.vs-ctf
