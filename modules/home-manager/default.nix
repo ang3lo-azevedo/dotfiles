@@ -4,7 +4,7 @@
   imports = [
     ./browsers
     ./dev
-    #./gaming
+    ./gaming
     ./media
     ./utilities
     ./window-manager
