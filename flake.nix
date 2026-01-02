@@ -63,6 +63,12 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Input for Stylix (styling tool)
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -75,6 +81,7 @@
     , zen-browser
     , nix-vscode-extensions
     , spicetify-nix
+    , stylix
     , ...
     }@inputs:
     let
