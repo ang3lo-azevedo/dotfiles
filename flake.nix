@@ -7,9 +7,9 @@
     # Latest stable branch of nixpkgs, used for version rollback
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Input for Home Manager
-    home-manager = {
-      url = "github:nix-community/home-manager";
+    # Input for Disko (disk partitioning tool)
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,9 +19,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for Disko (disk partitioning tool)
-    disko = {
-      url = "github:nix-community/disko";
+    # Input for Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Input for Stylix (styling tool)
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,7 +46,7 @@
       };
     };
 
-    # Input for NUR Firefox add-ons to be used with Zen Browser
+    # Input for Nix Firefox Add-ons
     firefox-addons = {
       url = "github:osipog/nix-firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -63,25 +69,19 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Input for Stylix (styling tool)
-    stylix = {
-      url = "github:nix-community/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     { self
     , nixpkgs
-    , home-manager
-    , agenix
     , disko
+    , agenix
+    , home-manager
+    , stylix
     , mango
     , zen-browser
     , nix-vscode-extensions
     , spicetify-nix
-    , stylix
     , ...
     }@inputs:
     let

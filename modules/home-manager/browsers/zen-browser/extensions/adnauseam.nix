@@ -4,13 +4,14 @@
     packages = [ pkgs.firefoxAddons.adnauseam ];
     settings = {
       "adnauseam@rednoise.org".settings = {
-        selectedFilterLists = [
-          "ublock-filters"
-          "ublock-badware"
-          "ublock-privacy"
-          "ublock-unbreak"
-          "ublock-quick-fixes"
-        ];
+        userSettings = {
+            firstInstall = false;
+            hidingAds = true;
+            clickingAds = true;
+            blockingMalware = true;
+            disableHidingForDNT = true;
+            disableClickingForDNT = true;
+        };
       };
     };
   };

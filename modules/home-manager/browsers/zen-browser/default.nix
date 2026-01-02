@@ -15,12 +15,25 @@ in
   programs.zen-browser = {
     enable = true;
     profiles.${profileName} = {
-      settings = {
-        zen.tabs.vertical.right-side = true;
-        zen.view.compact.enable-at-startup = true;
-        "extensions.autoDisableScopes" = 0;
-      };
       extensions.force = true;
+      settings = {
+        general.autoScroll = true;
+        browser = {
+          ctrlTab.sortByRecentlyUsed = true;
+          download.useDownloadDir = false;
+        };
+        zen = {
+          workspaces.continue-where-left-off = true;
+          tabs.vertical.right-side = true;
+          view.compact = {
+            enable-at-startup = true;
+            toolbar-flash-popup = true;
+          };
+          urlbar.behavior = "float";
+        };
+        extensions.autoDisableScopes = 0;
+        pinned-tab-manager.restore-pinned-tabs-to-pinned-url = true;
+      };
     };
   };
 }
