@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Get current idle inhibitor status
 get_idle_status() {
     # Check if idle inhibitor is active by looking for systemd-inhibit process
