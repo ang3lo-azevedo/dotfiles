@@ -10,6 +10,8 @@
 
   programs.home-manager.enable = true;
 
+  nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ];
+
   nixpkgs.config.allowUnfree = true;
 
   # This value determines the home Manager release that your
