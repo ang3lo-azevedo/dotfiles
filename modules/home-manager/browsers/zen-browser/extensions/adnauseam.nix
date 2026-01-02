@@ -5,7 +5,7 @@
     settings = {
       "adnauseam@rednoise.org".settings = {
         userSettings = {
-            firstInstall = false;
+            firstInstall = true;
             hidingAds = true;
             clickingAds = true;
             blockingMalware = true;
