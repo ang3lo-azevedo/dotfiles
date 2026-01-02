@@ -26,6 +26,9 @@
           # Specifies the color theme used in the workbench when `window.autoDetectColorScheme` is not enabled.
 	        colorTheme = "Perfect Dark Theme";
         };
+
+        # Confirm before synchronizing Git repositories.
+	      git.confirmSync = false;
       };
       extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
         alexandre-lavoie.vs-ctf
