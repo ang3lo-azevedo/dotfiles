@@ -29,6 +29,7 @@ in
       ];
       settings = {
         zen.tabs.vertical.right-side = true;
+        zen.view.compact.enable-at-startup = true;
       };
     };
   };
