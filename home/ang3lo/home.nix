@@ -10,7 +10,10 @@
 
   programs.home-manager.enable = true;
 
-  nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ];
+  nixpkgs.overlays = [ 
+    inputs.firefox-addons.overlays.default
+    inputs.nix-vscode-extensions.overlays.default
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
