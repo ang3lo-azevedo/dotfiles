@@ -9,6 +9,7 @@
         # Disable zen-browser styling by default
         targets.zen-browser.enable = false;
         targets.vscode.enable = false;
+        targets.nixcord.enable = false;
 
         base16Scheme = {
             base00 = "000000"; # Default Background
