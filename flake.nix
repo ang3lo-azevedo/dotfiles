@@ -125,6 +125,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
               inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix;
