@@ -3,6 +3,7 @@ let
 in
 {
   programs.fuzzel.enable = true;
+  stylix.targets.fuzzel.enable = false;
   
   xdg.configFile."fuzzel/fuzzel.ini".source = fuzzelDir + "/fuzzel.ini";
 
