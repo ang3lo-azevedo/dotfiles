@@ -2,12 +2,13 @@
 {
     stylix = {
         enable = true;
-        polarity = "dark";
-        #targets.gtk.enable = true;
+
+        # Activate dark mode
+        polarity = "dark"; 
 
         # Disable zen-browser styling by default
-        stylix.targets.zen-browser.enable = false;
-        stylix.targets.vscode.enable = true;
+        targets.zen-browser.enable = false;
+        targets.vscode.enable = true;
 
         base16Scheme = {
             base00 = "000000"; # Default Background
