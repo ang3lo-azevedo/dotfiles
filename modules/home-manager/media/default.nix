@@ -1,6 +1,6 @@
 {
   imports = [
-    #./mpv.nix
+    ./mpv.nix
     ./grayjay.nix
   ];
 }
