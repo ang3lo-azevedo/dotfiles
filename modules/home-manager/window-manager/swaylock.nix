@@ -1,8 +1,11 @@
-{ pkgs
-, ...
-}:
+let
+  swaylockDir = ../../../home/ang3lo/.config/swaylock;
+in
 {
-  home.packages = with pkgs; [
-    swaylock
-  ];
+  programs.swaylock.enable = true;
+  
+  /* xdg.configFile."swaylock" = {
+    source = swaylockDir;
+    recursive = true;
+  }; */
 }
