@@ -9,6 +9,7 @@
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/nerd-fonts.nix
     ../../modules/system/services
+    ../../modules/system/display-manager
   ];
 
   # Ensure the system knows to open the LUKS container
@@ -16,10 +17,6 @@
     device = "/dev/disk/by-partlabel/disk-main-luks";
     allowDiscards = true;
   };
-
-  # Enable the Ly display manager
-  services.displayManager.ly.enable = true;
-  security.pam.services.ly.enableKwallet = true;
 
   # Enable Plymouth for a nice boot splash screen
   boot.plymouth = {
