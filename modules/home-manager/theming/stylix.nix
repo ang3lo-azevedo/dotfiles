@@ -12,13 +12,13 @@
 
     fonts = {
       serif = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.libre-baskerville;
+        name = "Libre Baskerville";
       };
 
       sansSerif = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font";
+        package = pkgs.cantarell-fonts;
+        name = "Cantarell";
       };
 
       monospace = {
