@@ -1,6 +1,10 @@
 {
+  users.users.ang3lo = {
+      extraGroups = [ "nordvpn" ];
+  };
+
   services.nordvpn = {
     enable = true;
-    users = [ "ang3lo" ];  # Users to add to nordvpn group
+    firewallChanges = true; # true by default
   };
 }
