@@ -12,13 +12,13 @@
 
     fonts = {
       serif = {
-        package = pkgs.nerd-fonts.jetbrains-serif;
-        name = "JetBrainsSerif Nerd Font Serif";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
       };
 
       sansSerif = {
-        package = pkgs.nerd-fonts.jetbrains-sans;
-        name = "JetBrainsSans Nerd Font Sans";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font";
       };
 
       monospace = {
@@ -27,7 +27,7 @@
       };
 
       emoji = {
-        package = inputs.apple-emoji.packages.${pkgs.system}.default;
+        package = inputs.apple-emoji.packages.${pkgs.stdenv.hostPlatform.system}.default;
         name = "Apple Color Emoji";
       };
     };
