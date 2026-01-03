@@ -1,8 +1,7 @@
 {
   imports = [
     ./auto-cpufreq.nix
+    ./nordvpn.nix
+    ./kde-plasma.nix
   ];
-
-  services.desktopManager.plasma6.enable = true;
-  services.power-profiles-daemon.enable = false;
 }

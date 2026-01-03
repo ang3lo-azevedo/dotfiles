@@ -81,6 +81,12 @@
       url = "github:iamkroot/trakt-scrobbler";
       flake = false;
     };
+
+    # NordVPN client for NixOS/Home Manager
+    nordvpn-flake = {
+      url = "github:connerohnesorge/nordvpn-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -96,6 +102,7 @@
     , spicetify-nix
     , mpv-config
     , trakt-scrobbler-src
+    , nordvpn-flake
     , ...
     }@inputs:
     let
@@ -137,8 +144,6 @@
           ++ modules;
         };
 
-      
-
       # Reusable pc-angelo configuration
       pc-angelo-config = mkHostConfig {
         hostname = "pc-angelo";
@@ -163,6 +168,9 @@
 
           # Stylix
           stylix.nixosModules.stylix
+
+          # NordVPN client
+          nordvpn-flake.nixosModules.default
         ];
       };
 

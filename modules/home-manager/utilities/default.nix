@@ -12,8 +12,4 @@
     ./nautilus.nix
     ./trakt-scrobbler.nix
   ];
-
-  home.packages = with pkgs; [
-    wgnord
-  ];
 }
