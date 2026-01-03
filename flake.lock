@@ -516,6 +516,7 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
+        "trakt-scrobbler-src": "trakt-scrobbler-src",
         "zen-browser": "zen-browser"
       }
     },
@@ -733,6 +734,22 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
+        "type": "github"
+      }
+    },
+    "trakt-scrobbler-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1762104952,
+        "narHash": "sha256-oN7OR+dqLDXx9pJ9qCCz4qxUdYKOukt3BFnPBonibnA=",
+        "owner": "iamkroot",
+        "repo": "trakt-scrobbler",
+        "rev": "a0f791ba5af385cdb256996559fa6ffdc9be8e02",
+        "type": "github"
+      },
+      "original": {
+        "owner": "iamkroot",
+        "repo": "trakt-scrobbler",
         "type": "github"
       }
     },
