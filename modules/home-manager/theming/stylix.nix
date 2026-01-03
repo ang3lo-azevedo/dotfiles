@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   stylix = {
     enable = true;
@@ -6,10 +6,9 @@
     # Activate dark mode
     polarity = "dark";
 
-    # Disable zen-browser styling by default
-    targets.zen-browser.enable = false;
-    targets.vscode.enable = false;
-    targets.nixcord.enable = false;
+    targets.zen-browser.colors.enable = false;
+    targets.vscode.colors.enable = false;
+    targets.nixcord.colors.enable = false;
 
     fonts = {
       serif = {
@@ -23,13 +22,13 @@
       };
 
       monospace = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans Mono";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrainsMono Nerd Font Mono";
       };
 
       emoji = {
-        package = pkgs.noto-fonts-color-emoji;
-        name = "Noto Color Emoji";
+        package = inputs.apple-emoji.packages.${pkgs.system}.default;
+        name = "Apple Color Emoji";
       };
     };
 

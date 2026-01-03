@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   programs.vscode.profiles.default.userSettings = {
     # Controls [auto save](https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save) of editors that have unsaved changes.
@@ -17,7 +18,7 @@
     "workbench.sideBar.location" = "right";
 
     # Specifies the color theme used in the workbench when `window.autoDetectColorScheme` is not enabled.
-    "workbench.colorTheme" = "Perfect Dark Theme";
+    "workbench.colorTheme" = lib.mkForce "Perfect Dark Theme";
 
     # Confirm before synchronizing Git repositories.
     "git.confirmSync" = false;
@@ -78,10 +79,13 @@
 	  "explorer.confirmDragAndDrop" = false;
 
     # Controls the font family.
-    "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+    #"editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
 
     # Controls the font family of the terminal. Defaults to `editor.fontFamily`'s value.
-    "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
+    #"terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
+
+    # Controls whether the Explorer should ask for confirmation when pasting native files and folders.
+	  "explorer.confirmPasteNative" = false;
   };
 }
 
