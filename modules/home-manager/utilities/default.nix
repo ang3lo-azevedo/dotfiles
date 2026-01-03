@@ -1,5 +1,6 @@
 {
   imports = [
+    ./keyring
     ./zsh
     ./ghostty.nix
     ./nixcord.nix
