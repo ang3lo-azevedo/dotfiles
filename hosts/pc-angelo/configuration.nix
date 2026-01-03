@@ -1,9 +1,11 @@
 { ... }:
 {
   imports = [
+    ./hardware-configuration.nix
     ../../modules/system
     ../../modules/system/audio.nix
     ../../modules/system/bluetooth.nix
+    ../../modules/system/networking/iwd.nix
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/nerd-fonts.nix
     ../../modules/system/services
@@ -13,24 +15,6 @@
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-partlabel/disk-main-luks";
     allowDiscards = true;
-  };
-
-  # Required for Btrfs on LVM on LUKS
-  boot.initrd.supportedFilesystems = [ "btrfs" ];
-  boot.initrd.availableKernelModules = [
-    "virtio_pci"
-    "virtio_blk"
-    "virtio_scsi"
-    "ata_piix"
-    "uhci_hcd"
-  ];
-  
-  boot.initrd.kernelModules = [ "xe" ];
-  boot.kernelParams = [ "xe.force_probe=*" ];
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
   };
 
   # Enable the Ly display manager

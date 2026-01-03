@@ -2,15 +2,12 @@
 {
   imports = [
     ./zsh.nix
+    ./ditrobox.nix
   ];
 
   environment.systemPackages = with pkgs; [
-    fastfetch
     git
     gh
-    nautilus
-    pavucontrol
-    wlr-randr
   ];
 
   services.gvfs.enable = true;
