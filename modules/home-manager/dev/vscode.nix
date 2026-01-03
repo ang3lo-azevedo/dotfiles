@@ -16,7 +16,7 @@
 
         # When enabled, will limit [auto save](https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save) of editors to files that are inside the opened workspace. Only applies when `files.autoSave` is enabled.
         "files.autoSaveWorkspaceFilesOnly" = true;
-        
+
         # Controls the location of the primary side bar and activity bar. They can either show on the left or right of the workbench. The secondary side bar will show on the opposite side of the workbench.
         "workbench.sideBar.location" = "right";
 
@@ -34,16 +34,16 @@
 
         # Start in Insert mode.
         "vim.startInInsertMode" = false;
-        
+
         # Controls the display of line numbers.
         #  - off: Line numbers are not rendered.
         #  - on: Line numbers are rendered as absolute number.
         #  - relative: Line numbers are rendered as distance in lines to cursor position.
         #  - interval: Line numbers are rendered every 10 lines.
         "editor.lineNumbers" = "relative";
-        
+
         # Adjust the appearance of the window controls to be native by the OS, custom drawn or hidden. Changes require a full restart to apply.
-        "window.controlsStyle"= "hidden";
+        "window.controlsStyle" = "hidden";
 
         # Controls whether the Explorer should ask for confirmation when deleting a file via the trash.
         "explorer.confirmDelete" = false;
@@ -56,13 +56,23 @@
         "workbench.iconTheme" = "material-icon-theme";
 
         # Whether to show a confirmation before removing a request and its associated edits.
-	      "chat.editing.confirmEditRequestRemoval" = false;
+        "chat.editing.confirmEditRequestRemoval" = false;
 
         # Adjust the default zoom level for all windows. Each increment above `0` (e.g. `1`) or below (e.g. `-1`) represents zooming `20%` larger or smaller. You can also enter decimals to adjust the zoom level with a finer granularity. See `window.zoomPerWindow` for configuring if the 'Zoom In' and 'Zoom Out' commands apply the zoom level to all windows or only the active window.
-	      "window.zoomLevel" = 1;
+        "window.zoomLevel" = 1;
 
         # Controls whether the command center shows a menu for actions to control chat (requires `window.commandCenter`).
-	      "chat.commandCenter.enabled" = false;
+        "chat.commandCenter.enabled" = false;
+
+        "nix.enableLanguageServer" = true; # Enable LSP.
+        "nix.serverPath" = "nil"; # The path to the LSP server executable.
+
+        # Uncomment these to tweak settings.
+        # "nix.serverSettings": {
+        #   "nil": {
+        #     "formatting": { "command": ["nixfmt"] }
+        #   }
+        # }
       };
       extensions = with pkgs.nix-vscode-extensions.vscode-marketplace; [
         alexandre-lavoie.vs-ctf
@@ -128,6 +138,8 @@
         vscjava.vscode-spring-boot-dashboard
         vscjava.vscode-spring-initializr
         vscodevim.vim
+
+        christian-kohler.path-intellisense
       ];
     };
   };
