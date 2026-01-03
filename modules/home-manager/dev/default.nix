@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./vscode.nix
@@ -7,10 +8,15 @@
     enable = true;
     settings = {
       user = {
-        name  = "Angelo Azevedo";
+        name = "Angelo Azevedo";
         email = "ang3lo@azevedos.eu.org";
       };
       init.defaultBranch = "main";
     };
   };
+
+  home.packages = with pkgs; [
+    nixfmt-rfc-style
+    nil
+  ];
 }
