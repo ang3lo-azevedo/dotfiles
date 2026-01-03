@@ -31,6 +31,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Apple Emoji
+    apple-emoji = {
+      url = "github:samuelngs/apple-emoji-linux";
+      inputs.nixpkgs.follows = "nixpkgs"; 
+    };
+
     # Input for MangoWC window compositor
     mango = {
       url = "github:DreamMaoMao/mango";
