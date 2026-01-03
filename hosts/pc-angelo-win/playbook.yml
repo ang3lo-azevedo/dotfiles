@@ -14,16 +14,7 @@
     - name: Install software with Chocolatey
       community.windows.win_chocolatey:
         name:
-          - 7zip
-          - discord
           - steam
-        state: present
-
-    - name: Install software with Winget
-      community.windows.win_winget:
-        name:
-          - Mozilla.Firefox
-          - Microsoft.PowerToys
         state: present
 
     - name: Enable Windows Subsystem for Linux
