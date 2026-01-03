@@ -7,5 +7,8 @@
     ./swaybg.nix
     ./swaync.nix
     ./wlsunset.nix
+    ./iwmenu.nix
+    ./pwmenu.nix
+    ./bzmenu.nix
   ];
 }
