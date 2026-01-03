@@ -57,10 +57,6 @@ in
     };
   };
 
-  wayland.windowManager.mango = {
-    enable = true;
-  };
-
   xdg.configFile."mango" = {
     source = mangoDir;
     recursive = true;

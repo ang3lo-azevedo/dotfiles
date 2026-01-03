@@ -115,6 +115,9 @@
     # Perfect Dark Theme
     heygourab.perfect-dark-theme
 
+    # PlatformIO IDE
+    platformio.platformio-ide
+
     # PowerShell
     ms-vscode.powershell
 
