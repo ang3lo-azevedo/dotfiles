@@ -68,11 +68,13 @@
   # Forbid changing user settings outside of NixOS configuration.
   users.mutableUsers = false;
 
+  # Enable firmware loading for all devices
   hardware.enableAllFirmware = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable PCSC daemon for smart card readers
   services.pcscd.enable = true;
 
   # List packages installed in system profile.
