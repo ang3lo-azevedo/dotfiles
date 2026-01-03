@@ -13,6 +13,9 @@
   nixpkgs.overlays = [ 
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
+    (final: prev: {
+      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { };
+    })
   ];
 
   nixpkgs.config.allowUnfree = true;

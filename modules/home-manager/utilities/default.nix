@@ -10,6 +10,7 @@
     ./fastfetch.nix
     ./pavucontrol.nix
     ./nautilus.nix
+    ./trakt-scrobbler.nix
   ];
 
   home.packages = with pkgs; [
