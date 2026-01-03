@@ -185,5 +185,16 @@
 
       # NixOS configuration for server-angelo
       nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
+
+      # Standalone Home Manager configuration
+      homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix mpv-config trakt-scrobbler-src;
+        };
+        modules = [
+          ./home/ang3lo/home.nix
+        ];
+      };
     };
 }
