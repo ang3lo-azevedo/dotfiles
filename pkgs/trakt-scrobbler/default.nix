@@ -1,6 +1,7 @@
 { lib
 , python3Packages
 , fetchFromGitHub
+, src
 }:
 
 let
@@ -22,15 +23,10 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "trakt-scrobbler";
-  version = "1.7.2";
+  version = "1.7.2-unstable";
   format = "pyproject";
 
-  src = fetchFromGitHub {
-    owner = "iamkroot";
-    repo = "trakt-scrobbler";
-    rev = "v${version}";
-    sha256 = "009n7ams4jmz6v32d24cc601l5wwin5rp205gxwghcfyp9jlw2x8";
-  };
+  inherit src;
 
   nativeBuildInputs = [
     python3Packages.poetry-core

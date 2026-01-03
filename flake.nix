@@ -75,6 +75,12 @@
       url = "github:ang3lo-azevedo/mpv";
       flake = false;
     };
+
+    # Trakt Scrobbler
+    trakt-scrobbler-src = {
+      url = "github:iamkroot/trakt-scrobbler";
+      flake = false;
+    };
   };
 
   outputs =
@@ -89,6 +95,7 @@
     , nix-vscode-extensions
     , spicetify-nix
     , mpv-config
+    , trakt-scrobbler-src
     , ...
     }@inputs:
     let
@@ -144,8 +151,7 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix;
-              inherit mpv-config;
+              inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix mpv-config trakt-scrobbler-src;
             };
           }
 

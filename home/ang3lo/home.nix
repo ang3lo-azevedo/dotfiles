@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, trakt-scrobbler-src, ... }:
 {
   home.username = "ang3lo";
   home.homeDirectory = "/home/ang3lo";
@@ -14,7 +14,7 @@
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
     (final: prev: {
-      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { };
+      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
     })
   ];
 
