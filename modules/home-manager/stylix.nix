@@ -11,6 +11,29 @@
     targets.vscode.enable = false;
     targets.nixcord.enable = false;
 
+    fonts = {
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+
+      sansSerif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
+      };
+
+      monospace = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans Mono";
+      };
+
+      emoji = {
+        package = pkgs.noto-fonts-color-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
+
+    # Custom base16 color scheme
     base16Scheme = {
       base00 = "000000"; # Default Background
       base01 = "111111"; # Lighter Background (Used for status bars, line number and folding marks)

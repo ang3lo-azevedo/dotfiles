@@ -1,7 +1,6 @@
-{ pkgs, ... }:
 {
   imports = [
-    ./zsh.nix
+    ./zsh
     ./ghostty.nix
     ./nixcord.nix
     ./spicetify.nix

@@ -60,7 +60,11 @@
     # Controls whether the command center shows a menu for actions to control chat (requires `window.commandCenter`).
     "chat.commandCenter.enabled" = false;
 
+    # Nix
+	  # Use LSP instead of nix-instantiate and the formatter configured via `nix.formatterPath`.
     "nix.enableLanguageServer" = true; # Enable LSP.
+
+    # Location of the nix language server command.
     "nix.serverPath" = "nil"; # The path to the LSP server executable.
 
     # Uncomment these to tweak settings.
@@ -69,6 +73,9 @@
     #     "formatting": { "command": ["nixfmt"] }
     #   }
     # }
+
+    # Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
+	  "explorer.confirmDragAndDrop" = false;
   };
 }
 
