@@ -1,3 +1,0 @@
-{
-  programs.swayidle.enable = true; 
-}
