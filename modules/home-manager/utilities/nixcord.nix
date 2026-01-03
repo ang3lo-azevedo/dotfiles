@@ -7,7 +7,7 @@
     equicord
   ]; */
   programs.nixcord = {
-    enable = false;
+    enable = true;
     equibop.enable = true;
     config = {
       autoUpdate = true;
