@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    nautilus 
+    nautilus
+    adwaita-icon-theme
   ];
 }
