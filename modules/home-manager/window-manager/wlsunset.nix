@@ -1,9 +1,3 @@
 {
-  pkgs,
-  ...
-}:
-{
-  home.packages = with pkgs; [
-    wlsunset
-  ];
+  programs.wlsunset.enable = true; 
 }
