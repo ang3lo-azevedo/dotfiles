@@ -51,9 +51,9 @@ CURRENT_IDLE_STATUS=$(get_idle_status)
 save_session() {
     local action="$1"
     
-    if [ -x ~/.config/niri/scripts/save-session.sh ]; then
+    if [ -x ~/.config/mango/scripts/save-session.sh ]; then
         echo "Saving session before $action..."
-        if ~/.config/niri/scripts/save-session.sh; then
+        if ~/.config/mango/scripts/save-session.sh; then
             notify-send "Session Saved" "Current session saved before $action" --expire-time=2000
             sleep 0.5
             return 0
@@ -104,9 +104,9 @@ case $SELECTION in
 	*"Log Out")
 		save_session "logout"
 		
-		# Try Niri first, then fallback to other methods
-		if command -v niri >/dev/null 2>&1 && pgrep -f "niri --session" >/dev/null 2>&1; then
-			niri msg action quit
+		# Try Mango first, then fallback to other methods
+		if command -v mmsg >/dev/null 2>&1; then
+			mmsg -d quit
 		elif [ -n "$XDG_SESSION_ID" ]; then
 			loginctl terminate-session "$XDG_SESSION_ID"
 		else
