@@ -34,6 +34,7 @@
       la = "eza -la";
       ls = "eza";
       cat = "bat";
+      y = "yazi";
     };
   };
 }
