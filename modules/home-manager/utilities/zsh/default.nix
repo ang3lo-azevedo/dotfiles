@@ -1,11 +1,11 @@
 {
   imports = [
-    ./bat.nix
-    ./direnv.nix
-    ./eza.nix
-    ./fzf.nix
-    ./starship.nix
-    ./zoxide.nix
+    ./bat.nix      # A cat clone with syntax highlighting
+    ./direnv.nix   # Per-directory environment variables
+    ./eza.nix      # A modern replacement for ls
+    ./fzf.nix      # Command-line fuzzy finder
+    ./starship.nix # Customizable shell prompt
+    ./zoxide.nix   # Smarter cd command
   ];
 
   programs.zsh = {
@@ -30,8 +30,9 @@
       update = "nix flake update";
       upgrade = "nix flake update && rebuild";
       
-      ll = "ls -l";
-      la = "ls -la";
+      ll = "eza -l";
+      la = "eza -la";
+      ls = "eza";
       cat = "bat";
     };
   };
