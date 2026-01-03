@@ -1,6 +1,6 @@
 {
   users.users.ang3lo = {
-      extraGroups = [ "nordvpn" ];
+    extraGroups = [ "nordvpn" ];
   };
 
   services.nordvpn = {
