@@ -12,13 +12,13 @@
 
     fonts = {
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        package = pkgs.nerd-fonts.jetbrains-serif;
+        name = "JetBrainsSerif Nerd Font Serif";
       };
 
       sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
+        package = pkgs.nerd-fonts.jetbrains-sans;
+        name = "JetBrainsSans Nerd Font Sans";
       };
 
       monospace = {
