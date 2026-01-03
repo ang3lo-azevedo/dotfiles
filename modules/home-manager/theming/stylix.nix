@@ -12,13 +12,13 @@
 
     fonts = {
       serif = {
-        package = pkgs.libre-baskerville;
-        name = "Libre Baskerville";
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
       };
 
       sansSerif = {
-        package = pkgs.cantarell-fonts;
-        name = "Cantarell";
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
       };
 
       monospace = {
