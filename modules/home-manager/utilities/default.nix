@@ -10,5 +10,6 @@
     ./pavucontrol.nix
     ./nautilus.nix
     ./trakt-scrobbler.nix
+    ./yazi.nix
   ];
 }
