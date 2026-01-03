@@ -1,7 +1,7 @@
 { lib, ... }:
 let
   # Path (relative to this file) to the repo directory containing swaync configs
-  swayncDir = ../../../home/ang3lo/.config/swaync;
+  swayncDir = ../../../../home/ang3lo/.config/swaync;
 in
 {
   services.swaync.enable = true;
