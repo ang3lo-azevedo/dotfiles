@@ -76,6 +76,12 @@
 
     # Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
 	  "explorer.confirmDragAndDrop" = false;
+
+    # Controls the font family.
+    "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
+
+    # Controls the font family of the terminal. Defaults to `editor.fontFamily`'s value.
+    "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
   };
 }
 
