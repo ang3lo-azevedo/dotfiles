@@ -25,4 +25,14 @@
       };
     };
   };
+
+  # Fix the .desktop entry for Equibop
+  xdg.desktopEntries.equibop = {
+    name = "Equibop";
+    genericName = "Internet Messenger";
+    exec = "equibop";
+    icon = "discord";
+    type = "Application";
+    categories = [ "Network" "InstantMessaging" ];
+  };
 }
