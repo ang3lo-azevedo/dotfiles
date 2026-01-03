@@ -3,8 +3,11 @@
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];
+  /* home.packages = with inputs.nixpkgs; [
+    equicord
+  ]; */
   programs.nixcord = {
-    enable = true;
+    enable = false;
     equibop.enable = true;
     config = {
       autoUpdate = true;

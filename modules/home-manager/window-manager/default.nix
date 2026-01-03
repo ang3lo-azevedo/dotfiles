@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   imports = [
     ./mangowc.nix
@@ -10,5 +9,8 @@
     ./iwmenu.nix
     ./pwmenu.nix
     ./bzmenu.nix
+    ./swayidle.nix
+    ./swaylock.nix
+    ./wl-clipboard.nix
   ];
 }
