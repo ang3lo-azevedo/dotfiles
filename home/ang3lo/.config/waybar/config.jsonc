@@ -115,7 +115,7 @@
         },
         "format-muted": "\uf026",
         "tooltip-format": "{node_name} ({volume}%)",
-        //"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "pwmenu -l fuzzel"
     },
 
