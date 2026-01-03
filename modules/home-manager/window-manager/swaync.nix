@@ -9,7 +9,8 @@ in
 
   # Use lib.mkForce so these home-manager `xdg.configFile` entries have
   # priority over other module definitions and avoid conflicting values.
-  xdg.configFile."swaync/config.json" = lib.mkForce { source = "${swayncDir}/config.json"; };
-  xdg.configFile."swaync/style.css".source = "${swayncDir}/style.css";
-  xdg.configFile."swaync/widgets.css".source = "${swayncDir}/widgets.css";
+  xdg.configFile."swaync" = lib.mkForce {
+    source = swayncDir;
+    recursive = true;
+  };
 }
