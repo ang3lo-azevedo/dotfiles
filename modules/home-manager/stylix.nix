@@ -11,7 +11,7 @@
     targets.nixcord.colors.enable = false;
 
     fonts = {
-      serif = {
+      /* serif = {
         package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
       };
@@ -19,7 +19,7 @@
       sansSerif = {
         package = pkgs.nerd-fonts.jetbrains-mono;
         name = "JetBrainsMono Nerd Font";
-      };
+      }; */
 
       monospace = {
         package = pkgs.nerd-fonts.jetbrains-mono;
