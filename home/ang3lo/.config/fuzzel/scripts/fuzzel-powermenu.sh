@@ -184,11 +184,11 @@ case $SELECTION in
 		systemctl poweroff;;
 	*"Tools Menu"*)
 		# Show tools submenu
-		TOOLS_SELECTION="$(printf "\uf1de Edit Niri Config\n\uf021 Restart Components\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 3 -p "> ")"
+		TOOLS_SELECTION="$(printf "\uf1de Change Nix Config\n\uf021 Restart Components\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 3 -p "> ")"
 		case $TOOLS_SELECTION in
-			*"Edit Niri Config"*)
-				# Open Niri config.kdl in VS Code with dotfiles workspace
-				code ~/.config ~/.config/niri/config.kdl
+			*"Change Nix Config"*)
+				# Open Nix config in VS Code
+				code ~/nix-config
 				;;
 			*"Restart Components"*)
 				# Show component restart submenu
