@@ -88,8 +88,8 @@
 
     "custom/wlsunset":{
         "interval": "once",
-        "exec": "if pgrep wlsunset >/dev/null 2>&1; then stdbuf -oL printf '{\"alt\": \"on\"}'; else stdbuf -oL printf '{\"alt\": \"off\"}'; fi",
-        "on-click": "sh ~/.config/waybar/scripts/wlsunset.sh",
+        "exec": "if systemctl --user is-active --quiet wlsunset; then echo '{\"alt\": \"on\"}'; else echo '{\"alt\": \"off\"}'; fi",
+        "on-click": "if systemctl --user is-active --quiet wlsunset; then systemctl --user stop wlsunset; else systemctl --user start wlsunset; fi; pkill -RTMIN+1 waybar",
         "signal": 1,
         "return-type": "json",
         "format": "{icon}",
