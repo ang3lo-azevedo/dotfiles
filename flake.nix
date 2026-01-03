@@ -84,7 +84,7 @@
 
     # NordVPN client for NixOS/Home Manager
     nordvpn-flake = {
-      url = "github:connerohnesorge/nordvpn-flake";
+      url = "github:scouckel/nordvpn-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -170,7 +170,7 @@
           stylix.nixosModules.stylix
 
           # NordVPN client
-          nordvpn-flake.nixosModules.default
+          nordvpn-flake.nixosModules.nordvpn-flake
         ];
       };
 
