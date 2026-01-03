@@ -1,3 +1,0 @@
-{
-  programs.wlsunset.enable = true; 
-}
