@@ -2,8 +2,8 @@
 
 # Waybar wlsunset toggle script
 
-if pgrep wlsunset >/dev/null 2>&1; then
-    killall -9 wlsunset >/dev/null 2>&1
+if pgrep -x wlsunset >/dev/null 2>&1; then
+    pkill -x wlsunset >/dev/null 2>&1
 else
     RETRIES=30
     counter=0

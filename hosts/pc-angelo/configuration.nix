@@ -19,6 +19,7 @@
 
   # Enable the Ly display manager
   services.displayManager.ly.enable = true;
+  security.pam.services.ly.enableKwallet = true;
 
   # Enable Plymouth for a nice boot splash screen
   boot.plymouth = {
