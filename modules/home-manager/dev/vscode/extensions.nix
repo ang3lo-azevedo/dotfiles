@@ -25,65 +25,151 @@
     # Container Tools
     ms-azuretools.vscode-containers
 
-    alexandre-lavoie.vs-ctf
-    clemenspeters.format-json
-    emilast.logfilehighlighter
-    frinkr.pdf
-    fwcd.kotlin
-    george-alisson.html-preview-vscode
-    github.vscode-github-actions
-    golang.go
-    hashicorp.terraform
-    heygourab.perfect-dark-theme
-    james-yu.latex-workshop
-    
-    jnoortheen.nix-ide
-    kdl-org.kdl
-    leojhonsong.latex-extension-pack
-    mathematic.vscode-pdf
-    mechatroner.rainbow-csv
-    mkhl.direnv
-    ms-dotnettools.vscode-dotnet-modernize
-    ms-python.debugpy
-    ms-python.python
-    ms-python.vscode-pylance
-    ms-python.vscode-python-envs
-    ms-vscode-remote.remote-containers
-    ms-vscode-remote.remote-ssh
-    ms-vscode-remote.remote-ssh-edit
-    ms-vscode.hexeditor
-    ms-vscode.makefile-tools
-    ms-vscode.powershell
-    ms-vscode.remote-explorer
-    mtxr.sqltools
-    naco-siren.gradle-language
-    pinage404.nix-extension-pack
-    pkief.material-icon-theme
-    #platformio.platformio-ide
-    redhat.java
-    richardwillis.vscode-gradle-extension-pack
-    shd101wyy.markdown-preview-enhanced
-    slenderman00.vsirc
-    #snyk-security.snyk-vulnerability-scanner
-    tamasfe.even-better-toml
-    tomoki1207.pdf
-    valentjn.vscode-ltex
-    vmware.vscode-boot-dev-pack
-    vmware.vscode-spring-boot
-    vscjava.migrate-java-to-azure
-    vscjava.vscode-gradle
+    # Debugger for Java
     vscjava.vscode-java-debug
-    vscjava.vscode-java-dependency
-    vscjava.vscode-java-pack
-    vscjava.vscode-java-test
-    vscjava.vscode-java-upgrade
-    vscjava.vscode-maven
-    vscjava.vscode-spring-boot-dashboard
-    vscjava.vscode-spring-initializr
-    vscodevim.vim
 
+    # Dev Containers
+    ms-vscode-remote.remote-containers
+
+    # Even Better TOML
+    tamasfe.even-better-toml
+
+    # Extension Pack for Java
+    vscjava.vscode-java-pack
+
+    # GitHub Actions
+    github.vscode-github-actions
+
+    # GitHub Copilot Chat
+    github.copilot-chat
+
+    # Go
+    golang.go
+
+    # Gradle Extension Pack
+    richardwillis.vscode-gradle-extension-pack
+
+    # Gradle for Java
+    vscjava.vscode-gradle
+
+    # Gradle Language Support
+    naco-siren.gradle-language
+
+    # HashiCorp Terraform
+    hashicorp.terraform
+
+    # Hex Editor
+    ms-vscode.hexeditor
+
+    # HTML Preview
+    george-alisson.html-preview-vscode
+
+    # JSON formatter
+    clemenspeters.format-json
+
+    # KDL
+    kdl-org.kdl
+
+    # Kotlin
+    fwcd.kotlin
+
+    # Language Support for Java(TM) by Red Hat
+    redhat.java
+
+    # LaTeX Extension Pack
+    leojhonsong.latex-extension-pack
+
+    # LaTeX Workshop
+    james-yu.latex-workshop
+
+    # Log File Highlighter
+    emilast.logfilehighlighter
+
+    # LTeX - LanguageTool grammar/spell checking
+    valentjn.vscode-ltex
+
+    # Makefile Tools
+    ms-vscode.makefile-tools
+
+    # Markdown Preview Enhanced
+    shd101wyy.markdown-preview-enhanced
+
+    # Material Icon Theme
+    pkief.material-icon-theme
+
+    # Maven for Java
+    vscjava.vscode-maven
+
+    # Nix IDE
+    jnoortheen.nix-ide
+
+    # Path Intellisense
     christian-kohler.path-intellisense
 
+    # pdf
+    frinkr.pdf
+
+    # PDF Viewer
+    mathematic.vscode-pdf
+
+    # Perfect Dark Theme
+    heygourab.perfect-dark-theme
+
+    # PowerShell
+    ms-vscode.powershell
+
+    # Project Manager for Java
+    vscjava.vscode-java-dependency
+
+    # Pylance
+    ms-python.vscode-pylance
+
+    # Python  
+    ms-python.python
+
+    # Python Debugger
+    ms-python.debugpy
+
+    # Rainbow CSV
+    mechatroner.rainbow-csv
+
+    # Remote - SSH
+    ms-vscode-remote.remote-ssh
+
+    # Remote - SSH: Editing Configuration Files
+    ms-vscode-remote.remote-ssh-edit
+
+    # Remote Explorer
+    ms-vscode.remote-explorer
+
+    # Shell Format
     foxundermoon.shell-format
+
+    # Spring Boot Dashboard
+    vscjava.vscode-spring-boot-dashboard
+
+    # Spring Boot Extension Pack
+    vmware.vscode-boot-dev-pack
+
+    # Spring Boot Tools
+    vmware.vscode-spring-boot
+
+    # Spring Initializr Java Support
+    vscjava.vscode-spring-initializr
+
+    # SQLTools
+    mtxr.sqltools
+
+    # Test Runner for Java
+    vscjava.vscode-java-test
+
+    # Vim
+    vscodevim.vim
+
+    # VS CTF
+    alexandre-lavoie.vs-ctf
+    
+    # VSCode PDF
+    tomoki1207.pdf
   ];
 }
