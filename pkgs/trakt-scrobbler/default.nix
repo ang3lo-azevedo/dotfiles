@@ -22,7 +22,7 @@ let
     propagatedBuildInputs = [ python3Packages.clikit ];
   };
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "trakt-scrobbler";
   version = "1.7.2-unstable";
   format = "pyproject";
@@ -53,6 +53,6 @@ python3Packages.buildPythonApplication rec {
     description = "Trakt scrobbler for MPV, VLC, and other media players";
     homepage = "https://github.com/iamkroot/trakt-scrobbler";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
 }
