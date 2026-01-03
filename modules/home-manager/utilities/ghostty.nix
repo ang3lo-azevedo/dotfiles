@@ -7,7 +7,6 @@ in
     enable = true;
     settings = {
       font-family = "JetBrainsMono Nerd Font";
-      theme = "catppuccin-mocha";
     };
   };
 }
