@@ -25,6 +25,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Input for Impermanence
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Stylix (styling tool)
     stylix = {
       url = "github:nix-community/stylix";
@@ -34,7 +40,13 @@
     # Apple Emoji
     apple-emoji = {
       url = "github:samuelngs/apple-emoji-linux";
-      inputs.nixpkgs.follows = "nixpkgs"; 
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Libfprint fork for EgisTec support
+    libfprint-src = {
+      url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
+      flake = false;
     };
 
     # Input for MangoWC window compositor
@@ -93,39 +105,34 @@
       url = "github:scouckel/nordvpn-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Libfprint fork for EgisTec support
-    libfprint-src = {
-      url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
-      flake = false;
-    };
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , disko
-    , agenix
-    , home-manager
-    , stylix
-    , mango
-    , zen-browser
-    , nix-vscode-extensions
-    , spicetify-nix
-    , mpv-config
-    , trakt-scrobbler-src
-    , nordvpn-flake
-    , ...
+    {
+      self,
+      nixpkgs,
+      disko,
+      agenix,
+      home-manager,
+      stylix,
+      mango,
+      zen-browser,
+      nix-vscode-extensions,
+      spicetify-nix,
+      mpv-config,
+      trakt-scrobbler-src,
+      nordvpn-flake,
+      ...
     }@inputs:
     let
       lib = nixpkgs.lib;
 
       # Helper function to generate a NixOS system configuration
       mkNixosSystem =
-        { system
-        , modules
-        , specialArgs
-        ,
+        {
+          system,
+          modules,
+          specialArgs,
         }:
         nixpkgs.lib.nixosSystem {
           inherit system modules specialArgs;
@@ -135,9 +142,9 @@
 
       # Helper function to generate a reusable host configuration
       mkHostConfig =
-        { hostname
-        , modules ? [ ]
-        ,
+        {
+          hostname,
+          modules ? [ ],
         }:
         {
           system = "x86_64-linux";
@@ -145,7 +152,9 @@
           modules = [
             { networking.hostName = hostname; }
           ]
-          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (import ./hosts/${hostname}/disko.nix))
+          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (
+            import ./hosts/${hostname}/disko.nix
+          ))
           ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
           ++ [
             ./hosts/${hostname}/configuration.nix
@@ -168,7 +177,15 @@
             home-manager.backupFileExtension = "backup";
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix mpv-config trakt-scrobbler-src;
+              inherit
+                inputs
+                mango
+                zen-browser
+                nix-vscode-extensions
+                spicetify-nix
+                mpv-config
+                trakt-scrobbler-src
+                ;
             };
           }
 
@@ -202,7 +219,15 @@
       homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs mango zen-browser nix-vscode-extensions spicetify-nix mpv-config trakt-scrobbler-src;
+          inherit
+            inputs
+            mango
+            zen-browser
+            nix-vscode-extensions
+            spicetify-nix
+            mpv-config
+            trakt-scrobbler-src
+            ;
         };
         modules = [
           ./home/ang3lo/home.nix

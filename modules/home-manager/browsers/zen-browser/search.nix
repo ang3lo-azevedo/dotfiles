@@ -4,7 +4,7 @@
   default = "SearXNG";
   engines = {
     "SearXNG" = {
-      urls = [{ template = "https://searxng.pi.at.eu.org/search?q={searchTerms}"; }];
+      urls = [ { template = "https://searxng.pi.at.eu.org/search?q={searchTerms}"; } ];
       icon = "https://searxng.pi.at.eu.org/favicon.ico";
       updateInterval = 24 * 60 * 60 * 1000; # every day
       definedAliases = [ "@sx" ];
@@ -26,7 +26,7 @@
       ];
 
       icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-      definedAliases = ["@nx"]; # Keep in mind that aliases defined here only work if they start with "@"
+      definedAliases = [ "@nx" ]; # Keep in mind that aliases defined here only work if they start with "@"
     };
   };
 }

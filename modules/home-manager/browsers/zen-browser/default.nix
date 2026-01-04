@@ -18,6 +18,7 @@ in
       extensions.force = true;
       settings = import ./settings.nix;
       search = import ./search.nix { inherit pkgs; };
-    } // import ./pins.nix;
+    }
+    // import ./pins.nix;
   };
 }
