@@ -3,6 +3,7 @@
   imports = [
     ./configuration.nix
     ./gaming.nix
+    #./impermanence.nix
     ./utilities
     ./virtualisation.nix
     ./dev

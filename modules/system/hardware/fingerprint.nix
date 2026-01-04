@@ -14,7 +14,7 @@
     (final: prev: {
       libfprint = prev.libfprint.overrideAttrs (old: {
         src = inputs.libfprint-src;
-        
+
         # Add support for 1c7a:05a5 if not present
         postPatch = ''
           # Remove tests and examples from build to avoid configuration errors
@@ -29,7 +29,7 @@
         # Disable tests
         doCheck = false;
         doInstallCheck = false;
-        
+
         # Remove invalid meson option
         mesonFlags = lib.remove "-Dtests=false" old.mesonFlags;
       });

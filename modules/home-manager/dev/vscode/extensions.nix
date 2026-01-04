@@ -127,7 +127,7 @@
     # Pylance
     ms-python.vscode-pylance
 
-    # Python  
+    # Python
     ms-python.python
 
     # Python Debugger
@@ -171,7 +171,7 @@
 
     # VS CTF
     alexandre-lavoie.vs-ctf
-    
+
     # VSCode PDF
     tomoki1207.pdf
   ];
