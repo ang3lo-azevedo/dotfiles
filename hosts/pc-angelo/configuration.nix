@@ -7,7 +7,6 @@
     ../../modules/system/bluetooth.nix
     ../../modules/system/networking/iwd.nix
     ../../modules/system/networking/networkmanager.nix
-    ../../modules/system/nerd-fonts.nix
     ../../modules/system/services
     ../../modules/system/display-manager
     ../../modules/system/hardware/fingerprint.nix
