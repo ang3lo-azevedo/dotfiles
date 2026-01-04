@@ -5,16 +5,18 @@
 
     settings = {
       "adnauseam@rednoise.org".settings = {
-        /* userSettings = {
-          firstInstall = true;
-          hidingAds = true;
-          clickingAds = true;
-          blockingMalware = true;
-          disableHidingForDNT = false;
-          disableClickingForDNT = true;
-        }; */
+        userSettings = {
+          "firstInstall" = false;
+          "hidingAds" = true;
+          "clickingAds" = true;
+          "blockingMalware" = true;
+          "disableClickingForDNT" = true;
+          "webrtcIPAddressHidden" = true;
+        };
         selectedFilterLists = [
           "user-filters"
+          "adnauseam-filters"
+          "eff-dnt-whitelist"
           "ublock-filters"
           "ublock-badware"
           "ublock-privacy"
@@ -24,7 +26,10 @@
           "easyprivacy"
           "urlhaus-1"
           "plowe-0"
-          "fanboy-ai-suggestions"
+          "fanboy-cookiemonster"
+          "ublock-cookies-easylist"
+          "adguard-cookies"
+          "ublock-cookies-adguard"
           "easylist-chat"
           "easylist-newsletters"
           "easylist-notifications"
