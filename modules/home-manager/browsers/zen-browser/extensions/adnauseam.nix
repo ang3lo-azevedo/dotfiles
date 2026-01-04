@@ -2,7 +2,6 @@
 {
   programs.zen-browser.profiles.${profileName}.extensions = {
     packages = [ pkgs.firefoxAddons.adnauseam ];
-
     settings = {
       "adnauseam@rednoise.org".settings = {
         userSettings = {
@@ -10,7 +9,6 @@
           "hidingAds" = true;
           "clickingAds" = true;
           "blockingMalware" = true;
-          "disableClickingForDNT" = true;
           "webrtcIPAddressHidden" = true;
         };
         selectedFilterLists = [
@@ -42,6 +40,5 @@
         ];
       };
     };
-
   };
 }

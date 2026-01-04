@@ -3,6 +3,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/hardware/fingerprint.nix
+    ../../modules/system/hardware/egpu.nix
     ../../modules/system
     ../../modules/system/services
     ../../modules/system/hardware/bluetooth.nix
