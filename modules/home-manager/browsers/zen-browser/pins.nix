@@ -33,6 +33,7 @@ let
       position = 103;
     };
 
+    # University
     # Folders
     "Masters" = {
       id = "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d";
@@ -41,6 +42,16 @@ let
       isFolderCollapsed = true;
       editedTitle = true;
       position = 104;
+    };
+
+
+    # Space
+    # Pins
+    "Stremio" = {
+      id = "6e428f91-3c6f-5d7g-9e3h-1f2g3h4i5j6k";
+      url = "https://web.stremio.com/";
+      workspace = spaces.Space.id;
+      position = 105;
     };
   };
 in
