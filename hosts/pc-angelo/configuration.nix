@@ -1,16 +1,20 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/hardware/fingerprint.nix
     ../../modules/system/hardware/egpu.nix
-    ../../modules/system/hardware/openrgb.nix
     ../../modules/system
     ../../modules/system/services
     ../../modules/system/hardware/bluetooth.nix
     ../../modules/system/networking/iwd.nix
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/display-manager
+  ];
+
+  environment.systemPackages = with pkgs; [
+    wineWow64Packages.waylandFull
+    winetricks
   ];
 
   # Ensure the system knows to open the LUKS container
