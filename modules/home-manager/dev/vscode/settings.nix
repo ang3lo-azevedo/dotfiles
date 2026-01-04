@@ -62,7 +62,7 @@
     "chat.commandCenter.enabled" = false;
 
     # Nix
-	  # Use LSP instead of nix-instantiate and the formatter configured via `nix.formatterPath`.
+    # Use LSP instead of nix-instantiate and the formatter configured via `nix.formatterPath`.
     "nix.enableLanguageServer" = true; # Enable LSP.
 
     # Location of the nix language server command.
@@ -76,7 +76,7 @@
     # }
 
     # Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
-	  "explorer.confirmDragAndDrop" = false;
+    "explorer.confirmDragAndDrop" = false;
 
     # Controls the font family.
     #"editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Droid Sans Mono', 'monospace', monospace";
@@ -85,7 +85,6 @@
     #"terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
 
     # Controls whether the Explorer should ask for confirmation when pasting native files and folders.
-	  "explorer.confirmPasteNative" = false;
+    "explorer.confirmPasteNative" = false;
   };
 }
-

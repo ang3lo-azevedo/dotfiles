@@ -44,7 +44,6 @@ let
       position = 104;
     };
 
-
     # Space
     # Pins
     "Stremio" = {
