@@ -10,6 +10,7 @@
     ../../modules/system/nerd-fonts.nix
     ../../modules/system/services
     ../../modules/system/display-manager
+    ../../modules/system/hardware/fingerprint.nix
   ];
 
   # Ensure the system knows to open the LUKS container
