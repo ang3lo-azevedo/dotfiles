@@ -356,6 +356,25 @@
         "type": "github"
       }
     },
+    "libfprint-src": {
+      "flake": false,
+      "locked": {
+        "host": "gitlab.freedesktop.org",
+        "lastModified": 1754068847,
+        "narHash": "sha256-/uXbOgQ4uxPNY5001zZDSHN7J3QMSDx726U4XRnPER4=",
+        "owner": "joshuagrisham",
+        "repo": "libfprint",
+        "rev": "123828eb7ba8fa26ee4fb0028389b926206900be",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "gitlab.freedesktop.org",
+        "owner": "joshuagrisham",
+        "ref": "egismoc-sdcp",
+        "repo": "libfprint",
+        "type": "gitlab"
+      }
+    },
     "mango": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -550,6 +569,7 @@
         "disko": "disko",
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager_2",
+        "libfprint-src": "libfprint-src",
         "mango": "mango",
         "mpv-config": "mpv-config",
         "nix-vscode-extensions": "nix-vscode-extensions",

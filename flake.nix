@@ -93,6 +93,12 @@
       url = "github:scouckel/nordvpn-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Libfprint fork for EgisTec support
+    libfprint-src = {
+      url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
+      flake = false;
+    };
   };
 
   outputs =
