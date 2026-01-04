@@ -15,7 +15,7 @@ in
   programs.zen-browser = {
     enable = true;
     profiles.${profileName} = {
-      extensions.force = true;
+      #extensions.force = true;
       settings = import ./settings.nix;
       search = import ./search.nix { inherit pkgs; };
     }
