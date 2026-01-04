@@ -60,6 +60,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "dialout"
     ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = config.age.secrets.user_password.path;
     #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
@@ -108,6 +109,9 @@
   # };
 
   # List services that you want to enable:
+
+  # Enable Polkit
+  security.polkit.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

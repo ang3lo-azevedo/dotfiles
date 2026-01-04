@@ -5,5 +5,6 @@
     ./gaming.nix
     ./utilities
     ./virtualisation.nix
+    ./dev
   ];
 }
