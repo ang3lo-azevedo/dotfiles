@@ -14,15 +14,15 @@ let
   pins = {
 
     # Essentials
-    "WhatsApp" = {
-      id = "8b316d70-2b5e-4c46-bf42-f4e82d635154";
-      url = "https://web.whatsapp.com/";
-      isEssential = true;
-      position = 101;
-    };
     "Mailbox" = {
       id = "9c427e81-3c6f-5d7g-9e3h-1f2g3h4i5j6k";
       url = "https://app.mailbox.org";
+      isEssential = true;
+      position = 101;
+    };
+    "WhatsApp" = {
+      id = "8b316d70-2b5e-4c46-bf42-f4e82d635154";
+      url = "https://web.whatsapp.com/";
       isEssential = true;
       position = 102;
     };
@@ -32,7 +32,6 @@ let
       isEssential = true;
       position = 103;
     };
-
 
     # Folders
     "Masters" = {
