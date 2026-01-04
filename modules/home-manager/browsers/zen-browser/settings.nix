@@ -30,7 +30,7 @@
   };
 
   # optional: without this the addons need to be enabled manually after first install
-  extensions.autoDisableScopes = 0;
+  "extensions.autoDisableScopes" = 0;
 
   # Restore pinned tabs to their pinned URL on startup
   pinned-tab-manager.restore-pinned-tabs-to-pinned-url = true;
