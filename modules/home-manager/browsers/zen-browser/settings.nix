@@ -1,4 +1,6 @@
 {
+  # https://kb.mozillazine.org/About:config_entries
+
   # Enable auto-scroll by middle-clicking
   general.autoScroll = true;
   browser = {
@@ -35,4 +37,10 @@
 
   # Don't use separate default search engines for private windows
   browser.search.separatePrivateDefault = false;
+
+  # Enable search suggestions in the URL bar
+  "browser.search.suggest.enabled" = true;
+
+  # Enable search suggestions in private windows
+  "browser.search.suggest.enabled.private" = true;
 }
