@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
   profileName = "ang3lo";
 in
@@ -17,6 +17,7 @@ in
     profiles.${profileName} = {
       extensions.force = true;
       settings = import ./settings.nix;
+      search = import ./search.nix { inherit pkgs; };
     } // import ./pins.nix;
   };
 }
