@@ -2,14 +2,13 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/system/hardware/fingerprint.nix
     ../../modules/system
-    ../../modules/system/audio.nix
-    ../../modules/system/bluetooth.nix
+    ../../modules/system/services
+    ../../modules/system/hardware/bluetooth.nix
     ../../modules/system/networking/iwd.nix
     ../../modules/system/networking/networkmanager.nix
-    ../../modules/system/services
     ../../modules/system/display-manager
-    ../../modules/system/hardware/fingerprint.nix
   ];
 
   # Ensure the system knows to open the LUKS container
