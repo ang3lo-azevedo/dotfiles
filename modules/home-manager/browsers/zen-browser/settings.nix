@@ -32,4 +32,7 @@
 
   # Restore pinned tabs to their pinned URL on startup
   pinned-tab-manager.restore-pinned-tabs-to-pinned-url = true;
+
+  # Don't use separate default search engines for private windows
+  browser.search.separatePrivateDefault = false;
 }
