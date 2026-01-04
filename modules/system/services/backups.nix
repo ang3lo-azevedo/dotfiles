@@ -4,6 +4,8 @@
 }:
 
 {
+  # TODO: Fix backups
+
   # Enable btrbk service for automated local Btrfs snapshots
   services.btrbk = {
     instances."btrbk" = {
