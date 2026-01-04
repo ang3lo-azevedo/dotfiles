@@ -6,6 +6,5 @@
     ./utilities
     ./virtualisation.nix
     ./dev
-    ./hardware
   ];
 }
