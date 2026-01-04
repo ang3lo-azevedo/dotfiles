@@ -1,6 +1,8 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 
 {
+  # TODO: Fix impermanence with tmpfs root
+  
   imports = [ inputs.impermanence.nixosModules.impermanence ];
 
   environment.persistence."/persist" = {
@@ -41,7 +43,7 @@
     };
   };
 
-  # Wipe /root subvolume on boot
+  /* # Wipe /root subvolume on boot
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/mapper/pool-root /btrfs_tmp
@@ -66,5 +68,5 @@
     btrfs subvolume create /btrfs_tmp/root
     umount /btrfs_tmp
     rmdir /btrfs_tmp
-  '';
+  ''; */
 }
