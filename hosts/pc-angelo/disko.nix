@@ -80,6 +80,15 @@ in
       };
     };
 
+    /* nodev."/" = {
+      fsType = "tmpfs";
+      mountOptions = [
+        "defaults"
+        "size=2G"
+        "mode=755"
+      ];
+    }; */
+
     # LVM Volume Group and Logical Volumes
     lvm_vg.pool = {
       type = "lvm_vg";
@@ -96,8 +105,10 @@ in
             type = "btrfs";
             extraArgs = [ "-f" ];
             subvolumes = {
+              #"/persist" = {
               "/root" = {
                 mountpoint = "/";
+                #mountpoint = "/persist";
                 mountOptions = [
                   "compress=zstd"
                   "noatime"
@@ -114,13 +125,6 @@ in
                   "noatime"
                 ];
               };
-              /* "/persist" = {
-                mountpoint = "/persist";
-                mountOptions = [
-                  "compress=zstd"
-                  "noatime"
-                ];
-              }; */
             };
           };
         };
