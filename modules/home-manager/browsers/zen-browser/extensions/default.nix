@@ -1,6 +1,5 @@
 {
   imports = [
-    ./adnauseam.nix
     ./violentmonkey.nix
     ./darkreader.nix
     ./bitwarden.nix
@@ -10,8 +9,9 @@
     ./user-agent-switcher.nix
     ./faster-pageload.nix
     ./translate.nix
-    ./foxyproxy.nix
+    ./ublock-origin.nix
     ./clearurls.nix
     ./noptcha.nix
+    ./pwnfox.nix
   ];
 }
