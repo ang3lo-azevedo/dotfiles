@@ -41,7 +41,7 @@ let
 
 in
 {
-  pinsForce = true;
+  #pinsForce = true;
   spacesForce = true;
   containersForce = true;
   pins = processItems allPins 100;
