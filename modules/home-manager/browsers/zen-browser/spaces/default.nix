@@ -17,7 +17,11 @@ let
       lib.flatten (lib.mapAttrsToList process files);
 
   allFiles = findNixFiles ./.;
-  configFiles = builtins.filter (p: p != ./default.nix) allFiles;
+  
+  # Sort files by path length to ensure parents (shorter paths) are processed first
+  sortedFiles = builtins.sort (a: b: builtins.stringLength (toString a) < builtins.stringLength (toString b)) allFiles;
+  
+  configFiles = builtins.filter (p: p != ./default.nix) sortedFiles;
 
   configs = map (f: removeAttrs (import f) ["imports"]) configFiles;
 
@@ -26,12 +30,15 @@ let
   allContainers = builtins.concatLists (map (c: c.containers or []) configs);
 
   processItems = items: startPos:
+    let
+      sortedItems = builtins.sort (a: b: (a.order or 1000) < (b.order or 1000)) items;
+    in
     lib.listToAttrs (lib.imap1 (i: item: {
       name = item.name;
-      value = removeAttrs item ["name"] // {
+      value = removeAttrs item ["name" "order"] // {
         position = startPos + i;
       };
-    }) items);
+    }) sortedItems);
 
   processContainers = items:
     lib.listToAttrs (map (item: {
@@ -41,7 +48,7 @@ let
 
 in
 {
-  #pinsForce = true;
+  pinsForce = true;
   spacesForce = true;
   containersForce = true;
   pins = processItems allPins 100;
