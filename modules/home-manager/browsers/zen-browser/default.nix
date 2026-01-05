@@ -19,6 +19,7 @@ in
       settings = import ./settings.nix;
       search = import ./search.nix { inherit pkgs; };
     }
-    // import ./pins.nix;
+    // import ./spaces { inherit (pkgs) lib; };
+    #spacesForce = true;
   };
 }
