@@ -20,6 +20,5 @@ in
       search = import ./search.nix { inherit pkgs; };
     }
     // import ./spaces { inherit (pkgs) lib; };
-    #spacesForce = true;
   };
 }

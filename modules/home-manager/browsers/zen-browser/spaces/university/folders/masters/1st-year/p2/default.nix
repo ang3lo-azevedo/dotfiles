@@ -5,8 +5,8 @@ in
 {
   pins = [
     {
-      name = "1st Year";
-      id = "b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e";
+      name = "P2";
+      id = "c3d4e5f6-a7b8-1f2a-3b4c-5d6e7f8g9h0i";
       workspace = parentPin.workspace;
       folderParentId = parentPin.id;
       isGroup = true;
