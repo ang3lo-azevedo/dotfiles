@@ -12,7 +12,10 @@
     config = {
       autoUpdate = true;
       plugins = {
+        fakeNitro.enable = true;
+        noNitroUpsell.enable = true;
         questify.enable = true;
+        questCompleter.enable = true;
         spotifyActivityToggle.enable = true;
         spotifyCrack = {
           enable = true;
