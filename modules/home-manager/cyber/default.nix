@@ -4,13 +4,12 @@ let
 in
 {
   home.packages = with pkgs; [
-    gdb
     openvpn
     pwndbg
-    (python3.withPackages (ps: [ ps.pwntools ]))
+    (lib.hiPrio (python3.withPackages (ps: [ ps.pwntools ])))
   ];
 
-  home.file.".gdbinit".text = ''
-    source ${pwndbg}/share/pwndbg/gdbinit.py
-  '';
+  home.shellAliases = {
+    gdb = "${pwndbg}/bin/pwndbg";
+  };
 }
