@@ -539,11 +539,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765345604,
-        "narHash": "sha256-TcFlTX/NT1kxt4kCOiboOl4/MZba335tVOL5He9Nn1g=",
+        "lastModified": 1767767456,
+        "narHash": "sha256-4pvbTFMA3HCPy2BDbrYE7qJ4Gqi4+6sOEnogns1ZdLE=",
         "owner": "scouckel",
         "repo": "nordvpn-flake",
-        "rev": "d8f926f648aabe7504d5d844807f4e81593b0721",
+        "rev": "911ec60100db550bfaf6eced73e3cbb1a5a3e367",
         "type": "github"
       },
       "original": {
