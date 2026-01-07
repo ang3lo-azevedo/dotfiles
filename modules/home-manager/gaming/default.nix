@@ -1,10 +1,16 @@
-{ pkgs, ... }:
 {
   imports = [
+    ./steam.nix
+    ./lutris.nix
     ./vr.nix
   ];
 
-  home.packages = with pkgs; [
-    lutris
-  ];
+  # Enable accelerated graphics
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Enable GameMode for performance optimization
+  programs.gamemode.enable = true;
 }
