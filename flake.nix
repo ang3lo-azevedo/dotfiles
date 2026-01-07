@@ -105,6 +105,12 @@
       url = "github:scouckel/nordvpn-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Pwndbg
+    pwndbg = {
+      url = "github:pwndbg/pwndbg";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
