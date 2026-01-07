@@ -5,7 +5,10 @@
   ];
   programs.nixcord = {
     enable = true;
-    equibop.enable = true;
+    discord = {
+      vencord.enable = false;
+      equicord.enable = true;
+    };
     config = {
       autoUpdate = true;
       plugins = {
@@ -21,15 +24,5 @@
         showHiddenChannels.enable = true;
       };
     };
-  };
-
-  # Fix the .desktop entry for Equibop
-  xdg.desktopEntries.equibop = {
-    name = "Equibop";
-    genericName = "Internet Messenger";
-    exec = "equibop";
-    icon = "discord";
-    type = "Application";
-    categories = [ "Network" "InstantMessaging" ];
   };
 }
