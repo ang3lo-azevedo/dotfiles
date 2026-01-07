@@ -16,9 +16,4 @@
   programs.steam.extraCompatPackages = with pkgs; [
     proton-ge-bin
   ];
-
-  # Add ProtonUp for managing Proton versions
-  environment.systemPackages = with pkgs; [
-    protonup
-  ];
 }

@@ -28,7 +28,7 @@
       rebuild = "sudo nixos-rebuild switch --flake /home/ang3lo/nix-config";
       hmrebuild = "nix run home-manager -- switch --flake /home/ang3lo/nix-config#ang3lo";
       update = "nix flake update";
-      upgrade = "nix flake update && rebuild";
+      upgrade = "sudo nixos-rebuild switch --upgrade --flake /home/ang3lo/nix-config";
       
       ll = "eza -l";
       la = "eza -la";
