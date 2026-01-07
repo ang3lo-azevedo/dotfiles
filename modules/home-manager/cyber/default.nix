@@ -6,7 +6,7 @@ in
   home.packages = with pkgs; [
     openvpn
     pwndbg
-    (lib.hiPrio (python3.withPackages (ps: [ ps.pwntools ])))
+    pwntools
   ];
 
   home.shellAliases = {
