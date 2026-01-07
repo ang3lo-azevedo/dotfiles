@@ -10,6 +10,7 @@
     ./fastfetch.nix
     ./pavucontrol.nix
     ./nautilus.nix
+    ./network-manager-applet.nix
     ./trakt-scrobbler.nix
     ./yazi.nix
   ];

@@ -4,13 +4,11 @@
     packages = [ pkgs.firefoxAddons.adnauseam ];
     settings = {
       "adnauseam@rednoise.org".settings = {
-        userSettings = {
-          "firstInstall" = false;
-          "hidingAds" = true;
-          "clickingAds" = true;
-          "blockingMalware" = true;
-          "webrtcIPAddressHidden" = true;
-        };
+        "userSettings.firstInstall" = false;
+        "userSettings.hidingAds" = true;
+        "userSettings.clickingAds" = true;
+        "userSettings.blockingMalware" = true;
+        "userSettings.webrtcIPAddressHidden" = true;
         selectedFilterLists = [
           "user-filters"
           "adnauseam-filters"
