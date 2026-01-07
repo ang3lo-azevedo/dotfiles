@@ -2,6 +2,7 @@
 {
   imports = [
     ./reduce-disk-usage.nix
+    ./auto-upgrade.nix
   ];
 
   # Bootloader.

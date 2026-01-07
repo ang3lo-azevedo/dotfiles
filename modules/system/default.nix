@@ -2,7 +2,7 @@
   # NixOS configuration modules organized by category
   imports = [
     ./configuration.nix
-    ./gaming.nix
+    ./gaming
     #./impermanence.nix
     ./utilities
     ./virtualisation.nix
