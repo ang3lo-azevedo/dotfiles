@@ -4,6 +4,7 @@
   imports = [
     ./browsers
     ./dev
+    ./cyber
     ./gaming
     ./media
     ./utilities
