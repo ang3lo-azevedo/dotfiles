@@ -4,8 +4,8 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
-    // Display used for xwayland
-    DISPLAY ":0"
+/*     // Display used for xwayland
+    // DISPLAY ":0"
 
     // This is used by Electron applications to determine the platform to wayland
     ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -41,7 +41,7 @@ environment {
     LIBVIRT_DEFAULT_URI "qemu:///system"
 
     // PowerShell shenanigans
-    POWERSHELL_TELEMETRY_OPTOUT "1"
+    POWERSHELL_TELEMETRY_OPTOUT "1" */
 }
 
 // Input device configuration.
@@ -351,7 +351,8 @@ spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1" "&"
 spawn-at-startup "swaybg" "-c" "#000000"
 
 // Top bar with hot-reload
-spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
+//spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
+spawn-at-startup "waybar"
 
 // Notification and notification center daemon with hot-reload
 spawn-at-startup "~/.config/swaync/scripts/start-swaync.sh"
