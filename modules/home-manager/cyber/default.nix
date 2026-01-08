@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ./python.nix
+    ./python-pwntools.nix
   ];
 
   home.packages = with pkgs; [
