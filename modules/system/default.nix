@@ -7,6 +7,5 @@
     ./utilities
     ./virtualisation.nix
     ./dev
-    ./window-manager
   ];
 }
