@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports =
@@ -21,7 +21,8 @@
   boot.kernelParams = [ "xe.force_probe=*" ];
 
   # Required for Btrfs on LVM on LUKS
-  boot.initrd.supportedFilesystems = [ "btrfs" ];
+  # Also add NTFS support
+  boot.initrd.supportedFilesystems = [ "btrfs" "ntfs3" ];
 
   # Enable graphics drivers for Intel integrated GPU
   hardware.graphics = {

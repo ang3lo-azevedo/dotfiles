@@ -72,7 +72,9 @@ in
                 "exec" # Allows Linux to launch the games
                 "umask=000"
                 "nofail"
-                "windows_names" # Prevents Linux from creating files Windows can't read
+                "force"        # Helps if the drive wasn't closed cleanly by Windows
+                "pre silent"  # Adds compatibility for some NTFS edge cases
+                #"windows_names" # Prevents Linux from creating files Windows can't read
               ];
             };
           };
