@@ -3,10 +3,13 @@ let
   pwndbg = inputs.pwndbg.packages.${pkgs.system}.default;
 in
 {
+  imports = [
+    ./python.nix
+  ];
+
   home.packages = with pkgs; [
     openvpn
     pwndbg
-    pwntools
   ];
 
   home.shellAliases = {
