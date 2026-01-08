@@ -53,7 +53,6 @@ in
                 "uid=1000"
                 "gid=100"
                 "nofail"
-                "windows_names"
               ];
             };
           };
@@ -72,9 +71,7 @@ in
                 "exec" # Allows Linux to launch the games
                 "umask=000"
                 "nofail"
-                "force"        # Helps if the drive wasn't closed cleanly by Windows
-                "pre silent"  # Adds compatibility for some NTFS edge cases
-                #"windows_names" # Prevents Linux from creating files Windows can't read
+                "prealloc" # Best performance for ntfs3
               ];
             };
           };
