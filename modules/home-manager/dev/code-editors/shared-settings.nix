@@ -1,6 +1,9 @@
-{ lib, ... }:
+# Shared settings for VSCode and Cursor
+# This file defines the settings that both editors will use
+
 {
-  programs.vscode.profiles.default.userSettings = {
+  # Returns a set of shared settings that can be used by both VSCode and Cursor
+  sharedSettings = {
     # Controls [auto save](https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save) of editors that have unsaved changes.
     #  - off: An editor with changes is never automatically saved.
     #  - afterDelay: An editor with changes is automatically saved after the configured `files.autoSaveDelay`.
@@ -18,7 +21,7 @@
     "workbench.sideBar.location" = "right";
 
     # Specifies the color theme used in the workbench when `window.autoDetectColorScheme` is not enabled.
-    "workbench.colorTheme" = lib.mkForce "Perfect Dark Theme";
+    "workbench.colorTheme" = "Perfect Dark Theme";
 
     # Confirm before synchronizing Git repositories.
     "git.confirmSync" = false;
@@ -86,5 +89,14 @@
 
     # Controls whether the Explorer should ask for confirmation when pasting native files and folders.
     "explorer.confirmPasteNative" = false;
+
+    # Enable or disable auto triggering of Copilot completions for specified [languages](https://code.visualstudio.com/docs/languages/identifiers). You can still trigger suggestions manually using `Alt + \`
+    "github.copilot.enable" = {
+      "*" = true;
+      "plaintext" = true;
+      "markdown" = true;
+      "scminput" = true;
+    };
   };
 }
+
