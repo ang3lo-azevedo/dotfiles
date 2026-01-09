@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./vscode
+    ./code-editors
   ];
 
   programs.git = {
