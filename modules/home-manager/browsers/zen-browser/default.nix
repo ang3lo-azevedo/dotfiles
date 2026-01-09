@@ -21,7 +21,9 @@ in
     }
     // import ./spaces { inherit (pkgs) lib; };
   };
-  
+
+
+ # Use Zen Browser Beta as the default browser
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
