@@ -22,11 +22,14 @@ in
     // import ./spaces { inherit (pkgs) lib; };
   };
   
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = "zen-browser.desktop";
-    "x-scheme-handler/http" = "zen-browser.desktop";
-    "x-scheme-handler/https" = "zen-browser.desktop";
-    "x-scheme-handler/about" = "zen-browser.desktop";
-    "x-scheme-handler/unknown" = "zen-browser.desktop";
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "zen-browser-beta.desktop";
+      "x-scheme-handler/http" = "zen-browser-beta.desktop";
+      "x-scheme-handler/https" = "zen-browser-beta.desktop";
+      "x-scheme-handler/about" = "zen-browser-beta.desktop";
+      "x-scheme-handler/unknown" = "zen-browser-beta.desktop";
+    };
   };
 }

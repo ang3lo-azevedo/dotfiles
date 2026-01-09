@@ -87,6 +87,14 @@
     # Controls the font family of the terminal. Defaults to `editor.fontFamily`'s value.
     #"terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font";
 
+    # Use wrapper script to bypass "no new privileges" flag in integrated terminal
+    # The wrapper uses systemd-run to launch a new process scope
+    "terminal.integrated.shell.linux" = "~/.local/bin/cursor-zsh-wrapper";
+
+    # Use external terminal for commands that need elevated privileges
+    # This helps bypass the "no new privileges" flag in Cursor's integrated terminal
+    "terminal.external.linuxExec" = "ghostty";
+
     # Controls whether the Explorer should ask for confirmation when pasting native files and folders.
     "explorer.confirmPasteNative" = false;
 
