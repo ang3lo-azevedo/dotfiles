@@ -1,7 +1,7 @@
 {
   imports = [
     ./steam.nix
-    ./vr.nix
+    ./vr
   ];
 
   # Enable GameMode for performance optimization

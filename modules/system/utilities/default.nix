@@ -3,6 +3,7 @@
   imports = [
     ./zsh.nix
     ./distrobox.nix
+    #./lact.nix
   ];
 
   environment.systemPackages = with pkgs; [
