@@ -1,0 +1,3 @@
+{
+  programs.envision.enable = true;
+}
