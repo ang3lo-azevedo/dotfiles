@@ -113,25 +113,33 @@
     };
   };
 
+  nixConfig = {
+    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    max-jobs = 0;
+  };
+
+  # The outputs of the flake
   outputs =
-    {
-      self,
-      nixpkgs,
-      disko,
-      agenix,
-      home-manager,
-      stylix,
-      mango,
-      zen-browser,
-      nix-vscode-extensions,
-      spicetify-nix,
-      mpv-config,
-      trakt-scrobbler-src,
-      nordvpn-flake,
-      ...
+    { self
+      , nixpkgs
+      , disko
+      , agenix
+      , home-manager
+      , stylix
+      , mango
+      , zen-browser
+      , nix-vscode-extensions
+      , spicetify-nix
+      , mpv-config
+      , trakt-scrobbler-src
+      , nordvpn-flake
+      , ...
     }@inputs:
     let
       lib = nixpkgs.lib;
+      #pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      #my-pkgs = import ./pkgs { inherit pkgs; };
 
       # Helper function to generate a NixOS system configuration
       mkNixosSystem =
@@ -149,11 +157,12 @@
       # Helper function to generate a reusable host configuration
       mkHostConfig =
         {
+          stdenv,
           hostname,
           modules ? [ ],
         }:
         {
-          system = "x86_64-linux";
+          system = stdenv.hostPlatform.system;
           specialArgs = { inherit inputs; };
           modules = [
             { networking.hostName = hostname; }
@@ -171,8 +180,9 @@
           ++ modules;
         };
 
-      # Reusable pc-angelo configuration
+      # Configuration for pc-angelo
       pc-angelo-config = mkHostConfig {
+        stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
         hostname = "pc-angelo";
         modules = [
           # Home Manager
@@ -211,6 +221,7 @@
 
       # Reusable server-angelo configuration
       server-angelo-config = mkHostConfig {
+        stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
         hostname = "server-angelo";
       };
     in
