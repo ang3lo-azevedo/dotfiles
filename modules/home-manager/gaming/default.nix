@@ -5,6 +5,7 @@
     ./lutris.nix
     ./mangohud.nix
     ./vr.nix
+    ./prismlauncher.nix
   ];
 
   home.packages = with pkgs; [
