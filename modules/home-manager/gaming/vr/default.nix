@@ -1,5 +1,6 @@
 {
   imports = [
-    ./wlr-overlay-s.nix
+    ./wlx-overlay-s.nix
+    ./wayvr-dashboard.nix
   ];
 }
