@@ -111,6 +111,12 @@
       url = "github:pwndbg/pwndbg";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nixpkgs-xr
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -134,6 +140,7 @@
       , mpv-config
       , trakt-scrobbler-src
       , nordvpn-flake
+      , nixpkgs-xr
       , ...
     }@inputs:
     let
@@ -216,6 +223,9 @@
 
           # NordVPN client
           nordvpn-flake.nixosModules.nordvpn-flake
+
+          # nixpkgs-xr
+          nixpkgs-xr.nixosModules.nixpkgs-xr
         ];
       };
 
