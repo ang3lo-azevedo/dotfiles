@@ -38,4 +38,8 @@
       auto_switch_profiles = true;
     };
   };
+
+  users.users.ang3lo = {
+    extraGroups = [ "video" "adbusers" ];
+  };
 }
