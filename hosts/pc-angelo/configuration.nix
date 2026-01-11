@@ -11,6 +11,7 @@
     ../../modules/system/networking/iwd.nix
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/display-manager
+    ../../modules/system/hardware/samsung-galaxy-book-audio.nix
   ];
 
   environment.systemPackages = with pkgs; [
