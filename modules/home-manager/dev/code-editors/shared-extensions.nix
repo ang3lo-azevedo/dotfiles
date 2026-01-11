@@ -169,6 +169,9 @@
     # Test Runner for Java
     "vscjava.vscode-java-test"
 
+    # TODO Tree
+    "gruntfuggly.todo-tree"
+
     # Vim
     "vscodevim.vim"
 

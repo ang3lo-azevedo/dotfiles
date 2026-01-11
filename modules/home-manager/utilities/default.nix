@@ -7,6 +7,7 @@
     ./spicetify.nix
     ./wlr-randr.nix
     ./wlr-layout-ui.nix
+    ./brightnessctl.nix
     ./fastfetch.nix
     ./pavucontrol.nix
     ./nautilus.nix
