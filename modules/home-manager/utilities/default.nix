@@ -12,7 +12,7 @@
     ./pavucontrol.nix
     ./nautilus.nix
     ./network-manager-applet.nix
-    ./trakt-scrobbler.nix
+    #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
     ./yazi.nix
   ];
 }
