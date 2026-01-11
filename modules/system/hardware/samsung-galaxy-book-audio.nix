@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.my.hardware.samsung-galaxy-book-audio;
+  cfg = config.hardware.samsung-galaxy-book-audio;
 in
 {
   options.hardware.samsung-galaxy-book-audio = {
