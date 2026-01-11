@@ -18,6 +18,9 @@
     winetricks
   ];
 
+  # Enable audio fix for Samsung Galaxy Book
+  hardware.samsung-galaxy-book-audio.enable = true;
+
   # Ensure the system knows to open the LUKS container
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-partlabel/disk-main-luks";
