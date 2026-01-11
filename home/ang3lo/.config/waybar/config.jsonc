@@ -149,7 +149,7 @@
 
     "bluetooth": {
         "format-on": "\uf294 ",
-        "format-off": "\udb80\udcb2 ",
+        "format-off": "\udb80\udcb2",
         "format-disabled": "",
         "format-connected": "󰂴",
         "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",

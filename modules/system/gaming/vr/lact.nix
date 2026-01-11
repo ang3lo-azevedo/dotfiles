@@ -2,6 +2,7 @@
   services.lact = {
     enable = true;
     settings = {
+      version = 5;
       daemon = {
         log_level = "info";
         admin_group = "wheel";
@@ -37,9 +38,5 @@
       current_profile = "VR gaming";
       auto_switch_profiles = true;
     };
-  };
-
-  users.users.ang3lo = {
-    extraGroups = [ "video" "adbusers" ];
   };
 }

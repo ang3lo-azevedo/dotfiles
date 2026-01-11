@@ -145,8 +145,6 @@
     }@inputs:
     let
       lib = nixpkgs.lib;
-      #pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #my-pkgs = import ./pkgs { inherit pkgs; };
 
       # Helper function to generate a NixOS system configuration
       mkNixosSystem =
@@ -158,8 +156,6 @@
         nixpkgs.lib.nixosSystem {
           inherit system modules specialArgs;
         };
-
-      #mpv-config = "${self}/home/ang3lo/config/mpv";
 
       # Helper function to generate a reusable host configuration
       mkHostConfig =
