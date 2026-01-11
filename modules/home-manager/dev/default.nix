@@ -8,5 +8,6 @@
   home.packages = with pkgs; [
     nixfmt
     nil
+    cargo
   ];
 }
