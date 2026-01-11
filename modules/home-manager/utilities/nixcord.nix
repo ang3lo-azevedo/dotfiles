@@ -25,6 +25,10 @@
         messageLoggerEnhanced.enable = true;
         channelTabs.enable = true;
         showHiddenChannels.enable = true;
+        anammox = {
+          enable = true;
+        };
+        summaries.enable = true;
       };
     };
   };

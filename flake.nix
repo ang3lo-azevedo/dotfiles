@@ -224,14 +224,7 @@
         stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
         hostname = "server-angelo";
       };
-
-      # Adding our custom package to the nixpkgs overlay
-      nixpkgs.overlays = [
-        (final: prev: {
-          cycle-kbd-backlight = prev.callPackage ./pkgs/cycle-kbd-backlight { };
-        })
-      ];
-      in
+    in
     {
       # NixOS configuration for pc-angelo
       nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
