@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  pwndbg = inputs.pwndbg.packages.${pkgs.system}.default;
+  pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   imports = [

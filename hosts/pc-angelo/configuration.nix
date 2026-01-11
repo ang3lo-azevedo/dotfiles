@@ -5,6 +5,7 @@
     ../../modules/system/hardware/fingerprint.nix
     ../../modules/system/hardware/amdgpu.nix
     ../../modules/system/hardware/thunderbolt.nix
+    ../../modules/system/hardware/keyd.nix
     ../../modules/system
     ../../modules/system/services
     ../../modules/system/hardware/bluetooth.nix
@@ -12,7 +13,6 @@
     ../../modules/system/networking/networkmanager.nix
     ../../modules/system/display-manager
     ../../modules/system/hardware/samsung-galaxy-book-audio.nix
-    ../../../modules/system/hardware/keyd.nix
   ];
 
   environment.systemPackages = with pkgs; [
