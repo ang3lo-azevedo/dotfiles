@@ -1,6 +1,6 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
-  home.packages = [
-    inputs.scrumplex-nixpkgs.legacyPackages.${pkgs.system}.wayvr
+  home.packages = with pkgs; [
+    wayvr
   ];
 }
