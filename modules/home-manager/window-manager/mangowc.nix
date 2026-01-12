@@ -15,6 +15,8 @@ in
   home.packages = with pkgs; [
     lswt
     jq
+    grim
+    slurp
   ];
 
   systemd.user.services.mango-autosave = {
