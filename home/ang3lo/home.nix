@@ -1,4 +1,10 @@
 { inputs, trakt-scrobbler-src, pkgs, ... }:
+let
+  system = pkgs.stdenv.hostPlatform.system;
+  nixpkgs = inputs.nixpkgs.legacyPackages.${system};
+  nixpkgs-master = inputs.nixpkgs-master.legacyPackages.${system};
+  nixpkgs-xr = inputs.nixpkgs-xr.legacyPackages.${system};
+in
 {
   home.username = "ang3lo";
   home.homeDirectory = "/home/ang3lo";
@@ -17,11 +23,14 @@
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
 
-      # Make WayVR come from Scrumples nixpkgs
-      wayvr = inputs.scrumplex-nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system}.wayvr;
+      # Make Wivrn come from nixpkgs-unstable to not have to deal with https://github.com/nix-community/nixpkgs-xr/issues/569
+      #wivrn = nixpkgs.wivrn;
 
       # Make Stardust XR come from nixpkgs-xr
-      stardust-xr = inputs.nixpkgs-xr.legacyPackages.${pkgs.stdenv.hostPlatform.system}.stardust-xr;
+      #stardust-xr = nixpkgs-xr.stardust-xr;
+
+      # Make WayVR temporarily come from master branch
+      wayvr = nixpkgs-master.wayvr;
     })
   ];
 

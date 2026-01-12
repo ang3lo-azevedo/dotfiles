@@ -7,11 +7,11 @@
     # Latest stable branch of nixpkgs, used for version rollback
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
+    # nixpkgs master
+    nixpkgs-master.url = "github:nixos/nixpkgs";
+
     # nixpkgs-xr
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
-
-    # Scrumplex nixpkgs (for wayvr)
-    scrumplex-nixpkgs.url = "github:Scrumplex/nixpkgs/pkgs/wayvr/init";
 
     # Input for Disko (disk partitioning tool)
     disko = {
@@ -211,7 +211,7 @@
             };
           }
 
-          # Mango Window Compositor
+          # Mango Window Compositor overlay
           mango.nixosModules.mango
           {
             programs.mango.enable = true;
@@ -222,6 +222,9 @@
 
           # NordVPN flake overlay
           nordvpn-flake.nixosModules.nordvpn-flake
+
+          # nixpkgs-xr overlay
+          nixpkgs-xr.nixosModules.nixpkgs-xr
         ];
       };
 
