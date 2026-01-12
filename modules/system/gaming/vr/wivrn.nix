@@ -1,5 +1,5 @@
-{ pkgs, inputs, lib, ... }:
-let
+{ pkgs, /* inputs, lib, */ ... }:
+/* let
   # To fix https://github.com/nix-community/nixpkgs-xr/issues/569
   xrizer-multilib =
     let
@@ -63,7 +63,7 @@ let
       });
     in
     pkg;
-in
+in */
 {
   services.avahi = {
     enable = true;
@@ -89,12 +89,12 @@ in
     highPriority = true;
 
     # Configuration with xrizer multilib support for OpenVR compatibility
-    config = {
+    /* config = {
       enable = true;
       json = {
         openvr-compat-path = "${xrizer-multilib}/lib/xrizer";
       };
-    };
+    }; */
 
     # To increase the overhead of the compositor timewarp
     /* package = pkgs.wivrn.overrideAttrs (oldAttrs: {
@@ -119,8 +119,8 @@ in
     };
   };
   
-  home-manager.users.ang3lo = {
+  /* home-manager.users.ang3lo = {
     xdg.configFile."openxr/1/active_runtime.i686.json".source =
       "${wivrn-server-lib}/share/openxr/1/openxr_wivrn.json";
-  };
+  }; */
 }
