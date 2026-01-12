@@ -16,8 +16,6 @@
     (final: prev: {
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
-    })
-    (final: prev: {
       wayvr = inputs.scrumplex-nixpkgs.legacyPackages.${prev.system}.wayvr;
     })
   ];
