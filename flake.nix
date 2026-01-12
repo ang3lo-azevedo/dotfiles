@@ -224,7 +224,7 @@
           nordvpn-flake.nixosModules.nordvpn-flake
 
           # nixpkgs-xr overlay
-          nixpkgs-xr.nixosModules.nixpkgs-xr
+          #nixpkgs-xr.nixosModules.nixpkgs-xr
         ];
       };
 

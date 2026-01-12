@@ -27,7 +27,7 @@ in
       #wivrn = nixpkgs.wivrn;
 
       # Make Stardust XR come from nixpkgs-xr
-      #stardust-xr = nixpkgs-xr.stardust-xr;
+      stardust-xr = nixpkgs-xr.stardust-xr;
 
       # Make WayVR temporarily come from master branch
       wayvr = nixpkgs-master.wayvr;
