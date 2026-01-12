@@ -12,11 +12,19 @@ let
     runtimeInputs = [ pkgs.brightnessctl ];
     text = builtins.readFile ./scripts/kbdillumtoggle.sh;
   };
+
+  # Opens this nix-config workspace in VS Code (or VSCodium / xdg-open fallback)
+  open-nix-config-pkg = pkgs.writeShellApplication {
+    name = "open-nix-config";
+    runtimeInputs = [ pkgs.coreutils pkgs.xdg-utils ];
+    text = builtins.readFile ./scripts/open-nix-config.sh;
+  };
 in
 {
   environment.systemPackages = [ 
     touchpadtoggle-pkg
     kbdillumtoggle-pkg
+    open-nix-config-pkg
     pkgs.keyd
   ];
 
@@ -29,11 +37,14 @@ in
           main = {
             # TODO: Add the missing keys
 
+            # Open nix-config in VS Code
+            "f1" = "command(open-nix-config)";
+
             # Touchpad toggle (Fn+F5)
-            "f5" = "overload(fn, command(touchpadtoggle))";
+            "f5" = "command(touchpadtoggle)";
 
             # Keyboard backlight toggle (Fn+F9)
-            "kbdillumtoggle" = "overload(fn, command(kbdillumtoggle))";
+            "kbdillumtoggle" = "command(kbdillumtoggle)";
           };
         };
       };
