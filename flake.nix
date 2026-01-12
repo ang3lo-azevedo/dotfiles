@@ -117,6 +117,11 @@
       url = "github:nix-community/nixpkgs-xr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Scrumplex nixpkgs (for wayvr)
+    scrumplex-nixpkgs = {
+      url = "github:Scrumplex/nixpkgs/pkgs/wayvr/init";
+    };
   };
 
   nixConfig = {
