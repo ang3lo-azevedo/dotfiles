@@ -785,6 +785,7 @@
         "nixpkgs-xr": "nixpkgs-xr",
         "nordvpn-flake": "nordvpn-flake",
         "pwndbg": "pwndbg",
+        "scrumplex-nixpkgs": "scrumplex-nixpkgs",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix",
         "trakt-scrobbler-src": "trakt-scrobbler-src",
@@ -809,6 +810,22 @@
       "original": {
         "owner": "wlrfx",
         "repo": "scenefx",
+        "type": "github"
+      }
+    },
+    "scrumplex-nixpkgs": {
+      "locked": {
+        "lastModified": 1768168279,
+        "narHash": "sha256-qbLrfWbGQKZQHWCOtqzIG2x0GbvVgmK4+QWrOpqnWt4=",
+        "owner": "Scrumplex",
+        "repo": "nixpkgs",
+        "rev": "6a7f9c412c11b7bacdb2179618477fb765286b58",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Scrumplex",
+        "ref": "pkgs/wayvr/init",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
