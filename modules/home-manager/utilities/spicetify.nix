@@ -15,5 +15,6 @@ in
     enabledCustomApps = with spicePkgs.apps; [
       marketplace
     ];
+    windowManagerPatch = true;
   };
 }
