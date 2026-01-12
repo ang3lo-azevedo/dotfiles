@@ -12,6 +12,7 @@
     # Run WiVRn as a systemd service on startup
     autoStart = true;
 
+    # To increase the overhead of the compositor timewarp
     package = pkgs.wivrn.overrideAttrs (oldAttrs: {
       preFixup = ''
         export U_PACING_COMP_MIN_TIME_MS=8
