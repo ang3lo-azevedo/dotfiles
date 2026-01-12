@@ -11,5 +11,6 @@
     #./impermanence.nix
     ./virtualisation.nix
     ./wayland.nix
+    ./polkit_gnome.nix
   ];
 }
