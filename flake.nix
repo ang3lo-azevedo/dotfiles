@@ -7,6 +7,12 @@
     # Latest stable branch of nixpkgs, used for version rollback
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
+    # nixpkgs-xr
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+
+    # Scrumplex nixpkgs (for wayvr)
+    scrumplex-nixpkgs.url = "github:Scrumplex/nixpkgs/pkgs/wayvr/init";
+
     # Input for Disko (disk partitioning tool)
     disko = {
       url = "github:nix-community/disko";
@@ -110,17 +116,6 @@
     pwndbg = {
       url = "github:pwndbg/pwndbg";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # nixpkgs-xr
-    nixpkgs-xr = {
-      url = "github:nix-community/nixpkgs-xr";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Scrumplex nixpkgs (for wayvr)
-    scrumplex-nixpkgs = {
-      url = "github:Scrumplex/nixpkgs/pkgs/wayvr/init";
     };
   };
 

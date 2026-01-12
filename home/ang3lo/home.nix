@@ -16,7 +16,12 @@
     (final: prev: {
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
+
+      # Make WayVR come from Scrumples nixpkgs
       wayvr = inputs.scrumplex-nixpkgs.legacyPackages.${prev.system}.wayvr;
+
+      # Make Stardust XR come from nixpkgs-xr
+      stardust-xr = inputs.nixpkgs-xr.legacyPackages.${prev.system}.stardust-xr;
     })
   ];
 
