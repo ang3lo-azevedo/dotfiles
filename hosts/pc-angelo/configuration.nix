@@ -45,4 +45,7 @@
   age.secrets.root_password.file = ../../secrets/root_password.age;
   #age.secrets.wifi-ssid.file = ../../secrets/wifi-ssid.age;
   #age.secrets.wifi-password.file = ../../secrets/wifi-password.age;
+
+  # Enable Ozone Wayland support in Chromium and Electron based applications
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
