@@ -3,6 +3,7 @@
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
+      ../../modules/hardware
     ];
 
   # Bootloader kernel modules

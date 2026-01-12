@@ -2,18 +2,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/system/hardware/fingerprint.nix
-    ../../modules/system/hardware/amdgpu.nix
-    ../../modules/system/hardware/thunderbolt.nix
-    ../../modules/system/hardware/keyd.nix
     ../../modules/system
-    ../../modules/system/services
-    ../../modules/system/hardware/bluetooth.nix
-    ../../modules/system/networking/iwd.nix
-    ../../modules/system/networking/networkmanager.nix
-    ../../modules/system/display-manager
-    ../../modules/system/wayland.nix
-    ../../modules/system/hardware/samsung-galaxy-book-audio.nix
   ];
 
   environment.systemPackages = with pkgs; [
