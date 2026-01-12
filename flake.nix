@@ -220,7 +220,7 @@
           # NordVPN client
           nordvpn-flake.nixosModules.nordvpn-flake
 
-          # nixpkgs-xr
+          # nixpkgs-xr overlay
           nixpkgs-xr.nixosModules.nixpkgs-xr
         ];
       };

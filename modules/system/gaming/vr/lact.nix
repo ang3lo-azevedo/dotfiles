@@ -22,13 +22,7 @@
               {
                 type = "process";
                 filter = {
-                  name = "wivrn-server";
-                };
-              }
-              {
-                type = "process";
-                filter = {
-                  name = "..envision-wrapped-wrapped";
+                  name = ".wivrn-dashboard-wrapped";
                 };
               }
             ];
