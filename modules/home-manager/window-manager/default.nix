@@ -1,7 +1,6 @@
 {
   imports = [
     ./services
-    ./polkit_gnome.nix
     ./mangowc.nix
     ./waybar.nix
     ./fuzzel.nix
