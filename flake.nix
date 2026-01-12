@@ -126,27 +126,30 @@
 
   nixConfig = {
     extra-substituters = [ "https://nix-community.cachix.org" ];
-    extra-trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
     #max-jobs = 0;
   };
 
   # The outputs of the flake
   outputs =
-    { self
-      , nixpkgs
-      , disko
-      , agenix
-      , home-manager
-      , stylix
-      , mango
-      , zen-browser
-      , nix-vscode-extensions
-      , spicetify-nix
-      , mpv-config
-      , trakt-scrobbler-src
-      , nordvpn-flake
-      , nixpkgs-xr
-      , ...
+    {
+      self,
+      nixpkgs,
+      disko,
+      agenix,
+      home-manager,
+      stylix,
+      mango,
+      zen-browser,
+      nix-vscode-extensions,
+      spicetify-nix,
+      mpv-config,
+      trakt-scrobbler-src,
+      nordvpn-flake,
+      nixpkgs-xr,
+      ...
     }@inputs:
     let
       lib = nixpkgs.lib;
@@ -219,14 +222,11 @@
             programs.mango.enable = true;
           }
 
-          # Stylix
+          # Stylix overlay
           stylix.nixosModules.stylix
 
-          # NordVPN client
+          # NordVPN flake overlay
           nordvpn-flake.nixosModules.nordvpn-flake
-
-          # nixpkgs-xr overlay
-          nixpkgs-xr.nixosModules.nixpkgs-xr
         ];
       };
 
