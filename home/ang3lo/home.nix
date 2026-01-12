@@ -23,8 +23,8 @@ in
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
 
-      # Make Wivrn come from nixpkgs-unstable to not have to deal with https://github.com/nix-community/nixpkgs-xr/issues/569
-      #wivrn = nixpkgs.wivrn;
+      # Make Wivrn come from nixpkgs-unstable to not have to deal with https://github.com/nix-community/nixpkgs-xr/issues/569 and to fix flicker issues
+      wivrn = nixpkgs.wivrn;
 
       # Make Stardust XR come from nixpkgs-xr
       stardust-xr = nixpkgs-xr.stardust-xr;

@@ -8,6 +8,7 @@
     sudo.fprintAuth = true;
     swaylock.fprintAuth = true;
     ly.fprintAuth = true;
+    polkit.fprintAuth = true;
   };
 
   nixpkgs.overlays = [

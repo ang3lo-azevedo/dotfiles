@@ -10,22 +10,25 @@ let
   kbdillumtoggle-pkg = pkgs.writeShellApplication {
     name = "cycle-kbd-backlight";
     runtimeInputs = [ pkgs.brightnessctl ];
-    text = builtins.readFile ./kbdillumtoggle/kbdillumtoggle.sh;
+    text = builtins.readFile ./scripts/kbdillumtoggle.sh;
   };
 in
 {
   environment.systemPackages = [ 
     touchpadtoggle-pkg
     kbdillumtoggle-pkg
+    pkgs.keyd
   ];
 
   services.keyd = {
     enable = true;
     keyboards = {
       "samsung-galaxybook" = {
-        ids = [ "*" ];
+        ids = [ "0001:0001" ];
         settings = {
           main = {
+            # TODO: Add the missing keys
+
             # Touchpad toggle (Fn+F5)
             "f5" = "overload(fn, command(touchpadtoggle))";
 
@@ -36,4 +39,13 @@ in
       };
     };
   };
+
+  # Optional, but makes sure that when you type the make palm rejection work with keyd
+  # https://github.com/rvaiya/keyd/issues/723
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Serial Keyboards]
+    MatchUdevType=keyboard
+    MatchName=keyd virtual keyboard
+    AttrKeyboardIntegration=internal
+  '';
 }
