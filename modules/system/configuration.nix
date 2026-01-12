@@ -115,16 +115,6 @@
   # Enable Polkit
   security.polkit.enable = true;
 
-  # Enable doas as an alternative to sudo (works better in restricted environments)
-  security.doas = {
-    enable = true;
-    extraRules = [{
-      users = [ "ang3lo" ];
-      keepEnv = true;
-      persist = true;
-    }];
-  };
-
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
