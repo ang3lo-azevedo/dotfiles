@@ -38,13 +38,15 @@ in
             # TODO: Add the missing keys
 
             # Open nix-config in VS Code
-            "f1" = "command(open-nix-config)";
+            #"f1" = "command(open-nix-config)";
 
-            # Touchpad toggle (Fn+F5)
-            "f5" = "command(touchpadtoggle)";
+            #left meta + p
+
+            # Touchpad toggle (Fn+F5) -> (left meta + f21)
+            #"f5" = "command(touchpadtoggle)";
 
             # Keyboard backlight toggle (Fn+F9)
-            "kbdillumtoggle" = "command(kbdillumtoggle)";
+            #"kbdillumtoggle" = "command(cycle-kbd-backlight)";
           };
         };
       };
