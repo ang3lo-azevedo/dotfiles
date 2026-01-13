@@ -1,1 +1,3 @@
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
+- [ ] Add tmux
+- [ ] Add impermanence
