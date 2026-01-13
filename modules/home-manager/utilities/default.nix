@@ -14,5 +14,6 @@
     ./network-manager-applet.nix
     #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
     ./yazi.nix
+    ./ncdu.nix
   ];
 }
