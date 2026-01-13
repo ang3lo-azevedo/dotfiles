@@ -40,13 +40,13 @@ in
             # Open nix-config in VS Code
             #"f1" = "command(open-nix-config)";
 
-            #left meta + p
+            #left meta + p (Fn+F4)
 
             # Touchpad toggle (Fn+F5) -> (left meta + f21)
             #"f5" = "command(touchpadtoggle)";
 
             # Keyboard backlight toggle (Fn+F9)
-            #"kbdillumtoggle" = "command(cycle-kbd-backlight)";
+            "f9" = "command(cycle-kbd-backlight)";
           };
         };
       };
