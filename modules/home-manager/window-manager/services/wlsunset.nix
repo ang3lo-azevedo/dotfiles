@@ -1,5 +1,9 @@
 { pkgs, ... }:
 let
+  # Color temperature values in Kelvin
+  dayTemp = "6500";    # Daylight neutral
+  nightTemp = "3500";  # Warm evening
+
   wlsunset-auto = pkgs.writeShellScriptBin "wlsunset-auto" ''
     RETRIES=30
     counter=0
@@ -10,14 +14,21 @@ let
         fi
         counter=$((counter + 1))
         if [ $counter -eq $RETRIES ]; then
-            echo "Unable to connect to ip-api."
+            echo "Unable to connect to ip-api." >&2
             exit 1
         fi
         sleep 2
     done
-    longitude=$(echo $CONTENT | ${pkgs.jq}/bin/jq .lon)
-    latitude=$(echo $CONTENT | ${pkgs.jq}/bin/jq .lat)
-    exec ${pkgs.wlsunset}/bin/wlsunset -l $latitude -L $longitude
+    longitude=$(echo "$CONTENT" | ${pkgs.jq}/bin/jq -r .lon)
+    latitude=$(echo "$CONTENT" | ${pkgs.jq}/bin/jq -r .lat)
+    
+    if [ -z "$latitude" ] || [ -z "$longitude" ]; then
+      echo "Failed to extract coordinates" >&2
+      exit 1
+    fi
+    
+    echo "Starting wlsunset with lat=$latitude lon=$longitude" >&2
+    exec ${pkgs.wlsunset}/bin/wlsunset -l $latitude -L $longitude -T ${dayTemp} -t ${nightTemp}
   '';
 in
 {
@@ -34,6 +45,9 @@ in
     Service = {
       ExecStart = "${wlsunset-auto}/bin/wlsunset-auto";
       Restart = "on-failure";
+      RestartSec = 5;
+      StandardOutput = "journal";
+      StandardError = "journal";
     };
     Install = {
       WantedBy = [ "graphical-session.target" ];
