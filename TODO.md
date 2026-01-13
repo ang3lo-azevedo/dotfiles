@@ -8,6 +8,7 @@
 - [ ] Fix all mpv related programs
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [ ] Improve mangowc configs
+- [ ] Fix cursor
 - [ ] Add tmux
 - [ ] Add neovim
 - [ ] Add virt manager and VM configs
