@@ -1,3 +1,4 @@
+- [ ] Make wlsunset also work offline
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [ ] Add tmux
 - [ ] Add impermanence
@@ -5,3 +6,4 @@
 - [ ] Fix the clipboard
 - [ ] Add LaTeX
 - [ ] Make some config files, mainly on the window manager symlinks
+- [ ] Make general function to add all .nix files inside a folder to the default.nix
