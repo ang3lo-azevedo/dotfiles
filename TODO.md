@@ -1,5 +1,6 @@
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
+- [ ] Add the rest of the waybar
 - [ ] Create a README
 - [ ] Make wlsunset also work offline
 - [ ] Make some config files, mainly on the window manager, symlinks
