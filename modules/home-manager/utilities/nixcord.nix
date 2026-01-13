@@ -29,6 +29,10 @@
           enable = true;
         };
         summaries.enable = true;
+        splitLargeMessages = {
+          enable = true;
+          disableFileConversion = true;
+        };
       };
     };
   };
