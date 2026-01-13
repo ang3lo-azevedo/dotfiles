@@ -1,5 +1,6 @@
 {
   programs.zsh.shellAliases = {
+    
     # Tool related alises
     ll = "eza -l";
     la = "eza -la";
