@@ -1,7 +1,7 @@
 {
   imports = [
-    ./fn_keys
     ./audio.nix
     ./fingerprint.nix
+    ./fn-keys
   ];
 }
