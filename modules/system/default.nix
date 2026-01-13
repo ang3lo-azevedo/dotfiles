@@ -4,7 +4,7 @@
     ./dev
     ./display-manager
     ./gaming
-    ./networking/networkmanager.nix
+    ./networking
     ./services
     ./utilities
     ./configuration.nix
