@@ -1,9 +1,18 @@
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
+- [ ] Create a README
 - [ ] Make wlsunset also work offline
 - [ ] Make some config files, mainly on the window manager, symlinks
 - [ ] Make general function to add all .nix files inside a folder to the default.nix
-- [ ] Add tmux
+- [ ] Fix all mpv related programs
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
+- [ ] Improve mangowc configs
+- [ ] Add tmux
+- [ ] Add neovim
+- [ ] Add virt manager and VM configs
+- [ ] Test and improve Windows configuration
 - [ ] Add LaTeX
+- [ ] Configure server
+- [ ] Add GitHub Actions to update the packages automatically
+- [ ] Improve overlays
 - [ ] Add impermanence
