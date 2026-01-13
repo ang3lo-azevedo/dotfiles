@@ -8,7 +8,7 @@
     ./iwmenu.nix
     ./pwmenu.nix
     ./bzmenu.nix
-    ./hyprlock.nix
+    ./swaylock.nix
     ./wl-clipboard.nix
   ];
 }
