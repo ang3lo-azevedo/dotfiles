@@ -1,11 +1,12 @@
 {
   imports = [
-    ./bat.nix      # A cat clone with syntax highlighting
-    ./direnv.nix   # Per-directory environment variables
-    ./eza.nix      # A modern replacement for ls
-    ./fzf.nix      # Command-line fuzzy finder
-    ./starship.nix # Customizable shell prompt
-    ./zoxide.nix   # Smarter cd command
+    ./bat.nix           # A cat clone with syntax highlighting
+    ./direnv.nix        # Per-directory environment variables
+    ./eza.nix           # A modern replacement for ls
+    ./fzf.nix           # Command-line fuzzy finder
+    ./shell-aliases.nix # Custom shell aliases
+    ./starship.nix      # Customizable shell prompt
+    ./zoxide.nix        # Smarter cd command
   ];
 
   programs.zsh = {
