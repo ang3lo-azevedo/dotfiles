@@ -11,6 +11,7 @@ in
     enable = true;
     enabledExtensions = with spicePkgs.extensions; [
       adblockify
+      volumePercentage
     ];
     enabledCustomApps = with spicePkgs.apps; [
       marketplace
