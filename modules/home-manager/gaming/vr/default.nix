@@ -5,6 +5,5 @@
     ./sidequest.nix
     ./qrookie.nix
     ./apprenticevr.nix
-    #./stardust-xr.nix
   ];
 }
