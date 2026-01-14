@@ -12,9 +12,9 @@
     };
 
     # nixpkgs master
-    nixpkgs-master = {
+    /* nixpkgs-master = {
       url = "github:nixos/nixpkgs";
-    };
+    }; */
 
     # nixpkgs-xr
     nixpkgs-xr = {
@@ -136,6 +136,11 @@
       url = "github:glaumar/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Scrumplex nixpkgs fork for WayVR
+    scrumplex-nixpkgs = {
+      url = "github:Scrumplex/nixpkgs/25.11/pkgs/wayvr/init";
+    };
   };
 
   nixConfig = {
@@ -169,6 +174,7 @@
       trakt-scrobbler-src,
       nordvpn-flake,
       nixpkgs-xr,
+      scrumplex-nixpkgs,
       ...
     }@inputs:
     let
