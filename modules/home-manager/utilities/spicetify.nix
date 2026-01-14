@@ -15,6 +15,26 @@ in
     enabledCustomApps = with spicePkgs.apps; [
       marketplace
     ];
+    enabledSnippets = with spicePkgs.snippets; [
+      smoothProgressBar
+      smallVideoButton
+      queueTopSidePanel
+      smallerRightSidebarCover
+      hideDownloadButton
+      thinLibrarySidebarRows
+      modernScrollbar
+      roundedNowPlaying
+      roundedImages
+      removeTopSpacing
+      dynamicLeftSidebar
+      fixMainViewWidth
+      removeTheArtistsAndCreditsSectionsFromTheSidebar
+
+      # Remove Unused Space in Topbar
+      ''
+        .Kgjmt7IX5samBYUpbkBu, .OPsY6bKl1_FfA8jFpq1V { display: none !important; }
+      ''
+    ];
     windowManagerPatch = true;
   };
 }
