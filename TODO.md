@@ -22,3 +22,4 @@
 - [ ] Configure server
 - [ ] Improve overlays
 - [ ] Add impermanence
+- [ ] Add the backup mechanism
