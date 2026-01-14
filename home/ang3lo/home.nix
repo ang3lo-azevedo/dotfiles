@@ -29,11 +29,11 @@ in
       # Make Stardust XR come from nixpkgs-xr
       stardust-xr = nixpkgs-xr.stardust-xr;
 
-      # Make WayVR temporarily come from master branch
-      wayvr = nixpkgs-master.wayvr;
+      # Make WayVR come from Scrumplex nixpkgs 25.11 branch
+      wayvr = inputs.scrumplex-nixpkgs.legacyPackages."${system}".wayvr;
 
       # For QRookie
-      glaumar_repo = inputs.glaumar_repo.packages."${prev.system}";
+      glaumar_repo = inputs.glaumar_repo.packages."${system}";
     })
   ];
 
