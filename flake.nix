@@ -55,6 +55,12 @@
       flake = false;
     };
 
+    # Input for CachyOS Kernel
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for MangoWC window compositor
     mango = {
       url = "github:DreamMaoMao/mango";
@@ -120,9 +126,15 @@
   };
 
   nixConfig = {
-    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-substituters = [ 
+      "https://nix-community.cachix.org"
+      "https://attic.xuyh0120.win/lantian"
+      "https://cache.garnix.io"
+      ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };
 
@@ -135,6 +147,7 @@
       agenix,
       home-manager,
       stylix,
+      nix-cachyos-kernel,
       mango,
       zen-browser,
       nix-vscode-extensions,
@@ -208,6 +221,12 @@
                 trakt-scrobbler-src
                 ;
             };
+          }
+
+          # Alternatively: use the exact kernel versions as defined in this repo.
+          # Guarantees you have binary cache.
+          { 
+            nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
           }
 
           # Mango Window Compositor overlay
