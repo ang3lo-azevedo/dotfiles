@@ -132,7 +132,7 @@
     };
 
     # For QRookie
-    inputs.glaumar_repo = {
+    glaumar_repo = {
       url = "github:glaumar/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
