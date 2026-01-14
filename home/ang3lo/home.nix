@@ -2,7 +2,6 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   nixpkgs = inputs.nixpkgs.legacyPackages.${system};
-  nixpkgs-master = inputs.nixpkgs-master.legacyPackages.${system};
   nixpkgs-xr = inputs.nixpkgs-xr.legacyPackages.${system};
 in
 {
@@ -25,9 +24,6 @@ in
 
       # Make Wivrn come from nixpkgs-unstable to not have to deal with https://github.com/nix-community/nixpkgs-xr/issues/569 and to fix flicker issues
       wivrn = nixpkgs.wivrn;
-
-      # Make Stardust XR come from nixpkgs-xr
-      stardust-xr = nixpkgs-xr.stardust-xr;
 
       # Make WayVR come from Scrumplex nixpkgs 25.11 branch
       wayvr = inputs.scrumplex-nixpkgs.legacyPackages."${system}".wayvr;
