@@ -2,16 +2,24 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-unstable";
+    };
 
     # Latest stable branch of nixpkgs, used for version rollback
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-stable = {
+      url = "github:nixos/nixpkgs/nixos-25.11";
+    };
 
     # nixpkgs master
-    nixpkgs-master.url = "github:nixos/nixpkgs";
+    nixpkgs-master = {
+      url = "github:nixos/nixpkgs";
+    };
 
     # nixpkgs-xr
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+    };
 
     # Input for Disko (disk partitioning tool)
     disko = {
@@ -58,7 +66,6 @@
     # Input for CachyOS Kernel
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for MangoWC window compositor
@@ -126,11 +133,11 @@
   };
 
   nixConfig = {
-    extra-substituters = [ 
+    extra-substituters = [
       "https://nix-community.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
-      ];
+    ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
@@ -223,11 +230,11 @@
             };
           }
 
-          { 
+          {
             # Alternatively: use the exact kernel versions as defined in this repo.
             # Guarantees you have binary cache.
             nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-            
+
             # Binary cache for CachyOS kernels
             nix.settings.extra-substituters = [ "https://attic.xuyh0120.win/lantian" ];
             nix.settings.extra-trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
