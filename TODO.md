@@ -1,3 +1,4 @@
+- [ ] Add the CachyOS Kernel
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
 - [ ] Add the rest of the waybar
@@ -9,13 +10,14 @@
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [ ] Improve mangowc configs
 - [ ] Fix Zen extension settings
+- [ ] Add android ROM building tools https://docs.robotnix.org/development.html
 - [ ] Fix cursor
 - [ ] Add tmux
 - [ ] Add neovim
 - [ ] Add virt manager and VM configs
 - [ ] Test and improve Windows configuration
+- [ ] Add GitHub Actions to update the packages automatically
 - [ ] Add LaTeX
 - [ ] Configure server
-- [ ] Add GitHub Actions to update the packages automatically
 - [ ] Improve overlays
 - [ ] Add impermanence
