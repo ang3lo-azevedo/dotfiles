@@ -1,4 +1,5 @@
 - [x] Add the CachyOS Kernel
+- [ ] Fix the e-gpu unplugging freeze
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
 - [ ] Add the missing fn keys
