@@ -7,6 +7,7 @@
     ./networking
     ./services
     ./utilities
+    ./binary-cache.nix
     ./configuration.nix
     #./impermanence.nix
     ./virtualisation.nix

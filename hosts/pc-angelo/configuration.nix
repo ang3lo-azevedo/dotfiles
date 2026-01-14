@@ -10,6 +10,8 @@
     winetricks
   ];
 
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4;
+
   # Ensure the system knows to open the LUKS container
   boot.initrd.luks.devices."cryptroot" = {
     device = "/dev/disk/by-partlabel/disk-main-luks";
