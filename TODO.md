@@ -1,3 +1,4 @@
+- [ ] Fix SteamVR
 - [x] Add the CachyOS Kernel
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Fix the clipboard
@@ -5,8 +6,10 @@
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
 - [ ] Create a README
+- [ ] Add virt manager and VM configs
+- [ ] Add GPU Passthrough to the VMs
 - [ ] Make wlsunset also work offline
-- [ ] Make some config files, mainly on the window manager, symlinks
+- [ ] Make some config files, mainl y on the window manager, symlinks
 - [ ] Make general function to add all .nix files inside a folder to the default.nix
 - [ ] Fix all mpv related programs
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
@@ -16,7 +19,6 @@
 - [ ] Fix cursor
 - [ ] Add tmux
 - [ ] Add neovim
-- [ ] Add virt manager and VM configs
 - [ ] Test and improve Windows configuration
 - [ ] Add GitHub Actions to update the packages automatically
 - [ ] Add LaTeX
