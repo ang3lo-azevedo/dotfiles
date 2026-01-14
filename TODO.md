@@ -11,10 +11,10 @@
 - [ ] Fix all mpv related programs
 - [ ] Fix Zen extension settings
 - [ ] Create a README
-- [ ] Fix SteamVR
 - [x] Add the CachyOS Kernel
 - [ ] Add virt manager and VM configs
 - [ ] Add GPU Passthrough to the VMs
+- [ ] Fix SteamVR
 - [ ] Add android ROM building tools for Voltage https://docs.robotnix.org/development.html
 - [ ] Fix cursor
 - [ ] Add tmux
