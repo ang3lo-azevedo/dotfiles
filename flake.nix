@@ -234,10 +234,6 @@
             # Alternatively: use the exact kernel versions as defined in this repo.
             # Guarantees you have binary cache.
             nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
-
-            # Binary cache for CachyOS kernels
-            nix.settings.extra-substituters = [ "https://attic.xuyh0120.win/lantian" ];
-            nix.settings.extra-trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
           }
 
           # Mango Window Compositor overlay
