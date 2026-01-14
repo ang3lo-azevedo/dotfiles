@@ -31,6 +31,9 @@ in
 
       # Make WayVR temporarily come from master branch
       wayvr = nixpkgs-master.wayvr;
+
+      # For QRookie
+      glaumar_repo = inputs.glaumar_repo.packages."${prev.system}";
     })
   ];
 
