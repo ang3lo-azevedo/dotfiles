@@ -130,6 +130,12 @@
       url = "github:pwndbg/pwndbg";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # For QRookie
+    inputs.glaumar_repo = {
+      url = "github:glaumar/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
