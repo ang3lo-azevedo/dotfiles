@@ -34,6 +34,11 @@ in
       ''
         .Kgjmt7IX5samBYUpbkBu, .OPsY6bKl1_FfA8jFpq1V { display: none !important; }
       ''
+
+      # Remove Top gradient
+      ''
+        .main-entityHeader-backgroundColor { display: none !important; } .main-actionBarBackground-background { display: none !important; } .main-home-homeHeader { display: none !important; } .playlist-playlist-actionBarBackground-background { display: none !important; }
+      ''
     ];
     windowManagerPatch = true;
   };
