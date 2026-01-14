@@ -1,20 +1,20 @@
-- [ ] Fix SteamVR
-- [x] Add the CachyOS Kernel
-- [ ] Fix the e-gpu unplugging freeze
+- [ ] Make some config files symlinks, mainly on the window manager configs
+- [ ] Make a general function to add all .nix files inside a folder to the default.nix
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
+- [ ] Fix the e-gpu unplugging freeze
+- [ ] Improve mangowc configs
+- [ ] Make wlsunset also work offline
+- [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
+- [ ] Fix all mpv related programs
+- [ ] Fix Zen extension settings
 - [ ] Create a README
+- [ ] Fix SteamVR
+- [x] Add the CachyOS Kernel
 - [ ] Add virt manager and VM configs
 - [ ] Add GPU Passthrough to the VMs
-- [ ] Make wlsunset also work offline
-- [ ] Make some config files symlinks, mainly on the window manager configs
-- [ ] Make a general function to add all .nix files inside a folder to the default.nix
-- [ ] Fix all mpv related programs
-- [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
-- [ ] Improve mangowc configs
-- [ ] Fix Zen extension settings
 - [ ] Add android ROM building tools for Voltage https://docs.robotnix.org/development.html
 - [ ] Fix cursor
 - [ ] Add tmux
