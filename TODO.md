@@ -1,6 +1,7 @@
-- [ ] Add the CachyOS Kernel
+- [x] Add the CachyOS Kernel
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
+- [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
 - [ ] Create a README
 - [ ] Make wlsunset also work offline
