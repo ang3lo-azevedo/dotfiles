@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<layout>  
+	<theme>
+		<var key="button_size" value="80"/>
+		<var key="_panel_icon" value="/home/proto/.config/wayvr/theme/gui/assets/sensors.svg" />
+  </theme>
+  <macro name="decorative_rect" padding="8" border="2" border_color="~color_accent" round="8"/>
+
+	<elements>
+			<div id="startbutton">
+				<Button text="start" _press="::ShellExec $HOME/.config/wayvr/theme/gui/assets/sysinfo.sh"/>
+			</div>
+    <div min_width="50" min_height="50">
+      <rectangle id="rootrect" display="none" macro="decorative_rect" flex_direction="column" gap="8">
+        <label id="junction" text="hi iam hardware stats"/>
+        <label id="mem" text="hi iam hardware stats"/>
+        <label id="tctl" text="hi iam hardware stats"/>
+				<label id="gpuusage" text="hi iam hardware stats"/>
+				<label id="top" text="hi iam hardware stats"/>
+      </rectangle>
+    </div>
+  </elements>
+</layout>

@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<layout>
+  <theme>
+    <var key="clock0_size" value="42"/>
+    <var key="clock0_date_size" value="16"/>
+    <var key="clock0_dow_size" value="16"/>
+    <var key="clock_alt1_color" value="#84115a"/>
+    <var key="clock_alt2_color" value="#f8c9b9"/>
+    <var key="clock_alt_size" value="24"/>
+    <var key="clock_alt_tz_size" value="14"/>
+    <var key="color_accent" value="#b21757"/>
+    <var key="button_size" value="40"/>
+    <var key="color_accent_translucent" value="#7a073e"/>
+    <var key="color_accent_40" value="#96043e"/>
+    <var key="color_accent_10" value="#8e0842"/>
+  </theme>
+  <macro name="decorative_rect" padding="8" color="~color_bg" border="2" border_color="~color_accent" round="8"/>
+  <macro name="button_style" padding="8" border_color="~color_accent_translucent" border="2" round="8" color="~color_accent_40" color2="~color_accent_10" gradient="vertical" align_items="center" justify_content="center"/>
+  <macro name="media_button_style" padding="8" border_color="~color_accent_translucent" max_width="40" max_height="40" min_width="40" min_height="4" border="2" round="8" color="~color_accent_40" color2="~color_accent_10" gradient="vertical" align_items="center" justify_content="center"/>
+  <template name="Device">
+    <rectangle macro="decorative_rect" padding_top="4" padding_bottom="4" align_items="center" gap="8">
+      <sprite width="32" height="32" src_builtin="${src}"/>
+      <label _source="battery" _device="${idx}" size="24" weight="bold"/>
+    </rectangle>
+  </template>
+  <template name="Hmd">
+    <Device idx="${idx}" src="watch/hmd.svg"/>
+  </template>
+  <template name="LeftHand">
+    <Device idx="${idx}" src="watch/controller_l.svg"/>
+  </template>
+  <template name="RightHand">
+    <Device idx="${idx}" src="watch/controller_r.svg"/>
+  </template>
+  <template name="Tracker">
+    <Device idx="${idx}" src="watch/track.svg"/>
+  </template>
+  <template name="Screen">
+    <Button macro="button_style" id="overlay_${idx}" tooltip_str="${name}" _press="::OverlayToggle ${name}">
+      <sprite width="38" height="38" color="~color_text" src_builtin="edit/screen.svg"/>
+      <div position="absolute" margin_top="-7" margin_left="-1">
+        <label text="${display}" size="18" color="~color_faded_20" weight="bold"/>
+      </div>
+    </Button>
+  </template>
+  <template name="Panel">
+    <Button macro="button_style" id="overlay_${idx}" tooltip_str="${name}" _press="::OverlayToggle ${name}">
+      <sprite width="38" height="38" color="~color_text" src_builtin="edit/panel.svg"/>
+    </Button>
+  </template>
+  <template name="Mirror">
+    <Button macro="button_style" id="overlay_${idx}" tooltip_str="${name}" _press="::NewMirror">
+      <sprite width="20" height="20" color="~color_text" src_builtin="edit/mirror.svg"/>
+      <div position="absolute" margin_top="5" margin_left="13">
+        <label text="${display}" size="20" color="~color_faded_20" weight="bold"/>
+      </div>
+    </Button>
+  </template>
+  <template name="App">
+    <Button macro="button_style" id="overlay_${idx}" tooltip_str="${name}" _press="::OverlayToggle ${name}">
+      <sprite width="38" height="38" color="~color_text" src_ext="${icon}"/>
+    </Button>
+  </template>
+  <template name="SlimeVRButton">
+    <Button tooltip="${tooltip}" _press="${event}">
+      <sprite width="~button_size" height="~button_size" src="${icon}"/>
+    </Button>
+  </template>
+  <template name="Set">
+    <Button macro="button_style" id="set_${idx}" _press="::SetToggle ${idx}" tooltip="WATCH.SWITCH_TO_SET" tooltip_side="top">
+      <sprite width="40" height="40" color="~color_text" src_builtin="watch/set2.svg"/>
+      <div position="absolute" margin_top="9">
+        <label text="${display}" size="24" color="#00050F" weight="bold"/>
+      </div>
+    </Button>
+  </template>
+  <template name="Clock">
+    <div gap="12" flex_direction="column" padding="4">
+      <div flex_direction="column">
+        <label text="11:22 PM" _source="clock" _display="time" color="~color_text" size="~clock0_size" weight="bold" align="center"/>
+        <div padding_left="2" gap="16" flex_direction="row" justify_content="center">
+          <label text="Tue" _source="clock" _display="dow_short" color="~color_text" size="~clock0_dow_size" weight="bold"/>
+          <label text="22/2/2022" _source="clock" _display="date" color="~color_text" size="~clock0_date_size" weight="bold"/>
+        </div>
+        <label _source="timer" _format="          Uptime: %h:%m:%s"/>
+      </div>
+      <div flex_direction="row" gap="8" justify_content="space_around">
+        <!-- Timezone names here are only placeholders. Set your timezones via ~/.config/wlxoverlay/conf.d -->
+        <!-- <div flex_direction="column">
+          <label text="Paris" _source="clock" _display="name" _timezone="0" color="~clock_alt1_color" size="~clock_alt_tz_size" weight="bold" align="center"/>
+          <label text="23:59" _source="clock" _display="time" _timezone="0" color="~clock_alt1_color" size="~clock_alt_size" weight="bold" align="center"/>
+        </div>
+        <div flex_direction="column">
+          <label text="New York" _source="clock" _display="name" _timezone="1" color="~clock_alt2_color" size="~clock_alt_tz_size" weight="bold" align="center"/>
+          <label text="23:59" _source="clock" _display="time" _timezone="1" color="~clock_alt2_color" size="~clock_alt_size" weight="bold" align="center"/>
+				</div>-->
+        <!--<div id="top_button">
+          <Button macro="button_style" _press="::ShellExec $HOME/.config/wayvr/theme/gui/assets/top.sh" text="top"/>
+        </div>
+        <div>
+          <label id="top" text="" wrap="1"/>
+				</div>-->
+      </div>
+    </div>
+  </template>
+  <template name="VerticalSeparator">
+    <rectangle width="2" height="100%" color="~color_accent"/>
+  </template>
+  <elements>
+    <!-- padding="32" is required there (to make room for tooltips) -->
+    <div padding="32" interactable="0" flex_direction="column" gap="8">
+      <!-- Top elements (device battery levels) -->
+      <div flex_direction="row">
+        <div id="devices_root" interactable="0" gap="6" width="100%" max_width="400" flex_direction="row" flex_wrap="wrap">
+          <!-- Will populate tags at runtime -->
+          <!-- These are examples for uidev -->
+          <Hmd idx="0"/>
+          <LeftHand idx="1"/>
+          <RightHand idx="2"/>
+          <Tracker idx="3"/>
+        </div>
+        <!--<div>
+          <Button macro="button_style" _press="::OverlayToggle slimevr" width="40" height="40">
+						<sprite width="40" height="20" color="~color_text" src="$HOME/.config/wayvr/theme/gui/assets/slimevr/slimevr.svg"/>
+          </Button>
+				</div>-->
+      </div>
+      <!-- All other elements inside the container -->
+      <div flex_direction="column" gap="8" min_width="300">
+        <div flex_direction="row" gap="12">
+          <rectangle macro="decorative_rect" flex_direction="row" gap="8" justify_content="space_evenly">
+            <!-- Clock, date and various timezones -->
+						<div id="clock_root" flex_direction="column">
+							<label id="songname" text="hai" align="center"/>
+							<div id="listenforsong">
+							<Button macro="media_button_style"  _press="::ShellExec $HOME/.config/wayvr/theme/gui/assets/songname.sh" text="listen for songname"/>
+						</div>
+							<Clock/>
+              <div flex_direction="row" id="mediacontrols">
+                <div flex_direction="column">
+                  <Button macro="media_button_style" tooltip="play/pause" _press="::ShellExec playerctl play-pause">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/play.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                  <Button macro="media_button_style" tooltip="skip" _press="::ShellExec playerctl next">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/skip.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                </div>
+                <div flex_direction="column">
+                  <Button macro="media_button_style" tooltip="volume up" _press="::ShellExec playerctl volume 0.05+">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/volup.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                  <Button macro="media_button_style" tooltip="volume down" _press="::ShellExec playerctl volume 0.05-">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/voldown.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                </div>
+                <div flex_direction="column">
+                  <Button macro="media_button_style" tooltip="backward -10" _press="::ShellExec playerctl position 10-">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/backward.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                  <Button macro="media_button_style" tooltip="forward +10" _press="::ShellExec playerctl position 10+">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/forward.svg" height="30" width="30" color="~color_text"/>
+                  </Button>
+                </div>
+                <div flex_direction="column">
+                  <Button macro="media_button_style" tooltip="previous" _press="::ShellExec playerctl previous">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/previous.svg" height="30" width="30" color="~color_text"/>
+									</Button>
+
+                  <Button macro="media_button_style" tooltip="shuffle toggle" _press="::ShellExec playerctl shuffle Toggle">
+                    <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/media/shuffle.svg" height="30" width="30" color="~color_text"/>
+									</Button>
+
+                  </div>
+              </div>
+            </div>
+            <!-- Four buttons -->
+            <div flex_direction="column" gap="8" max_height="50%">
+              <div gap="8">
+                              </div>
+            </div>
+          </rectangle>
+          <div min_width="0" min_height="0">
+            <rectangle id="slimerootrect" macro="decorative_rect" flex_direction="column" display="none" gap="8">
+              <SlimeVRButton tooltip="Full reset" event="::ShellExec $HOME/.config/wayvr/theme/gui/assets/slimevr/fullreset.sh" icon="/home/ozzy/.config/wayvr/theme/gui/assets/slimevr/fullreset.svg"/>
+              <SlimeVRButton tooltip="Yaw reset" event="::ShellExec $HOME/.config/wayvr/theme/gui/assets/slimevr/yawreset.sh" icon="/home/ozzy/.config/wayvr/theme/gui/assets/slimevr/yawreset.svg"/>
+              <SlimeVRButton tooltip="Mounting reset" event="::ShellExec $HOME/.config/wayvr/theme/gui/assets/slimevr/mountingreset.sh" icon="/home/ozzy/.config/wayvr/theme/gui/assets/slimevr/mountingreset.svg"/>
+            </rectangle>
+          </div>
+          <div min_width="0" min_height="0">
+            <rectangle id="sysstatsrootrect" display="none" macro="decorative_rect" flex_direction="column" gap="8">
+              <label id="junction" text="hi iam hardware stats"/>
+              <label id="mem" text="hi iam hardware stats"/>
+              <label id="tctl" text="hi iam hardware stats"/>
+              <label id="gpuusage" text="hi iam hardware stats"/>
+              <label id="cpuusage" text="hi iam hardware stats"/>
+            </rectangle>
+          </div>
+        </div>
+        <!-- Bottom buttons -->
+        <div gap="8">
+          <div gap="4">
+            <div flex_direction="column">
+              <Button id="btn_dashboard" macro="button_style" _press="::DashToggle" tooltip="WATCH.DASHBOARD" tooltip_side="top">
+                <sprite color="~color_text" width="20" height="20" src="watch/wayvr_dashboard_mono.svg"/>
+              </Button>
+              <Mirror/>
+            </div>
+            <div flex_direction="column">
+              <Button id="btn_keyboard" macro="button_style" _press="::OverlayToggle kbd" tooltip="EDIT_MODE.KEYBOARD" tooltip_side="left">
+                <sprite src_builtin="watch/keyboard.svg" width="20" height="20"/>
+								</Button>
+								<Button id="btn_edit_mode" macro="button_style" _press="::EditToggle" tooltip="WATCH.EDIT_MODE">
+                    <sprite color="~color_text" width="20" height="20" src="watch/edit.svg"/>
+                  </Button>
+
+            </div>
+          </div>
+          <VerticalSeparator/>
+          <div id="sets_root" gap="4" width="0" height="0">
+            <!-- Will populate tags at runtime -->
+            <!-- These are examples for uidev -->
+            <Set idx="0" display="1"/>
+            <Set idx="1" display="2"/>
+          </div>
+          <div id="panels_root" gap="4" display="none">
+            <!-- Will populate tags at runtime -->
+            <!-- These are examples for uidev -->
+            <Screen idx="0" display="H1" name="HDMI-A-1"/>
+            <Screen idx="1" display="D2" name="DP-2"/>
+          </div>
+          <!--	<VerticalSeparator/> -->
+          <div id="bottombar" gap="4" flex_direction="row">
+            <div id="toggle_slime">
+              <Button macro="button_style" sticky="1" _press="::ShellExec $HOME/.config/wayvr/theme/gui/assets/toggle.sh slimerootrect">
+                <sprite width="32" height="32" color="~color_text" src="/home/ozzy/.config/wayvr/theme/gui/assets/slimevr/slimevr.svg"/>
+              </Button>
+            </div>
+            <div id="hwmon_button">
+              <Button macro="button_style" sticky="1" id="hwmon_test" _press="::ShellExec $HOME/.config/wayvr/theme/gui/assets/sysstat.sh">
+                <sprite src="/home/ozzy/.config/wayvr/theme/gui/assets/sensors.svg" width="32" height="32"/>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </elements>
+</layout>
