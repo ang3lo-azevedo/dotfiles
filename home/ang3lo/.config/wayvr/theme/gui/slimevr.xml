@@ -1,0 +1,28 @@
+<layout>
+	<theme>
+
+		<var key="button_size" value="80"/>
+		<var key="_panel_icon" value="/usr/share/icons/hicolor/256x256@2/apps/slimevr.png"/>
+
+	</theme>
+  <macro name="decorative_rect"
+    padding="8" 
+    border="2" border_color="~color_accent" round="8" />
+	<template name="SlimeVRButton">
+		<Button tooltip="${tooltip}" _press="${event}">
+			<sprite width="~button_size" height="~button_size" src="${icon}"/>
+		</Button>
+	</template>
+
+  <elements>
+	       
+            <rectangle id="slimerootrect" macro="decorative_rect" flex_direction="column" gap="8">
+              <SlimeVRButton tooltip="Full reset" event="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/slimevr/fullreset.sh" icon="/home/proto/.config/wayvr/theme/gui/assets/slimevr/fullreset.svg"/>
+              <SlimeVRButton tooltip="Yaw reset" event="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/slimevr/yawreset.sh" icon="/home/proto/.config/wayvr/theme/gui/assets/slimevr/yawreset.svg"/>
+              <SlimeVRButton tooltip="Mounting reset" event="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/slimevr/mountingreset.sh" icon="/home/proto/.config/wayvr/theme/gui/assets/slimevr/mountingreset.svg"/>
+            </rectangle>
+        
+
+  </elements>
+</layout>
+
