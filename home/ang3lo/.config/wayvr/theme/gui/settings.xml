@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout>
+  <theme>
+		<var key="button_size" value="80"/>
+		<var key="_panel_icon" value="/home/proto/.config/wayvr/theme/gui/assets/settings.svg"/>
+  </theme>
+  <macro name="decorative_rect" padding="8" border="2" border_color="~color_accent" round="8"/>
+  <elements>
+    <rectangle height="350" padding="32" width="350" id="settingsrootrect" macro="decorative_rect" flex_direction="column" gap="8">
+      <label text="may require restart of overlay"/>
+      <Button text="hide panels or sets on watch" padding="16" _press="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/settings.sh showsetsorpanels">
+        			</Button>
+			<Button text="show slimevr stuff" padding="16" _press="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/settings.sh showslimetoggle">
+				
+			</Button>
+			<Button text="Show HWmon" padding="16" _press="::ShellExec /home/proto/.config/wayvr/theme/gui/assets/settings.sh showhwmontoggle">
+
+			</Button>
+				<label text="HWmon update interval:"/>
+			<Slider min_value="1.0" max_value="1000.0">
+			</Slider>
+
+			<div height="100%"/>
+			<Button text="restart wayvr" padding="16" _press="::Restart">
+						</Button>
+    </rectangle>
+  </elements>
+</layout>
