@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   imports = [
     ./protonup.nix
@@ -7,9 +6,5 @@
     ./prismlauncher.nix
     ./vr
     ./emulators
-  ];
-
-  home.packages = with pkgs; [
-    owmods-gui
   ];
 }
