@@ -1,8 +1,6 @@
 { inputs, trakt-scrobbler-src, pkgs, ... }:
 let
   system = pkgs.stdenv.hostPlatform.system;
-  nixpkgs = inputs.nixpkgs.legacyPackages.${system};
-  nixpkgs-xr = inputs.nixpkgs-xr.packages.${system};
 in
 {
   home.username = "ang3lo";
@@ -18,21 +16,14 @@ in
   nixpkgs.overlays = [ 
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
+    # nixpkgs-xr overlay without wivrn
+    (final: prev: builtins.removeAttrs (inputs.nixpkgs-xr.overlays.default final prev) [ "wivrn" ])
     (final: prev: {
-      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
-      cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
-
-      # Make Wivrn come from nixpkgs-unstable to not have to deal with https://github.com/nix-community/nixpkgs-xr/issues/569 and to fix flicker issues
-      wivrn = nixpkgs.wivrn;
-
-      # Make WayVR come from Scrumplex nixpkgs 25.11 branch
-      #wayvr = inputs.scrumplex-nixpkgs.legacyPackages."${system}".wayvr;
-
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
 
-      # For kaon
-      kaon = nixpkgs-xr.kaon;
+      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
+      cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
     })
   ];
 
