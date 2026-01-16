@@ -16,8 +16,13 @@ in
   nixpkgs.overlays = [ 
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
+
+    # For Jackify
+    inputs.nixpkgs-extra.overlays.default
+
     # nixpkgs-xr overlay without wivrn
     (final: prev: builtins.removeAttrs (inputs.nixpkgs-xr.overlays.default final prev) [ "wivrn" ])
+
     (final: prev: {
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
