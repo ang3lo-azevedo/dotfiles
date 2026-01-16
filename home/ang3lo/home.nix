@@ -2,7 +2,7 @@
 let
   system = pkgs.stdenv.hostPlatform.system;
   nixpkgs = inputs.nixpkgs.legacyPackages.${system};
-  nixpkgs-xr = inputs.nixpkgs-xr.legacyPackages.${system};
+  nixpkgs-xr = inputs.nixpkgs-xr.packages.${system};
 in
 {
   home.username = "ang3lo";
