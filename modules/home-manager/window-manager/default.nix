@@ -10,5 +10,6 @@
     ./bzmenu.nix
     ./swaylock.nix
     ./wl-clipboard.nix
+    ./cliphist.nix
   ];
 }

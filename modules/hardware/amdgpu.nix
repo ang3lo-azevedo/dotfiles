@@ -9,7 +9,7 @@
     enable32Bit = true;
   };
 
-  # Handle eGPU hot-unplug gracefully
+/*   # Handle eGPU hot-unplug gracefully
   boot.kernelParams = [
     # Allow ACPI hotplug to work properly
     "pci=pcie_bus_safe"
@@ -18,5 +18,5 @@
   ];
 
   # Enable PCIe hotplug support
-  boot.kernelModules = [ "pcie_hp" "acpihp" ];
+  boot.kernelModules = [ "pcie_hp" "acpihp" ]; */
 }
