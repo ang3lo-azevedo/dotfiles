@@ -26,7 +26,7 @@ in
       wivrn = nixpkgs.wivrn;
 
       # Make WayVR come from Scrumplex nixpkgs 25.11 branch
-      wayvr = inputs.scrumplex-nixpkgs.legacyPackages."${system}".wayvr;
+      #wayvr = inputs.scrumplex-nixpkgs.legacyPackages."${system}".wayvr;
 
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
