@@ -6,6 +6,7 @@
     ./mangohud.nix
     ./prismlauncher.nix
     ./vr
+    ./emulators
   ];
 
   home.packages = with pkgs; [
