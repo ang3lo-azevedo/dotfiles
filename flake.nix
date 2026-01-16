@@ -21,6 +21,11 @@
       url = "github:nix-community/nixpkgs-xr";
     };
 
+    # For Jackify
+    nixpkgs-extra = {
+      url = "github:Mistyttm/nixpkgs-extra";
+    };
+
     # Input for Disko (disk partitioning tool)
     disko = {
       url = "github:nix-community/disko";
@@ -136,12 +141,6 @@
       url = "github:glaumar/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # For Jackify
-    nixpkgs-extra = {
-      url = "github:Mistyttm/nixpkgs-extra";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   nixConfig = {
@@ -245,7 +244,9 @@
           {
             # Alternatively: use the exact kernel versions as defined in this repo.
             # Guarantees you have binary cache.
-            nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ];
+            nixpkgs.overlays = [
+              nix-cachyos-kernel.overlays.pinned
+            ];
           }
 
           # Mango Window Compositor overlay
