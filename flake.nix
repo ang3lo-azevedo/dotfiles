@@ -136,6 +136,12 @@
       url = "github:glaumar/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # For Jackify
+    nixpkgs-extra = {
+      url = "github:Mistyttm/nixpkgs-extra";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
