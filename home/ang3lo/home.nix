@@ -30,6 +30,9 @@ in
 
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
+
+      # For kaon
+      kaon = nixpkgs-xr.kaon;
     })
   ];
 
