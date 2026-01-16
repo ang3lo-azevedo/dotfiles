@@ -16,5 +16,6 @@
     ./yazi.nix
     ./ncdu.nix
     ./universal-android-debloater.nix
+    ./kdeconnect.nix
   ];
 }
