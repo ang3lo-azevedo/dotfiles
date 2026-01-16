@@ -6,6 +6,7 @@
 - [ ] Fix the print screen
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
+- [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Improve mangowc configs
 - [ ] Make wlsunset also work offline
