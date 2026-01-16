@@ -15,5 +15,6 @@
     #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
     ./yazi.nix
     ./ncdu.nix
+    ./universal-android-debloater.nix
   ];
 }
