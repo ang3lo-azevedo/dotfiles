@@ -44,6 +44,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Haumea for filesystem-based module system
+    haumea = {
+      url = "github:nix-community/haumea/0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Impermanence
     impermanence = {
       url = "github:nix-community/impermanence";
@@ -164,6 +170,7 @@
       disko,
       agenix,
       home-manager,
+      haumea,
       stylix,
       nix-cachyos-kernel,
       mango,
