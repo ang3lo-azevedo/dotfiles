@@ -1,7 +1,7 @@
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Make some config files symlinks, mainly on the window manager configs
 - [ ] Add cachyos-proton
-- [ ] Make a general function to add all .nix files inside a folder to the default.nix
+- [ ] Make a general function to add all .nix files inside a folder to the default.nix (Maybe use haumea https://github.com/nix-community/haumea)
 - [ ] Fix the clipboard
 - [ ] Fix the print screen
 - [ ] Add the missing fn keys
