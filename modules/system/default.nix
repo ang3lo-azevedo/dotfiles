@@ -10,7 +10,7 @@
     ./binary-cache.nix
     ./configuration.nix
     #./impermanence.nix
-    ./virtualisation.nix
+    ./virtualisation
     ./wayland.nix
     ./polkit_gnome.nix
   ];
