@@ -15,7 +15,6 @@
         fakeNitro.enable = true;
         noNitroUpsell.enable = true;
         questify.enable = true;
-        questCompleter.enable = true;
         spotifyActivityToggle.enable = true;
         spotifyCrack = {
           enable = true;
@@ -33,6 +32,7 @@
           enable = true;
           disableFileConversion = true;
         };
+        previewMessage.enable = true;
       };
     };
   };
