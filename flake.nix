@@ -46,7 +46,7 @@
 
     # Haumea for filesystem-based module system
     haumea = {
-      url = "github:nix-community/haumea/0.2.2";
+      url = "github:nix-community/haumea";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -71,6 +71,12 @@
     # Libfprint fork for EgisTec support
     libfprint-src = {
       url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
+      flake = false;
+    };
+
+    # Samsung Galaxy Book audio script
+    samsung-audio-script = {
+      url = "https://raw.githubusercontent.com/joshuagrisham/galaxy-book2-pro-linux/main/sound/necessary-verbs.sh";
       flake = false;
     };
 
@@ -108,13 +114,22 @@
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
-      url = "github:FlameFlag/nixcord";
+      # TODO: Temporary fix
+      url = "github:PartlyAwesome/nixcord/fix-activation-scripts";
+      #url = "github:FlameFlag/nixcord";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for Spicetify Nix (Spotify customizer)
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Input for Youtube Music
+    youtube-music = {
+      url = "github:h-banii/youtube-music-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
