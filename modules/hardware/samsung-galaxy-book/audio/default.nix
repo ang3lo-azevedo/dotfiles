@@ -1,13 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 
 let
   cfg = config.hardware.samsung-galaxy-book-audio;
-  script = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/joshuagrisham/galaxy-book2-pro-linux/main/sound/necessary-verbs.sh";
-    sha256 = "1ix9s9bkycl7af4bpfw23wq30z9db8syhgch57k7rkp0rags6zdw";
-  };
+  
+  # Try to use the flake input script, fallback to local copy
+  script = if builtins.pathExists inputs.samsung-audio-script
+           then inputs.samsung-audio-script
+           else ./necessary-verbs.sh;
 in
 {
   options.hardware.samsung-galaxy-book-audio = {
@@ -15,6 +16,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.alsa-tools ];
+
     systemd.services.samsung-galaxy-book-audio-fix = {
       description = "Samsung Galaxy Book audio fix";
       after = [ "sound.target" ];
