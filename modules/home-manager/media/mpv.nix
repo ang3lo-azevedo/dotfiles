@@ -22,13 +22,4 @@ in
     source = filteredMpvConfig;
     recursive = true;
   };
-
-  # Register mpv-handler for custom protocols
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/mpv-handler" = "mpv-handler.desktop";
-      "x-scheme-handler/mpv-handler-debug" = "mpv-handler-debug.desktop";
-    };
-  };
 }
