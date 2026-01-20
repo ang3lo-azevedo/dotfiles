@@ -13,6 +13,5 @@
     ./virtualisation
     ./wayland.nix
     ./polkit_gnome.nix
-    ./xdg-mime.nix
   ];
 }

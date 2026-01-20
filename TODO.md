@@ -11,7 +11,7 @@
 - [ ] Improve mangowc configs
 - [ ] Make wlsunset also work offline
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
-- [ ] Fix all mpv related programs
+- [x] Fix all mpv related programs
 - [ ] Fix Zen extension settings
 - [ ] Create a README
 - [x] Add the CachyOS Kernel
