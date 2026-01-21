@@ -18,5 +18,6 @@
     ./ncdu.nix
     ./universal-android-debloater.nix
     ./kdeconnect.nix
+    ./openvpn.nix
   ];
 }
