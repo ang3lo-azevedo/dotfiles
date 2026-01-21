@@ -157,6 +157,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # For IDA Pro
+    ida-pro-overlay = {
+      url = "github:msanft/ida-pro-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # For QRookie
     glaumar_repo = {
       url = "github:glaumar/nur";

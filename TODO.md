@@ -1,3 +1,7 @@
+- [ ] Fix IDA Pro
+- [ ] Add wireshark
+- [ ] Add binary ninja
+- [ ] Add angr-management
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Make some config files symlinks, mainly on the window manager configs
 - [ ] Add cachyos-proton
