@@ -17,6 +17,9 @@ in
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
 
+    # For IDA Pro
+    inputs.ida-pro-overlay.overlays.default
+
     # For Jackify
     inputs.nixpkgs-extra.overlays.default
 

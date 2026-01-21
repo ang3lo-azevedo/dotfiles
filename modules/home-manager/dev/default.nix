@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./python
     ./git.nix
     ./code-editors
     ./adb.nix
