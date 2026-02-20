@@ -1,8 +1,9 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.youtube-music.homeManagerModules.default
+    inputs.pear-desktop.homeManagerModules.default
   ];
+
   programs.youtube-music = {
     enable = true;
     options = {
