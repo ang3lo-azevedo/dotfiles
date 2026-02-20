@@ -64,7 +64,7 @@
 
     # Apple Emoji
     apple-emoji = {
-      url = "github:samuelngs/apple-emoji-linux";
+      url = "github:samuelngs/apple-emoji-ttf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -83,12 +83,6 @@
     # Input for CachyOS Kernel
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-    };
-
-    # Input for MangoWC window compositor
-    mango = {
-      url = "github:DreamMaoMao/mango";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for Zen Browser
@@ -114,10 +108,7 @@
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
-      # TODO: Temporary fix
-      url = "github:PartlyAwesome/nixcord/fix-activation-scripts";
-      #url = "github:FlameFlag/nixcord";
-
+      url = "github:FlameFlag/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -127,8 +118,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Input for Youtube Music
-    youtube-music = {
+    # Input for Pear Desktop (formerly youtube-music)
+    pear-desktop = {
       url = "github:h-banii/youtube-music-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -194,7 +185,6 @@
       haumea,
       stylix,
       nix-cachyos-kernel,
-      mango,
       zen-browser,
       nix-vscode-extensions,
       spicetify-nix,
@@ -254,12 +244,11 @@
           {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
+            home-manager.backupFileExtension = "hm-backup";
             home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
             home-manager.extraSpecialArgs = {
               inherit
                 inputs
-                mango
                 zen-browser
                 nix-vscode-extensions
                 spicetify-nix
@@ -275,12 +264,6 @@
             nixpkgs.overlays = [
               nix-cachyos-kernel.overlays.pinned
             ];
-          }
-
-          # Mango Window Compositor overlay
-          mango.nixosModules.mango
-          {
-            programs.mango.enable = true;
           }
 
           # Stylix overlay
@@ -310,7 +293,6 @@
         extraSpecialArgs = {
           inherit
             inputs
-            mango
             zen-browser
             nix-vscode-extensions
             spicetify-nix
@@ -321,6 +303,11 @@
         modules = [
           ./home/ang3lo/home.nix
         ];
+      };
+
+      # Development shells
+      devShells.x86_64-linux.android = import ./shells/android.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
     };
 }

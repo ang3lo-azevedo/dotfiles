@@ -3,7 +3,10 @@ let
   waybarDir = ../../../home/ang3lo/.config/waybar;
 in
 {
-  programs.waybar.enable = true;
+  programs.waybar = {
+    enable = true;
+    systemd.enable = false;
+  };
   stylix.targets.waybar.enable = false;
 
   xdg.configFile."waybar" = {

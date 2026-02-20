@@ -1,6 +1,7 @@
 {
   mango,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -59,10 +60,11 @@ in
     };
   };
 
-  xdg.configFile."mango" = {
-    source = mangoDir;
-    recursive = true;
-  };
+  # Direct symlink to repository for live config editing
+  home.activation.linkMangoConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD rm -rf $HOME/.config/mango
+    $DRY_RUN_CMD ln -sf ${mangoDir} $HOME/.config/mango
+  '';
 
   # Auto-reload Mango when its config files change
   systemd.user.services.mango-reload = {

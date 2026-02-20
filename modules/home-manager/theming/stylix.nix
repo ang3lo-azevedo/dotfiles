@@ -1,4 +1,25 @@
 { pkgs, inputs, ... }:
+let
+  # TODO: Temporary workaround for Apple Color Emoji font
+  appleEmojiTtf = pkgs.fetchurl {
+    url = "https://github.com/samuelngs/apple-emoji-ttf/releases/download/macos-26-20260218-d5729b24/AppleColorEmoji-Linux.ttf";
+    sha256 = "4ef5fe48d4a40fe72e8a4ad1a0947e19d4fea07d4fe9787eb9f65fe186504680";
+  };
+
+  appleColorEmojiPackage = pkgs.stdenvNoCC.mkDerivation {
+    pname = "apple-color-emoji";
+    version = "macos-26-20260218-d5729b24";
+    src = appleEmojiTtf;
+    dontUnpack = true;
+
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/share/fonts/truetype
+      cp "$src" "$out/share/fonts/truetype/AppleColorEmoji-Linux.ttf"
+      runHook postInstall
+    '';
+  };
+in
 {
   stylix = {
     enable = true;
@@ -27,7 +48,8 @@
       };
 
       emoji = {
-        package = inputs.apple-emoji.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        #package = inputs.apple-emoji.packages.${pkgs.stdenv.hostPlatform.system}.default;
+        package = appleColorEmojiPackage;
         name = "Apple Color Emoji";
       };
     };

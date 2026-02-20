@@ -5,7 +5,7 @@
     ./ghostty.nix
     ./nixcord.nix
     ./spicetify.nix
-    ./youtube-music.nix
+    ./pear-desktop.nix
     ./wlr-randr.nix
     ./wlr-layout-ui.nix
     ./brightnessctl.nix
