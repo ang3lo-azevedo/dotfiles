@@ -1,7 +1,7 @@
 {
   imports = [
     ./services
-    ./mangowc.nix
+    ./niri.nix
     ./waybar.nix
     ./fuzzel.nix
     ./swaybg.nix

@@ -3,7 +3,7 @@
 let
   touchpadtoggle-pkg = pkgs.writeShellApplication {
     name = "toggle-touchpad";
-    runtimeInputs = [ pkgs.libinput pkgs.xorg.xinput ];
+    runtimeInputs = [ pkgs.libinput pkgs.xinput ];
     text = builtins.readFile ./scripts/touchpadtoggle.sh;
   };
 

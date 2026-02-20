@@ -1,3 +1,4 @@
+- [ ] Configure server
 - [ ] Fix IDA Pro
 - [ ] Add wireshark
 - [ ] Add binary ninja
@@ -10,6 +11,7 @@
 - [ ] Fix the print screen
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
+- [ ] Add Home Assistant Controls to the waybar
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Improve mangowc configs
@@ -28,7 +30,6 @@
 - [ ] Test and improve Windows configuration
 - [ ] Add GitHub Actions to update the packages automatically
 - [ ] Add LaTeX
-- [ ] Configure server
 - [ ] Improve overlays
 - [ ] Add impermanence
 - [ ] Add the backup mechanism

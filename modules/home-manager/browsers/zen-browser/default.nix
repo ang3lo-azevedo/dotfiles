@@ -14,6 +14,7 @@ in
 
   programs.zen-browser = {
     enable = true;
+    suppressXdgMigrationWarning = true;
     profiles.${profileName} = {
       extensions.force = true;
       settings = import ./settings.nix;
