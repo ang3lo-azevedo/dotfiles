@@ -20,6 +20,8 @@ in
     # For IDA Pro
     inputs.ida-pro-overlay.overlays.default
 
+    inputs.binaryninja.nixosModules.binaryninja
+
     # For Jackify
     inputs.nixpkgs-extra.overlays.default
 

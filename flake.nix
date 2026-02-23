@@ -154,6 +154,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # For Binary Ninja
+    binaryninja = {
+      url = "github:jchv/nix-binary-ninja";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # For QRookie
     glaumar_repo = {
       url = "github:glaumar/nur";
