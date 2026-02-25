@@ -19,5 +19,7 @@
     ./universal-android-debloater.nix
     ./kdeconnect.nix
     ./openvpn.nix
+    ./affinity.nix
+    ./xournalapp.nix
   ];
 }
