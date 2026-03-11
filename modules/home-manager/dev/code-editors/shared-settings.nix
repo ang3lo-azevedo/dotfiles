@@ -105,6 +105,9 @@
       "markdown" = true;
       "scminput" = true;
     };
+
+    # Enable Model Context Protocol (MCP) server for Background Agents.
+    "github.copilot.chat.cli.mcp.enabled"= false;
   };
 }
 
