@@ -5,7 +5,7 @@ in
 {
   programs.waybar = {
     enable = true;
-    systemd.enable = false;
+    systemd.enable = true;
   };
   stylix.targets.waybar.enable = false;
 
