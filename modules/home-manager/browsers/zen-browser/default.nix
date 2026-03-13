@@ -1,4 +1,4 @@
-{ inputs, pkgs,... }:
+{ inputs, pkgs, ... }:
 let
   profileName = "ang3lo";
 in
@@ -14,7 +14,6 @@ in
 
   programs.zen-browser = {
     enable = true;
-    suppressXdgMigrationWarning = true;
     profiles.${profileName} = {
       extensions.force = true;
       settings = import ./settings.nix;
@@ -27,7 +26,9 @@ in
     value = let
       zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.beta; # or twilight
     in
-      zen-browser.meta.desktopFileName;
+      if zen-browser.meta ? desktopFileName
+      then [ zen-browser.meta.desktopFileName ]
+      else [ "zen-beta.desktop" ];
 
     associations = builtins.listToAttrs (map (name: {
         inherit name value;

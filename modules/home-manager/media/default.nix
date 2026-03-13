@@ -7,5 +7,6 @@
     ./gimp.nix
     ./kdenlive.nix
     ./audacity.nix
+    ./inform7.nix
   ];
 }
