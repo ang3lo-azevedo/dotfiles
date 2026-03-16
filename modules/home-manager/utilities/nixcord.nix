@@ -40,7 +40,12 @@
       plugins = {
         fakeNitro.enable = true;
         noNitroUpsell.enable = true;
-        questify.enable = true;
+        questify = {
+          enable = true;
+          completeAchievementQuestsInBackground = true;
+          completeGameQuestsInBackground = true;
+          completeVideoQuestsInBackground = true;
+        };
         spotifyActivityToggle.enable = true;
         spotifyCrack = {
           enable = true;
@@ -50,9 +55,6 @@
         messageLoggerEnhanced.enable = true;
         channelTabs.enable = true;
         showHiddenChannels.enable = true;
-        anammox = {
-          enable = true;
-        };
         summaries.enable = true;
         splitLargeMessages = {
           enable = true;
