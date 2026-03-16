@@ -5,5 +5,6 @@
     ./binary-ninja.nix
     #./ida-pro.nix
     ./burpsuite.nix
+    ./caido.nix
   ];
 }
