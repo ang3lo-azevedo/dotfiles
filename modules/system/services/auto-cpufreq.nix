@@ -1,4 +1,7 @@
 {
+  # auto-cpufreq and power-profiles-daemon are mutually exclusive
+  services.power-profiles-daemon.enable = false;
+
   # Enable auto-cpufreq service to optimize CPU frequency based on usage
   services.auto-cpufreq = {
     enable = true;

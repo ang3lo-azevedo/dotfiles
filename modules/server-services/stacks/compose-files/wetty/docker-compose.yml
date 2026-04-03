@@ -1,0 +1,14 @@
+services:
+  wetty:
+    image: wettyoss/wetty:latest
+    container_name: wetty
+    environment:
+      - PUID=1000
+      - PGID=1000
+    user: 1000:1000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    network_mode: host
+    restart: unless-stopped

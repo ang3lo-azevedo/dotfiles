@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+    <link type="text/html" rel="alternate" href="http://www.phrack.org/"/>
+    <link type="application/atom+xml" rel="self" href="https://raw.githubusercontent.com/rmi7/phrack-rss/master/phrack.atom/11"/>
+    <id>http://www.phrack.org/</id>
+    <title>.:: Phrack Magazine ::. RSS Feed</title>
+    <updated>2015-03-25T12:00:00Z</updated>
+    <entry>
+        <id>blabla</id>
+        <title>Cyber Grand Shellphish</title>
+        <link type="text/html" rel="alternate" href="http://www.phrack.org/papers/cyber_grand_shellphish.html"/>
+        <content type="html">
+            shell phishing
+        </content>
+    </entry>
+</feed>

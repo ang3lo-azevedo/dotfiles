@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+    <title>Phrack RSS Feed</title>
+    <link>http://www.phrack.org/</link>
+    <description>Phrack</description>
+    <item>
+      <title>Cyber Grand Shellphish</title>
+      <link>http://www.phrack.org/papers/cyber_grand_shellphish.html</link>
+      <guid>http://www.phrack.org/papers/cyber_grand_shellphish.html</guid>
+      <pubDate>Wed, 25 Jan 2017 00:00:00 GMT</pubDate>
+      <description><![CDATA[ shell fishing...... ]]></description>
+    </item>
+</channel>
+</rss>

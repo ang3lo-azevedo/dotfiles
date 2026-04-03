@@ -1,0 +1,17 @@
+services:
+  aiostreams:
+    image: ghcr.io/viren070/aiostreams:nightly
+    container_name: aiostreams
+    restart: unless-stopped
+    ports:
+      - 3001:3000
+    env_file:
+      - stack.env
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: wget -qO- http://localhost:3000/api/v1/status
+      interval: 1m
+      timeout: 10s
+      retries: 5
+      start_period: 10s
