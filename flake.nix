@@ -112,6 +112,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fake Voice Options Equicord plugin source
+    fakeVoiceOptions = {
+      url = "github:eightcon/FakeVoiceOptions";
+      flake = false;
+    };
+
     # Input for Spicetify Nix (Spotify customizer)
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
@@ -124,6 +130,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Input for Affinity Designer/Photo/Publisher NixOS/Home Manager modules
+    affinity-nix = {
+      url = "github:mrshmllow/affinity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # MPV config
     mpv-config = {
       url = "github:ang3lo-azevedo/mpv";
@@ -133,6 +145,12 @@
     # Trakt Scrobbler
     trakt-scrobbler-src = {
       url = "github:iamkroot/trakt-scrobbler";
+      flake = false;
+    };
+
+    # PhotoGIMP assets and config
+    photogimp = {
+      url = "github:Diolinux/PhotoGIMP/3.0";
       flake = false;
     };
 
@@ -163,6 +181,18 @@
     # For QRookie
     glaumar_repo = {
       url = "github:glaumar/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Stremio Enhanced - Enhanced Stremio desktop client with plugins and themes
+    stremio-enhanced = {
+      url = "github:REVENGE977/stremio-enhanced";
+      flake = false;
+    };
+
+    # Custom package set with Playtorrio v2
+    custom-packages = {
+      url = "github:Rishabh5321/custom-packages-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -196,6 +226,7 @@
       spicetify-nix,
       mpv-config,
       trakt-scrobbler-src,
+      photogimp,
       nordvpn-flake,
       nixpkgs-xr,
       ...
