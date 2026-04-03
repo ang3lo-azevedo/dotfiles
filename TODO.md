@@ -1,6 +1,7 @@
 - [ ] Add the README
 - [ ] Update the MPV config
 - [ ] Fix waybar issue if still present
+- [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
 - [ ] Fix IDA Pro
