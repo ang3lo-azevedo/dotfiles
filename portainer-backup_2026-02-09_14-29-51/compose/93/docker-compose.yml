@@ -1,9 +1,0 @@
-services:
-  phrack-rss:
-    build: .
-    container_name: phrack-rss
-    restart: unless-stopped
-    ports:
-      - "8099:8099"
-    volumes:
-      - ./data:/app/data
