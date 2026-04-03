@@ -8,20 +8,18 @@
 
     "modules-left": [
         "privacy",
-        "mpris",
-        "custom/waybar-scrolling-mpris"
+        "mpris"
     ],
     "modules-center": [
         "clock"
     ],
     "modules-right": [
-        "custom/pacman",
         "tray",
         "custom/wlsunset",
         "wireplumber",
         "bluetooth",
         "network",
-        "power-profiles-daemon","battery",
+        "battery",
         "custom/notification"
     ],
 
@@ -42,17 +40,6 @@
         "on-scroll-down": "swaync-client -cp"
     },
 
-    "custom/waybar-scrolling-mpris": {
-        "format": "{}",
-        "display-format": "{title} {artist} ",
-        "exec": "~/.config/waybar/scripts/waybar-scrolling-mpris ~/.config/waybar/config",
-        "icons": {
-            "Paused": "\uf04b",
-            "Playing": "\uf04c"
-        },
-        "length": 20
-    },
-
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
         "interval": 1,
@@ -69,19 +56,6 @@
                 "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
         },
-        "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp"
-    },
-
-    "custom/pacman": {
-        "format": "{icon}{0}",
-        "return-type": "json",
-        "format-icons": {
-            "pending-updates": " "
-        },
-        "exec-if": "which waybar-updates",
-        "exec": "waybar-updates -n",
-        "on-click": "ghostty -e sh -c 'paru -Syu'",
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },
@@ -157,16 +131,6 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
-        "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp"
-    },
-
-    "power-profiles-daemon": {
-        "format-icons": {
-            "performance": "\uf0e7",
-            "balanced": "\uf1ce",
-            "power-saver": "\uf06c"
-        },
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },

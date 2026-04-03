@@ -48,7 +48,7 @@ let
 
 in
 {
-  pinsForce = true;
+  pinsForce = false; # Pins are not forced by default, allowing for user overrides
   spacesForce = true;
   containersForce = true;
   pins = processItems allPins 100;
