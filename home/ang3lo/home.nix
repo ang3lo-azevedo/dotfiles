@@ -8,6 +8,7 @@ in
 
   imports = [
     inputs.stylix.homeModules.stylix
+    inputs.binaryninja.hmModules.binaryninja
     ../../modules/home-manager
   ];
 
@@ -20,7 +21,8 @@ in
     # For IDA Pro
     inputs.ida-pro-overlay.overlays.default
 
-    inputs.binaryninja.nixosModules.binaryninja
+    # For Binary Ninja
+    inputs.binaryninja.overlays.default
 
     # For Jackify
     inputs.nixpkgs-extra.overlays.default
@@ -34,6 +36,7 @@ in
 
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
+      stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix { };
     })
   ];
 
@@ -47,5 +50,5 @@ in
   # You can update home Manager without changing this value. See
   # the home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }
