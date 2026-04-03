@@ -1,0 +1,15 @@
+services:
+  x-ui:
+    image: ghcr.io/mhsanaei/3x-ui:latest
+    container_name: 3x-ui
+    volumes:
+      - ./db:/etc/x-ui
+      - ./cert:/root/cert
+    environment:
+      - XRAY_VMESS_AEAD_FORCED=false
+    network_mode: host
+    #ports:
+      #- "2053:2053"   # The Panel Web Interface
+      #- "443:443"     # The port for your VMess/VLESS connection
+      #- "80:80"       # Optional: if you use HTTP challenges for SSL
+    restart: unless-stopped

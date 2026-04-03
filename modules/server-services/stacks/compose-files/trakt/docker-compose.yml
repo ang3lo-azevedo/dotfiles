@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  trakt:
+    image: docker.io/diabolino/trakt_enhanced:latest
+    container_name: trakt_enhanced
+    restart: unless-stopped
+    ports:
+      - "30009:30009"
+    volumes:
+      - ./trakt_enhanced/data:/app/data
+      - ./trakt_enhanced/config:/app/config
+    environment:
+      - TZ=Europe/Lisbon

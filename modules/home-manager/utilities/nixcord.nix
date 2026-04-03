@@ -1,39 +1,119 @@
 { inputs, pkgs, ... }:
+let
+  fakeVoiceOptions = pkgs.runCommand "fake-voice-options-plugin" { src = inputs.fakeVoiceOptions; } ''
+    mkdir -p "$out"
+    cp -r "$src"/. "$out"/
+
+    mkdir -p "$out/node_modules/@api" "$out/node_modules/@components" "$out/node_modules/@utils" "$out/node_modules/@webpack"
+
+    cat > "$out/node_modules/@api/Settings.js" <<'EOF'
+    function defaultsFromSchema(schema = {}) {
+      return Object.fromEntries(
+        Object.entries(schema).map(([key, value]) => [key, value?.default])
+      );
+    }
+
+    export function definePluginSettings(schema = {}) {
+      const impl = globalThis?.Vencord?.Api?.Settings?.definePluginSettings;
+      if (typeof impl === "function") {
+        return impl(schema);
+      }
+
+      const store = defaultsFromSchema(schema);
+      return {
+        store,
+        plain: store,
+        use: () => store,
+      };
+    }
+    EOF
+
+    cat > "$out/node_modules/@api/Styles.js" <<'EOF'
+    export function enableStyle() {}
+    export function disableStyle() {}
+    EOF
+
+    cat > "$out/node_modules/@components/ErrorBoundary.js" <<'EOF'
+    export default function ErrorBoundary(props) {
+      return props.children ?? null;
+    }
+    EOF
+
+    cat > "$out/node_modules/@utils/constants.js" <<'EOF'
+    export const Devs = {
+      SaucyDuck: { name: "SaucyDuck", id: 1004904120056029256n },
+      GeorgeV22: { name: "GeorgeV22", id: 0n },
+      thororen: { name: "thororen", id: 0n },
+    };
+    EOF
+
+    cat > "$out/node_modules/@utils/types.js" <<'EOF'
+    export const OptionType = {
+      STRING: 0,
+      NUMBER: 1,
+      BIGINT: 2,
+      BOOLEAN: 3,
+      SELECT: 4,
+      SLIDER: 5,
+      COMPONENT: 6,
+      CUSTOM: 7,
+    };
+
+    export default function definePlugin(plugin) {
+      return plugin;
+    }
+    EOF
+
+    cat > "$out/node_modules/@utils/react.js" <<'EOF'
+    export function LazyComponent(factory) {
+      return (...args) => {
+        const component = typeof factory === "function" ? factory() : factory;
+        if (typeof component === "function") {
+          return component(...args);
+        }
+        return null;
+      };
+    }
+    EOF
+
+    cat > "$out/node_modules/@webpack/index.js" <<'EOF'
+    const fallbackFilters = {
+      byCode: () => () => false,
+      byDisplayName: () => () => false,
+      byProps: () => () => false,
+      byStoreName: () => () => false,
+    };
+
+    export const filters = globalThis?.Vencord?.Webpack?.filters ?? fallbackFilters;
+
+    export function find(...args) {
+      const impl = globalThis?.Vencord?.Webpack?.find;
+      return typeof impl === "function" ? impl(...args) : undefined;
+    }
+    EOF
+  '';
+in
 {
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];
   programs.nixcord = {
     enable = true;
+    userPlugins = {
+      fakeVoiceOptions = fakeVoiceOptions;
+    };
+    equicordConfig = {
+      plugins = {
+        "Fake Voice Options" = {
+          enabled = true;
+          fakeMute = true;
+          fakeDeafen = true;
+        };
+      };
+    };
     discord = {
       vencord.enable = false;
       equicord.enable = true;
-      # TODO: Temporary workaround for FlameFlag/nixcord Equicord pnpmDepsHash mismatch (issue #182).
-      # Remove this override once upstream updates pkgs/equicord.nix with the correct hash.
-      equicord.package =
-        inputs.nixcord.packages.${pkgs.stdenv.hostPlatform.system}.equicord.overrideAttrs
-          (oldAttrs:
-            let
-              remoteParts = pkgs.lib.splitString "/" oldAttrs.env.EQUICORD_REMOTE;
-              owner = builtins.elemAt remoteParts 0;
-              repo = builtins.elemAt remoteParts 1;
-              version = oldAttrs.version;
-              src = pkgs.fetchFromGitHub {
-                inherit owner repo;
-                tag = version;
-                hash = "sha256-aR+FVoevgPatWU/WqAcASqU5+c1ixNS9iSvkWbyAZr4=";
-                leaveDotGit = true;
-              };
-            in
-            {
-              inherit src;
-              pnpmDeps = pkgs.fetchPnpmDeps {
-                inherit src version;
-                inherit (oldAttrs) pname;
-                inherit (oldAttrs.pnpmDeps) pnpm fetcherVersion;
-                hash = "sha256-7YkB7KO96UUeVAk5VwxGcAhHYDTue7gj0nk/gxs3BmI=";
-              };
-            });
     };
     config = {
       autoUpdate = true;
@@ -51,7 +131,13 @@
           enable = true;
           noSpotifyAutoPause = false;
         };
-        musicControls.enable = true;
+        musicControls = {
+          enable = true;
+          hoverControls = true;
+          showSpotifyControls = true;
+          showSpotifyLyrics = true;
+          useSpotifyUris = true;
+        };
         messageLoggerEnhanced.enable = true;
         channelTabs.enable = true;
         showHiddenChannels.enable = true;

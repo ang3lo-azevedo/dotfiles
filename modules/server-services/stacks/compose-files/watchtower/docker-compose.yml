@@ -1,0 +1,12 @@
+services:
+  watchtower:
+    image: nickfedor/watchtower
+    container_name: watchtower-watchtower-1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    # Optional: control when/how it runs
+    environment:
+      - WATCHTOWER_CLEANUP=true            # remove old images
+    #   - WATCHTOWER_SCHEDULE=0 38 21 * * *    # run daily at 04:00
+    #   - WATCHTOWER_LABEL_ENABLE=true       # only update containers with a label
