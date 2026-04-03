@@ -350,9 +350,8 @@ spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1" "&"
 // Background
 spawn-at-startup "swaybg" "-c" "#000000"
 
-// Top bar with hot-reload
-//spawn-at-startup "~/.config/waybar/scripts/start-waybar.sh"
-spawn-at-startup "waybar"
+// Top bar - started by systemd waybar.service (graphical-session.target)
+// spawn-at-startup "waybar"
 
 // Notification and notification center daemon with hot-reload
 spawn-at-startup "~/.config/swaync/scripts/start-swaync.sh"
