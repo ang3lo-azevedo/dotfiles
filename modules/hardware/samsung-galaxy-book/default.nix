@@ -2,7 +2,7 @@
   imports = [
     ./audio.nix
     ./fingerprint.nix
-    ./webcam-book5.nix
+    ./webcam.nix
     ./fn-keys
   ];
 }
