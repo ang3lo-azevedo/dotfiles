@@ -43,4 +43,11 @@
 
   # Enable search suggestions in private windows
   "browser.search.suggest.enabled.private" = true;
+
+  # Ensure camera/microphone capture stays enabled in Zen.
+  "media.navigator.enabled" = true;
+  "media.peerconnection.enabled" = true;
+  "media.webrtc.camera.allow-pipewire" = true;
+  "permissions.default.camera" = 0;
+  "permissions.default.microphone" = 0;
 }
