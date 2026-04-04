@@ -74,9 +74,9 @@
       flake = false;
     };
 
-    # Samsung Galaxy Book audio script
-    samsung-audio-script = {
-      url = "https://raw.githubusercontent.com/joshuagrisham/galaxy-book2-pro-linux/main/sound/necessary-verbs.sh";
+    # Samsung Galaxy Book Linux fixes repository (use nixos/ modules directly)
+    samsung-galaxy-book-linux-fixes = {
+      url = "github:Andycodeman/samsung-galaxy-book-linux-fixes";
       flake = false;
     };
 
