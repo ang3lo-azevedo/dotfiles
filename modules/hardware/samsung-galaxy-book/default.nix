@@ -1,8 +1,8 @@
 {
   imports = [
-    ./audio.nix
-    ./webcam-book5.nix
+    ./audio
     ./fingerprint.nix
+    ./webcam-book5.nix
     ./fn-keys
   ];
 }
