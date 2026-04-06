@@ -63,6 +63,8 @@
       "networkmanager"
       "dialout"
       "i2c"
+      "video"
+      "render"
     ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = config.age.secrets.user_password.path;
     #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile

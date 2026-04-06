@@ -14,5 +14,6 @@
     nixfmt
     nil
     cargo
+    tmux
   ];
 }
