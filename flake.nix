@@ -75,10 +75,8 @@
     };
 
     # Samsung Galaxy Book Linux fixes repository (use nixos/ modules directly)
-    # TODO: Switch this back to github:Andycodeman/samsung-galaxy-book-linux-fixes
-    # once the toolchain fix is available in the original upstream source.
     samsung-galaxy-book-linux-fixes = {
-      url = "github:ang3lo-azevedo/samsung-galaxy-book-linux-fixes";
+      url = "path:/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes";
       flake = false;
     };
 

@@ -1,3 +1,4 @@
+- [ ] Fix Discord with the plugin
 - [ ] Add the README
 - [ ] Update the MPV config
 - [ ] Fix waybar issue if still present

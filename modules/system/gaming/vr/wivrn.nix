@@ -1,4 +1,4 @@
-{ config, pkgs, /* inputs, lib, */ ... }:
+{ config, pkgs, lib, ... }:
 /* let
   # To fix https://github.com/nix-community/nixpkgs-xr/issues/569
   xrizer-multilib =
@@ -74,7 +74,7 @@ in */
   };
 
   services.wivrn = {
-    enable = true;
+    enable = false;
     openFirewall = true;
 
     # Run WiVRn as a systemd service on startup
@@ -105,10 +105,12 @@ in */
     # However, if you need to configure something see https://github.com/WiVRn/WiVRn/blob/master/docs/configuration.md for configuration options and https://mynixos.com/nixpkgs/option/services.wivrn.config.json for an example configuration.
   };
 
-  # `services.wivrn.defaultRuntime` was removed upstream; keep the previous
-  # behavior by explicitly setting WiVRn as the system OpenXR runtime.
-  environment.etc."xdg/openxr/1/active_runtime.json".source =
-    "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
+  # `services.wivrn.defaultRuntime` was removed upstream; only set WiVRn as
+  # system OpenXR runtime when the WiVRn service itself is enabled.
+  environment.etc = lib.mkIf config.services.wivrn.enable {
+    "xdg/openxr/1/active_runtime.json".source =
+      "${config.services.wivrn.package}/share/openxr/1/openxr_wivrn.json";
+  };
 
   programs.steam = {
     package = pkgs.steam.override {
