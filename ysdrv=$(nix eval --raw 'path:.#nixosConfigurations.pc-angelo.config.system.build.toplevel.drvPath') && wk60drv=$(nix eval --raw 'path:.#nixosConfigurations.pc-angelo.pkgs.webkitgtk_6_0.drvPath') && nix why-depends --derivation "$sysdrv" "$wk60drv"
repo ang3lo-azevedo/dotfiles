@@ -1,0 +1,5 @@
+/nix/store/dwik674pag893gm41wqkyvrhahgq761z-nixos-system-pc-angelo-26.05.20260401.6201e20.drv
+└───/nix/store/l37j0ikhra2dhcnhk9bl7kb38niiv0vn-system-path.drv[0m
+    └───/nix/store/vzg0q9max9442ykmmn2bkrdjb3fgjsva-evolution-with-plugins.drv[0m
+        └───/nix/store/37g10j70bqy5dkzcayjjy6yadnf70620-evolution-data-server-3.58.3.drv[0m
+            └───/nix/store/scsqf5l0xrgqpdl40yjabjhw3q56jamn-webkitgtk-2.52.1+abi=4.1.drv[0m

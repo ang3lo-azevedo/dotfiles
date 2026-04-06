@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   # Load AMD GPU drivers
   boot.initrd.kernelModules = [ "amdgpu" ];
@@ -8,6 +9,15 @@
     enable = true;
     enable32Bit = true;
   };
+
+  # Enable AMD OpenCL runtime via ROCm.
+  hardware.amdgpu.opencl.enable = true;
+
+  # Handy tools for validating ROCm/OpenCL after rebuild.
+  environment.systemPackages = with pkgs; [
+    clinfo
+    rocmPackages.rocminfo
+  ];
 
 /*   # Handle eGPU hot-unplug gracefully
   boot.kernelParams = [
