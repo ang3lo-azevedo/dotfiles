@@ -99,16 +99,17 @@ in
   ];
   programs.nixcord = {
     enable = true;
-    userPlugins = {
+    # Keep addon disabled for troubleshooting.
+    userPlugins = pkgs.lib.optionalAttrs false {
       fakeVoiceOptions = fakeVoiceOptions;
     };
     equicordConfig = {
       plugins = {
-        "Fake Voice Options" = {
-          enabled = true;
-          fakeMute = true;
-          fakeDeafen = true;
-        };
+        # "Fake Voice Options" = {
+        #   enabled = true;
+        #   fakeMute = true;
+        #   fakeDeafen = true;
+        # };
       };
     };
     discord = {
