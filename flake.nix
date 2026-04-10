@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Proxmox VE on NixOS modules/overlay
+    proxmox-nixos = {
+      url = "github:SaumonNet/proxmox-nixos";
+    };
+
     # Input for Agenix (for managing secrets)
     agenix = {
       url = "github:ryantm/agenix";
@@ -202,11 +207,13 @@
       "https://nix-community.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
+      "https://cache.saumon.network/proxmox-nixos"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
     ];
   };
 
@@ -221,6 +228,7 @@
       haumea,
       stylix,
       nix-cachyos-kernel,
+      proxmox-nixos,
       zen-browser,
       nix-vscode-extensions,
       spicetify-nix,
@@ -315,6 +323,15 @@
       server-angelo-config = mkHostConfig {
         stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
         hostname = "server-angelo";
+        modules = [
+          proxmox-nixos.nixosModules.proxmox-ve
+
+          {
+            nixpkgs.overlays = [
+              proxmox-nixos.overlays.x86_64-linux
+            ];
+          }
+        ];
       };
     in
     {
