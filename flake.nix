@@ -111,6 +111,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Archi (ArchiMate tool) source tarball
+    archi-src = {
+      url = "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz";
+      flake = false;
+    };
+
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
       url = "github:FlameFlag/nixcord";
