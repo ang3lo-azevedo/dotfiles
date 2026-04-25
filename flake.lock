@@ -72,6 +72,19 @@
         "type": "github"
       }
     },
+    "archi-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776151759,
+        "narHash": "sha256-o7axvg2NszF9Ay+D1hTZdymVOQ0k1TLhJ33fDtaBMxc=",
+        "type": "tarball",
+        "url": "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1367,6 +1380,7 @@
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
         "apple-emoji": "apple-emoji",
+        "archi-src": "archi-src",
         "binaryninja": "binaryninja",
         "custom-packages": "custom-packages",
         "disko": "disko",
