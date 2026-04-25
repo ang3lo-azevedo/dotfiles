@@ -3,6 +3,7 @@
     ./keyring
     ./zsh
     ./ghostty.nix
+    ./balena-etcher.nix
     ./nixcord.nix
     ./spicetify.nix
     #./pear-desktop.nix
