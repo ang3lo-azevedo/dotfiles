@@ -23,6 +23,5 @@
     ./affinity.nix
     ./xournalapp.nix
     ./archi.nix
-    ./suwayomi.nix
   ];
 }
