@@ -22,5 +22,7 @@
     ./openvpn.nix
     ./affinity.nix
     ./xournalapp.nix
+    ./archi.nix
+    ./suwayomi.nix
   ];
 }

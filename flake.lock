@@ -72,17 +72,36 @@
         "type": "github"
       }
     },
-    "archi-src": {
+    "archi": {
       "flake": false,
       "locked": {
-        "lastModified": 1776151759,
-        "narHash": "sha256-o7axvg2NszF9Ay+D1hTZdymVOQ0k1TLhJ33fDtaBMxc=",
-        "type": "tarball",
-        "url": "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz"
+        "lastModified": 1775940052,
+        "narHash": "sha256-d8fpxZhp1hVbjzVGjitc7WKiD8nijMv+1/ZlUOYzmbE=",
+        "owner": "archimatetool",
+        "repo": "archi",
+        "rev": "e0ba88c6b3391e0d3c5839917474d1b6085adbe4",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz"
+        "owner": "archimatetool",
+        "repo": "archi",
+        "type": "github"
+      }
+    },
+    "balena-etcher": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753791456,
+        "narHash": "sha256-JQFdAWT12FdT5Y7XC9UY6D3TLhFG5QjnZhC8PGdK0vc=",
+        "owner": "balena-io",
+        "repo": "etcher",
+        "rev": "a79db1db6b940dbc4616df2d760cb25a81c1133f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balena-io",
+        "repo": "etcher",
+        "type": "github"
       }
     },
     "base16": {
@@ -1380,7 +1399,8 @@
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
         "apple-emoji": "apple-emoji",
-        "archi-src": "archi-src",
+        "archi": "archi",
+        "balena-etcher": "balena-etcher",
         "binaryninja": "binaryninja",
         "custom-packages": "custom-packages",
         "disko": "disko",

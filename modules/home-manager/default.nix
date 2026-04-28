@@ -7,7 +7,6 @@
     ./cyber
     ./gaming
     ./media
-    ./tools
     ./utilities
     ./window-manager
     ./theming

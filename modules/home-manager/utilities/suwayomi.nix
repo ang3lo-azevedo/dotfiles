@@ -1,0 +1,5 @@
+{
+  services.suwayomi = {
+    enable = true;
+  };
+}
