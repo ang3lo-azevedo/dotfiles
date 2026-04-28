@@ -1,6 +1,5 @@
 { pkgs, inputs, ... }:
 let
-  lib = pkgs.lib;
   nixpkgsArchi = inputs.archi-nixpkgs;
   version = "5.9.0";
   
@@ -19,7 +18,23 @@ let
     
     passthru = (old.passthru or {}) // { 
       tests = { archi = null; };
-      updateScript = null;
+      updateScript = pkgs.writeShellScript "update-archi" ''
+        set -eu
+        
+        # Fetch latest release info from GitHub API
+        latest=$(${pkgs.curl}/bin/curl -s https://api.github.com/repos/archimatetool/archi.io/releases/latest)
+        version=$(echo "$latest" | ${pkgs.jq}/bin/jq -r '.tag_name')
+        
+        # Construct download URL and get hash
+        url="https://github.com/archimatetool/archi.io/releases/download/$version/Archi-Linux64-$version.tgz"
+        hash=$(${pkgs.nix}/bin/nix hash file --type sha256 <(${pkgs.curl}/bin/curl -sL "$url") 2>/dev/null || echo "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+        
+        # Update the file
+        sed -i "s/version = \".*\";/version = \"$version\";/" "$@"
+        sed -i "s|hash = \"sha256-.*\";|hash = \"$hash\";|" "$@"
+        
+        echo "Updated archi from 5.9.0 to $version"
+      '';
     };
   });
 in
