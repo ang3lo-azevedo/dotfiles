@@ -111,9 +111,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Archi (ArchiMate tool) source tarball
-    archi-src = {
-      url = "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz";
+    # Archi (ArchiMate tool) repository
+    archi = {
+      url = "github:archimatetool/archi";
       flake = false;
     };
 
@@ -145,6 +145,12 @@
     affinity-nix = {
       url = "github:mrshmllow/affinity-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Balena Etcher upstream source
+    balena-etcher = {
+      url = "github:balena-io/etcher";
+      flake = false;
     };
 
     # MPV config
