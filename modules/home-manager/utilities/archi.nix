@@ -16,6 +16,22 @@ let
       hash = "sha256-0/3/EZw5upB0dvyhS0sfKqp7C4tc6vGDW+O9WU5iTc8=";
     };
     
+    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkgs.adwaita-icon-theme pkgs.hicolor-icon-theme ];
+    
+    postInstall = (old.postInstall or "") + ''
+      # Re-wrap Archi with theme environment variables
+      rm -f $out/bin/Archi
+      makeWrapper $out/libexec/Archi $out/bin/Archi \
+        --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [ pkgs.glib pkgs.webkitgtk_4_1 ]} \
+        --set WEBKIT_DISABLE_DMABUF_RENDERER 1 \
+        --set GTK_THEME adwaita \
+        --set GTK_USE_PORTAL 1 \
+        --prefix PATH : ${pkgs.jdk}/bin \
+        --prefix XDG_DATA_DIRS : "${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share"
+    '';
+    
+    dontWrapGApps = true;
+    
     passthru = (old.passthru or {}) // { 
       tests = { archi = null; };
       updateScript = pkgs.writeShellScript "update-archi" ''
