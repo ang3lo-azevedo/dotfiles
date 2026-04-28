@@ -1,5 +1,10 @@
 { pkgs, inputs, ... }:
 let
+  builtinSrc = inputs.archi;
+
+  # Extract version from package.json
+  version = (builtins.fromJSON (builtins.readFile "${builtinSrc}/package.json")).version or "5";
+
   runtimeLibPath = pkgs.lib.makeLibraryPath [
     pkgs.gtk3
     pkgs.glib
@@ -11,14 +16,18 @@ let
     "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
   ];
 
+  # Build Archi from source
   archi = pkgs.stdenvNoCC.mkDerivation {
     pname = "archi";
-    version = "5.9.0";
+    inherit version;
 
-    src = inputs.archi-src;
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    src = inputs.archi;
+    
+    nativeBuildInputs = [
+      pkgs.makeWrapper
+      pkgs.unzip
+    ];
 
-    dontUnpack = true;
     dontBuild = true;
 
     installPhase = ''
@@ -26,14 +35,27 @@ let
 
       mkdir -p "$out/opt/archi" "$out/bin"
 
-      # Archi upstream tarballs may unpack with or without a top-level Archi directory.
-      if [ -d "$src/Archi" ]; then
+      # Find the release directory (Archi builds are typically in releases/)
+      if [ -d "$src/releases/linux" ]; then
+        # If there's a releases directory structure
+        find "$src/releases/linux" -maxdepth 1 -type d -name "Archi*" -exec cp -r {}/. "$out/opt/archi/" \;
+      elif [ -d "$src/Archi" ]; then
+        # Direct Archi directory in root
         cp -r "$src/Archi/." "$out/opt/archi/"
       else
-        cp -r "$src/." "$out/opt/archi/"
+        # Fallback: look for any Archi directory
+        find "$src" -maxdepth 2 -type d -name "Archi*" -exec cp -r {}/. "$out/opt/archi/" \; -quit
       fi
 
-      chmod +x "$out/opt/archi/Archi" "$out/opt/archi/Archi.sh"
+      # If still empty, try the root
+      if [ ! -f "$out/opt/archi/Archi" ]; then
+        cp -r "$src"/* "$out/opt/archi/" 2>/dev/null || true
+      fi
+
+      if [ -f "$out/opt/archi/Archi" ]; then
+        chmod +x "$out/opt/archi/Archi" "$out/opt/archi/Archi.sh" 2>/dev/null || true
+      fi
+
       makeWrapper "$out/opt/archi/Archi" "$out/bin/archi" \
         --set GTK_THEME Adwaita:light \
         --set SWT_GTK3 1 \
