@@ -72,19 +72,20 @@
         "type": "github"
       }
     },
-    "archi": {
+    "archi-nixpkgs": {
       "flake": false,
       "locked": {
-        "lastModified": 1775940052,
-        "narHash": "sha256-d8fpxZhp1hVbjzVGjitc7WKiD8nijMv+1/ZlUOYzmbE=",
-        "owner": "archimatetool",
-        "repo": "archi",
-        "rev": "e0ba88c6b3391e0d3c5839917474d1b6085adbe4",
+        "lastModified": 1763401352,
+        "narHash": "sha256-oUvj9DGDYk6a3TV3bwdR1/BHpWeJNxdha+zY3UaR9yY=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a",
         "type": "github"
       },
       "original": {
-        "owner": "archimatetool",
-        "repo": "archi",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a",
         "type": "github"
       }
     },
@@ -1399,7 +1400,7 @@
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
         "apple-emoji": "apple-emoji",
-        "archi": "archi",
+        "archi-nixpkgs": "archi-nixpkgs",
         "balena-etcher": "balena-etcher",
         "binaryninja": "binaryninja",
         "custom-packages": "custom-packages",
