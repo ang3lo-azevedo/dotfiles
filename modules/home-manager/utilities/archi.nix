@@ -1,6 +1,10 @@
 { pkgs, inputs, ... }:
 let
-  nixpkgsArchi = inputs.archi-nixpkgs;
+  nixpkgsArchi = 
+    if inputs ? archi-nixpkgs then
+      inputs.archi-nixpkgs
+    else
+      (import (pkgs.fetchTarball "https://github.com/NixOS/nixpkgs/archive/b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a.tar.gz") {});
   version = "5.9.0";
   
   archiPackage = (import "${nixpkgsArchi}/pkgs/by-name/ar/archi/package.nix" {
@@ -25,12 +29,12 @@ let
         --prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [ pkgs.glib pkgs.webkitgtk_4_1 ]} \
         --set WEBKIT_DISABLE_DMABUF_RENDERER 1 \
         --set GTK_THEME adwaita \
-        --set GTK_USE_PORTAL 1 \
+        --set XDG_CURRENT_DESKTOP GNOME \
         --prefix PATH : ${pkgs.jdk}/bin \
         --prefix XDG_DATA_DIRS : "${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share"
     '';
     
-    dontWrapGApps = true;
+    dontWrapGApps = false;
     
     passthru = (old.passthru or {}) // { 
       tests = { archi = null; };
