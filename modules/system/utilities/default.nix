@@ -4,6 +4,7 @@
     ./zsh.nix
     ./distrobox.nix
     ./gparted.nix
+    ./wine.nix
   ];
 
   environment.systemPackages = with pkgs; [

@@ -7,7 +7,7 @@
     ./code-editors
     ./adb.nix
     ./latex.nix
-    ./processing.nix
+    ./game-dev
   ];
 
   home.packages = with pkgs; [
