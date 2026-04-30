@@ -89,22 +89,6 @@
         "type": "github"
       }
     },
-    "balena-etcher": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1753791456,
-        "narHash": "sha256-JQFdAWT12FdT5Y7XC9UY6D3TLhFG5QjnZhC8PGdK0vc=",
-        "owner": "balena-io",
-        "repo": "etcher",
-        "rev": "a79db1db6b940dbc4616df2d760cb25a81c1133f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "balena-io",
-        "repo": "etcher",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1401,7 +1385,6 @@
         "agenix": "agenix",
         "apple-emoji": "apple-emoji",
         "archi-nixpkgs": "archi-nixpkgs",
-        "balena-etcher": "balena-etcher",
         "binaryninja": "binaryninja",
         "custom-packages": "custom-packages",
         "disko": "disko",

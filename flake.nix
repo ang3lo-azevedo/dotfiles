@@ -147,19 +147,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Balena Etcher upstream source
-    balena-etcher = {
-      url = "github:balena-io/etcher";
-      flake = false;
-    };
-
     # MPV config
     mpv-config = {
       url = "github:ang3lo-azevedo/mpv";
       flake = false;
     };
 
-    # Trakt Scrobbler
+    # Trakt Scrobbler (TODO: fix)
     trakt-scrobbler-src = {
       url = "github:iamkroot/trakt-scrobbler";
       flake = false;

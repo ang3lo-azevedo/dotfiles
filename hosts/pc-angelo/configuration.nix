@@ -5,11 +5,6 @@
     ../../modules/system
   ];
 
-  environment.systemPackages = with pkgs; [
-    wineWow64Packages.waylandFull
-    winetricks
-  ];
-
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
   # Ensure the system knows to open the LUKS container
