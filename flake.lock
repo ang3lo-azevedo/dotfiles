@@ -1411,6 +1411,7 @@
         "pwndbg": "pwndbg",
         "samsung-galaxy-book-linux-fixes": "samsung-galaxy-book-linux-fixes",
         "spicetify-nix": "spicetify-nix",
+        "steam-fetcher": "steam-fetcher",
         "stremio-enhanced": "stremio-enhanced",
         "stylix": "stylix",
         "trakt-scrobbler-src": "trakt-scrobbler-src",
@@ -1448,6 +1449,26 @@
       "original": {
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
+        "type": "github"
+      }
+    },
+    "steam-fetcher": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758622040,
+        "narHash": "sha256-BRUZZoQDCD1qByJjHm4YKipQlB2PburWLG9Iaggr8XQ=",
+        "owner": "nix-community",
+        "repo": "steam-fetcher",
+        "rev": "ab5e3a0828b4b179feb548c57be584ce812956a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "steam-fetcher",
         "type": "github"
       }
     },

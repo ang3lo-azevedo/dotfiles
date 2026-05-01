@@ -12,6 +12,9 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
 
     protontricks.enable = true;
+
+    # Enable SteamOS-like platform optimizations for better game performance
+    platformOptimizations.enable = true;
   };
 
   # Enable Proton GE for better game compatibility
@@ -19,3 +22,4 @@
     proton-ge-bin
   ];
 }
+

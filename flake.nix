@@ -206,6 +206,18 @@
       url = "github:Rishabh5321/custom-packages-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Steam config for managing launch options and compatibility tools
+    steam-config-nix = {
+      url = "github:different-name/steam-config-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Gaming packages, modules, and tools
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -243,6 +255,8 @@
       photogimp,
       nordvpn-flake,
       nixpkgs-xr,
+      steam-config-nix,
+      nix-gaming,
       ...
     }@inputs:
     let
