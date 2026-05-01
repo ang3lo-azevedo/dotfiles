@@ -10,6 +10,13 @@
       pulse.enable = true;
       # Uncomment the following line if you want to use JACK applications
       jack.enable = true;
+
+      # Gaming-optimized PipeWire low latency configuration
+      lowLatency = {
+        enable = true;
+        quantum = 64;
+        rate = 48000;
+      };
     };
   };
 }
