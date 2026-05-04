@@ -13,7 +13,7 @@
 
     protontricks.enable = true;
 
-    # Enable SteamOS-like platform optimizations for better game performance
+    # Enable SteamOS-like platform optimizations for better game performance (from nix-gaming)
     platformOptimizations.enable = true;
   };
 
