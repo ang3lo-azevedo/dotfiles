@@ -1,3 +1,4 @@
+- [ ] Add IDA Pro
 - [ ] Fix Discord with the plugin
 - [ ] Add the README
 - [ ] Update the MPV config

@@ -1559,8 +1559,8 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1775508718,
-        "narHash": "sha256-F1Uj0h2ax9GrxrLbBx3AYigiTRkt56nDsSF+mI6O1zw=",
+        "lastModified": 1778074709,
+        "narHash": "sha256-tLMYon8WROof9aSxIxFYkYIuDHe0SBJBdORqn7fRYp0=",
         "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
         "type": "path"
       },
