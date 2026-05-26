@@ -384,5 +384,9 @@
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
+
+      devShells.x86_64-linux.angr-management = import ./shells/angr-management.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      };
     };
 }
