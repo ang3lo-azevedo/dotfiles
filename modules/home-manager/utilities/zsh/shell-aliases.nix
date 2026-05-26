@@ -19,5 +19,8 @@
     # Full channel update + rebuild when you explicitly want new inputs.
     full-upgrade = "update && rebuild";
 
+    # Development shells
+    angr-management = "cd /home/ang3lo/nix-config && nix develop .#angr-management";
+
   };
 }
