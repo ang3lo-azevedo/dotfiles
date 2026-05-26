@@ -4,6 +4,7 @@
     ./dev
     ./display-manager
     ./gaming
+    ./cyber
     ./networking
     ./services
     ./utilities
