@@ -2,9 +2,8 @@
   imports = [
     ./forensics
     ./rev
+    ./web
+    ./pwn
     ./python.nix
-    ./pwnbdg.nix
-    ./burpsuite.nix
-    ./caido.nix
   ];
 }
