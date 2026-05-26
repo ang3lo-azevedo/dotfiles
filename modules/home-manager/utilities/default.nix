@@ -23,5 +23,6 @@
     ./affinity.nix
     ./xournalapp.nix
     ./archi.nix
+    ./libreoffice.nix
   ];
 }
