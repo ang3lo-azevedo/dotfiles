@@ -2,6 +2,7 @@
 {
   imports = [
     ./python
+    ./android
     ./git.nix
     ./intellij-idea.nix
     ./code-editors
