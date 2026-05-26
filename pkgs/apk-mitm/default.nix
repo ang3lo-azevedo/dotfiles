@@ -6,6 +6,7 @@
 , fixup-yarn-lock
 , yarn
 , nodejs
+, typescript
 , apktool
 , zip
 , unzip
@@ -31,9 +32,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     makeWrapper
     nodejs
+    typescript
     fixup-yarn-lock
     yarn
   ];
+
+  NODE_ENV = "development";
+  NPM_CONFIG_PRODUCTION = "false";
+  YARN_PRODUCTION = "false";
 
   configurePhase = ''
     runHook preConfigure
@@ -41,9 +47,17 @@ stdenv.mkDerivation rec {
     export HOME=$(mktemp -d)
     yarn config --offline set yarn-offline-mirror "$offlineCache"
     fixup-yarn-lock yarn.lock
-    yarn --offline --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive install
+    yarn --offline --frozen-lockfile --ignore-platform --ignore-scripts --no-progress --non-interactive --production=false install
 
     runHook postConfigure
+  '';
+
+  buildPhase = ''
+    runHook preBuild
+
+    tsc --skipLibCheck --useUnknownInCatchVariables false
+
+    runHook postBuild
   '';
 
   postInstall = ''
