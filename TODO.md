@@ -6,7 +6,6 @@
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
-- [ ] Fix IDA Pro
 - [ ] Add wireshark
 - [ ] Add binary ninja
 - [ ] Add angr-management
@@ -26,7 +25,6 @@
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [x] Fix all mpv related programs
 - [ ] Fix Zen extension settings
-- [ ] Create a README
 - [x] Add the CachyOS Kernel
 - [ ] Add virt manager and VM configs
 - [ ] Add GPU Passthrough to the VMs

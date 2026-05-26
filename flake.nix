@@ -328,6 +328,7 @@
             # Guarantees you have binary cache.
             nixpkgs.overlays = [
               nix-cachyos-kernel.overlays.pinned
+              (import ./overlays/python-packages.nix)
             ];
           }
 

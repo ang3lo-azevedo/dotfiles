@@ -7,8 +7,7 @@
     "on-scroll-down": "swaync-client -cp",
 
     "modules-left": [
-        "privacy",
-        "mpris"
+        "privacy"
     ],
     "modules-center": [
         "clock"
@@ -22,23 +21,6 @@
         "battery",
         "custom/notification"
     ],
-
-    "mpris": {
-        "format": "{player_icon}  {status_icon}",
-        "player-icons": {
-            "default": "\uf001",
-            "spotify": "\uf1bc",
-            "chromium": "\uf0ac"
-        },
-        "status-icons": {
-            "paused": "\uf04b",
-            "playing": "\uf04c",
-            "stopped": "\uf0c8"
-        },
-        "interval": 1,
-        "on-scroll-up": "swaync-client -op",
-        "on-scroll-down": "swaync-client -cp"
-    },
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
