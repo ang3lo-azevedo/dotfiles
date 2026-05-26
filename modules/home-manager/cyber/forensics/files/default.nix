@@ -1,7 +1,8 @@
 {
   imports = [
-    ./sleuthkit.nix
+    ./exiftool.nix
     ./autopsy.nix
+    ./sleuthkit.nix
     ./testdisk.nix
   ];
 }
