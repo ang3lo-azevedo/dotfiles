@@ -21,7 +21,6 @@ in
       WantedBy = [ "niri.service" ];
     };
     Service = {
-      ExecStartPre = "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE";
       ExecStart = "${pkgs.waybar}/bin/waybar";
       Restart = "on-failure";
       RestartSec = 1;
