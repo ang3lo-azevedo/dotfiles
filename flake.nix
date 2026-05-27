@@ -123,12 +123,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Fake Voice Options Equicord plugin source
-    fakeVoiceOptions = {
-      url = "github:eightcon/FakeVoiceOptions";
-      flake = false;
-    };
-
     # Input for Spicetify Nix (Spotify customizer)
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
