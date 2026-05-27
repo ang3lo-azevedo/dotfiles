@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication {
     owner = "andyjsmith";
     repo = "Registry-Spy";
     rev = "d0f623fa56964cc17ba5199d82814437d4b03cc6";
-    hash = "sha256-7m3qWVqI0E0pVBSIExvRpqATb6jJmmzQF9W8FUU1Mg4=";
+    hash = "sha256-/6WITp30mpL8BJnor35T57m2daRdMT0/HXAvQKUZPBY=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools ];
