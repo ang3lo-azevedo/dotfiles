@@ -6,7 +6,6 @@
     (python3.withPackages (ps: with ps; [
       pwntools
       setuptools-rust
-      angr-management
     ]))
   ];
 }
