@@ -4,7 +4,7 @@
     ./zsh
     ./ghostty.nix
     ./popsicle.nix
-    ./nixcord.nix
+    ./discord
     ./spicetify.nix
     #./pear-desktop.nix
     ./wlr-randr.nix

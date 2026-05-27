@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 let
-  fakeVoiceOptions = pkgs.runCommand "fake-voice-options-plugin" { src = inputs.fakeVoiceOptions; } ''
+  fakeVoiceOptions = pkgs.runCommand "fakeVoiceOptions-plugin" { src = ./plugins/fakeVoiceOptions; } ''
     mkdir -p "$out"
     cp -r "$src"/. "$out"/
 
@@ -99,17 +99,16 @@ in
   ];
   programs.nixcord = {
     enable = true;
-    # Keep addon disabled for troubleshooting.
-    userPlugins = pkgs.lib.optionalAttrs false {
+    userPlugins = {
       fakeVoiceOptions = fakeVoiceOptions;
     };
     equicordConfig = {
       plugins = {
-        # "Fake Voice Options" = {
-        #   enabled = true;
-        #   fakeMute = true;
-        #   fakeDeafen = true;
-        # };
+        "Fake Voice Options" = {
+          enabled = true;
+          fakeMute = true;
+          fakeDeafen = true;
+        };
       };
     };
     discord = {

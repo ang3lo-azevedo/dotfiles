@@ -1,0 +1,13 @@
+{
+  "name": "fakeVoiceOptions",
+  "version": "1.0.0",
+  "description": "Fake mute and deafen locally.",
+  "author": "us.er",
+  "license": "GPL-3.0-or-later",
+  "main": "index.ts",
+  "vendetta": {
+    "by": "us.er",
+    "donate": null,
+    "source": null
+  }
+}
