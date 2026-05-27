@@ -1,4 +1,4 @@
-- [ ] Add IDA Pro
+- [x] Add IDA Pro
 - [ ] Fix Discord with the plugin
 - [ ] Add the README
 - [ ] Update the MPV config
@@ -6,21 +6,20 @@
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
-- [ ] Add wireshark
-- [ ] Add binary ninja
-- [ ] Add angr-management
+- [x] Add wireshark
+- [x] Add binary ninja
+- [x] Add angr-management
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Make some config files symlinks, mainly on the window manager configs
 - [ ] Add cachyos-proton
 - [ ] Make a general function to add all .nix files inside a folder to the default.nix (Maybe use haumea https://github.com/nix-community/haumea)
-- [ ] Fix the clipboard
-- [ ] Fix the print screen
+- [x] Fix the clipboard
+- [x] Fix the print screen
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
-- [ ] Improve mangowc configs
 - [ ] Make wlsunset also work offline
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [x] Fix all mpv related programs
