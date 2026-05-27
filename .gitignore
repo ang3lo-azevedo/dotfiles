@@ -5,3 +5,4 @@ portainer-backup*
 
 #Programs
 ida*
+!ida-pro
