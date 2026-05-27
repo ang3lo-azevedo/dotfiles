@@ -393,6 +393,19 @@
         src = inputs.angr-management;
       };
 
+      # Expose the local `nuvio-desktop` package so flakes can reference it
+      packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        lib = nixpkgs.lib;
+      };
+
+      # Expose the local `registry-spy` package so flakes can reference it
+      packages.x86_64-linux.registry-spy = import ./pkgs/registry-spy/default.nix {
+        lib = nixpkgs.lib;
+        fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
+        python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
+      };
+
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;

@@ -3,5 +3,6 @@
     ./binutils.nix
     ./files
     ./steg
+    ./windows
   ];
 }
