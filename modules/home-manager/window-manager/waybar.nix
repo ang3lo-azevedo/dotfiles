@@ -13,8 +13,8 @@ in
   systemd.user.services.waybar = {
     Unit = {
       Description = "Waybar";
-      Wants = [ "niri.service" ];
-      After = [ "niri.service" ];
+      Wants = [ "niri.service" "xdg-desktop-portal.service" ];
+      After = [ "niri.service" "xdg-desktop-portal.service" ];
       PartOf = [ "niri.service" ];
     };
     Install = {
