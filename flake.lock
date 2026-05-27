@@ -51,6 +51,22 @@
         "type": "github"
       }
     },
+    "angr-management": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779819770,
+        "narHash": "sha256-urqDKzQ5+UXl5/48Cig1snDvo/5uGlSnzIMmBkR+hhY=",
+        "owner": "angr",
+        "repo": "angr-management",
+        "rev": "5cf1fdc781111fb58104499ba29ad9e1666d6131",
+        "type": "github"
+      },
+      "original": {
+        "owner": "angr",
+        "repo": "angr-management",
+        "type": "github"
+      }
+    },
     "apple-emoji": {
       "inputs": {
         "nixpkgs": [
@@ -1520,6 +1536,7 @@
       "inputs": {
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
+        "angr-management": "angr-management",
         "apple-emoji": "apple-emoji",
         "archi-nixpkgs": "archi-nixpkgs",
         "binaryninja": "binaryninja",

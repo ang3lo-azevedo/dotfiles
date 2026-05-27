@@ -18,6 +18,12 @@ in
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
 
+    (final: prev: {
+      angr-management = prev.callPackage ../../pkgs/angr-management/default.nix {
+        src = inputs.angr-management;
+      };
+    })
+
     # For IDA Pro
     inputs.ida-pro-overlay.overlays.default
 
