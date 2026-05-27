@@ -27,6 +27,8 @@ in
     # For IDA Pro
     inputs.ida-pro-overlay.overlays.default
 
+    # Override IDA Pro to use the latest version and local copy of the installer
+
     # For Binary Ninja
     inputs.binaryninja.overlays.default
 
