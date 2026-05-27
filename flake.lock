@@ -307,22 +307,6 @@
         "type": "gitlab"
       }
     },
-    "fakeVoiceOptions": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1724381586,
-        "narHash": "sha256-VYJwwhG+Rfrf2dV5gXTUy0AYEpJkKQQvnImQ2hhFR0E=",
-        "owner": "eightcon",
-        "repo": "FakeVoiceOptions",
-        "rev": "b8654dd5d0e937df98053d28a73b6aed7c71895f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "eightcon",
-        "repo": "FakeVoiceOptions",
-        "type": "github"
-      }
-    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -1542,7 +1526,6 @@
         "binaryninja": "binaryninja",
         "custom-packages": "custom-packages",
         "disko": "disko",
-        "fakeVoiceOptions": "fakeVoiceOptions",
         "firefox-addons": "firefox-addons",
         "glaumar_repo": "glaumar_repo",
         "haumea": "haumea",
