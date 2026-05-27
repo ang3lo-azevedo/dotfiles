@@ -1,5 +1,6 @@
 {
   imports = [
-    ./registry-spy.nix
+    ./registry
+    #./evtx
   ];
 }

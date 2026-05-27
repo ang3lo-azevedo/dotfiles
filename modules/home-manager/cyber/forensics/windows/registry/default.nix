@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./registry-spy.nix
+  ];
+}

@@ -12,7 +12,7 @@
         export QT_SCALE_FACTOR=\"\$SCALE\"
         export GDK_DPI_SCALE=\"\$SCALE\"
         export GDK_SCALE=\"$(echo \"\$SCALE\" | cut -d. -f1)\"
-        export JAVA_TOOL_OPTIONS=\"\${JAVA_TOOL_OPTIONS-} -Dsun.java2d.uiScale=\$SCALE\"
+        export JAVA_TOOL_OPTIONS=\"\$JAVA_TOOL_OPTIONS -Dsun.java2d.uiScale=\$SCALE\"
 
         exec ${nuvio}/bin/nuvio-desktop \"\$@\"
       '')
