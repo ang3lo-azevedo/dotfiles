@@ -386,6 +386,13 @@
         ];
       };
 
+      # Expose the local `angr-management` package so flakes can reference it
+      packages.x86_64-linux.angr-management = import ./pkgs/angr-management/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        lib = nixpkgs.lib;
+        src = inputs.angr-management;
+      };
+
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;

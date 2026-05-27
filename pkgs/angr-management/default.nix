@@ -1,28 +1,20 @@
-{ stdenv, python3, lib, src ? null }:
+{ pkgs, ... }:
 
-stdenv.mkDerivation rec {
+let
+  version = "9.2.219";
+  appimage = pkgs.fetchurl {
+    url = "https://github.com/angr/angr-management/releases/download/v${version}/angr-management-v${version}-x86_64.AppImage";
+    hash = "sha256-Cn/89GCn+6teOgoQpVgYPtWhPYkMXw0OlsSH8YeqxQA=";
+  };
+in
+pkgs.appimageTools.wrapType2 {
   pname = "angr-management";
-  version = "unstable";
+  inherit version;
+  src = appimage;
 
-  inherit src;
+  extraPkgs = _: [ ];
 
-  dontBuild = true;
-
-  installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/share/${pname}
-    cp -r . $out/share/${pname}/
-
-    cat > $out/bin/angr-management <<'EOT'
-#!/bin/sh
-exec ${python3}/bin/python3 -m angr_management "$@"
-EOT
-    chmod +x $out/bin/angr-management
-  '';
-
-  meta = with lib; {
-    description = "angr Management UI (sourced from GitHub)";
-    license = licenses.unfree; # upstream may have non-free parts
-    maintainers = with maintainers; [ ];
+  meta = {
+    description = "angr-management release AppImage";
   };
 }
