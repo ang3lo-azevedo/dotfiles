@@ -159,6 +159,12 @@
       flake = false;
     };
 
+    # angr-management source from GitHub releases (used as `src` for local package)
+    angr-management = {
+      url = "github:angr/angr-management";
+      flake = false;
+    };
+
     # PhotoGIMP assets and config
     photogimp = {
       url = "github:Diolinux/PhotoGIMP/3.0";
@@ -382,10 +388,6 @@
 
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      };
-
-      devShells.x86_64-linux.angr-management = import ./shells/angr-management.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
     };
