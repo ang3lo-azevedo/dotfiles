@@ -9,7 +9,6 @@ in
       version = "9.3.0";
       src = idaRun;
 
-      # Add Node.js as a build dependency so the 'node' command is available
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkgs.nodejs ];
       buildInputs = (old.buildInputs or []) ++ [ pkgs.libxcrypt-legacy ];
 
