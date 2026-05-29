@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./pycryptodome.nix
-  ];
-}
+{ ... }: { }
