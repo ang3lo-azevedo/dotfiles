@@ -3,7 +3,7 @@
   programs.binary-ninja = {
     enable = true;
     # TODO: Remove this override once the upstream package is updated to work with the latest xorg server.
-    package = pkgs.binary-ninja-free-wayland.override {
+    package = pkgs.binary-ninja-personal-wayland.override {
       # Upstream package still references deprecated xorg.* aliases.
       xorg = pkgs.xorg // {
         libXi = pkgs.libxi;
