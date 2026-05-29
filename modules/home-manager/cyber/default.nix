@@ -4,6 +4,7 @@
     ./rev
     ./web
     ./pwn
+    ./crypto
     
     ./python.nix
 
