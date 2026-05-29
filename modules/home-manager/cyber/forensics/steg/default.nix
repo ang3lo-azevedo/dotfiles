@@ -4,5 +4,7 @@
     ./binwalk.nix
     ./zsteg.nix
     ./steghide.nix
+    ./unblob.nix
+    ./sonic-visualiser.nix
   ];
 }

@@ -11,15 +11,17 @@ in
   };
   stylix.targets.waybar.enable = false;
 
-  # Custom systemd service with proper dependency ordering to avoid portal timeout
+  # Start Waybar with niri, but bind its lifetime to the active graphical session.
   systemd.user.services.waybar = {
     Unit = {
       Description = "Waybar";
-      # Wait for niri and portal to be ready before starting waybar
-      After = [ "niri.service" "xdg-desktop-portal.service" ];
-      # Don't strictly require portal to be running, but wait for it if available
-      Wants = [ "graphical-session.target" ];
-      PartOf = [ "niri.service" ];
+      After = [
+        "graphical-session.target"
+        "xdg-desktop-portal.service"
+      ];
+      Wants = [ "xdg-desktop-portal.service" ];
+      PartOf = [ "graphical-session.target" ];
+      Requisite = [ "graphical-session.target" ];
     };
     Install = {
       WantedBy = [ "niri.service" ];
