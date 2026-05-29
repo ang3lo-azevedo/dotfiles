@@ -2,8 +2,8 @@
   imports = [
     ./java
     ./android
+    ./binary-ninja
     ./ida-pro
-    ./binary-ninja.nix
     ./angr-management.nix
   ];
 }

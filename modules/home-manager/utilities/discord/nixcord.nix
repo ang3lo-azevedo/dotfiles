@@ -5,18 +5,6 @@
   ];
   programs.nixcord = {
     enable = true;
-    /*userPlugins = {
-      fakeVoiceOptions = ./plugins/fakeVoiceOptions;
-    };
-    equicordConfig = {
-      plugins = {
-        "Fake Voice Options" = {
-          enabled = true;
-          fakeMute = true;
-          fakeDeafen = true;
-        };
-      };
-    };*/
     discord = {
       vencord.enable = false;
       equicord.enable = true;
