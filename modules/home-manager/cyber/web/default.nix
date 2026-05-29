@@ -1,6 +1,8 @@
 {
   imports = [
-    ./burpsuite.nix
     ./caido.nix
+    ./burpsuite.nix
+    ./sqlmap.nix
+    ./raccoon-scanner.nix
   ];
 }
