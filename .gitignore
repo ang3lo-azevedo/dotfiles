@@ -1,9 +1,17 @@
 # Nix build artifacts
-result
-pc-angelo.qcow2
-portainer-backup*
+/result
+/result-*
+/nix-build-*
 
-#Programs
+# Local VM artifacts
+*.qcow2
+
+# Local backup/export dumps
+/portainer-backup*/
+
+# Reverse-engineering local binaries/tools
 ida*
 !ida-pro*
-keygen*
+
+*keygen*
+*Keygen*
