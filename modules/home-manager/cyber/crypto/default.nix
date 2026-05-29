@@ -1,5 +1,5 @@
 {
   imports = [
-    ./python-crypto.nix
+    ./pycryptodome.nix
   ];
 }
