@@ -10,9 +10,11 @@
 /portainer-backup*/
 
 ida*
+!ida*.nix
 !ida-pro*
 
 binaryninja*
 *keygen*
 *Keygen*
 license*
+*crack*
