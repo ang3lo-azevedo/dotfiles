@@ -9,11 +9,10 @@
 # Local backup/export dumps
 /portainer-backup*/
 
-# Reverse-engineering local binaries/tools
 ida*
 !ida-pro*
 
+binaryninja*
 *keygen*
 *Keygen*
-
-license.dat
+license*
