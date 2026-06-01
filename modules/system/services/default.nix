@@ -5,7 +5,7 @@
     #./backups.nix
     ./nordvpn.nix
     ./xdg-portal.nix
-    ./suwayomi.nix
+    #./suwayomi.nix
     # ./docker-compose.nix
     # ./stacks
     # ./redis-native.nix
