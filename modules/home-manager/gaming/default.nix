@@ -6,5 +6,6 @@
     ./prismlauncher.nix
     ./vr
     ./emulators
+    ./proton-cachyos.nix
   ];
 }
