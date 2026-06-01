@@ -1,5 +1,6 @@
 {
   imports = [
-    ./pdftotext.nix
+    ./poppler.nix
+    ./pdfcrack.nix
   ];
 }
