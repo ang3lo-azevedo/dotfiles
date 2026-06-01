@@ -29,7 +29,8 @@ stdenvNoCC.mkDerivation {
     install -Dm755 scripts/vol-analyze.sh $out/bin/vol-analyze
     install -Dm644 completions/vol-analyze.bash $out/share/bash-completion/completions/vol-analyze
     install -Dm644 completions/vol-analyze.zsh $out/share/zsh/site-functions/_vol-analyze
-    install -Dm644 docs/*.md $out/share/doc/volatility-toolkit/
+    install -d $out/share/doc/volatility-toolkit
+    install -m644 docs/*.md -t $out/share/doc/volatility-toolkit
 
     wrapProgram $out/bin/vol-analyze \
       --prefix PATH : ${lib.makeBinPath [
