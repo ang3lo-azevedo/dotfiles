@@ -10,14 +10,12 @@
 /portainer-backup*/
 
 ida*
-!ida*.nix
 !ida-pro*
 
-binaryninja*
+*binaryninja*
 *keygen*
 *Keygen*
 license*
 *crack*
 
-# Exclude large bundled binary ninja zip
-modules/home-manager/cyber/rev/binary-ninja/binaryninja_linux_stable_personal.zip
+!*.nix
