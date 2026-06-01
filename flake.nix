@@ -21,6 +21,16 @@
       url = "github:nix-community/nixpkgs-xr";
     };
 
+    # dmatools (MemProcFS packaging)
+    dmatools = {
+      url = "github:tie-infra/dmatools";
+    };
+    
+    # nix-gaming-edge (proton-cachyos)
+    nix-gaming-edge = {
+      url = "github:powerofthe69/nix-gaming-edge";
+    };
+
     # For Jackify
     nixpkgs-extra = {
       url = "github:Mistyttm/nixpkgs-extra";
@@ -390,6 +400,12 @@
         lib = nixpkgs.lib;
         src = inputs.angr-management;
       };
+
+      # Expose proton-cachyos from powerofthe69/nix-gaming-edge
+      packages.x86_64-linux.proton-cachyos = inputs.nix-gaming-edge.packages.x86_64-linux.proton-cachyos;
+
+      # Expose memprocfs from tie-infra/dmatools flake
+      packages.x86_64-linux.memprocfs = inputs.dmatools.packages.x86_64-linux.memprocfs;
 
       # Expose the local `nuvio-desktop` package so flakes can reference it
       packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
