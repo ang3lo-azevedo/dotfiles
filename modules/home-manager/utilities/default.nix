@@ -20,7 +20,9 @@
     ./universal-android-debloater.nix
     ./kdeconnect.nix
     ./openvpn.nix
-    ./affinity.nix
+
+    #./affinity.nix
+    
     ./xournalapp.nix
     ./archi.nix
     ./libreoffice.nix
