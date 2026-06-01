@@ -1,9 +1,10 @@
 { lib
 , fetchFromGitHub
-, python3Packages
+, python2Packages
+, makeWrapper
 }:
 
-python3Packages.buildPythonApplication {
+python2Packages.buildPythonApplication {
   pname = "evolve";
   version = "unstable-20260531";
 
@@ -16,11 +17,17 @@ python3Packages.buildPythonApplication {
 
   format = "setuptools";
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  nativeBuildInputs = with python2Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [ ];
+  propagatedBuildInputs = with python2Packages; [ bottle maxminddb ];
 
   doCheck = false;
+
+  postInstall = ''
+    install -Dm755 evolve.py $out/share/evolve/evolve.py
+    makeWrapper ${python2Packages.python.interpreter} $out/bin/evolve \
+      --add-flags $out/share/evolve/evolve.py
+  '';
 
   meta = with lib; {
     description = "Volatility memory analysis plugin";
