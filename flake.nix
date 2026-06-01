@@ -233,6 +233,10 @@
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
     ];
+    # Allow evaluation of packages that are not available for the detected host
+    # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported
+    # packages. Remove if you prefer stricter checks.
+    allowUnsupportedSystem = true;
   };
 
   # The outputs of the flake
@@ -284,7 +288,7 @@
           system = stdenv.hostPlatform.system;
           specialArgs = { inherit inputs; };
           modules = [
-            { networking.hostName = hostname; }
+            { networking.hostName = hostname; nixpkgs.config.allowUnsupportedSystem = true; }
           ]
           ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (
             import ./hosts/${hostname}/disko.nix
