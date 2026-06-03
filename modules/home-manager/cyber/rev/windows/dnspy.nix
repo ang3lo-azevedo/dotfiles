@@ -1,1 +1,7 @@
-# Add dnSpy https://github.com/dnSpyEx/dnSpy
+{ pkgs, inputs, ... }:
+
+{
+  home.packages = [
+    inputs.self.packages.${pkgs.system}.dnspy
+  ];
+}
