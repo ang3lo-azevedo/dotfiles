@@ -33,6 +33,12 @@ in
       --set XDG_CURRENT_DESKTOP GNOME \
       --prefix PATH : ${pkgs.jdk}/bin \
       --prefix XDG_DATA_DIRS : "${pkgs.adwaita-icon-theme}/share:${pkgs.hicolor-icon-theme}/share"
+      
+    # Fix the desktop file to use an absolute path to the bundled PNG icon
+    icon_path=$(find $out/libexec -name "app-64.png" | head -n 1)
+    if [ -n "$icon_path" ] && [ -f "$out/share/applications/archi.desktop" ]; then
+      sed -i 's|^Icon=.*|Icon='"$icon_path"'|' "$out/share/applications/archi.desktop"
+    fi
   '';
   
   dontWrapGApps = false;
