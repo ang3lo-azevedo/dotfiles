@@ -10,5 +10,6 @@
     ./utilities
     ./window-manager
     ./theming
+    ./uni
   ];
 }
