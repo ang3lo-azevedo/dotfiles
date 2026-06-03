@@ -433,6 +433,9 @@
         python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
       };
 
+      # Expose the local `dnspy` package so flakes can reference it
+      packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix { };
+
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
