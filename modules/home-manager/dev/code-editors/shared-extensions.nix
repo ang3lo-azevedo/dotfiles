@@ -59,7 +59,7 @@
     "naco-siren.gradle-language"
 
     # HashiCorp Terraform
-    "hashicorp.terraform"
+    #"hashicorp.terraform"
 
     # Hex Editor
     "ms-vscode.hexeditor"
@@ -92,7 +92,7 @@
     "valentjn.vscode-ltex"
 
     # Makefile Tools
-    "ms-vscode.makefile-tools"
+    #"ms-vscode.makefile-tools"
 
     # Markdown Preview Enhanced
     "shd101wyy.markdown-preview-enhanced"
@@ -119,7 +119,7 @@
     "heygourab.perfect-dark-theme"
 
     # PlatformIO IDE
-    "platformio.platformio-ide"
+    #"platformio.platformio-ide"
 
     # PowerShell
     "ms-vscode.powershell"
@@ -173,7 +173,7 @@
     "gruntfuggly.todo-tree"
 
     # Vim
-    "vscodevim.vim"
+    #"vscodevim.vim"
 
     # VS CTF
     "alexandre-lavoie.vs-ctf"
