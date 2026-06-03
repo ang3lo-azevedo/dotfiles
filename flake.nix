@@ -414,6 +414,12 @@
         src = inputs.angr-management;
       };
 
+      # Expose the local `archi` package so flakes can reference it
+      packages.x86_64-linux.archi = import ./pkgs/archi/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inputs = inputs;
+      };
+
       # Expose the local `nuvio-desktop` package so flakes can reference it
       packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;

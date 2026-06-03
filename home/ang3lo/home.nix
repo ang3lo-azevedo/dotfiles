@@ -22,6 +22,9 @@ in
       angr-management = prev.callPackage ../../pkgs/angr-management/default.nix {
         src = inputs.angr-management;
       };
+      archi = prev.callPackage ../../pkgs/archi/default.nix {
+        inherit inputs;
+      };
     })
 
     # For Antigravity
