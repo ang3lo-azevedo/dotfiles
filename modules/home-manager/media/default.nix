@@ -4,7 +4,7 @@
     ./grayjay.nix
     ./stremio.nix
     ./stremio-enhanced.nix
-    ./playtorrio-v2.nix
+    #./playtorrio-v2.nix
     ./nuvio-desktop.nix
     ./inkscape.nix
     ./gimp.nix
