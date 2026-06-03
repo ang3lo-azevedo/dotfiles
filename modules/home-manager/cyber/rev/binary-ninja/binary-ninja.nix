@@ -44,6 +44,11 @@ in
             --prefix PATH : ${pkgs.python312}/bin \
             --prefix PYTHONPATH : ${config.home.sessionVariables.PYTHONPATH}
         fi
+
+        # Fix the icon path in the existing desktop entry
+        if [ -f "$out/share/applications/Binary Ninja.desktop" ]; then
+          sed -i 's|^Icon=.*|Icon='"$out"'/share/pixmaps/binaryninja.png|' "$out/share/applications/Binary Ninja.desktop"
+        fi
       '';
     });
   };
