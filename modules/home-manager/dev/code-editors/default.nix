@@ -1,6 +1,6 @@
 {
   imports = [
-    ./vscode
+    # ./vscode
     ./antigravity
     #./cursor
   ];
