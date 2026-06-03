@@ -29,6 +29,9 @@ in
     EXT_DIR="${config.home.homeDirectory}/.antigravity-ide/extensions"
     $DRY_RUN_CMD mkdir -p "$EXT_DIR"
     
+    # Remove all existing symlinks that point to the Nix store to clean up removed extensions
+    $DRY_RUN_CMD find "$EXT_DIR" -maxdepth 1 -type l -lname '/nix/store/*' -delete || true
+    
     ${pkgs.lib.concatMapStringsSep "\n" (extId:
       let
         extPkg = extensionIdToPackage extId;
