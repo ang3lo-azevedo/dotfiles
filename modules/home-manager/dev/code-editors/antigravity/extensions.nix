@@ -4,19 +4,22 @@ let
   sharedExtensions = import ../shared-extensions.nix;
   
   marketplace = pkgs.nix-vscode-extensions.vscode-marketplace;
+  openvsx = pkgs.nix-vscode-extensions.open-vsx;
   
   # Map extension IDs to nix-vscode-extensions packages
-  # Extension IDs are in format "publisher.name", which maps to marketplace.publisher.name
-  # We split by the first dot to get publisher and name, then access the nested attribute
+  # Extension IDs are in format "publisher.name", checking marketplace first then openvsx
   extensionIdToPackage = extId:
     let
       parts = pkgs.lib.splitString "." extId;
       publisher = builtins.head parts;
       name = pkgs.lib.concatStringsSep "." (builtins.tail parts);
-      # Access nested attribute: marketplace.publisher.name
-      publisherAttr = builtins.getAttr publisher marketplace;
+      
+      inMarketplace = (marketplace ? ${publisher}) && (marketplace.${publisher} ? ${name});
     in
-    builtins.getAttr name publisherAttr;
+    if inMarketplace then
+      marketplace.${publisher}.${name}
+    else
+      openvsx.${publisher}.${name};
 in
 {
   # Install extensions via Home Manager activation script
@@ -48,6 +51,6 @@ in
           fi
         done
       ''
-    ) sharedExtensions.extensionIds}
+    ) (sharedExtensions.extensionIds ++ [ "crsx.ag-usage" ])}
   '';
 }
