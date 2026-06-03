@@ -1,16 +1,50 @@
-{ pkgs, ... }:
+{ lib, pkgs, config, ... }:
 let
+  # Import shared extension IDs
   sharedExtensions = import ../shared-extensions.nix;
+  
+  marketplace = pkgs.nix-vscode-extensions.vscode-marketplace;
+  
+  # Map extension IDs to nix-vscode-extensions packages
+  # Extension IDs are in format "publisher.name", which maps to marketplace.publisher.name
+  # We split by the first dot to get publisher and name, then access the nested attribute
+  extensionIdToPackage = extId:
+    let
+      parts = pkgs.lib.splitString "." extId;
+      publisher = builtins.head parts;
+      name = pkgs.lib.concatStringsSep "." (builtins.tail parts);
+      # Access nested attribute: marketplace.publisher.name
+      publisherAttr = builtins.getAttr publisher marketplace;
+    in
+    builtins.getAttr name publisherAttr;
 in
 {
-  home.activation.installAntigravityExtensions = ''
-    if command -v antigravity >/dev/null 2>&1; then
-      echo "Installing Antigravity extensions..."
-      ${pkgs.lib.concatMapStringsSep "\n" (extId: ''
-        antigravity --install-extension "${extId}" || true
-      '') sharedExtensions.extensionIds}
-    else
-      echo "Antigravity not found, skipping extension installation"
-    fi
+  # Install extensions via Home Manager activation script
+  # Instead of using the antigravity-ide CLI which suffers from IPC issues (drops
+  # installation requests if the IDE is running) and bugs when passing --user-data-dir,
+  # we symlink the extensions directly from the Nix store, similar to how the VS Code
+  # module handles mutableExtensionsDir.
+  home.activation.installAntigravityExtensions = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    echo "Installing Antigravity extensions..."
+    EXT_DIR="${config.home.homeDirectory}/.antigravity-ide/extensions"
+    $DRY_RUN_CMD mkdir -p "$EXT_DIR"
+    
+    ${pkgs.lib.concatMapStringsSep "\n" (extId:
+      let
+        extPkg = extensionIdToPackage extId;
+      in
+      ''
+        # Find the actual extension folder name in the Nix store (there should be only one)
+        for extPath in "${extPkg}/share/vscode/extensions/"*; do
+          if [ -d "$extPath" ]; then
+            extName=$(basename "$extPath")
+            # Remove existing extension folder or symlink if it exists
+            $DRY_RUN_CMD rm -rf "$EXT_DIR/$extName"* || true
+            # Symlink the extension from the Nix store
+            $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName"
+          fi
+        done
+      ''
+    ) sharedExtensions.extensionIds}
   '';
 }

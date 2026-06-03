@@ -6,6 +6,6 @@
   ];
 
   home.packages = with pkgs; [
-    antigravity-fhs
+    google-antigravity-ide
   ];
 }

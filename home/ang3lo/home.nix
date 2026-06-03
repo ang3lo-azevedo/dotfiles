@@ -24,16 +24,20 @@ in
       };
     })
 
+    # For Antigravity
+    inputs.antigravity-nix.overlays.default
+
     # For IDA Pro
     inputs.ida-pro-overlay.overlays.default
-
-    # Override IDA Pro to use the latest version and local copy of the installer
 
     # For Binary Ninja
     inputs.binaryninja.overlays.default
 
     # For Jackify
     inputs.nixpkgs-extra.overlays.default
+
+    # For MemProcFS
+    inputs.dmatools.overlays.default
 
     # nixpkgs-xr overlay without wivrn
     (final: prev: builtins.removeAttrs (inputs.nixpkgs-xr.overlays.default final prev) [ "wivrn" ])
