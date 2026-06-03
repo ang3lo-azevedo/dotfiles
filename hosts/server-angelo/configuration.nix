@@ -2,6 +2,7 @@
   imports = [
     ../../modules/system
     ../../modules/server-services/proxmox-ve.nix
+    ../../modules/server-services/adguardhome-native.nix
   ];
 
   # Define a user account. Don't forget to set a password with 'passwd'.

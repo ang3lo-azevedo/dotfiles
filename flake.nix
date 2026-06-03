@@ -59,6 +59,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Antigravity (Google Antigravity packaging)
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Haumea for filesystem-based module system
     haumea = {
       url = "github:nix-community/haumea";
@@ -236,12 +242,14 @@
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
       "https://cache.saumon.network/proxmox-nixos"
+      "https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
+      "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported
@@ -271,6 +279,8 @@
       nixpkgs-xr,
       steam-config-nix,
       nix-gaming,
+      nix-gaming-edge,
+      dmatools,
       ...
     }@inputs:
     let
@@ -343,6 +353,7 @@
             nixpkgs.overlays = [
               nix-cachyos-kernel.overlays.pinned
               (import ./overlays/python-packages.nix)
+              nix-gaming-edge.overlays.default
             ];
           }
 
@@ -351,6 +362,9 @@
 
           # NordVPN flake overlay
           nordvpn-flake.nixosModules.nordvpn-flake
+
+          # Gaming tools and modules
+          nix-gaming-edge.nixosModules.default
         ];
       };
 
@@ -360,7 +374,6 @@
         hostname = "server-angelo";
         modules = [
           proxmox-nixos.nixosModules.proxmox-ve
-
           {
             nixpkgs.overlays = [
               proxmox-nixos.overlays.x86_64-linux
@@ -400,12 +413,6 @@
         lib = nixpkgs.lib;
         src = inputs.angr-management;
       };
-
-      # Expose proton-cachyos from powerofthe69/nix-gaming-edge
-      packages.x86_64-linux.proton-cachyos = inputs.nix-gaming-edge.packages.x86_64-linux.proton-cachyos;
-
-      # Expose memprocfs from tie-infra/dmatools flake
-      packages.x86_64-linux.memprocfs = inputs.dmatools.packages.x86_64-linux.memprocfs;
 
       # Expose the local `nuvio-desktop` package so flakes can reference it
       packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
