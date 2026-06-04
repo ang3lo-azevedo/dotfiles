@@ -3,7 +3,7 @@
   stdenv,
   fetchurl,
   unzip,
-  imagemagick,
+  icoutils,
   wineWow64Packages,
 }:
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     unzip
-    imagemagick
+    icoutils
   ];
 
   sourceRoot = ".";
@@ -94,7 +94,7 @@ EOF
     chmod +x $out/bin/dnspy
 
     mkdir -p $out/share/icons/hicolor/256x256/apps
-    convert "$icon" $out/share/icons/hicolor/256x256/apps/dnspy.png
+    icotool -x "$icon" -o $out/share/icons/hicolor/256x256/apps/dnspy.png
 
     mkdir -p $out/share/applications
     cat > $out/share/applications/dnspy.desktop <<EOF
