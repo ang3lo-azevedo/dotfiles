@@ -35,6 +35,9 @@ in
     # Remove all existing symlinks that point to the Nix store to clean up removed extensions
     $DRY_RUN_CMD find "$EXT_DIR" -maxdepth 1 -type l -lname '/nix/store/*' -delete || true
     
+    # Remove extension cache to force Antigravity to rescan
+    $DRY_RUN_CMD rm -f "$EXT_DIR/extensions.json" "$EXT_DIR/.obsolete"
+    
     ${pkgs.lib.concatMapStringsSep "\n" (extId:
       let
         extPkg = extensionIdToPackage extId;
