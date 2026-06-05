@@ -25,5 +25,7 @@
     
     ./xournalapp.nix
     ./libreoffice.nix
+
+    ./zapzap.nix
   ];
 }
