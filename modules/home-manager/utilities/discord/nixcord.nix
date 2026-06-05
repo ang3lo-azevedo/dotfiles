@@ -16,9 +16,6 @@
         noNitroUpsell.enable = true;
         questify = {
           enable = true;
-          completeAchievementQuestsInBackground = true;
-          completeGameQuestsInBackground = true;
-          completeVideoQuestsInBackground = true;
         };
         spotifyActivityToggle.enable = true;
         spotifyCrack = {

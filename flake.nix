@@ -26,15 +26,8 @@
       url = "github:tie-infra/dmatools";
     };
     
-    # nix-gaming-edge (proton-cachyos)
-    nix-gaming-edge = {
-      url = "github:powerofthe69/nix-gaming-edge";
-    };
 
-    # For Jackify
-    nixpkgs-extra = {
-      url = "github:Mistyttm/nixpkgs-extra";
-    };
+
 
     # Input for Disko (disk partitioning tool)
     disko = {
@@ -181,12 +174,6 @@
       flake = false;
     };
 
-    # NordVPN client for NixOS/Home Manager
-    nordvpn-flake = {
-      url = "github:scouckel/nordvpn-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Pwndbg
     pwndbg = {
       url = "github:pwndbg/pwndbg";
@@ -234,6 +221,11 @@
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Chaotic Nyx
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    };
   };
 
   nixConfig = {
@@ -275,12 +267,11 @@
       mpv-config,
       trakt-scrobbler-src,
       photogimp,
-      nordvpn-flake,
       nixpkgs-xr,
       steam-config-nix,
       nix-gaming,
-      nix-gaming-edge,
       dmatools,
+      chaotic,
       ...
     }@inputs:
     let
@@ -353,18 +344,14 @@
             nixpkgs.overlays = [
               nix-cachyos-kernel.overlays.pinned
               (import ./overlays/python-packages.nix)
-              nix-gaming-edge.overlays.default
             ];
           }
 
           # Stylix overlay
           stylix.nixosModules.stylix
 
-          # NordVPN flake overlay
-          nordvpn-flake.nixosModules.nordvpn-flake
-
-          # Gaming tools and modules
-          nix-gaming-edge.nixosModules.default
+          # Chaotic Nyx (provides nordvpn and other packages)
+          chaotic.nixosModules.default
         ];
       };
 

@@ -1,8 +1,9 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib ? pkgs.lib, ... }:
 let
   binjaZip = ./binaryninja_linux_stable_personal.zip;
   kgPath = ./keygen.py;
   kgExists = builtins.pathExists kgPath;
+  binjaExists = builtins.pathExists binjaZip;
 in
 {
   home.file.".binaryninja/settings.json".text = builtins.toJSON {
@@ -10,22 +11,18 @@ in
     "python.interpreter" = "${pkgs.python312}/lib/libpython3.12.so";
   };
 
-  programs.binary-ninja = {
+  programs.binary-ninja = lib.mkIf binjaExists {
     enable = true;
     package = (pkgs.binary-ninja-personal-wayland.override {
       overrideSource = binjaZip;
       python3 = pkgs.python312;
-
-      # TODO: Remove this override once the upstream package is updated to work with the latest xorg server.
-      xorg = pkgs.xorg // {
-        libXi = pkgs.libxi;
-        libXrender = pkgs.libxrender;
-        xcbutilimage = pkgs.libxcb-image;
-        xcbutilrenderutil = pkgs.libxcb-render-util;
-      };
     }).overrideAttrs (old: {
       # Use Python 3.12 for Sidekick plugin compatibility (requires 3.10-3.12)
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkgs.python312Packages.pycryptodome pkgs.makeWrapper ];
+      
+      autoPatchelfIgnoreMissingDeps = (old.autoPatchelfIgnoreMissingDeps or []) ++ [
+        "libQt6WaylandEglClientHwIntegration.so.6"
+      ];
 
       postInstall = (old.postInstall or "") + (if kgExists then ''
         # Binary Ninja typically installs into $out/opt/binaryninja

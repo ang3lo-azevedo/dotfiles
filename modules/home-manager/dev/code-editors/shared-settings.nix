@@ -108,6 +108,10 @@
 
     # Enable Model Context Protocol (MCP) server for Background Agents.
     "github.copilot.chat.cli.mcp.enabled"= false;
+
+    # Disable extension auto-updating since they are managed by Nix
+    "extensions.autoUpdate" = false;
+    "extensions.autoCheckUpdates" = false;
   };
 }
 

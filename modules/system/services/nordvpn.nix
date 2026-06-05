@@ -3,8 +3,11 @@
     extraGroups = [ "nordvpn" ];
   };
 
-  services.nordvpn = {
-    enable = true;
-    firewallChanges = true; # true by default
+  chaotic.nordvpn.enable = true;
+
+  networking.firewall = {
+    checkReversePath = false;
+    allowedTCPPorts = [ 443 ];
+    allowedUDPPorts = [ 1194 ];
   };
 }
