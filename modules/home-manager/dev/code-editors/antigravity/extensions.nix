@@ -49,8 +49,18 @@ in
             extName=$(basename "$extPath")
             # Remove existing extension folder or symlink if it exists
             $DRY_RUN_CMD rm -rf "$EXT_DIR/$extName"* || true
-            # Symlink the extension from the Nix store
+            # Symlink the standard extension name from the Nix store
             $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName"
+            
+            # Extract version from package.json to create versioned symlinks
+            # This satisfies Antigravity's internal state which expects the versioned path
+            if [ -f "$extPath/package.json" ]; then
+              version=$(${pkgs.jq}/bin/jq -r .version "$extPath/package.json" 2>/dev/null || echo "")
+              if [ -n "$version" ] && [ "$version" != "null" ]; then
+                $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName-$version"
+                $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName-$version-universal"
+              fi
+            fi
           fi
         done
       ''

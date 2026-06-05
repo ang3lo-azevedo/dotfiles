@@ -1,6 +1,6 @@
-{ inputs, ... }:
+{ pkgs, ... }:
 {
-  home.packages = [
+  home.packages = with pkgs; [
     zapzap
   ];
 }
