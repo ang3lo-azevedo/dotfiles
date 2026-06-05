@@ -4,7 +4,6 @@
     ./python
     ./android
     ./git.nix
-    ./intellij-idea.nix
     ./code-editors
     ./adb.nix
     ./latex.nix
