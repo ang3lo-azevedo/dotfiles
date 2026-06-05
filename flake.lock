@@ -1669,11 +1669,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1780681505,
-        "narHash": "sha256-W3u1KCOaRPZqjU6TNaPGM4wL5re+T69vMtjzfaPlBGQ=",
+        "lastModified": 1780686262,
+        "narHash": "sha256-pzpsK8lf1rlG8HdIb+vE+i1WLY8teTKaBMe0xczBeH4=",
         "owner": "pwndbg",
         "repo": "pwndbg",
-        "rev": "50f8a1b0ce86ade901ada5cc116007b3a19660b2",
+        "rev": "2f97f8c31a56aea6c9c08564138895aa72b69c13",
         "type": "github"
       },
       "original": {
@@ -1814,8 +1814,8 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1778536916,
-        "narHash": "sha256-tLMYon8WROof9aSxIxFYkYIuDHe0SBJBdORqn7fRYp0=",
+        "lastModified": 1780688621,
+        "narHash": "sha256-Mmb2AKDTBatmuzL/BP+lXNLBk1a6qfjSZWFwcCL3nqY=",
         "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
         "type": "path"
       },

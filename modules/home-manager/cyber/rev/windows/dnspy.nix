@@ -2,6 +2,6 @@
 
 {
   home.packages = [
-    inputs.self.packages.${pkgs.system}.dnspy
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.dnspy
   ];
 }
