@@ -124,6 +124,16 @@ The flake directly builds and exposes several custom packages:
 | **registry-spy** | Windows registry inspection tool |
 | **dnspy** | .NET assembly editing tool |
 
+## Code Editors Architecture
+
+The setup includes a highly specialized and modular configuration for **VS Code**, **Cursor**, and **Antigravity IDE**:
+
+- **Unified Configuration**: All editors share a centralized baseline of settings and extensions defined in `shared-settings.nix` and `shared-extensions.nix`.
+- **Nix-Managed Extensions**: Extensions are declaratively fetched via `nix-vscode-extensions` and robustly symlinked directly into the respective editor's extension directory (e.g., `~/.vscode/extensions`, `~/.cursor/extensions`, `~/.antigravity-ide/extensions`).
+- **Resilient Symlinking**: The extension linking script parses `package.json` dynamically to generate both standard and versioned/architecture-specific symlinks (e.g., `-universal`). This satisfies strict internal IDE caching mechanisms (`state.vscdb`) and prevents extension scanner crashes.
+- **Mutable Settings with Nix Baseline**: Settings are generated declaratively via Nix, but injected into the IDE's user directories dynamically as writable files via Home Manager activation scripts. This hybrid approach ensures you can freely toggle settings directly inside the IDE without read-only warnings, while reapplying the Nix baseline on every system rebuild.
+- **Per-Editor Overrides**: Individual editors seamlessly extend the shared baseline. For example, Antigravity IDE defines its own `settings.nix` and `extensions.nix` to enforce specific themes while inheriting all global tooling.
+
 ## Installation
 
 ```bash
