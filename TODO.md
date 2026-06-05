@@ -1,6 +1,6 @@
 - [x] Add IDA Pro
 - [x] Fix Discord with the plugin
-- [ ] Add the README
+- [x] Add the README
 - [ ] Update the MPV config
 - [x] Fix waybar issue if still present
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
@@ -11,7 +11,7 @@
 - [x] Add angr-management
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Make some config files symlinks, mainly on the window manager configs
-- [ ] Add cachyos-proton
+- [x] Add cachyos-proton
 - [ ] Make a general function to add all .nix files inside a folder to the default.nix (Maybe use haumea https://github.com/nix-community/haumea)
 - [x] Fix the clipboard
 - [x] Fix the print screen
