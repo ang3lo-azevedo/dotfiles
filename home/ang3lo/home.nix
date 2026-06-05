@@ -36,9 +36,6 @@ in
     # For Binary Ninja
     inputs.binaryninja.overlays.default
 
-    # For Jackify
-    inputs.nixpkgs-extra.overlays.default
-
     # For MemProcFS
     inputs.dmatools.overlays.default
 
@@ -56,6 +53,9 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
