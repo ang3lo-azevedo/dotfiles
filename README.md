@@ -96,6 +96,34 @@ A robust set of applications configured declaratively:
 | **[virt-manager](https://github.com/virt-manager/virt-manager)** | Virtual machine manager |
 | **Spotify** | Managed and themed via Spicetify-nix |
 
+## Cyber Security & Reverse Engineering
+
+This configuration includes a dedicated suite of tools for cybersecurity, reverse engineering, and binary analysis:
+
+| Tool | Description |
+|------|-------------|
+| **IDA Pro** | Disassembler and debugger (managed via `ida-pro-overlay`) |
+| **Binary Ninja** | Reverse engineering platform (managed via `nix-binary-ninja`) |
+| **pwndbg** | Exploit development and reverse engineering plugin for GDB |
+| **angr-management** | GUI for the angr binary analysis framework |
+| **Wireshark** | Network protocol analyzer |
+| **MemProcFS** | PCIE DMA analysis and memory forensics (via `dmatools` overlay) |
+| **QRookie** | Reverse engineering and analysis tool (via `glaumar_repo` NUR) |
+| **registry-spy** | Tool to inspect Windows registry files |
+| **dnspy** | .NET assembly editor, decompiler, and debugger |
+
+## Custom Packages (Built in Flake)
+
+The flake directly builds and exposes several custom packages:
+
+| Package | Description |
+|---------|-------------|
+| **angr-management** | Packaged from source for binary analysis |
+| **archi** | ArchiMate modelling tool |
+| **nuvio-desktop** | Custom desktop application |
+| **registry-spy** | Windows registry inspection tool |
+| **dnspy** | .NET assembly editing tool |
+
 ## Installation
 
 ```bash
