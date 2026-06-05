@@ -19,7 +19,7 @@
 
   # Enable Proton GE for better game compatibility
   programs.steam.extraCompatPackages = with pkgs; [
-    proton-cachyos
+    proton-cachyos_x86_64_v3
     proton-ge-bin
   ];
 }

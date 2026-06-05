@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    caido
+    caido-desktop
+    caido-cli
   ];
 }

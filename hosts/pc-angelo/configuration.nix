@@ -5,9 +5,6 @@
     ../../modules/system
   ];
 
-  # Allow the legacy Python 2 package only for this host to unblock evolve
-  nixpkgs.config.permittedInsecurePackages = [ "python-2.7.18.12" ];
-
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
   # Ensure the system knows to open the LUKS container
