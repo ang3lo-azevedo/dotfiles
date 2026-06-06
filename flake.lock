@@ -919,11 +919,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780171922,
-        "narHash": "sha256-SNhiAPcXCazGAyj0TNIlR+VIIOiI9cKkPKMn5xMe+ak=",
+        "lastModified": 1780752761,
+        "narHash": "sha256-kkfKmOmk7XnN96whPKrTfyE63s+C4Oja55FU0TNcTCg=",
         "owner": "nix-community",
         "repo": "haumea",
-        "rev": "f3546533c5cdefbac1a419d43cafb96bdb1aacc3",
+        "rev": "2f96f12407a3ce369eb34710a6884313c20e9f90",
         "type": "github"
       },
       "original": {
@@ -1211,11 +1211,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1780744353,
-        "narHash": "sha256-gXuQlSur1F8bcZtGX/hAa4KQmKGg3nEFrJAcmlXf5k0=",
+        "lastModified": 1780751320,
+        "narHash": "sha256-3PlWrZkSwElqYHMnWi4d0A+GxlvCXk0JaMsTGghmQGE=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "4c403fb6108c5c2b67427730f9d944dec6545b51",
+        "rev": "2b70dbed679d2705696deb36f0778c9ef9f1ded2",
         "type": "github"
       },
       "original": {
@@ -1669,11 +1669,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1780697312,
-        "narHash": "sha256-5SiFDNxo5izC3y3BtrGEf4cach952Q6YORwY5akIx2U=",
+        "lastModified": 1780751340,
+        "narHash": "sha256-MPZ+qTH0xK0zCWefximm2rAje6Zr8outa6Sj5uP9bLw=",
         "owner": "pwndbg",
         "repo": "pwndbg",
-        "rev": "5de348193a5ede62f9a647cdf3249bdcb5914c93",
+        "rev": "0ad76cb7cc74fc80d64520596429f2fff9865c62",
         "type": "github"
       },
       "original": {
@@ -1814,7 +1814,7 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1780745470,
+        "lastModified": 1780764156,
         "narHash": "sha256-S4Ay9Y8jtHBVQS8Z8zU2OmjEmp7itbzA3JwW5OXSAkc=",
         "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
         "type": "path"
