@@ -1,3 +1,4 @@
+- [ ] Maybe use this to sync the vscode forks https://marketplace.visualstudio.com/items?itemName=octohash.crosside-sync
 - [x] Add IDA Pro
 - [x] Fix Discord with the plugin
 - [x] Add the README
