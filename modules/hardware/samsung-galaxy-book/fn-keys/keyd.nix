@@ -45,14 +45,9 @@ in
             # Touchpad toggle (Fn+F5) -> (left meta + f21)
             #"f5" = "command(touchpadtoggle)";
 
-            # Keyboard backlight toggle (Fn+F9)
-            # If the hardware emits kbdillumtoggle natively on Fn+F9:
-            "kbdillumtoggle" = "command(cycle-kbd-backlight)";
-            
-            # If the hardware exposes the Fn key, we use a layer:
-            "fn" = "layer(fn)";
-          };
-          fn = {
+            # Since the laptop defaults to media keys, physical F9 emits 'kbdillumtoggle'
+            # and Fn+F9 emits 'f9'. We swap them here so F9 acts as F9 and Fn+F9 toggles the backlight.
+            "kbdillumtoggle" = "f9";
             "f9" = "command(cycle-kbd-backlight)";
           };
         };
