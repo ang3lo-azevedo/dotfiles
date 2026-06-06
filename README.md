@@ -134,6 +134,26 @@ The setup includes a highly specialized and modular configuration for **VS Code*
 - **Mutable Settings with Nix Baseline**: Settings are generated declaratively via Nix, but injected into the IDE's user directories dynamically as writable files via Home Manager activation scripts. This hybrid approach ensures you can freely toggle settings directly inside the IDE without read-only warnings, while reapplying the Nix baseline on every system rebuild.
 - **Per-Editor Overrides**: Individual editors seamlessly extend the shared baseline. For example, Antigravity IDE defines its own `settings.nix` and `extensions.nix` to enforce specific themes while inheriting all global tooling.
 
+## Hardware & Kernel Optimizations
+
+### CachyOS Kernel
+The system uses a customized, highly optimized Linux kernel from the CachyOS project to maximize responsiveness and gaming performance.
+- **Flake Integration**: Pulled via `nix-cachyos-kernel`.
+- **LTO and x86_64-v3**: The `pc-angelo` host utilizes the `cachyos-latest-lto-x86_64-v3` kernel variant, built with Link-Time Optimization and advanced AVX2 instruction sets for modern CPUs.
+- **Proton Integration**: Steam uses the `proton-cachyos_x86_64_v3` custom Proton build to extend performance benefits to Windows games.
+
+### Galaxy Book 5 Pro Fixes
+Hardware support for the Galaxy Book 5 Pro involves specific NixOS modules and configurations to address hardware quirks:
+- **Fingerprint Sensor**: Integration via `fprintd` combined with a custom `libfprint` overlay. The overlay fetches a newer source, patches the `egismoc` driver to add support for the `1c7a:05a5` sensor device, and enables PAM authentication across the system (`login`, `sudo`, `swaylock`, etc.).
+- **Audio & Webcam**: Custom NixOS modules configure ALSA/Pipewire routing for speakers and enable the Intel MIPI camera.
+- **Keyboard & Function Keys**: Uses `keyd` daemon for mapping the specific `samsung-galaxybook` hardware keys, along with a custom script (`kbdillumtoggle.sh`) to toggle the keyboard backlight by interacting directly with the device hardware file.
+- **Build Workarounds**: Temporary Nixpkgs overlays disable failing tests and parallel builds for packages like `sdl3` and `ibus` to ensure reliable system builds on this hardware.
+
+## Advanced Architecture Features
+
+### Dynamic GPU Passthrough (VFIO)
+The virtualization stack implements a custom libvirt hook script for on-the-fly GPU passthrough (`gpu-passthrough.nix`). It safely unbinds a Thunderbolt-connected AMD eGPU from native Linux drivers and binds it to `vfio-pci` when starting a Windows VM, restoring the original state upon shutdown. This achieves near-native graphics performance in VMs.
+
 ## Installation
 
 ```bash
