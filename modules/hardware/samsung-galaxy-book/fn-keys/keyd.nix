@@ -32,7 +32,7 @@ in
     enable = true;
     keyboards = {
       "samsung-galaxybook" = {
-        ids = [ "0001:0001" ];
+        ids = [ "0001:0001" "0000:0000" ];
         settings = {
           main = {
             # TODO: Add the missing keys
@@ -46,6 +46,13 @@ in
             #"f5" = "command(touchpadtoggle)";
 
             # Keyboard backlight toggle (Fn+F9)
+            # If the hardware emits kbdillumtoggle natively on Fn+F9:
+            "kbdillumtoggle" = "command(cycle-kbd-backlight)";
+            
+            # If the hardware exposes the Fn key, we use a layer:
+            "fn" = "layer(fn)";
+          };
+          fn = {
             "f9" = "command(cycle-kbd-backlight)";
           };
         };

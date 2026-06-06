@@ -47,10 +47,10 @@ in
         for extPath in "${extPkg}/share/vscode/extensions/"*; do
           if [ -d "$extPath" ]; then
             extName=$(basename "$extPath")
-            # We MUST use the standard unversioned name (publisher.name)
-            # If we add -universal, the VS Code scanner regex rejects the folder and skips it entirely!
-            # It will eventually update state.vscdb with this standard path.
+            # VS Code requires the folder name to be publisher.name-version
+            extVersion=$(${pkgs.jq}/bin/jq -r .version "$extPath/package.json" 2>/dev/null || echo "1.0.0")
             $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName"
+            $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName-$extVersion"
           fi
         done
       ''
