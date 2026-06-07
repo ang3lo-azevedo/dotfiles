@@ -7,6 +7,7 @@
 
   hardware.samsungGalaxyBook.webcamFixBook5 = {
     videoFlip = true;
-    relayColorFilter = "videoflip method=rotate-180 ! videobalance hue=0.05 saturation=0.95";
+    relayColorFilter = "videoflip method=vertical-flip ! videobalance hue=0.08 saturation=-0.05";
   };
+
 }
