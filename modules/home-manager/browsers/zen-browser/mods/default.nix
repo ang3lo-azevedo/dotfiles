@@ -17,6 +17,16 @@ in
       "a6335949-4465-4b71-926c-4a52d34bc9c0" # Better Find Bar
       "f7c71d9a-bce2-420f-ae44-a64bd92975ab" # Better Unloaded Tabs
       "quick-tabs"
+      "advanced-tab-groups"
+      "superpins"
+      "quick-search"
+      "tidy-tabs"
+      "tidy-downloads"
+      #"blended-addressbar"
+      "zen-command-palette"
+      "reopen-closed-tabs-menu"
+      "workspace-toast"
+      "renderjs"
     ];
   };
 }
