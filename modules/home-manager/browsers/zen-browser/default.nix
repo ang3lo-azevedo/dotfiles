@@ -6,6 +6,7 @@ in
   imports = [
     inputs.zen-browser.homeModules.beta
     ./extensions
+    ./mods
   ];
 
   _module.args.profileName = profileName;

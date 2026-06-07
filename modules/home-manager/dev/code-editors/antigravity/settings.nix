@@ -19,8 +19,9 @@ in
     # Create directory if it doesn't exist
     $DRY_RUN_CMD mkdir -p "$settingsDir"
 
-    # Copy settings from Nix store, making it writable
-    $DRY_RUN_CMD cp -f "${settingsFile}" "$settingsPath"
-    $DRY_RUN_CMD chmod u+w "$settingsPath"
+    # Copy settings from Nix store atomically, making it writable
+    $DRY_RUN_CMD cp "${settingsFile}" "$settingsPath.tmp"
+    $DRY_RUN_CMD chmod u+w "$settingsPath.tmp"
+    $DRY_RUN_CMD mv -f "$settingsPath.tmp" "$settingsPath"
   '';
 }
