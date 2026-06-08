@@ -35,9 +35,9 @@ in
     # Remove all existing symlinks that point to the Nix store to clean up removed extensions
     $DRY_RUN_CMD find "$EXT_DIR" -maxdepth 1 -type l -lname '/nix/store/*' -delete || true
     
-    # Remove extension cache to force Antigravity to rescan
-    $DRY_RUN_CMD rm -f "$EXT_DIR/extensions.json" "$EXT_DIR/.obsolete"
-    
+    # Remove stale extension cache files
+    $DRY_RUN_CMD rm -f "$EXT_DIR/.obsolete"
+
     ${pkgs.lib.concatMapStringsSep "\n" (extId:
       let
         extPkg = extensionIdToPackage extId;
@@ -47,7 +47,6 @@ in
         for extPath in "${extPkg}/share/vscode/extensions/"*; do
           if [ -d "$extPath" ]; then
             extName=$(basename "$extPath")
-            # VS Code requires the folder name to be publisher.name-version
             extVersion=$(${pkgs.jq}/bin/jq -r .version "$extPath/package.json" 2>/dev/null || echo "1.0.0")
             $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName"
             $DRY_RUN_CMD ln -sfn "$extPath" "$EXT_DIR/$extName-$extVersion"
@@ -55,5 +54,37 @@ in
         done
       ''
     ) (sharedExtensions.extensionIds ++ [ "crsx.ag-usage" ])}
+
+    # Generate extensions.json manifest so Antigravity knows about all extensions.
+    # Without this, the IDE only discovers a subset when it rebuilds the manifest on startup.
+    if [[ -z $DRY_RUN_CMD ]]; then
+      echo "[" > "$EXT_DIR/extensions.json.tmp"
+      first=1
+      for extLink in "$EXT_DIR"/*/; do
+        extPath=$(readlink -f "$extLink")
+        [[ -d "$extPath" ]] || continue
+        extName=$(basename "$extLink")
+        # Only process the non-versioned symlink (no trailing -x.y.z)
+        # i.e. the one whose name matches publisher.name without a version suffix
+        if [[ ! "$extName" =~ ^[^.]+\.[^-]+-[0-9] ]]; then
+          extId=$(${pkgs.jq}/bin/jq -r '.publisher + "." + .name | ascii_downcase' "$extPath/package.json" 2>/dev/null) || continue
+          extVersion=$(${pkgs.jq}/bin/jq -r '.version' "$extPath/package.json" 2>/dev/null || echo "1.0.0")
+          versionedName="''${extId}-''${extVersion}"
+          if [[ $first -eq 0 ]]; then echo "," >> "$EXT_DIR/extensions.json.tmp"; fi
+          first=0
+          cat >> "$EXT_DIR/extensions.json.tmp" <<JSON
+    {
+      "identifier": { "id": "$extId" },
+      "version": "$extVersion",
+      "location": { "\$mid": 1, "path": "$EXT_DIR/$versionedName", "scheme": "file" },
+      "relativeLocation": "$versionedName"
+    }
+JSON
+        fi
+      done
+      echo "]" >> "$EXT_DIR/extensions.json.tmp"
+      mv -f "$EXT_DIR/extensions.json.tmp" "$EXT_DIR/extensions.json"
+      echo "Registered $(${pkgs.jq}/bin/jq 'length' "$EXT_DIR/extensions.json") extensions."
+    fi
   '';
 }
