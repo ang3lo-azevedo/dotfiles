@@ -1,6 +1,6 @@
 {
   imports = [
-    ./mpv.nix
+    ./mpv/mpv.nix
     ./grayjay.nix
     ./stremio.nix
     ./stremio-enhanced.nix
