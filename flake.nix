@@ -130,8 +130,9 @@
     };
 
     # Input for Spicetify Nix (Spotify customizer)
+    # TODO: Remove the pinned commit when npins mismatch is fixed upstream
     spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
+      url = "github:Gerg-L/spicetify-nix/aad629e8261f219b0a5b3a2189b09d65216a0983";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

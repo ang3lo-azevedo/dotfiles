@@ -16,6 +16,20 @@
         noNitroUpsell.enable = true;
         questify = {
           enable = true;
+          #allowChangingDangerousSettings = true;
+          autoCompleteQuestsSimultaneously = true;
+          autoCompleteQuestTypes = {
+            PLAY_ON_DESKTOP = true;
+            PLAY_ON_XBOX = true;
+            PLAY_ON_PLAYSTATION = true;
+            PLAY_ACTIVITY = true;
+            WATCH_VIDEO = true;
+            WATCH_VIDEO_ON_MOBILE = true;
+            ACHIEVEMENT_IN_ACTIVITY = true;
+          };
+          completeVideoQuestsQuicker = true;
+          makeMobileVideoQuestsDesktopCompatible = true;
+
         };
         spotifyActivityToggle.enable = true;
         spotifyCrack = {
