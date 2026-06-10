@@ -1,5 +1,5 @@
 - [ ] Add responder to the cyber tools
-- [ ] Update the MPV config
+- [x] Update the MPV config
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
@@ -27,3 +27,4 @@
 - [ ] Add impermanence
 - [ ] Add the backup mechanism
 - [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
+- [ ] Remove zen-browser commit pin in flake.nix when syntax error is fixed upstream

@@ -12,8 +12,11 @@ let
 in
 {
   home.packages = [
-    pkgs.mpv
+    (pkgs.mpv.override { mpv-unwrapped = pkgs.mpv-unwrapped.override { vapoursynthSupport = true; }; })
     pkgs.mpv-handler
+    pkgs.vapoursynth
+    pkgs.vapoursynth-mvtools
+    pkgs.python3Packages.vapoursynth
   ];
 
   # MPV player configuration from external git repository

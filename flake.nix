@@ -97,8 +97,9 @@
     };
 
     # Input for Zen Browser
+    # TODO: Remove the pinned commit when syntax error is fixed upstream
     zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
+      url = "github:0xc000022070/zen-browser-flake/ab76a3274975b13d1967d9c4c1f40e5c74983875";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
@@ -150,7 +151,7 @@
 
     # MPV config
     mpv-config = {
-      url = "github:ang3lo-azevedo/mpv";
+      url = "path:/home/ang3lo/Documents/projects/mpv";
       flake = false;
     };
 
