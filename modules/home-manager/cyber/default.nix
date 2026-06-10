@@ -9,5 +9,7 @@
     ./python.nix
 
     ./trufflehog.nix
+
+    ./responder.nix
   ];
 }
