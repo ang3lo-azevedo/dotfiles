@@ -17,6 +17,10 @@ in
     pkgs.vapoursynth
     pkgs.vapoursynth-mvtools
     pkgs.python3Packages.vapoursynth
+    (pkgs.writeShellScriptBin "mpv-python" ''
+      exec ${pkgs.python3.withPackages(ps: with ps; [ guessit requests subliminal ])}/bin/python3 "$@"
+    '')
+    pkgs.socat
   ];
 
   # MPV player configuration from external git repository

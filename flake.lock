@@ -982,11 +982,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781115031,
-        "narHash": "sha256-WrHqMjiilIoqF1Lu5mxt9ypdl+VsNfX323LR4PcY4Bs=",
+        "lastModified": 1781129616,
+        "narHash": "sha256-Hl0Pz/QIKpePSU7SdK3BMe5VNmUhFvfWyg57GyawxzE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f96f717a47589c9d0b6e21f1a0d0d42d2c576f18",
+        "rev": "7dbd305f8b81050f223f00bcfbc8a6b74e048806",
         "type": "github"
       },
       "original": {
@@ -1101,8 +1101,8 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1781128012,
-        "narHash": "sha256-P8IzuqRd2+LqPpI1T0UPff/j4qY8HqVFiQL5OgCGjoE=",
+        "lastModified": 1781132167,
+        "narHash": "sha256-QNO8skVV11pXFFXx/TRzavZvXGYXInS5pTLBtHMOk7c=",
         "path": "/home/ang3lo/Documents/projects/mpv",
         "type": "path"
       },
