@@ -1,21 +1,11 @@
-- [ ] Maybe use this to sync the vscode forks https://marketplace.visualstudio.com/items?itemName=octohash.crosside-sync
-- [x] Add IDA Pro
-- [x] Fix Discord with the plugin
-- [x] Add the README
+- [ ] Add responder to the cyber tools
 - [ ] Update the MPV config
-- [x] Fix waybar issue if still present
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
-- [x] Add wireshark
-- [x] Add binary ninja
-- [x] Add angr-management
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Make some config files symlinks, mainly on the window manager configs
-- [x] Add cachyos-proton
 - [ ] Make a general function to add all .nix files inside a folder to the default.nix (Maybe use haumea https://github.com/nix-community/haumea)
-- [x] Fix the clipboard
-- [x] Fix the print screen
 - [ ] Add the missing fn keys
 - [ ] Add the rest of the waybar
 - [ ] Add Home Assistant Controls to the waybar
@@ -23,9 +13,7 @@
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Make wlsunset also work offline
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
-- [x] Fix all mpv related programs
 - [ ] Fix Zen extension settings
-- [x] Add the CachyOS Kernel
 - [ ] Add virt manager and VM configs
 - [ ] Add GPU Passthrough to the VMs
 - [ ] Add android ROM building tools for Voltage https://docs.robotnix.org/development.html
@@ -38,3 +26,4 @@
 - [ ] Improve overlays
 - [ ] Add impermanence
 - [ ] Add the backup mechanism
+- [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
