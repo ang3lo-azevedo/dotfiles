@@ -87,7 +87,7 @@
 
     # Samsung Galaxy Book Linux fixes repository (use nixos/ modules directly)
     samsung-galaxy-book-linux-fixes = {
-      url = "path:/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes";
+      url = "github:ang3lo-azevedo/samsung-galaxy-book-linux-fixes";
       flake = false;
     };
 
@@ -151,7 +151,7 @@
 
     # MPV config
     mpv-config = {
-      url = "path:/home/ang3lo/Documents/projects/mpv";
+      url = "github:ang3lo-azevedo/mpv";
       flake = false;
     };
 
