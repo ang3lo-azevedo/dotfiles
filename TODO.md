@@ -23,7 +23,7 @@
 - [ ] Add tmux
 - [ ] Add neovim
 - [ ] Test and improve Windows configuration
-- [ ] Add GitHub Actions to update the packages automatically
+- [x] Add GitHub Actions to update the packages automatically
 - [ ] Add LaTeX
 - [ ] Improve overlays
 - [ ] Add impermanence
