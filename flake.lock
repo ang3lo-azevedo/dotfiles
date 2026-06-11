@@ -259,11 +259,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1781175057,
-        "narHash": "sha256-DEXhMKQzeb2pwo30W9QS8ZfUO3eNyXb2tirAXf61yfE=",
+        "lastModified": 1781176064,
+        "narHash": "sha256-Us2PVnC/pD+5oPNxoG/Sd1CrEPhUUIBPbO3sOr+5Cfw=",
         "owner": "chaotic-cx",
         "repo": "nyx",
-        "rev": "0d537a7789457cb174f323be3651147e841e3630",
+        "rev": "867d61a240cdff74f2e6a493c92858186eff0268",
         "type": "github"
       },
       "original": {
@@ -1101,7 +1101,7 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1781176495,
+        "lastModified": 1781182460,
         "narHash": "sha256-TN1lgBsYK6SzbM1WmUQxHsIW+Kl/1nmsP5dpNXIC/wQ=",
         "path": "/home/ang3lo/Documents/projects/mpv",
         "type": "path"
@@ -1835,8 +1835,8 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1781176550,
-        "narHash": "sha256-eN+CvYftX+AjecebvuCVNhm77G4kEGp+lVK8WJDbFpA=",
+        "lastModified": 1781182330,
+        "narHash": "sha256-/T7i7cufF6FvA/+31SKUfNj5Zt2vUbx7DmY+g0s2B0U=",
         "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
         "type": "path"
       },
