@@ -1838,11 +1838,11 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1781184706,
-        "narHash": "sha256-3bHznYy7R3vNaLCgfj0R4/n8uOq2w7DVTTA/LOjJs0M=",
+        "lastModified": 1781210524,
+        "narHash": "sha256-XFKz4kOPW8VdCE5FfrNRMVILY2qA0q/mgaQ8h17ahAs=",
         "owner": "ang3lo-azevedo",
         "repo": "samsung-galaxy-book-linux-fixes",
-        "rev": "09f1c9ed270ce27672064db048c5c3cd559fab15",
+        "rev": "bf59d440c585e3418d90d8689e00028fa33a5251",
         "type": "github"
       },
       "original": {
