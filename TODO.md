@@ -1,5 +1,6 @@
-- [ ] Add responder to the cyber tools
-- [x] Update the MPV config
+- [ ] See if the webcam purple tint can be fixed with this https://github.com/Andycodeman/samsung-galaxy-book-linux-fixes/issues/51
+- [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/MTeaHead/niri-session-manager https://github.com/niri-wm/awesome-niri
+- [ ] Add wavsteg to cyber tools https://github.com/samolds/wavsteg
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
