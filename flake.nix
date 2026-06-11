@@ -103,7 +103,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
-      };
+      }; 
     };
 
     # Input for Nix Firefox Add-ons
