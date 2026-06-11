@@ -1101,14 +1101,17 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1781182460,
-        "narHash": "sha256-TN1lgBsYK6SzbM1WmUQxHsIW+Kl/1nmsP5dpNXIC/wQ=",
-        "path": "/home/ang3lo/Documents/projects/mpv",
-        "type": "path"
+        "lastModified": 1781138164,
+        "narHash": "sha256-mCf0OlS4n6UJzU1U+dXfCeQwnXtVaeWpnrULN2M/dCw=",
+        "owner": "ang3lo-azevedo",
+        "repo": "mpv",
+        "rev": "9ae773a2075169a2b894517ddebc355737bc113e",
+        "type": "github"
       },
       "original": {
-        "path": "/home/ang3lo/Documents/projects/mpv",
-        "type": "path"
+        "owner": "ang3lo-azevedo",
+        "repo": "mpv",
+        "type": "github"
       }
     },
     "niks3": {
@@ -1835,14 +1838,17 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1781182330,
-        "narHash": "sha256-/T7i7cufF6FvA/+31SKUfNj5Zt2vUbx7DmY+g0s2B0U=",
-        "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
-        "type": "path"
+        "lastModified": 1781184706,
+        "narHash": "sha256-3bHznYy7R3vNaLCgfj0R4/n8uOq2w7DVTTA/LOjJs0M=",
+        "owner": "ang3lo-azevedo",
+        "repo": "samsung-galaxy-book-linux-fixes",
+        "rev": "09f1c9ed270ce27672064db048c5c3cd559fab15",
+        "type": "github"
       },
       "original": {
-        "path": "/home/ang3lo/Documents/projects/samsung-galaxy-book-linux-fixes",
-        "type": "path"
+        "owner": "ang3lo-azevedo",
+        "repo": "samsung-galaxy-book-linux-fixes",
+        "type": "github"
       }
     },
     "spicetify-nix": {
