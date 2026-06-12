@@ -311,11 +311,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781156412,
-        "narHash": "sha256-OVh9Ibt1m7wLvgepchVw9opBNnDt4LtvNlKynIYkV+g=",
+        "lastModified": 1781209697,
+        "narHash": "sha256-2es5LuOwuQAnF4575AMgjvPmsWoGhdrEyX1TGPePMvU=",
         "owner": "Rishabh5321",
         "repo": "custom-packages-flake",
-        "rev": "b42f6d8f9c6978763febf21fbf78df18d80ee0c9",
+        "rev": "e0f3e97898e6e4c69fb0086c7f6c8d14f2068c27",
         "type": "github"
       },
       "original": {
@@ -982,11 +982,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781129616,
-        "narHash": "sha256-Hl0Pz/QIKpePSU7SdK3BMe5VNmUhFvfWyg57GyawxzE=",
+        "lastModified": 1781189114,
+        "narHash": "sha256-5inaamLgUMWy+MOBE9ChF9QAF1o/74LFuHkI0W/9rqc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7dbd305f8b81050f223f00bcfbc8a6b74e048806",
+        "rev": "486595d2cf49cfcd649b58a284fa11ac0e34da22",
         "type": "github"
       },
       "original": {
@@ -1235,11 +1235,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1781140712,
-        "narHash": "sha256-POh2b47dEIcHDp0/5T/1iYzjbCX9L7mJHLbt6+kvZ5w=",
+        "lastModified": 1781198850,
+        "narHash": "sha256-UN8lhi7B78ceSV5bx6mgPW5QcwZAftJw/PPJJLFzQak=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "0dbf3dcf5f97c0ac5105a3e99b203f2f6bfc24d0",
+        "rev": "ed5c53ed6257de11ae3e503d479d21c3c29c4ce5",
         "type": "github"
       },
       "original": {
@@ -1507,11 +1507,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1780749050,
-        "narHash": "sha256-3av0pIjlOWQ6rDbNOmpUSvbNnJkGORQKKjb4LtCZsIY=",
+        "lastModified": 1781074563,
+        "narHash": "sha256-md8WlXOlfnIeHeOScMTTHFyf2d6iaTwPl2apR5EQ3P4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+        "rev": "9ae611a455b90cf061d8f332b977e387bda8e1ca",
         "type": "github"
       },
       "original": {
@@ -1838,11 +1838,11 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1781184706,
-        "narHash": "sha256-3bHznYy7R3vNaLCgfj0R4/n8uOq2w7DVTTA/LOjJs0M=",
+        "lastModified": 1781210524,
+        "narHash": "sha256-XFKz4kOPW8VdCE5FfrNRMVILY2qA0q/mgaQ8h17ahAs=",
         "owner": "ang3lo-azevedo",
         "repo": "samsung-galaxy-book-linux-fixes",
-        "rev": "09f1c9ed270ce27672064db048c5c3cd559fab15",
+        "rev": "bf59d440c585e3418d90d8689e00028fa33a5251",
         "type": "github"
       },
       "original": {
