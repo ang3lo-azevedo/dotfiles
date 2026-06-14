@@ -4,29 +4,14 @@ let
   dayTemp = "6500";    # Daylight neutral
   nightTemp = "3500";  # Warm evening
 
+  get-location = pkgs.writeShellApplication {
+    name = "get-location";
+    runtimeInputs = with pkgs; [ curl jq ];
+    text = builtins.readFile ../../../../home/ang3lo/.config/wlsunset/get-location.sh;
+  };
+
   wlsunset-auto = pkgs.writeShellScriptBin "wlsunset-auto" ''
-    RETRIES=30
-    counter=0
-    while true; do
-        CONTENT=$(${pkgs.curl}/bin/curl -s http://ip-api.com/json/)
-        if [ $? -eq 0 ]; then
-            break
-        fi
-        counter=$((counter + 1))
-        if [ $counter -eq $RETRIES ]; then
-            echo "Unable to connect to ip-api." >&2
-            exit 1
-        fi
-        sleep 2
-    done
-    longitude=$(echo "$CONTENT" | ${pkgs.jq}/bin/jq -r .lon)
-    latitude=$(echo "$CONTENT" | ${pkgs.jq}/bin/jq -r .lat)
-    
-    if [ -z "$latitude" ] || [ -z "$longitude" ]; then
-      echo "Failed to extract coordinates" >&2
-      exit 1
-    fi
-    
+    read -r latitude longitude <<< "$(${get-location}/bin/get-location)"
     echo "Starting wlsunset with lat=$latitude lon=$longitude" >&2
     exec ${pkgs.wlsunset}/bin/wlsunset -l $latitude -L $longitude -T ${dayTemp} -t ${nightTemp}
   '';
