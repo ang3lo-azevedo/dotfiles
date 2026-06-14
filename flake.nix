@@ -225,6 +225,12 @@
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
+
+    # Nirinit
+    nirinit = {
+      url = "github:amaanq/nirinit";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -273,6 +279,7 @@
       nix-gaming,
       dmatools,
       chaotic,
+      nirinit,
       ...
     }@inputs:
     let

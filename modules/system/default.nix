@@ -14,5 +14,6 @@
     ./virtualisation
     ./wayland.nix
     ./polkit_gnome.nix
+    ./window-manager/nirinit.nix
   ];
 }
