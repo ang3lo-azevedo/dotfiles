@@ -8,6 +8,7 @@
     ./gaming
     ./media
     ./utilities
+    ./virtualization
     ./window-manager
     ./theming
     ./uni
