@@ -5,6 +5,7 @@
     ./fingerprint.nix
     ./webcam.nix
     ./fn-keys
+    ./egpu-brightness.nix
   ];
 
   # TODO: Remove this temporary local workaround once nixpkgs fixes the SDL3 testrwlock timeout upstream.
