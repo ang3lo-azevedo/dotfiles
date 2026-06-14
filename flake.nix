@@ -76,7 +76,7 @@
     # Apple Emoji
     apple-emoji = {
       url = "github:samuelngs/apple-emoji-ttf";
-      inputs.nixpkgs.follows = "nixpkgs";
+      flake = false;
     };
 
     # Libfprint fork for EgisTec support
@@ -233,14 +233,16 @@
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
       "https://cache.saumon.network/proxmox-nixos"
-      "https://nix-cache.tokidoki.dev/tokidoki"
+      # TODO: Re-enable tokidoki cache when it is fixed
+      #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
-      "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
+      # TODO: Re-enable tokidoki cache when it is fixed
+      #"tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported
