@@ -14,7 +14,8 @@ in
 
   programs.home-manager.enable = true;
 
-  nixpkgs.overlays = [ 
+  nixpkgs.overlays = [
+    (import ../../overlays/python-packages.nix)
     inputs.firefox-addons.overlays.default
     inputs.nix-vscode-extensions.overlays.default
 
