@@ -11,7 +11,7 @@
     ./binary-cache.nix
     ./configuration.nix
     #./impermanence.nix
-    ./virtualisation
+    ./virtualization
     ./wayland.nix
     ./polkit_gnome.nix
     ./window-manager/nirinit.nix
