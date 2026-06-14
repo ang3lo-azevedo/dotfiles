@@ -13,7 +13,7 @@
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
-- [ ] Make wlsunset also work offline
+- [x] Make wlsunset also work offline
 - [ ] Add a script to increase the laptop brightness to the maximum when connected to the e-gpu
 - [ ] Fix Zen extension settings
 - [ ] Add virt manager and VM configs
