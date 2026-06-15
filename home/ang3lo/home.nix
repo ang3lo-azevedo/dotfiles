@@ -40,8 +40,10 @@ in
     # For MemProcFS
     inputs.dmatools.overlays.default
 
-    # nixpkgs-xr overlay without wivrn
-    (final: prev: builtins.removeAttrs (inputs.nixpkgs-xr.overlays.default final prev) [ "wivrn" ])
+    # Access nixpkgs-xr packages via pkgs.xr instead of globally overriding core libraries
+    (final: prev: {
+      xr = inputs.nixpkgs-xr.packages.${system};
+    })
 
     (final: prev: {
       # For QRookie
@@ -54,6 +56,8 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+
+  # TODO: remove these
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10"
   ];

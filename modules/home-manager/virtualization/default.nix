@@ -1,6 +1,6 @@
 {
   imports = [
-    #./quickemu.nix
+    ./quickemu.nix
     ./quickgui.nix
   ];
 }
