@@ -119,11 +119,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Archi (ArchiMate tool) from nixpkgs commit
-    archi-nixpkgs = {
-      url = "github:NixOS/nixpkgs/b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a";
-      flake = false;
-    };
+
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
