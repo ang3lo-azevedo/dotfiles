@@ -5,6 +5,14 @@
   ];
   programs.nixcord = {
     enable = true;
+    userPlugins = {
+      fakeVoiceOptions = ./plugins/fakeVoiceOptions;
+    };
+    extraConfig = {
+      plugins = {
+        fakeVoiceOptions.enable = true;
+      };
+    };
     discord = {
       vencord.enable = false;
       equicord.enable = true;
@@ -29,7 +37,7 @@
           };
           completeVideoQuestsQuicker = true;
           makeMobileVideoQuestsDesktopCompatible = true;
-
+          resumeInterruptedQuests = true;
         };
         spotifyActivityToggle.enable = true;
         spotifyCrack = {

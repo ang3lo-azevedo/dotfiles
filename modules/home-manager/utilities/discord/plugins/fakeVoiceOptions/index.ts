@@ -37,12 +37,12 @@ export default definePlugin({
             find: "setSelfMute",
             replacement: [
                 {
-                    match: /e\.setSelfMute\(n\)/g,
-                    replace: "e.setSelfMute($self.settings.store.fakeMute ? false : n)"
+                    match: /([a-zA-Z_$][\w_$]*)\.setSelfMute\(([a-zA-Z_$][\w_$]*)\)/g,
+                    replace: "$1.setSelfMute($self.settings.store.fakeMute ? false : $2)"
                 },
                 {
-                    match: /e\.setSelfDeaf\(t\.deaf\)/g,
-                    replace: "e.setSelfDeaf($self.settings.store.fakeDeafen ? false : t.deaf)"
+                    match: /([a-zA-Z_$][\w_$]*)\.setSelfDeaf\(([a-zA-Z_$][\w_$]*\.deaf)\)/g,
+                    replace: "$1.setSelfDeaf($self.settings.store.fakeDeafen ? false : $2)"
                 }
             ]
         }

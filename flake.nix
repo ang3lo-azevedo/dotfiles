@@ -97,9 +97,8 @@
     };
 
     # Input for Zen Browser
-    # TODO: Remove the pinned commit when syntax error is fixed upstream
     zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake/ab76a3274975b13d1967d9c4c1f40e5c74983875";
+      url = "github:0xc000022070/zen-browser-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
@@ -131,9 +130,8 @@
     };
 
     # Input for Spicetify Nix (Spotify customizer)
-    # TODO: Remove the pinned commit when npins mismatch is fixed upstream
     spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix/aad629e8261f219b0a5b3a2189b09d65216a0983";
+      url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

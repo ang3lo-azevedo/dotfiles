@@ -4,7 +4,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    wayvr
+    xr.wayvr
   ];
 
   xdg.configFile."wayvr" = {
