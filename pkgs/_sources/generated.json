@@ -1,0 +1,17 @@
+{
+    "apple-emoji": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "apple-emoji",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-uMjtl/ZCuJuko2o+CWYZ8IBdBswlrhEW5pU7mBQq4gw=",
+            "type": "url",
+            "url": "https://github.com/samuelngs/apple-emoji-ttf/releases/download/macos-26-20260613-f1fc560b/AppleColorEmoji-Linux.ttf"
+        },
+        "version": "macos-26-20260613-f1fc560b"
+    }
+}
