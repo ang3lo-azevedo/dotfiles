@@ -90,23 +90,6 @@
         "type": "github"
       }
     },
-    "archi-nixpkgs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1763401352,
-        "narHash": "sha256-oUvj9DGDYk6a3TV3bwdR1/BHpWeJNxdha+zY3UaR9yY=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b347d1435a65f95f3e23dc74f0cc1e30af8a4e9a",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -1843,7 +1826,6 @@
         "agenix": "agenix",
         "angr-management": "angr-management",
         "antigravity-nix": "antigravity-nix",
-        "archi-nixpkgs": "archi-nixpkgs",
         "berberman": "berberman",
         "binaryninja": "binaryninja",
         "chaotic": "chaotic",
