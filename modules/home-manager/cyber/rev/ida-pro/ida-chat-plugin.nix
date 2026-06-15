@@ -1,11 +1,7 @@
 { pkgs, ... }:
 let
-  ida-chat-plugin = pkgs.fetchFromGitHub {
-    owner = "HexRaysSA";
-    repo = "ida-chat-plugin";
-    rev = "HEAD";
-    sha256 = "sha256-ueGelV0KZhE4k7O5VsBTSfZgWz/gm9Lr3CdIYl99Yd8=";
-  };
+  sources = pkgs.callPackage ../../../../../pkgs/_sources/generated.nix { };
+  ida-chat-plugin = sources.ida-chat-plugin.src;
 in
 {
   home.packages = with pkgs; [

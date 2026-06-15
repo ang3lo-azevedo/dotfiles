@@ -1,0 +1,36 @@
+name: Update nvfetcher sources
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Run daily at midnight
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  update-nvfetcher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Run nvfetcher
+        run: |
+          cd pkgs
+          nix run nixpkgs#nvfetcher
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(deps): update nvfetcher sources"
+          title: "Automated nvfetcher package updates"
+          body: |
+            This PR automatically updates the custom packages tracked by `nvfetcher`.
+            Please review the source changes and verify before merging.
+          branch: "chore/update-nvfetcher"
+          delete-branch: true

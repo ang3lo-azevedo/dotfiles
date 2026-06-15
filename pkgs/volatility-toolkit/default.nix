@@ -1,25 +1,23 @@
 { lib
 , stdenvNoCC
-, fetchFromGitHub
 , makeWrapper
 , binutils
 , coreutils
 , findutils
 , gnugrep
 , volatility3
+, callPackage
 }:
 
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 stdenvNoCC.mkDerivation {
   pname = "volatility-toolkit";
-  version = "2.1.1";
+  version = sources.volatility-toolkit.version;
   dontBuild = true;
 
-  src = fetchFromGitHub {
-    owner = "gl0bal01";
-    repo = "volatility-toolkit";
-    rev = "v2.1.1";
-    sha256 = "0s860y5rdrwzq3qx53r3vha7js5r3vq74ay03rwpy2j3bnj5yxyq";
-  };
+  src = sources.volatility-toolkit.src;
 
   nativeBuildInputs = [ makeWrapper ];
 

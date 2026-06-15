@@ -1,3 +1,43 @@
-[apple-emoji]
-src.github = "samuelngs/apple-emoji-ttf"
-fetch.url = "https://github.com/samuelngs/apple-emoji-ttf/releases/download/$ver/AppleColorEmoji-Linux.ttf"
+[archi]
+src.github = "archimatetool/archi.io"
+fetch.url = "https://github.com/archimatetool/archi.io/releases/download/$ver/Archi-Linux64-$ver.tgz"
+
+[angr-management]
+src.github = "angr/angr-management"
+fetch.url = "https://github.com/angr/angr-management/releases/download/$ver/angr-management-$ver-x86_64.AppImage"
+
+[reverser_ai]
+src.git = "https://github.com/mrphrazer/reverser_ai.git"
+fetch.github = "mrphrazer/reverser_ai"
+
+[ida-chat-plugin]
+src.git = "https://github.com/HexRaysSA/ida-chat-plugin.git"
+fetch.github = "HexRaysSA/ida-chat-plugin"
+
+[sstv]
+src.git = "https://github.com/colaclanth/sstv.git"
+fetch.github = "colaclanth/sstv"
+
+[volatility-toolkit]
+src.github = "gl0bal01/volatility-toolkit"
+fetch.github = "gl0bal01/volatility-toolkit"
+
+[registry-spy]
+src.github = "andyjsmith/Registry-Spy"
+fetch.github = "andyjsmith/Registry-Spy"
+
+[evolve]
+src.github = "JamesHabben/evolve"
+fetch.github = "JamesHabben/evolve"
+
+[dnspy]
+src.github = "dnSpyEx/dnSpy"
+fetch.url = "https://github.com/dnSpyEx/dnSpy/releases/download/v$ver/dnSpy-netframework.zip"
+src.github_use_latest_release = true
+src.prefix = "v"
+
+[stremio-enhanced]
+src.github = "REVENGE977/stremio-enhanced"
+fetch.url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v$ver/Stremio.Enhanced-$ver.AppImage"
+src.github_use_latest_release = true
+src.prefix = "v"

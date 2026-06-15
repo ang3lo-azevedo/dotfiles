@@ -1,19 +1,17 @@
 { lib
-, fetchFromGitHub
 , python3Packages
+, callPackage
 }:
 
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 python3Packages.buildPythonApplication {
   pname = "registry-spy";
-  version = "1.1.0";
+  version = sources.registry-spy.version;
   format = "setuptools";
 
-  src = fetchFromGitHub {
-    owner = "andyjsmith";
-    repo = "Registry-Spy";
-    rev = "d0f623fa56964cc17ba5199d82814437d4b03cc6";
-    hash = "sha256-/6WITp30mpL8BJnor35T57m2daRdMT0/HXAvQKUZPBY=";
-  };
+  src = sources.registry-spy.src;
 
   nativeBuildInputs = with python3Packages; [ setuptools ];
 
