@@ -73,11 +73,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Apple Emoji
-    apple-emoji = {
-      url = "github:samuelngs/apple-emoji-ttf";
-      flake = false;
-    };
+
 
     # Libfprint fork for EgisTec support
     libfprint-src = {
@@ -103,6 +99,12 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       }; 
+    };
+
+    # Berberman's flakes (for apple-emoji)
+    berberman = {
+      url = "github:berberman/flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for Nix Firefox Add-ons
@@ -231,13 +233,30 @@
     };
   };
 
+  # These are the flake-level binary caches.
+  # They are read STRICTLY by the Nix evaluator BEFORE anything is built.
+  # This ensures Nix can use the cache to download flake inputs (like nixpkgs itself)
+  # or cache the initial evaluation and devShell environments.
+  #
+  # IMPORTANT: Keep this list in sync with `modules/system/binary-cache.nix`!
   nixConfig = {
     extra-substituters = [
+      # Official cache for community flakes (home-manager, disko, impermanence, stylix)
       "https://nix-community.cachix.org"
+
+      # Lantian's cache (custom networking tools, CachyOS kernels)
       "https://attic.xuyh0120.win/lantian"
+
+      # Garnix CI cache (used by flakes like zen-browser and dmatools)
       "https://cache.garnix.io"
+
+      # Proxmox NixOS cache (pre-compiled guest agents and VM tools)
       "https://cache.saumon.network/proxmox-nixos"
-      # TODO: Re-enable tokidoki cache when it is fixed
+
+      # Berberman cache (apple-emoji, fcitx5 themes, nvfetcher)
+      "https://berberman.cachix.org"
+      
+      # Cache for nix-gaming-edge (TODO: Re-enable when it is fixed)
       #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
@@ -245,12 +264,12 @@
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
-      # TODO: Re-enable tokidoki cache when it is fixed
-      #"tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
+      "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
+      "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported
-    # packages. Remove if you prefer stricter checks.
+    # packages. Remove to prefer stricter checks.
     allowUnsupportedSystem = true;
   };
 

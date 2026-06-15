@@ -5,16 +5,17 @@
   unzip,
   icoutils,
   wineWow64Packages,
+  callPackage,
 }:
 
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 stdenv.mkDerivation rec {
   pname = "dnspy";
-  version = "6.6.0-rc1";
+  version = sources.dnspy.version;
 
-  src = fetchurl {
-    url = "https://github.com/dnSpyEx/dnSpy/releases/download/v${version}/dnSpy-netframework.zip";
-    sha256 = "sha256-9Bo8sOLQlcxabsF0kO+NfwoedMXDgJOQATfmNX2uJto=";
-  };
+  src = sources.dnspy.src;
 
   icon = fetchurl {
     url = "https://raw.githubusercontent.com/dnSpyEx/dnSpy/master/dnSpy/dnSpy/Images/dnSpy.ico";

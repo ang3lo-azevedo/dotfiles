@@ -1,17 +1,188 @@
 {
-    "apple-emoji": {
+    "angr-management": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "apple-emoji",
+        "name": "angr-management",
         "passthru": null,
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uMjtl/ZCuJuko2o+CWYZ8IBdBswlrhEW5pU7mBQq4gw=",
+            "sha256": "sha256-w+oUP5jk9p2AKYfnMdkBCTIq78z4ydl4PE6060QTwjQ=",
             "type": "url",
-            "url": "https://github.com/samuelngs/apple-emoji-ttf/releases/download/macos-26-20260613-f1fc560b/AppleColorEmoji-Linux.ttf"
+            "url": "https://github.com/angr/angr-management/releases/download/v9.2.221/angr-management-v9.2.221-x86_64.AppImage"
         },
-        "version": "macos-26-20260613-f1fc560b"
+        "version": "v9.2.221"
+    },
+    "archi": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "archi",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-0/3/EZw5upB0dvyhS0sfKqp7C4tc6vGDW+O9WU5iTc8=",
+            "type": "url",
+            "url": "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz"
+        },
+        "version": "5.9.0"
+    },
+    "dnspy": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "dnspy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-lYFtrkcJOWbM23gMBj9xV2ZA2F0+hYTeSQvkOxRS9OQ=",
+            "type": "url",
+            "url": "https://github.com/dnSpyEx/dnSpy/releases/download/v6.5.1/dnSpy-netframework.zip"
+        },
+        "version": "6.5.1"
+    },
+    "evolve": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "evolve",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "JamesHabben",
+            "repo": "evolve",
+            "rev": "v1.6",
+            "sha256": "sha256-IRO2pqRK3pMqv49T4U/aAccilIA9pdVURFTlSeXy5D4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.6"
+    },
+    "ida-chat-plugin": {
+        "cargoLock": null,
+        "date": "2026-04-20",
+        "extract": null,
+        "name": "ida-chat-plugin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "HexRaysSA",
+            "repo": "ida-chat-plugin",
+            "rev": "883f9b3550725d81eed80c25dd28c75b320f22c7",
+            "sha256": "sha256-ueGelV0KZhE4k7O5VsBTSfZgWz/gm9Lr3CdIYl99Yd8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "883f9b3550725d81eed80c25dd28c75b320f22c7"
+    },
+    "registry-spy": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "registry-spy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "andyjsmith",
+            "repo": "Registry-Spy",
+            "rev": "v1.1.0",
+            "sha256": "sha256-5D6uDjcCFGtkAyMp0S3blwc5vMP39dyKWTM+nocSIm0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.1.0"
+    },
+    "reverser_ai": {
+        "cargoLock": null,
+        "date": "2026-05-20",
+        "extract": null,
+        "name": "reverser_ai",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mrphrazer",
+            "repo": "reverser_ai",
+            "rev": "1d572da70479ea822875b9350135d7e3402f5557",
+            "sha256": "sha256-07bh4ofudKLKYGgHySSK4mpDstuyybKFktIfp0s8V8g=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1d572da70479ea822875b9350135d7e3402f5557"
+    },
+    "sstv": {
+        "cargoLock": null,
+        "date": "2019-11-04",
+        "extract": null,
+        "name": "sstv",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "colaclanth",
+            "repo": "sstv",
+            "rev": "3e556eee8ad4c4425799cb652bac26ee58f8e113",
+            "sha256": "sha256-s+G3MUVxEL/CwLaLk2nFcTFfRqq4Hrbj6qa/GhhzFMc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3e556eee8ad4c4425799cb652bac26ee58f8e113"
+    },
+    "stremio-enhanced": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "stremio-enhanced",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ATy2ekUWGI3s+CtQemQ2hXOe7etk56hXHWarWC607GA=",
+            "type": "url",
+            "url": "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.1.5/Stremio.Enhanced-1.1.5.AppImage"
+        },
+        "version": "1.1.5"
+    },
+    "volatility-toolkit": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "volatility-toolkit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gl0bal01",
+            "repo": "volatility-toolkit",
+            "rev": "v2.1.1",
+            "sha256": "sha256-2HdfpF1DCn95HsArcvAeuWh5FNwjj9LxwJ/nlosHBmk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.1.1"
     }
 }
