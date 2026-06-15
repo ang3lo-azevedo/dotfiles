@@ -6,12 +6,105 @@
   dockerTools,
 }:
 {
-  apple-emoji = {
-    pname = "apple-emoji";
-    version = "macos-26-20260613-f1fc560b";
+  angr-management = {
+    pname = "angr-management";
+    version = "v9.2.221";
     src = fetchurl {
-      url = "https://github.com/samuelngs/apple-emoji-ttf/releases/download/macos-26-20260613-f1fc560b/AppleColorEmoji-Linux.ttf";
-      sha256 = "sha256-uMjtl/ZCuJuko2o+CWYZ8IBdBswlrhEW5pU7mBQq4gw=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.2.221/angr-management-v9.2.221-x86_64.AppImage";
+      sha256 = "sha256-w+oUP5jk9p2AKYfnMdkBCTIq78z4ydl4PE6060QTwjQ=";
+    };
+  };
+  archi = {
+    pname = "archi";
+    version = "5.9.0";
+    src = fetchurl {
+      url = "https://github.com/archimatetool/archi.io/releases/download/5.9.0/Archi-Linux64-5.9.0.tgz";
+      sha256 = "sha256-0/3/EZw5upB0dvyhS0sfKqp7C4tc6vGDW+O9WU5iTc8=";
+    };
+  };
+  dnspy = {
+    pname = "dnspy";
+    version = "6.5.1";
+    src = fetchurl {
+      url = "https://github.com/dnSpyEx/dnSpy/releases/download/v6.5.1/dnSpy-netframework.zip";
+      sha256 = "sha256-lYFtrkcJOWbM23gMBj9xV2ZA2F0+hYTeSQvkOxRS9OQ=";
+    };
+  };
+  evolve = {
+    pname = "evolve";
+    version = "v1.6";
+    src = fetchFromGitHub {
+      owner = "JamesHabben";
+      repo = "evolve";
+      rev = "v1.6";
+      fetchSubmodules = false;
+      sha256 = "sha256-IRO2pqRK3pMqv49T4U/aAccilIA9pdVURFTlSeXy5D4=";
+    };
+  };
+  ida-chat-plugin = {
+    pname = "ida-chat-plugin";
+    version = "883f9b3550725d81eed80c25dd28c75b320f22c7";
+    src = fetchFromGitHub {
+      owner = "HexRaysSA";
+      repo = "ida-chat-plugin";
+      rev = "883f9b3550725d81eed80c25dd28c75b320f22c7";
+      fetchSubmodules = false;
+      sha256 = "sha256-ueGelV0KZhE4k7O5VsBTSfZgWz/gm9Lr3CdIYl99Yd8=";
+    };
+    date = "2026-04-20";
+  };
+  registry-spy = {
+    pname = "registry-spy";
+    version = "v1.1.0";
+    src = fetchFromGitHub {
+      owner = "andyjsmith";
+      repo = "Registry-Spy";
+      rev = "v1.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-5D6uDjcCFGtkAyMp0S3blwc5vMP39dyKWTM+nocSIm0=";
+    };
+  };
+  reverser_ai = {
+    pname = "reverser_ai";
+    version = "1d572da70479ea822875b9350135d7e3402f5557";
+    src = fetchFromGitHub {
+      owner = "mrphrazer";
+      repo = "reverser_ai";
+      rev = "1d572da70479ea822875b9350135d7e3402f5557";
+      fetchSubmodules = false;
+      sha256 = "sha256-07bh4ofudKLKYGgHySSK4mpDstuyybKFktIfp0s8V8g=";
+    };
+    date = "2026-05-20";
+  };
+  sstv = {
+    pname = "sstv";
+    version = "3e556eee8ad4c4425799cb652bac26ee58f8e113";
+    src = fetchFromGitHub {
+      owner = "colaclanth";
+      repo = "sstv";
+      rev = "3e556eee8ad4c4425799cb652bac26ee58f8e113";
+      fetchSubmodules = false;
+      sha256 = "sha256-s+G3MUVxEL/CwLaLk2nFcTFfRqq4Hrbj6qa/GhhzFMc=";
+    };
+    date = "2019-11-04";
+  };
+  stremio-enhanced = {
+    pname = "stremio-enhanced";
+    version = "1.1.5";
+    src = fetchurl {
+      url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.1.5/Stremio.Enhanced-1.1.5.AppImage";
+      sha256 = "sha256-ATy2ekUWGI3s+CtQemQ2hXOe7etk56hXHWarWC607GA=";
+    };
+  };
+  volatility-toolkit = {
+    pname = "volatility-toolkit";
+    version = "v2.1.1";
+    src = fetchFromGitHub {
+      owner = "gl0bal01";
+      repo = "volatility-toolkit";
+      rev = "v2.1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-2HdfpF1DCn95HsArcvAeuWh5FNwjj9LxwJ/nlosHBmk=";
     };
   };
 }

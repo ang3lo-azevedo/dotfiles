@@ -1,15 +1,14 @@
 { appimageTools
 , fetchurl
+, callPackage
 }:
 
 let
+  sources = callPackage ../_sources/generated.nix { };
   pname = "stremio-enhanced";
-  version = "1.1.1";
+  version = sources.stremio-enhanced.version;
 
-  src = fetchurl {
-    url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v${version}/Stremio.Enhanced-${version}.AppImage";
-    hash = "sha256:04brgf3h49innf212z0gnp81pm4i8fr72a22m54hpppza23sidg7";
-  };
+  src = sources.stremio-enhanced.src;
 
   serverJs = fetchurl {
     url = "https://dl.strem.io/server/v4.20.12/desktop/server.js";

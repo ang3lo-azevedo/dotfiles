@@ -1,11 +1,7 @@
 { pkgs, ... }:
 let
-  reverser_ai = pkgs.fetchFromGitHub {
-    owner = "mrphrazer";
-    repo = "reverser_ai";
-    rev = "main";
-    sha256 = "sha256-07bh4ofudKLKYGgHySSK4mpDstuyybKFktIfp0s8V8g=";
-  };
+  sources = pkgs.callPackage ../../../../../pkgs/_sources/generated.nix { };
+  reverser_ai = sources.reverser_ai.src;
 
   # Python 3.12 environment with reverser_ai dependencies from ./requirements.txt
   python312WithReverserAI = pkgs.python312.withPackages (ps: with ps; [

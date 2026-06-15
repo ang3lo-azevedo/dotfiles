@@ -1,19 +1,17 @@
 { lib
-, fetchFromGitHub
 , python2Packages
 , makeWrapper
+, callPackage
 }:
 
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 python2Packages.buildPythonApplication {
   pname = "evolve";
-  version = "unstable-20260531";
+  version = sources.evolve.version;
 
-  src = fetchFromGitHub {
-    owner = "JamesHabben";
-    repo = "evolve";
-    rev = "master";
-    sha256 = "0pwx1r5sm5ip5n9w886d9dbnl7pfnh5c5yxzi1s2al547nd63rz8";
-  };
+  src = sources.evolve.src;
 
   format = "setuptools";
 
