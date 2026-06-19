@@ -75,26 +75,31 @@ def build_pattern_instructions():
 
     return pattern_instrs
 
-def find_xor_key(binary, end_offset, search_bytes=1000):
+def find_xor_key(binary, end_offset, search_bytes=100):
     i = end_offset
     max_offset = min(len(binary), i + search_bytes)
 
-    while i < max_offset - 5:  # xor reg, imm32 is 6 bytes
+    while i < max_offset - 5:
         opcode = binary[i]
-        modrm = binary[i + 1]
-        
-        if opcode == 0x35 and (modrm >> 3) & 7 == 6:
+
+        # 0x35 encodes "xor eax, imm32" directly with no ModRM byte.
+        if opcode == 0x35:
             imm_bytes = binary[i + 1:i + 5]
             xor_key = int.from_bytes(imm_bytes, "little")
             return xor_key
-        elif opcode == 0x81 and (modrm >> 3) & 7 == 6:
+
+        if opcode == 0x81:
+            modrm = binary[i + 1]
+            if (modrm >> 3) & 7 != 6:
+                i += 1
+                continue
             imm_bytes = binary[i + 2:i + 6]
             xor_key = int.from_bytes(imm_bytes, "little")
             return xor_key
         i += 1
     return None
 
-def find_xor_key_backup(binary, end_offset, search_bytes=1000):
+def find_xor_key_backup(binary, end_offset, search_bytes=150):
     i = end_offset
     max_offset = min(len(binary), i + search_bytes)
     reg_map = {}
@@ -102,7 +107,7 @@ def find_xor_key_backup(binary, end_offset, search_bytes=1000):
     while i < max_offset - 5:
         opcode = binary[i]
 
-        if opcode == 0x35 and (modrm >> 3) & 7 == 6:
+        if opcode == 0x35:
             imm_bytes = binary[i + 1:i + 5]
             xor_key = int.from_bytes(imm_bytes, "little")
             if xor_key is not None:
