@@ -13,6 +13,9 @@
     # Better Nix Syntax
     "jeff-hykin.better-nix-syntax"
 
+    # Claude Code
+    "anthropic.claude-code"
+
     # C/C++
     "ms-vscode.cpptools"
 
@@ -105,6 +108,9 @@
 
     # Nix IDE
     "jnoortheen.nix-ide"
+
+    # OpenCode
+    "sst-dev.opencode"
 
     # Path Intellisense
     "christian-kohler.path-intellisense"
