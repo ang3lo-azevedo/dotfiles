@@ -6,10 +6,10 @@
     ./stremio-enhanced.nix
     #./playtorrio-v2.nix
     ./nuvio-desktop.nix
-    ./inkscape.nix
+    #./inkscape.nix
     ./gimp.nix
     ./kdenlive.nix
     ./audacity.nix
-    ./inform7.nix
+    #./inform7.nix
   ];
 }
