@@ -75,7 +75,7 @@ def build_pattern_instructions():
 
     return pattern_instrs
 
-def find_xor_key(binary, end_offset, search_bytes=100):
+def find_xor_key(binary, end_offset, search_bytes=1000):
     i = end_offset
     max_offset = min(len(binary), i + search_bytes)
 
@@ -94,7 +94,7 @@ def find_xor_key(binary, end_offset, search_bytes=100):
         i += 1
     return None
 
-def find_xor_key_backup(binary, end_offset, search_bytes=150):
+def find_xor_key_backup(binary, end_offset, search_bytes=1000):
     i = end_offset
     max_offset = min(len(binary), i + search_bytes)
     reg_map = {}
