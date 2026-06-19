@@ -1,14 +1,14 @@
 { pkgs, ... }:
 let
-  idaRun = ./ida93sp2/ida-pro_93_x64linux.run;
-  scriptJs = ./ida93sp2/kg_patch/keygen.js;
+  idaRun = ./ida94b1/ida-pro_94_x64linux.run;
+  scriptJs = ./ida94b1/ida_keygen.py;
   kgExists = builtins.pathExists scriptJs;
   idaExists = builtins.pathExists idaRun;
 in
 {
   home.packages = with pkgs; if idaExists then [
     (ida-pro.overrideAttrs (old: {
-      version = "9.3.0";
+      version = "9.4.0";
       src = idaRun;
 
       nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ pkgs.nodejs ];
