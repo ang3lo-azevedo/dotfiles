@@ -227,6 +227,12 @@
       url = "github:amaanq/nirinit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # OpenCode AI assistant
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # These are the flake-level binary caches.
@@ -293,6 +299,7 @@
       dmatools,
       chaotic,
       nirinit,
+      opencode,
       ...
     }@inputs:
     let
