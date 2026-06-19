@@ -16,6 +16,7 @@
     discord = {
       vencord.enable = false;
       equicord.enable = true;
+      openASAR.enable = false;
     };
     config = {
       autoUpdate = true;
