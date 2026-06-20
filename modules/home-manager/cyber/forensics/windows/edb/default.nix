@@ -1,6 +1,6 @@
 {
   imports = [
     ./libesedb.nix
-    ./esedatabaseview.nix
+    ./ese-database-view.nix
   ];
 }
