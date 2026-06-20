@@ -1,9 +1,8 @@
 {
   imports = [
     ./registry
-    #./evtx
-    ./ese-database-view.nix
-    ./libesedb.nix
+    ./evtx
+    ./edb
     ./libfsntfs.nix
   ];
 }
