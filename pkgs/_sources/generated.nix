@@ -35,10 +35,10 @@
   };
   dnspy = {
     pname = "dnspy";
-    version = "6.5.1";
+    version = "6.6.0";
     src = fetchurl {
-      url = "https://github.com/dnSpyEx/dnSpy/releases/download/v6.5.1/dnSpy-netframework.zip";
-      sha256 = "sha256-lYFtrkcJOWbM23gMBj9xV2ZA2F0+hYTeSQvkOxRS9OQ=";
+      url = "https://github.com/dnSpyEx/dnSpy/releases/download/v6.6.0/dnSpy-netframework.zip";
+      sha256 = "sha256-Lq239JMa0YgtEEd89XGF0ojKzG46v5lY565zwKDzHdE=";
     };
   };
   evolve = {
@@ -114,6 +114,17 @@
       sha256 = "sha256-07bh4ofudKLKYGgHySSK4mpDstuyybKFktIfp0s8V8g=";
     };
     date = "2026-05-20";
+  };
+  sidr = {
+    pname = "sidr";
+    version = "v0.9.2";
+    src = fetchFromGitHub {
+      owner = "strozfriedberg";
+      repo = "sidr";
+      rev = "v0.9.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-l6J+JJaFkFTDroMz6Ldnmq40OQGmEtL6l3ZFG6yk1GQ=";
+    };
   };
   sstv = {
     pname = "sstv";
