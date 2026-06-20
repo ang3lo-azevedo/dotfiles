@@ -52,6 +52,10 @@ in
       trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
       stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix { };
+      ctfd-parser = prev.callPackage ../../pkgs/ctfd-parser/default.nix { };
+      ese-database-view = prev.callPackage ../../pkgs/ese-database-view/default.nix { };
+      libesedb = prev.callPackage ../../pkgs/libesedb/default.nix { };
+      libfsntfs = prev.callPackage ../../pkgs/libfsntfs/default.nix { };
     })
   ];
 
@@ -68,7 +72,7 @@ in
   # incompatible changes.
   #
   # You can update home Manager without changing this value. See
-  # the home Manager release notes for a list of state version
+  # the home Manager release notes for a list of state
   # changes in each release.
   home.stateVersion = "26.05";
 }
