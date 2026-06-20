@@ -64,6 +64,34 @@
     };
     date = "2026-04-20";
   };
+  libesedb = {
+    pname = "libesedb";
+    version = "b5169040b484535ba636643221efdd6d2411d65e";
+    src = fetchgit {
+      url = "https://github.com/libyal/libesedb.git";
+      rev = "b5169040b484535ba636643221efdd6d2411d65e";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-xGR99YBXN9/7dAcRf0k2TuIHZ+3AniAD6LdX3iQ2YJQ=";
+    };
+    date = "2026-06-19";
+  };
+  libfsntfs = {
+    pname = "libfsntfs";
+    version = "e46be283bd3bc8f1afa7993290e98bff07640e19";
+    src = fetchgit {
+      url = "https://github.com/libyal/libfsntfs.git";
+      rev = "e46be283bd3bc8f1afa7993290e98bff07640e19";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-ygszu86Tn+x34Hv7wgtQIMILIb9mUXBFU3YVcQQehvo=";
+    };
+    date = "2026-06-18";
+  };
   registry-spy = {
     pname = "registry-spy";
     version = "v1.1.0";
