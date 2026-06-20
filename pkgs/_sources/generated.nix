@@ -22,6 +22,17 @@
       sha256 = "sha256-0/3/EZw5upB0dvyhS0sfKqp7C4tc6vGDW+O9WU5iTc8=";
     };
   };
+  ctfd-parser = {
+    pname = "ctfd-parser";
+    version = "1.1";
+    src = fetchFromGitHub {
+      owner = "p0dalirius";
+      repo = "ctfd-parser";
+      rev = "1.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-2Rbe97xz48r22X61jjnwFPBiN0dIeUKd4zcSJxBrSd0=";
+    };
+  };
   dnspy = {
     pname = "dnspy";
     version = "6.5.1";

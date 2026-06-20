@@ -41,3 +41,15 @@ src.github = "REVENGE977/stremio-enhanced"
 fetch.url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v$ver/Stremio.Enhanced-$ver.AppImage"
 src.github_use_latest_release = true
 src.prefix = "v"
+
+[ctfd-parser]
+src.github = "p0dalirius/ctfd-parser"
+fetch.github = "p0dalirius/ctfd-parser"
+
+[libesedb]
+src.git = "https://github.com/libyal/libesedb.git"
+fetch.git = "https://github.com/libyal/libesedb.git"
+
+[libfsntfs]
+src.git = "https://github.com/libyal/libfsntfs.git"
+fetch.git = "https://github.com/libyal/libfsntfs.git"

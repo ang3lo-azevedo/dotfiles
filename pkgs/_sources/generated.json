@@ -29,6 +29,27 @@
         },
         "version": "5.9.0"
     },
+    "ctfd-parser": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ctfd-parser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "p0dalirius",
+            "repo": "ctfd-parser",
+            "rev": "1.1",
+            "sha256": "sha256-2Rbe97xz48r22X61jjnwFPBiN0dIeUKd4zcSJxBrSd0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.1"
+    },
     "dnspy": {
         "cargoLock": null,
         "date": null,
