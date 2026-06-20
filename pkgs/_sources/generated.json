@@ -59,11 +59,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lYFtrkcJOWbM23gMBj9xV2ZA2F0+hYTeSQvkOxRS9OQ=",
+            "sha256": "sha256-Lq239JMa0YgtEEd89XGF0ojKzG46v5lY565zwKDzHdE=",
             "type": "url",
-            "url": "https://github.com/dnSpyEx/dnSpy/releases/download/v6.5.1/dnSpy-netframework.zip"
+            "url": "https://github.com/dnSpyEx/dnSpy/releases/download/v6.6.0/dnSpy-netframework.zip"
         },
-        "version": "6.5.1"
+        "version": "6.6.0"
     },
     "evolve": {
         "cargoLock": null,
@@ -188,6 +188,27 @@
             "type": "github"
         },
         "version": "1d572da70479ea822875b9350135d7e3402f5557"
+    },
+    "sidr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sidr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "strozfriedberg",
+            "repo": "sidr",
+            "rev": "v0.9.2",
+            "sha256": "sha256-l6J+JJaFkFTDroMz6Ldnmq40OQGmEtL6l3ZFG6yk1GQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.9.2"
     },
     "sstv": {
         "cargoLock": null,
