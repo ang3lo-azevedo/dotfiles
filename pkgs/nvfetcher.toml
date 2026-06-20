@@ -53,3 +53,7 @@ fetch.git = "https://github.com/libyal/libesedb.git"
 [libfsntfs]
 src.git = "https://github.com/libyal/libfsntfs.git"
 fetch.git = "https://github.com/libyal/libfsntfs.git"
+
+[sidr]
+src.github = "strozfriedberg/sidr"
+fetch.github = "strozfriedberg/sidr"
