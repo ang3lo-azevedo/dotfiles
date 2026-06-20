@@ -11,5 +11,7 @@
     ./trufflehog.nix
 
     ./responder.nix
+
+    ./ctfd-parser.nix
   ];
 }

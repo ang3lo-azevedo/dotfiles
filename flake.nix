@@ -451,6 +451,18 @@
       # Expose the local `dnspy` package so flakes can reference it
       packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix { };
 
+      # Expose the local `ctfd-parser` package so flakes can reference it
+      packages.x86_64-linux.ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix { };
+
+      # Expose the local `ese-database-view` package so flakes can reference it
+      packages.x86_64-linux.ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix { };
+
+      # Expose the local `libesedb` package so flakes can reference it
+      packages.x86_64-linux.libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix { };
+
+      # Expose the local `libfsntfs` package so flakes can reference it
+      packages.x86_64-linux.libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix { };
+
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
