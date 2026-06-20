@@ -56,6 +56,7 @@ in
       ese-database-view = prev.callPackage ../../pkgs/ese-database-view/default.nix { };
       libesedb = prev.callPackage ../../pkgs/libesedb/default.nix { };
       libfsntfs = prev.callPackage ../../pkgs/libfsntfs/default.nix { };
+      sidr = prev.callPackage ../../pkgs/sidr/default.nix { };
     })
   ];
 
