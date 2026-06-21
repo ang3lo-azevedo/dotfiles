@@ -7,7 +7,7 @@
 
 My personal Linux system configurations for **NixOS** with **CachyOS kernel optimizations** and **Niri** as the window manager, managed declaratively via Flakes.
 
-![Screenshot](https://github.com/user-attachments/assets/1ef97088-009f-4057-b50d-f780c1e17055)
+![Screenshot](https://github.com/user-attachments/assets/24e14210-c63b-46bb-9914-14aa1345392f)
 
 ## Overview
 
