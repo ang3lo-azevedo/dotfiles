@@ -4,6 +4,7 @@ let
   userSecretConfig = {
     owner = "ang3lo";
     group = "users";
+    mode = "0440";
   };
 in
 {
