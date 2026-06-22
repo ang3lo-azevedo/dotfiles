@@ -16,4 +16,5 @@ in
   "nvchecker-keyfile.age".publicKeys = usersAndSystems;
   "nix-access-tokens.age".publicKeys = usersAndSystems;
   "git_config.age".publicKeys = usersAndSystems;
+  "rclone.conf.age".publicKeys = usersAndSystems;
 }

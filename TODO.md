@@ -26,6 +26,6 @@
 - [ ] Add LaTeX
 - [ ] Improve overlays
 - [ ] Add impermanence
-- [ ] Add the backup mechanism
+- [x] Add the backup mechanism
 - [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
 - [ ] Remove zen-browser commit pin in flake.nix when syntax error is fixed upstream
