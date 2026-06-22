@@ -1,9 +1,0 @@
-services:
-  letterboxd-trakt-sync:
-    container_name: letterboxd-trakt-sync
-    image: ghcr.io/f0e/letterboxd-trakt-sync:latest
-    environment:
-      - RUN_ON_START=true
-    volumes:
-      - /home/ang3lo/letterboxd-trakt-sync:/config
-    restart: unless-stopped
