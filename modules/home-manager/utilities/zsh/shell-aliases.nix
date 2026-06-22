@@ -28,12 +28,7 @@ in
     # Backup related aliases
     backup-all = "sudo systemctl start --no-block restic-backups-nas.service restic-backups-gdrive.service restic-backups-gdrive_shared.service && echo 'Backups started in the background. Now watching live logs (Press Ctrl+C to stop watching):' && journalctl --output=with-unit -u restic-backups-nas.service -u restic-backups-gdrive.service -u restic-backups-gdrive_shared.service -f";
     backup-nas = "sudo systemctl start --no-block restic-backups-nas.service && echo 'NAS Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-nas.service -f";
-    backup-gdrive = "sudo systemctl start --no-block restic-backups-gdrive.service && echo 'GDrive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl --output=with-unit -u restic-backups-gdrive.service -f";
-    backup-shared = "sudo systemctl start --no-block restic-backups-gdrive_shared.service && echo 'Shared Drive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl --output=with-unit -u restic-backups-gdrive_shared.service -f";
-
-    # GUI Backup Browsing aliases
-    browse-nas = "Restic-Browser -r rclone:nas:homes/ang3lo/backups";
-    browse-gdrive = "Restic-Browser -r rclone:gdrive:/backups";
-    browse-shared = "Restic-Browser -r rclone:gdrive_shared_drive:/backups";
+    backup-gdrive = "sudo systemctl start --no-block restic-backups-gdrive.service && echo 'GDrive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive.service -f";
+    backup-shared = "sudo systemctl start --no-block restic-backups-gdrive_shared.service && echo 'Shared Drive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive_shared.service -f";
   };
 }

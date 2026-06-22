@@ -17,6 +17,7 @@ in
     pkgs.vapoursynth
     pkgs.vapoursynth-mvtools
     pkgs.python3Packages.vapoursynth
+    pkgs.python3Packages.guessit
     (pkgs.writeShellScriptBin "mpv-python" ''
       exec ${pkgs.python3.withPackages(ps: with ps; [ guessit requests subliminal ])}/bin/python3 "$@"
     '')
