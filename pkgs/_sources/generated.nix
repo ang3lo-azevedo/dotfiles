@@ -66,31 +66,31 @@
   };
   libesedb = {
     pname = "libesedb";
-    version = "b5169040b484535ba636643221efdd6d2411d65e";
+    version = "7bec7109664a6416910cb54205d35e3f41fdce23";
     src = fetchgit {
       url = "https://github.com/libyal/libesedb.git";
-      rev = "b5169040b484535ba636643221efdd6d2411d65e";
+      rev = "7bec7109664a6416910cb54205d35e3f41fdce23";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-xGR99YBXN9/7dAcRf0k2TuIHZ+3AniAD6LdX3iQ2YJQ=";
+      sha256 = "sha256-pEUS0Gh1JQTV8Q+VkiIKXyJ0cO9bKUQtID1OOMHnBtQ=";
     };
-    date = "2026-06-19";
+    date = "2026-06-21";
   };
   libfsntfs = {
     pname = "libfsntfs";
-    version = "e46be283bd3bc8f1afa7993290e98bff07640e19";
+    version = "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d";
     src = fetchgit {
       url = "https://github.com/libyal/libfsntfs.git";
-      rev = "e46be283bd3bc8f1afa7993290e98bff07640e19";
+      rev = "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ygszu86Tn+x34Hv7wgtQIMILIb9mUXBFU3YVcQQehvo=";
+      sha256 = "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=";
     };
-    date = "2026-06-18";
+    date = "2026-06-21";
   };
   registry-spy = {
     pname = "registry-spy";

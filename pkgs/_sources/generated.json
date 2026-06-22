@@ -109,7 +109,7 @@
     },
     "libesedb": {
         "cargoLock": null,
-        "date": "2026-06-19",
+        "date": "2026-06-21",
         "extract": null,
         "name": "libesedb",
         "passthru": null,
@@ -119,17 +119,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b5169040b484535ba636643221efdd6d2411d65e",
-            "sha256": "sha256-xGR99YBXN9/7dAcRf0k2TuIHZ+3AniAD6LdX3iQ2YJQ=",
+            "rev": "7bec7109664a6416910cb54205d35e3f41fdce23",
+            "sha256": "sha256-pEUS0Gh1JQTV8Q+VkiIKXyJ0cO9bKUQtID1OOMHnBtQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/libyal/libesedb.git"
         },
-        "version": "b5169040b484535ba636643221efdd6d2411d65e"
+        "version": "7bec7109664a6416910cb54205d35e3f41fdce23"
     },
     "libfsntfs": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-21",
         "extract": null,
         "name": "libfsntfs",
         "passthru": null,
@@ -139,13 +139,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e46be283bd3bc8f1afa7993290e98bff07640e19",
-            "sha256": "sha256-ygszu86Tn+x34Hv7wgtQIMILIb9mUXBFU3YVcQQehvo=",
+            "rev": "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d",
+            "sha256": "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/libyal/libfsntfs.git"
         },
-        "version": "e46be283bd3bc8f1afa7993290e98bff07640e19"
+        "version": "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d"
     },
     "registry-spy": {
         "cargoLock": null,
