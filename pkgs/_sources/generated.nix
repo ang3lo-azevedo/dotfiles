@@ -113,10 +113,10 @@
   };
   nuvio-desktop = {
     pname = "nuvio-desktop";
-    version = "0.1.6-alpha";
+    version = "0.1.7-alpha";
     src = fetchurl {
-      url = "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.6-alpha/Nuvio-0.1.6-alpha-x86_64.AppImage";
-      sha256 = "sha256-d0locyV07BmJfxAEI8h8D3O4/YUEyqBMWZVS7q5k/5U=";
+      url = "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.7-alpha/Nuvio-0.1.7-alpha-x86_64.AppImage";
+      sha256 = "sha256-+RBkmO8qSrPqcWzVekRLz9O9akxGH6X2ukLKJgJO2c0=";
     };
   };
   registry-spy = {
