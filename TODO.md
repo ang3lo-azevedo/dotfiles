@@ -1,3 +1,4 @@
+- [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 - [x] Add wifi configs nixos
 - [x] Fix fakeVoiceOptions nixcord
 - [x] See if the webcam purple tint can be fixed with this https://github.com/Andycodeman/samsung-galaxy-book-linux-fixes/issues/51
@@ -29,4 +30,3 @@
 - [x] Add the backup mechanism
 - [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
 - [ ] Remove zen-browser commit pin in flake.nix when syntax error is fixed upstream
-- [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
