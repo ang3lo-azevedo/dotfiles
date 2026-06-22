@@ -65,6 +65,21 @@
         },
         "version": "6.6.0"
     },
+    "ese-database-view": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ese-database-view",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tjbPXj7aom6tJE9YxK43LJoopQXRego6btTc5BusOr8=",
+            "type": "url",
+            "url": "https://www.nirsoft.net/utils/esedatabaseview.zip"
+        },
+        "version": "1.79"
+    },
     "evolve": {
         "cargoLock": null,
         "date": null,
@@ -245,6 +260,27 @@
             "url": "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.1.5/Stremio.Enhanced-1.1.5.AppImage"
         },
         "version": "1.1.5"
+    },
+    "trakt-scrobbler": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "trakt-scrobbler",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iamkroot",
+            "repo": "trakt-scrobbler",
+            "rev": "v1.9.0b1",
+            "sha256": "sha256-ylgCDWmcZzz6mMBpEAj16jK1loTxQJmk9G/3Hnp9WuI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.9.0b1"
     },
     "volatility-toolkit": {
         "cargoLock": null,

@@ -73,8 +73,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
-
     # Libfprint fork for EgisTec support
     libfprint-src = {
       url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
@@ -118,8 +116,6 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {

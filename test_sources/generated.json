@@ -1,0 +1,17 @@
+{
+    "nuvio-desktop": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nuvio-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-d0locyV07BmJfxAEI8h8D3O4/YUEyqBMWZVS7q5k/5U=",
+            "type": "url",
+            "url": "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.6-alpha/Nuvio-0.1.6-alpha-x86_64.AppImage"
+        },
+        "version": "0.1.6-alpha"
+    }
+}

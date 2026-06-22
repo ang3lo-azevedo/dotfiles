@@ -49,7 +49,7 @@ in
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
 
-      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { src = trakt-scrobbler-src; };
+      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { };
       cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
       stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix { };
       ctfd-parser = prev.callPackage ../../pkgs/ctfd-parser/default.nix { };

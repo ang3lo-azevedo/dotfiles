@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, callPackage
 , fetchYarnDeps
 , makeWrapper
 , fixup-yarn-lock
@@ -12,17 +12,14 @@
 , unzip
 , jre
 }:
-
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 stdenv.mkDerivation rec {
   pname = "apk-mitm";
-  version = "1.3.0";
+  version = sources.apk-mitm.version;
 
-  src = fetchFromGitHub {
-    owner = "niklashigi";
-    repo = "apk-mitm";
-    rev = "5a96363fc9112b97d60fc2bd3799d6bbfd8e4e00";
-    hash = "sha256-wcLShZ7O20i0hzz957dNmfjvxCn5lmWObTdTRF7p+I8=";
-  };
+  src = sources.apk-mitm.src;
 
   offlineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";

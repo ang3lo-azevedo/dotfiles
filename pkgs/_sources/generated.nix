@@ -41,6 +41,14 @@
       sha256 = "sha256-Lq239JMa0YgtEEd89XGF0ojKzG46v5lY565zwKDzHdE=";
     };
   };
+  ese-database-view = {
+    pname = "ese-database-view";
+    version = "1.79";
+    src = fetchurl {
+      url = "https://www.nirsoft.net/utils/esedatabaseview.zip";
+      sha256 = "sha256-tjbPXj7aom6tJE9YxK43LJoopQXRego6btTc5BusOr8=";
+    };
+  };
   evolve = {
     pname = "evolve";
     version = "v1.6";
@@ -144,6 +152,17 @@
     src = fetchurl {
       url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.1.5/Stremio.Enhanced-1.1.5.AppImage";
       sha256 = "sha256-ATy2ekUWGI3s+CtQemQ2hXOe7etk56hXHWarWC607GA=";
+    };
+  };
+  trakt-scrobbler = {
+    pname = "trakt-scrobbler";
+    version = "v1.9.0b1";
+    src = fetchFromGitHub {
+      owner = "iamkroot";
+      repo = "trakt-scrobbler";
+      rev = "v1.9.0b1";
+      fetchSubmodules = false;
+      sha256 = "sha256-ylgCDWmcZzz6mMBpEAj16jK1loTxQJmk9G/3Hnp9WuI=";
     };
   };
   volatility-toolkit = {
