@@ -1,4 +1,5 @@
-- [ ] Fix fakeVoiceOptions nixcord
+- [x] Add wifi configs nixos
+- [x] Fix fakeVoiceOptions nixcord
 - [x] See if the webcam purple tint can be fixed with this https://github.com/Andycodeman/samsung-galaxy-book-linux-fixes/issues/51
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
 - [ ] Define a forensics windows vm, maybe flare vm or win for
