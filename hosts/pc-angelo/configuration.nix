@@ -51,7 +51,9 @@ in
   };
 
   # Backup secrets
-  age.secrets.rclone-conf.file = ../../secrets/rclone.conf.age;
+  age.secrets.rclone-conf = userSecretConfig // {
+    file = ../../secrets/rclone.conf.age;
+  };
 
   nix.extraOptions = ''
     !include ${config.age.secrets.nix_access_tokens.path}

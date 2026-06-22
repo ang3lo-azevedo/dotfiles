@@ -27,5 +27,6 @@
     ./libreoffice.nix
 
     ./zapzap.nix
+    ./restic-browser.nix
   ];
 }
