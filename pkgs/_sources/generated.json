@@ -14,6 +14,27 @@
         },
         "version": "v9.2.221"
     },
+    "apk-mitm": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "apk-mitm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "niklashigi",
+            "repo": "apk-mitm",
+            "rev": "v1.3.0",
+            "sha256": "sha256-wcLShZ7O20i0hzz957dNmfjvxCn5lmWObTdTRF7p+I8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.0"
+    },
     "archi": {
         "cargoLock": null,
         "date": null,
@@ -161,6 +182,21 @@
             "url": "https://github.com/libyal/libfsntfs.git"
         },
         "version": "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d"
+    },
+    "nuvio-desktop": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nuvio-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-d0locyV07BmJfxAEI8h8D3O4/YUEyqBMWZVS7q5k/5U=",
+            "type": "url",
+            "url": "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.6-alpha/Nuvio-0.1.6-alpha-x86_64.AppImage"
+        },
+        "version": "0.1.6-alpha"
     },
     "registry-spy": {
         "cargoLock": null,

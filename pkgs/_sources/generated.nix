@@ -14,6 +14,17 @@
       sha256 = "sha256-w+oUP5jk9p2AKYfnMdkBCTIq78z4ydl4PE6060QTwjQ=";
     };
   };
+  apk-mitm = {
+    pname = "apk-mitm";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "niklashigi";
+      repo = "apk-mitm";
+      rev = "v1.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-wcLShZ7O20i0hzz957dNmfjvxCn5lmWObTdTRF7p+I8=";
+    };
+  };
   archi = {
     pname = "archi";
     version = "5.9.0";
@@ -99,6 +110,14 @@
       sha256 = "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=";
     };
     date = "2026-06-21";
+  };
+  nuvio-desktop = {
+    pname = "nuvio-desktop";
+    version = "0.1.6-alpha";
+    src = fetchurl {
+      url = "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.6-alpha/Nuvio-0.1.6-alpha-x86_64.AppImage";
+      sha256 = "sha256-d0locyV07BmJfxAEI8h8D3O4/YUEyqBMWZVS7q5k/5U=";
+    };
   };
   registry-spy = {
     pname = "registry-spy";
