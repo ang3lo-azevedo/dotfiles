@@ -29,3 +29,4 @@
 - [x] Add the backup mechanism
 - [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
 - [ ] Remove zen-browser commit pin in flake.nix when syntax error is fixed upstream
+- [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
