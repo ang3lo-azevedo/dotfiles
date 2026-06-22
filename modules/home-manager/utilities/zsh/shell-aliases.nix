@@ -15,6 +15,7 @@ in
     ls = "eza";
     cat = "bat";
     y = "yazi";
+    code = "antigravity-ide";
 
     # NixOS related aliases
     rebuild = "sudo nixos-rebuild switch --accept-flake-config --flake path:/home/ang3lo/nix-config#pc-angelo -L";
