@@ -1,4 +1,11 @@
 { pkgs, config, ... }:
+
+let
+  userSecretConfig = {
+    owner = "ang3lo";
+    group = "users";
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -31,20 +38,16 @@
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
 
-  age.secrets.nvchecker_keyfile = {
+  age.secrets.nvchecker_keyfile = userSecretConfig // {
     file = ../../secrets/nvchecker-keyfile.age;
-    owner = "ang3lo";
-    group = "users";
   };
 
-  age.secrets.nix_access_tokens = {
+  age.secrets.nix_access_tokens = userSecretConfig // {
     file = ../../secrets/nix-access-tokens.age;
   };
 
-  age.secrets.git_config = {
+  age.secrets.git_config = userSecretConfig // {
     file = ../../secrets/git_config.age;
-    owner = "ang3lo";
-    group = "users";
   };
 
   # Backup secrets
