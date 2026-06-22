@@ -5,6 +5,7 @@
   wineWow64Packages,
   icoutils,
   imagemagick,
+  unzip,
 }:
 
 let
@@ -14,9 +15,11 @@ stdenv.mkDerivation {
   pname = "esedatabaseview";
   version = sources.ese-database-view.version;
 
-  nativeBuildInputs = [ icoutils imagemagick ];
+  nativeBuildInputs = [ icoutils imagemagick unzip ];
 
   src = sources.ese-database-view.src;
+
+  sourceRoot = ".";
 
   installPhase = ''
     runHook preInstall
