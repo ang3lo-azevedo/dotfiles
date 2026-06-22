@@ -1,10 +1,13 @@
 {
   lib,
   python3Packages,
-  src,
+  callPackage,
 }:
 
 let
+  sources = callPackage ../_sources/generated.nix { };
+  src = sources.trakt-scrobbler.src;
+
   confuse_2_1_0 = python3Packages.buildPythonPackage rec {
     pname = "confuse";
     version = "2.1.0";
@@ -37,7 +40,7 @@ let
 in
 python3Packages.buildPythonApplication {
   pname = "trakt-scrobbler";
-  version = "1.8.0-unstable";
+  version = sources.trakt-scrobbler.version;
   format = "pyproject";
 
   inherit src;

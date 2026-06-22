@@ -1,11 +1,9 @@
 { pkgs, ... }:
 
 let
-  version = "1.0.25.1";
-  appimage = pkgs.fetchurl {
-    url = "https://github.com/aelrased/NuvioDesktop/releases/download/v${version}.fix/Nuvio-${version}-x86_64.AppImage";
-    hash = "sha256-6J786cLc4cf7NCTtG/y3PRMORtxPMR3ht8aPZL1y9fM=";
-  };
+  sources = pkgs.callPackage ../_sources/generated.nix { };
+  version = sources.nuvio-desktop.version;
+  appimage = sources.nuvio-desktop.src;
 in
 pkgs.appimageTools.wrapType2 {
   pname = "nuvio-desktop";

@@ -1,23 +1,22 @@
 {
   lib,
   stdenv,
-  fetchzip,
+  callPackage,
   wineWow64Packages,
   icoutils,
   imagemagick,
 }:
 
+let
+  sources = callPackage ../_sources/generated.nix { };
+in
 stdenv.mkDerivation {
   pname = "esedatabaseview";
-  version = "1.79";
+  version = sources.ese-database-view.version;
 
   nativeBuildInputs = [ icoutils imagemagick ];
 
-  src = fetchzip {
-    url = "https://www.nirsoft.net/utils/esedatabaseview.zip";
-    hash = "sha256-+BoUJqMF7b5dCYog6l69yyoLoDUJs65LrJSAT8aScdM=";
-    stripRoot = false;
-  };
+  src = sources.ese-database-view.src;
 
   installPhase = ''
     runHook preInstall
