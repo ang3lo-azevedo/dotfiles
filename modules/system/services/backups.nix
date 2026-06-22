@@ -1,11 +1,10 @@
 {
+  config,
   pkgs,
   ...
 }:
 
 {
-  # TODO: Fix backups
-
   # Enable btrbk service for automated local Btrfs snapshots
   services.btrbk = {
     instances."btrbk" = {
@@ -32,20 +31,16 @@
 
   # Restic Backup Configuration
   # Based on https://codewitchbella.com/blog/2024-nixos-automated-backup
-  
-  # TODO: Configure secrets for Restic
-  # age.secrets.restic-repo.file = ../../../secrets/restic-repo.age;
-  # age.secrets.restic-password.file = ../../../secrets/restic-password.age;
 
   services.restic.backups = {
-    # --- Backup to NAS (SFTP) ---
+    # --- Backup to NAS (SMB via Rclone) ---
     nas = {
       initialize = true;
       paths = [ "/persist" "/home" ];
       
-      # Placeholder configuration - PLEASE UPDATE
-      passwordFile = "/etc/nixos/restic-password-nas"; 
-      repository = "sftp:user@nas-ip:/path/to/repo"; 
+      passwordFile = config.age.secrets.user_password.path;
+      repository = "rclone:nas:/backups";
+      rcloneConfigFile = config.age.secrets.rclone-conf.path;
 
       exclude = [
         "/persist/@backup-snapshot-nas"
@@ -90,10 +85,9 @@
       initialize = true;
       paths = [ "/persist" "/home" ];
       
-      # Placeholder configuration - PLEASE UPDATE
-      passwordFile = "/etc/nixos/restic-password-gdrive"; 
+      passwordFile = config.age.secrets.user_password.path;
       repository = "rclone:gdrive:/backups"; 
-      rcloneConfigFile = "/etc/nixos/rclone.conf"; # You need to generate this with `rclone config`
+      rcloneConfigFile = config.age.secrets.rclone-conf.path;
 
       exclude = [
         "/persist/@backup-snapshot-gdrive"
@@ -132,6 +126,53 @@
         RandomizedDelaySec = "1h";
       };
     };
+
+    # --- Backup to Google Shared Drive (Rclone) ---
+    gdrive_shared = {
+      initialize = true;
+      paths = [ "/persist" "/home" ];
+      
+      passwordFile = config.age.secrets.user_password.path;
+      repository = "rclone:gdrive_shared_drive:/backups"; 
+      rcloneConfigFile = config.age.secrets.rclone-conf.path;
+
+      exclude = [
+        "/persist/@backup-snapshot-gdrive_shared"
+        "/home/@backup-snapshot-gdrive_shared"
+        "/home/*/.cache"
+        "/home/*/.local/share/Trash"
+      ];
+      
+      backupPrepareCommand = ''
+        set -Eeuxo pipefail
+        
+        # --- Handle /persist ---
+        if ${pkgs.btrfs-progs}/bin/btrfs subvolume delete /persist/@backup-snapshot-gdrive_shared; then
+            echo "WARNING: previous run did not cleanly finish, removing old /persist snapshot"
+        fi
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /persist /persist/@backup-snapshot-gdrive_shared
+        ${pkgs.util-linux}/bin/umount /persist
+        ${pkgs.util-linux}/bin/mount -t btrfs -o subvol=/persist/@backup-snapshot-gdrive_shared /dev/mapper/pool-root /persist
+
+        # --- Handle /home ---
+        if ${pkgs.btrfs-progs}/bin/btrfs subvolume delete /home/@backup-snapshot-gdrive_shared; then
+            echo "WARNING: previous run did not cleanly finish, removing old /home snapshot"
+        fi
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume snapshot -r /home /home/@backup-snapshot-gdrive_shared
+        ${pkgs.util-linux}/bin/umount /home
+        ${pkgs.util-linux}/bin/mount -t btrfs -o subvol=/home/@backup-snapshot-gdrive_shared /dev/mapper/pool-root /home
+      '';
+      
+      backupCleanupCommand = ''
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume delete /persist/@backup-snapshot-gdrive_shared
+        ${pkgs.btrfs-progs}/bin/btrfs subvolume delete /home/@backup-snapshot-gdrive_shared
+      '';
+
+      timerConfig = {
+        OnCalendar = "daily";
+        RandomizedDelaySec = "1h";
+      };
+    };
   };
 
   # Grant permissions for private mounts to both services
@@ -140,6 +181,10 @@
     serviceConfig.PrivateMounts = true;
   };
   systemd.services.restic-backups-gdrive = {
+    path = with pkgs; [ btrfs-progs util-linux ];
+    serviceConfig.PrivateMounts = true;
+  };
+  systemd.services.restic-backups-gdrive_shared = {
     path = with pkgs; [ btrfs-progs util-linux ];
     serviceConfig.PrivateMounts = true;
   };

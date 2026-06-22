@@ -24,5 +24,11 @@ in
 
     # Fast day-to-day system apply: no lockfile bump, better progress output.
     upgrade = "update && rebuild";
+
+    # Backup related aliases
+    backup-all = "sudo systemctl start restic-backups-nas.service restic-backups-gdrive.service restic-backups-gdrive_shared.service && echo 'Backups started in the background. Now watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-nas.service -u restic-backups-gdrive.service -u restic-backups-gdrive_shared.service -f";
+    backup-nas = "sudo systemctl start restic-backups-nas.service && echo 'NAS Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-nas.service -f";
+    backup-gdrive = "sudo systemctl start restic-backups-gdrive.service && echo 'GDrive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive.service -f";
+    backup-shared = "sudo systemctl start restic-backups-gdrive_shared.service && echo 'Shared Drive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive_shared.service -f";
   };
 }

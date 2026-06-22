@@ -2,7 +2,7 @@
   imports = [
     ./audio.nix
     ./auto-cpufreq.nix
-    #./backups.nix
+    ./backups.nix
     ./nordvpn.nix
     ./xdg-portal.nix
     #./suwayomi.nix
