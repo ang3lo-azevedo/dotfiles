@@ -79,8 +79,7 @@ let
       
       # Initialize git config if it doesn't exist
       if [ ! -f "$GIT_CONFIG_GLOBAL" ]; then
-        git config --global user.name "[REDACTED NAME]" 2>/dev/null || true
-        git config --global user.email "[REDACTED EMAIL]" 2>/dev/null || true
+        git config --global include.path "/run/secrets/git_config" 2>/dev/null || true
         git config --global color.ui auto 2>/dev/null || true
       fi
     '';

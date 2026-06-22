@@ -12,8 +12,8 @@ in
 {
   "root_password.age".publicKeys = usersAndSystems;
   "user_password.age".publicKeys = usersAndSystems;
-  "wifi-ssid.age".publicKeys = usersAndSystems;
-  "wifi-password.age".publicKeys = usersAndSystems;
+  "wifi-env.age".publicKeys = usersAndSystems;
   "nvchecker-keyfile.age".publicKeys = usersAndSystems;
   "nix-access-tokens.age".publicKeys = usersAndSystems;
+  "git_config.age".publicKeys = usersAndSystems;
 }
