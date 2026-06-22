@@ -26,13 +26,13 @@ in
 
   services.restic.backups = {
     # --- Backup to NAS (SMB via Rclone) ---
-    nas = commonConfig // { repository = "rclone:nas:homes/ang3lo/backups"; };
+    nas = commonConfig // { repository = "rclone:nas:homes/ang3lo/backups/pc-angelo"; };
 
     # --- Backup to Google Drive (Rclone) ---
-    gdrive = commonConfig // { repository = "rclone:gdrive:/backups"; };
+    gdrive = commonConfig // { repository = "rclone:gdrive:/backups/pc-angelo"; };
 
     # --- Backup to Google Shared Drive (Rclone) ---
-    gdrive_shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups"; };
+    gdrive_shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups/pc-angelo"; };
   };
 
   # Apply Rclone TPS limits and Chunk Sizes to avoid Google Drive Rate Limiting
