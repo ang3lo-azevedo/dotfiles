@@ -57,3 +57,21 @@ fetch.git = "https://github.com/libyal/libfsntfs.git"
 [sidr]
 src.github = "strozfriedberg/sidr"
 fetch.github = "strozfriedberg/sidr"
+
+[ese-database-view]
+src.webpage = "https://www.nirsoft.net/utils/ese_database_view.html"
+src.regex = "Version ([0-9.]+)"
+fetch.url = "https://www.nirsoft.net/utils/esedatabaseview.zip"
+
+[trakt-scrobbler]
+src.github = "iamkroot/trakt-scrobbler"
+fetch.github = "iamkroot/trakt-scrobbler"
+
+[apk-mitm]
+src.github = "niklashigi/apk-mitm"
+fetch.github = "niklashigi/apk-mitm"
+
+[nuvio-desktop]
+src.github = "aelrased/NuvioDesktop"
+src.prefix = "v"
+fetch.url = "https://github.com/aelrased/NuvioDesktop/releases/download/v$ver/Nuvio-$ver-x86_64.AppImage"
