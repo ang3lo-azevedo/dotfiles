@@ -30,8 +30,6 @@
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
-  #age.secrets.wifi-ssid.file = ../../secrets/wifi-ssid.age;
-  #age.secrets.wifi-password.file = ../../secrets/wifi-password.age;
 
   age.secrets.nvchecker_keyfile = {
     file = ../../secrets/nvchecker-keyfile.age;
@@ -41,6 +39,12 @@
 
   age.secrets.nix_access_tokens = {
     file = ../../secrets/nix-access-tokens.age;
+  };
+
+  age.secrets.git_config = {
+    file = ../../secrets/git_config.age;
+    owner = "ang3lo";
+    group = "users";
   };
 
   nix.extraOptions = ''
