@@ -7,7 +7,6 @@
 
   home.packages = with pkgs; [
     code-cursor
-    #cursor-id-modifier
   ];
 
   home.shellAliases = {
