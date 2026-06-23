@@ -85,17 +85,17 @@
   };
   libesedb = {
     pname = "libesedb";
-    version = "7bec7109664a6416910cb54205d35e3f41fdce23";
+    version = "b1f05d15950e4a62034b2387c26612c5664a1b72";
     src = fetchgit {
       url = "https://github.com/libyal/libesedb.git";
-      rev = "7bec7109664a6416910cb54205d35e3f41fdce23";
+      rev = "b1f05d15950e4a62034b2387c26612c5664a1b72";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-pEUS0Gh1JQTV8Q+VkiIKXyJ0cO9bKUQtID1OOMHnBtQ=";
+      sha256 = "sha256-VQVm229rNHKKb8ZISuOLzhxJLTkaJdGb65/nH1MPaPo=";
     };
-    date = "2026-06-21";
+    date = "2026-06-23";
   };
   libfsntfs = {
     pname = "libfsntfs";

@@ -145,7 +145,7 @@
     },
     "libesedb": {
         "cargoLock": null,
-        "date": "2026-06-21",
+        "date": "2026-06-23",
         "extract": null,
         "name": "libesedb",
         "passthru": null,
@@ -155,13 +155,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "7bec7109664a6416910cb54205d35e3f41fdce23",
-            "sha256": "sha256-pEUS0Gh1JQTV8Q+VkiIKXyJ0cO9bKUQtID1OOMHnBtQ=",
+            "rev": "b1f05d15950e4a62034b2387c26612c5664a1b72",
+            "sha256": "sha256-VQVm229rNHKKb8ZISuOLzhxJLTkaJdGb65/nH1MPaPo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/libyal/libesedb.git"
         },
-        "version": "7bec7109664a6416910cb54205d35e3f41fdce23"
+        "version": "b1f05d15950e4a62034b2387c26612c5664a1b72"
     },
     "libfsntfs": {
         "cargoLock": null,
