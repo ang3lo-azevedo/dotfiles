@@ -24,6 +24,9 @@ in
   # Enable Plymouth for a nice boot splash screen
   boot.plymouth = {
     enable = true;
+    extraConfig = ''
+      DeviceScale=2
+    '';
   };
 
   # Make sure systemd is enabled in initrd for plymouth
