@@ -130,6 +130,14 @@
       sha256 = "sha256-5D6uDjcCFGtkAyMp0S3blwc5vMP39dyKWTM+nocSIm0=";
     };
   };
+  rem = {
+    pname = "rem";
+    version = "1.4.0";
+    src = fetchurl {
+      url = "https://github.com/liriliri/rem/releases/download/v1.4.0/REM-1.4.0-linux-x86_64.AppImage";
+      sha256 = "sha256-rL6ebeURL3dcts53xIq5olHHnEQoK9rzIPdfXbu3H/c=";
+    };
+  };
   reverser_ai = {
     pname = "reverser_ai";
     version = "1d572da70479ea822875b9350135d7e3402f5557";

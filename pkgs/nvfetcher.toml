@@ -75,3 +75,8 @@ fetch.github = "niklashigi/apk-mitm"
 src.github = "aelrased/NuvioDesktop"
 src.prefix = "v"
 fetch.url = "https://github.com/aelrased/NuvioDesktop/releases/download/v$ver/Nuvio-$ver-x86_64.AppImage"
+
+[rem]
+src.github = "liriliri/rem"
+src.prefix = "v"
+fetch.url = "https://github.com/liriliri/rem/releases/download/v$ver/REM-$ver-linux-x86_64.AppImage"

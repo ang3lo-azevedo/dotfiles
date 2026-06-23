@@ -219,6 +219,21 @@
         },
         "version": "v1.1.0"
     },
+    "rem": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rem",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-rL6ebeURL3dcts53xIq5olHHnEQoK9rzIPdfXbu3H/c=",
+            "type": "url",
+            "url": "https://github.com/liriliri/rem/releases/download/v1.4.0/REM-1.4.0-linux-x86_64.AppImage"
+        },
+        "version": "1.4.0"
+    },
     "reverser_ai": {
         "cargoLock": null,
         "date": "2026-05-20",
