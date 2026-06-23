@@ -33,7 +33,7 @@ in
     gdrive = commonConfig // { repository = "rclone:gdrive:/backups/pc-angelo"; };
 
     # --- Backup to Google Shared Drive (Rclone) ---
-    gdrive-shared = commonConfig // { repository = "rclone:gdrive-shared_drive:/backups/pc-angelo"; };
+    gdrive-shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups/pc-angelo"; };
   };
 
   environment.systemPackages = [
