@@ -1624,26 +1624,6 @@
         "type": "github"
       }
     },
-    "opencode": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782208770,
-        "narHash": "sha256-ILsNMHCpKQ9ByDNpVkhpp7NYACXmfguNA/wijx4+zeA=",
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "rev": "a21e74773f281b1f414a543a5584b36585d28f30",
-        "type": "github"
-      },
-      "original": {
-        "owner": "anomalyco",
-        "repo": "opencode",
-        "type": "github"
-      }
-    },
     "pear-desktop": {
       "inputs": {
         "nixpkgs": [
@@ -1820,7 +1800,6 @@
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-xr": "nixpkgs-xr",
-        "opencode": "opencode",
         "pear-desktop": "pear-desktop",
         "photogimp": "photogimp",
         "proxmox-nixos": "proxmox-nixos",
