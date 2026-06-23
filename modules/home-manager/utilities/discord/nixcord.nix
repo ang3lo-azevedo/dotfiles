@@ -18,7 +18,7 @@
       equicord.enable = true;
       
       # TODO: Remove when nixcord fixes the openASAR
-      openASAR.enable = false;
+      #openASAR.enable = false;
     };
     config = {
       autoUpdate = true;
