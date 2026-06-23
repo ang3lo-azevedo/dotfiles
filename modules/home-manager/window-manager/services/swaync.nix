@@ -1,7 +1,6 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
-  # Path (relative to this file) to the repo directory containing swaync configs
-  swayncDir = ../../../../home/ang3lo/.config/swaync;
+  swayncDir = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/swaync";
 in
 {
   services.swaync.enable = true;
@@ -11,6 +10,5 @@ in
   # priority over other module definitions and avoid conflicting values.
   xdg.configFile."swaync" = lib.mkForce {
     source = swayncDir;
-    recursive = true;
   };
 }

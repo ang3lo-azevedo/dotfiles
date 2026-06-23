@@ -1,5 +1,6 @@
+{ config, ... }:
 let
-  fuzzelDir = ../../../home/ang3lo/.config/fuzzel;
+  fuzzelDir = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/fuzzel";
 in
 {
   programs.fuzzel.enable = true;
@@ -7,6 +8,5 @@ in
   
   xdg.configFile."fuzzel" = {
     source = fuzzelDir;
-    recursive = true;
   };
 }

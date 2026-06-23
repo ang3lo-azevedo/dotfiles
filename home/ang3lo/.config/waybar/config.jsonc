@@ -7,7 +7,8 @@
     "on-scroll-down": "swaync-client -cp",
 
     "modules-left": [
-        "privacy"
+        "privacy",
+        "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
         "clock"
@@ -18,6 +19,7 @@
         "wireplumber",
         "bluetooth",
         "network",
+        "custom/auto-cpufreq",
         "battery",
         "custom/notification"
     ],
@@ -40,6 +42,13 @@
         },
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/waybar-scrolling-mpris": {
+        "return-type": "json",
+        "exec": "ScrollMPRIS --scroll wrapping",
+        "escape": true,
+        "on-click": "playerctl play-pause"
     },
 
     "custom/wlsunset":{
@@ -113,6 +122,15 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
+        "on-scroll-up": "swaync-client -op",
+        "on-scroll-down": "swaync-client -cp"
+    },
+
+    "custom/auto-cpufreq": {
+        "format": "{icon}",
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/auto-cpufreq.sh",
+        "interval": 5,
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },

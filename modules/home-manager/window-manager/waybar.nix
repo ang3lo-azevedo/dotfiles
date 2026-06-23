@@ -1,19 +1,21 @@
-{ pkgs, ... }:
+{ pkgs, inputs, config, ... }:
 let
-  # Path (relative to this file) to the repo directory containing waybar configs
-  waybarDir = ../../../home/ang3lo/.config/waybar;
+  waybarDir = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/waybar";
 in
 {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    #systemd.target = "graphical-session.target";
   };
+  
+  home.packages = with pkgs; [
+    playerctl
+    inputs.self.packages.${pkgs.system}.scrollmpris
+  ];
   
   stylix.targets.waybar.enable = false;
 
   xdg.configFile."waybar" = {
     source = waybarDir;
-    recursive = true;
   };
 }

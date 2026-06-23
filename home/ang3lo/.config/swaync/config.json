@@ -45,18 +45,7 @@
     "dnd": {
       "text": "Do Not Disturb"
     },
-    "buttons-grid": {
-      "actions": [
-        {
-          "label": "\udb82\udd28",
-          "command": "iwmenu -l fuzzel"
-        },
-        {
-          "label": "\uf294",
-          "command": "bzmenu -l fuzzel"
-        }
-      ]
-    },
+
     "volume": {
       "label": "󰕾",
       "show-per-app": true,
@@ -71,21 +60,30 @@
       "subsystem": "leds"
     },
     "menubar#label": {
+      "buttons#touchscreen": {
+        "position": "right",
+        "actions": [
+          {
+            "label": "\uf2a2",
+            "command": "~/.config/waybar/scripts/touchscreen-toggle.sh toggle"
+          }
+        ]
+      },
       "menu#powermode-buttons": {
         "label": "\uf0e4", 
         "position": "right",
         "actions": [ 
           {
             "label": "\uf0e7 Performance",
-            "command": "powerprofilesctl set performance"
+            "command": "pkexec auto-cpufreq --force performance"
           },
           {
-            "label": "\uf1ce Balanced",
-            "command": "powerprofilesctl set balanced"
+            "label": "\uf1ce Auto",
+            "command": "pkexec auto-cpufreq --force reset"
           },
           {
             "label": "\uf06c Power-saver",
-            "command": "powerprofilesctl set power-saver"
+            "command": "pkexec auto-cpufreq --force powersave"
           }
         ]
       },
