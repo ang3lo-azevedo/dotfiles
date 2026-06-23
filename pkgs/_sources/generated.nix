@@ -150,6 +150,18 @@
     };
     date = "2026-05-20";
   };
+  scrollmpris = {
+    pname = "scrollmpris";
+    version = "6f6261cb0ca405e5c1c53747e455f049dc95e867";
+    src = fetchFromGitHub {
+      owner = "BEST8OY";
+      repo = "ScrollMPRIS";
+      rev = "6f6261cb0ca405e5c1c53747e455f049dc95e867";
+      fetchSubmodules = false;
+      sha256 = "sha256-euT3rxUDaIkwZpEG2PRmyTUWIzDkG64L8L2QoJkmKwM=";
+    };
+    date = "2026-06-04";
+  };
   sidr = {
     pname = "sidr";
     version = "v0.9.2";
