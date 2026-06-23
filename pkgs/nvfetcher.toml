@@ -80,3 +80,7 @@ fetch.url = "https://github.com/aelrased/NuvioDesktop/releases/download/v$ver/Nu
 src.github = "liriliri/rem"
 src.prefix = "v"
 fetch.url = "https://github.com/liriliri/rem/releases/download/v$ver/REM-$ver-linux-x86_64.AppImage"
+
+[scrollmpris]
+src.git = "https://github.com/BEST8OY/ScrollMPRIS.git"
+fetch.github = "BEST8OY/ScrollMPRIS"

@@ -255,6 +255,27 @@
         },
         "version": "1d572da70479ea822875b9350135d7e3402f5557"
     },
+    "scrollmpris": {
+        "cargoLock": null,
+        "date": "2026-06-04",
+        "extract": null,
+        "name": "scrollmpris",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "BEST8OY",
+            "repo": "ScrollMPRIS",
+            "rev": "6f6261cb0ca405e5c1c53747e455f049dc95e867",
+            "sha256": "sha256-euT3rxUDaIkwZpEG2PRmyTUWIzDkG64L8L2QoJkmKwM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6f6261cb0ca405e5c1c53747e455f049dc95e867"
+    },
     "sidr": {
         "cargoLock": null,
         "date": null,

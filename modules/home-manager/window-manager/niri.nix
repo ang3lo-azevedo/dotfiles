@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
-  niriConfig = ../../../home/ang3lo/.config/niri;
+  niriConfig = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/niri";
 in
 {
   xdg.configFile."niri" = {

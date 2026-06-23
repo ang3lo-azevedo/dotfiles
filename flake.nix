@@ -458,6 +458,9 @@
       # Expose the local `sidr` package so flakes can reference it
       packages.x86_64-linux.sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix { };
 
+      # Expose the local `scrollmpris` package so flakes can reference it
+      packages.x86_64-linux.scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix { };
+
       # Development shells
       devShells.x86_64-linux.android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
