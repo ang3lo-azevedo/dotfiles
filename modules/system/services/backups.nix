@@ -10,7 +10,6 @@ let
     paths = [ "/persist" "/home" ];
     passwordFile = config.age.secrets.restic_password.path;
     rcloneConfigFile = config.age.secrets.rclone-conf.path;
-    extraBackupArgs = [ "-v" ]; # Enable verbose logging to see progress
     exclude = [
       "/home/*/.cache"
       "/home/*/.local/share/Trash"

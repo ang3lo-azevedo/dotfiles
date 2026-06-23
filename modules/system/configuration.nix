@@ -40,8 +40,13 @@
     variant = "";
   };
 
-  # Configure console keymap
-  console.keyMap = "pt-latin1";
+  # Configure console keymap and font for HiDPI screens (makes LUKS prompt readable)
+  console = {
+    keyMap = "pt-latin1";
+    earlySetup = true;
+    font = "ter-v32n";
+    packages = with pkgs; [ terminus_font ];
+  };
 
   # Enable sound.
   # services.pulseaudio.enable = true;
