@@ -33,19 +33,7 @@ in
     gdrive = commonConfig // { repository = "rclone:gdrive:/backups/pc-angelo"; };
 
     # --- Backup to Google Shared Drive (Rclone) ---
-    gdrive_shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups/pc-angelo"; };
-  };
-
-  # Apply Rclone TPS limits and Chunk Sizes to avoid Google Drive Rate Limiting
-  systemd.services.restic-backups-gdrive.environment = {
-    RCLONE_TPSLIMIT = "3";
-    RCLONE_TPSLIMIT_BURST = "3";
-    RCLONE_DRIVE_CHUNK_SIZE = "64M";
-  };
-  systemd.services.restic-backups-gdrive_shared.environment = {
-    RCLONE_TPSLIMIT = "3";
-    RCLONE_TPSLIMIT_BURST = "3";
-    RCLONE_DRIVE_CHUNK_SIZE = "64M";
+    gdrive-shared = commonConfig // { repository = "rclone:gdrive-shared_drive:/backups/pc-angelo"; };
   };
 
   environment.systemPackages = [
