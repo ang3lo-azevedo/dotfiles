@@ -24,7 +24,8 @@
 }
 
 #privacy,
-#mpris {
+#mpris,
+#custom-waybar-scrolling-mpris {
     padding-left: 1em
 }
 
@@ -42,6 +43,7 @@
 #bluetooth.off,
 #bluetooth.connected,
 #network,
+#custom-auto-cpufreq,
 #battery,
 #custom-notification {
     padding-right: 1em 

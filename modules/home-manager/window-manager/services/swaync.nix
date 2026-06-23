@@ -1,14 +1,11 @@
 { lib, config, ... }:
 let
-  swayncDir = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/swaync";
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
 in
 {
   services.swaync.enable = true;
   stylix.targets.swaync.enable = false;
 
-  # Use lib.mkForce so these home-manager `xdg.configFile` entries have
-  # priority over other module definitions and avoid conflicting values.
-  xdg.configFile."swaync" = lib.mkForce {
-    source = swayncDir;
-  };
+  xdg.configFile."swaync/config.json" = lib.mkForce { source = mkSymlink "swaync/config.json"; };
+  xdg.configFile."swaync/style.css" = lib.mkForce { source = mkSymlink "swaync/style.css"; };
 }

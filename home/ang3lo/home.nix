@@ -65,6 +65,7 @@ in
   # TODO: remove these
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10"
+    "ventoy-gtk3-1.1.12"
   ];
 
   # This value determines the home Manager release that your
