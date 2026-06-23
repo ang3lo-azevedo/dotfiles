@@ -27,9 +27,9 @@ in
     upgrade = "update && rebuild";
 
     # Backup related aliases
-    backup-all = "sudo systemctl start --no-block restic-backups-nas.service restic-backups-gdrive.service restic-backups-gdrive_shared.service && echo 'Backups started in the background. Now watching live logs (Press Ctrl+C to stop watching):' && journalctl --output=with-unit -u restic-backups-nas.service -u restic-backups-gdrive.service -u restic-backups-gdrive_shared.service -f";
-    backup-nas = "sudo systemctl start --no-block restic-backups-nas.service && echo 'NAS Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-nas.service -f";
-    backup-gdrive = "sudo systemctl start --no-block restic-backups-gdrive.service && echo 'GDrive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive.service -f";
-    backup-shared = "sudo systemctl start --no-block restic-backups-gdrive_shared.service && echo 'Shared Drive Backup started. Watching live logs (Press Ctrl+C to stop watching):' && journalctl -u restic-backups-gdrive_shared.service -f";
+    backup-all = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo pkill -USR1 restic 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-nas.service restic-backups-gdrive.service restic-backups-gdrive_shared.service && echo \"Backups started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl --output=with-unit -u restic-backups-nas.service -u restic-backups-gdrive.service -u restic-backups-gdrive_shared.service -f'";
+    backup-nas = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo pkill -USR1 restic 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-nas.service && echo \"NAS Backup started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl -u restic-backups-nas.service -f'";
+    backup-gdrive = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo pkill -USR1 restic 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-gdrive.service && echo \"GDrive Backup started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl -u restic-backups-gdrive.service -f'";
+    backup-shared = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo pkill -USR1 restic 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-gdrive_shared.service && echo \"Shared Drive Backup started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl -u restic-backups-gdrive_shared.service -f'";
   };
 }
