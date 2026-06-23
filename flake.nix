@@ -438,6 +438,9 @@
       };
 
       # Expose the local `dnspy` package so flakes can reference it
+      # Expose the local `rem` package so flakes can reference it
+      packages.x86_64-linux.rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix { };
+
       packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix { };
 
       # Expose the local `ctfd-parser` package so flakes can reference it
