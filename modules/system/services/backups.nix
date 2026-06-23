@@ -28,8 +28,6 @@ in
     # --- Backup to NAS (SMB via Rclone) ---
     nas = commonConfig // { repository = "rclone:nas:homes/ang3lo/backups/pc-angelo"; };
 
-    # --- Backup to Google Drive (Rclone) ---
-    gdrive = commonConfig // { repository = "rclone:gdrive:/backups/pc-angelo"; };
 
     # --- Backup to Google Shared Drive (Rclone) ---
     gdrive-shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups/pc-angelo"; };
@@ -39,4 +37,13 @@ in
     pkgs.restic
     pkgs.rclone # Needed for Google Drive & SMB backends
   ];
+
+  # Automatically trigger a Server-Side Mirror to the personal Google Drive
+  # immediately after the Shared Drive backup successfully completes!
+  systemd.services.restic-backups-gdrive-shared.postStart = ''
+    echo "Restic backup complete! Triggering Google Server-Side Sync to personal drive..."
+    ${pkgs.rclone}/bin/rclone sync -v --drive-server-side-across-configs \
+      --config ${config.age.secrets.rclone-conf.path} \
+      gdrive_shared_drive:/backups/pc-angelo gdrive:/backups/pc-angelo
+  '';
 }
