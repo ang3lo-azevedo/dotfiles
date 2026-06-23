@@ -17,4 +17,5 @@ in
   "nix-access-tokens.age".publicKeys = usersAndSystems;
   "git_config.age".publicKeys = usersAndSystems;
   "rclone.conf.age".publicKeys = usersAndSystems;
+  "restic_password.age".publicKeys = usersAndSystems;
 }
