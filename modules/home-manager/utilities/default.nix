@@ -28,5 +28,6 @@
 
     ./zapzap.nix
     ./restic-browser.nix
+    ./ventoy.nix
   ];
 }

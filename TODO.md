@@ -1,3 +1,6 @@
+- [ ] Add clicking on the power profile icon the ability to switch it
+- [ ] Add way to dismiss the waybar on swipe up and return on swipe down 
+- [ ] Add this https://github.com/chmouel/nextmeeting
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 - [x] Add wifi configs nixos
 - [x] Fix fakeVoiceOptions nixcord
