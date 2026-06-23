@@ -131,6 +131,7 @@
         "return-type": "json",
         "exec": "~/.config/waybar/scripts/auto-cpufreq.sh",
         "interval": 5,
+        "on-click": "~/.config/waybar/scripts/auto-cpufreq-toggle.sh",
         "on-scroll-up": "swaync-client -op",
         "on-scroll-down": "swaync-client -cp"
     },
