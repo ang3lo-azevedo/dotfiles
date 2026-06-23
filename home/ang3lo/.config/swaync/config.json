@@ -64,7 +64,7 @@
         "position": "right",
         "actions": [
           {
-            "label": "\uf5c3",
+            "label": "\udb80\uddbd",
             "command": "~/.config/waybar/scripts/touchscreen-toggle.sh toggle"
           }
         ]
