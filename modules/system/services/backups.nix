@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -36,6 +37,7 @@ in
   environment.systemPackages = [
     pkgs.restic
     pkgs.rclone # Needed for Google Drive & SMB backends
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.rem
   ];
 
   # Automatically trigger a Server-Side Mirror to the personal Google Drive
