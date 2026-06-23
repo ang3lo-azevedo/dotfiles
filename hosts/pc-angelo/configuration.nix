@@ -55,6 +55,9 @@ in
   age.secrets.rclone-conf = userSecretConfig // {
     file = ../../secrets/rclone.conf.age;
   };
+  age.secrets.restic_password = userSecretConfig // {
+    file = ../../secrets/restic_password.age;
+  };
 
   nix.extraOptions = ''
     !include ${config.age.secrets.nix_access_tokens.path}
