@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{inputs, ...}: {
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];
@@ -16,7 +15,7 @@
     discord = {
       vencord.enable = false;
       equicord.enable = true;
-      
+
       # TODO: Remove when nixcord fixes the openASAR
       #openASAR.enable = false;
     };

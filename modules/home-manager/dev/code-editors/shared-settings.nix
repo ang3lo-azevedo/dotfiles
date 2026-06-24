@@ -1,6 +1,5 @@
 # Shared settings for VSCode and Cursor
 # This file defines the settings that both editors will use
-
 {
   # Returns a set of shared settings that can be used by both VSCode and Cursor
   sharedSettings = {
@@ -107,11 +106,10 @@
     };
 
     # Enable Model Context Protocol (MCP) server for Background Agents.
-    "github.copilot.chat.cli.mcp.enabled"= false;
+    "github.copilot.chat.cli.mcp.enabled" = false;
 
     # Disable extension auto-updating since they are managed by Nix
     "extensions.autoUpdate" = false;
     "extensions.autoCheckUpdates" = false;
   };
 }
-

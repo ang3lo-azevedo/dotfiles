@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   lactSettings = {
     version = 5;
     daemon = {
@@ -31,25 +34,24 @@ let
     current_profile = "VR gaming";
     auto_switch_profiles = true;
   };
-  
+
   settingsJson = builtins.toJSON lactSettings;
   settingsFile = pkgs.writeText "lact-config.json" settingsJson;
-in
-{
+in {
   services.lact = {
     enable = true;
     # Disable settings management to allow mutable config
     settings = lib.mkForce {};
   };
-  
+
   # Create writable config file via activation script
   system.activationScripts.lactSettings = ''
     configDir="/etc/lact"
     configPath="$configDir/config.yaml"
-    
+
     # Create directory if it doesn't exist
     mkdir -p "$configDir"
-    
+
     # Copy settings from Nix store, making it writable
     # This overwrites on each rebuild to apply Nix-defined settings
     cp -f "${settingsFile}" "$configPath"

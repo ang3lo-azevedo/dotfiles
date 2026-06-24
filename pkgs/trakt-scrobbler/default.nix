@@ -2,10 +2,8 @@
   lib,
   python3Packages,
   callPackage,
-}:
-
-let
-  sources = callPackage ../_sources/generated.nix { };
+}: let
+  sources = callPackage ../_sources/generated.nix {};
   src = sources.trakt-scrobbler.src;
 
   confuse_2_1_0 = python3Packages.buildPythonPackage rec {
@@ -18,9 +16,9 @@ let
       sha256 = "1391dqbx93m1dvvky1q38lqdvlpc0d2chbsfz2pfz9n7k556gfdb";
     };
 
-    nativeBuildInputs = with python3Packages; [ poetry-core ];
+    nativeBuildInputs = with python3Packages; [poetry-core];
 
-    propagatedBuildInputs = with python3Packages; [ pyyaml ];
+    propagatedBuildInputs = with python3Packages; [pyyaml];
 
     doCheck = false; # No tests in sdist
   };
@@ -35,43 +33,43 @@ let
       sha256 = "1pm6khdv88h764scik67jki98xbyj367h591j8hpwy4y8nnm766a";
     };
 
-    nativeBuildInputs = with python3Packages; [ setuptools ];
+    nativeBuildInputs = with python3Packages; [setuptools];
   };
 in
-python3Packages.buildPythonApplication {
-  pname = "trakt-scrobbler";
-  version = sources.trakt-scrobbler.version;
-  format = "pyproject";
+  python3Packages.buildPythonApplication {
+    pname = "trakt-scrobbler";
+    version = sources.trakt-scrobbler.version;
+    format = "pyproject";
 
-  inherit src;
+    inherit src;
 
-  nativeBuildInputs = with python3Packages; [
-    hatchling
-    poetry-core
-  ];
+    nativeBuildInputs = with python3Packages; [
+      hatchling
+      poetry-core
+    ];
 
-  propagatedBuildInputs = with python3Packages; [
-    appdirs
-    cleo
-    confuse_2_1_0
-    desktop-notifier
-    guessit
-    pydantic
-    requests
-    click_8_1_7
-    typer
-    urllib3
-    urlmatch
-  ];
+    propagatedBuildInputs = with python3Packages; [
+      appdirs
+      cleo
+      confuse_2_1_0
+      desktop-notifier
+      guessit
+      pydantic
+      requests
+      click_8_1_7
+      typer
+      urllib3
+      urlmatch
+    ];
 
-  postPatch = ''
-    sed -i 's/urllib3 = "^1.26.0"/urllib3 = "*"/' pyproject.toml
-  '';
+    postPatch = ''
+      sed -i 's/urllib3 = "^1.26.0"/urllib3 = "*"/' pyproject.toml
+    '';
 
-  meta = with lib; {
-    description = "Trakt scrobbler for MPV, VLC, and other media players";
-    homepage = "https://github.com/iamkroot/trakt-scrobbler";
-    license = licenses.gpl2Only;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      description = "Trakt scrobbler for MPV, VLC, and other media players";
+      homepage = "https://github.com/iamkroot/trakt-scrobbler";
+      license = licenses.gpl2Only;
+      maintainers = [];
+    };
+  }

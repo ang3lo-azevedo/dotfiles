@@ -1,8 +1,11 @@
-{ inputs, trakt-scrobbler-src, pkgs, ... }:
-let
-  system = pkgs.stdenv.hostPlatform.system;
-in
 {
+  inputs,
+  trakt-scrobbler-src,
+  pkgs,
+  ...
+}: let
+  system = pkgs.stdenv.hostPlatform.system;
+in {
   home.username = "ang3lo";
   home.homeDirectory = "/home/ang3lo";
 
@@ -49,14 +52,14 @@ in
       # For QRookie
       glaumar_repo = inputs.glaumar_repo.packages."${system}";
 
-      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix { };
-      cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix { };
-      stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix { };
-      ctfd-parser = prev.callPackage ../../pkgs/ctfd-parser/default.nix { };
-      ese-database-view = prev.callPackage ../../pkgs/ese-database-view/default.nix { };
-      libesedb = prev.callPackage ../../pkgs/libesedb/default.nix { };
-      libfsntfs = prev.callPackage ../../pkgs/libfsntfs/default.nix { };
-      sidr = prev.callPackage ../../pkgs/sidr/default.nix { };
+      trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix {};
+      cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix {};
+      stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix {};
+      ctfd-parser = prev.callPackage ../../pkgs/ctfd-parser/default.nix {};
+      ese-database-view = prev.callPackage ../../pkgs/ese-database-view/default.nix {};
+      libesedb = prev.callPackage ../../pkgs/libesedb/default.nix {};
+      libfsntfs = prev.callPackage ../../pkgs/libfsntfs/default.nix {};
+      sidr = prev.callPackage ../../pkgs/sidr/default.nix {};
     })
   ];
 

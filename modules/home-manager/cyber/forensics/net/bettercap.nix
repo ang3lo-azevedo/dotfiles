@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		bettercap
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    bettercap
+  ];
 }

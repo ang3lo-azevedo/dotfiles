@@ -3,13 +3,12 @@ let
 
   pc-angelo = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJKo5FTbsC2Ey5qaRfKkTjrn4S5MRTNjxqzy7ZPObS/F";
 
-  users = [ yubikey ];
+  users = [yubikey];
 
-  systems = [ pc-angelo ];
+  systems = [pc-angelo];
 
   usersAndSystems = users ++ systems;
-in
-{
+in {
   "root_password.age".publicKeys = usersAndSystems;
   "user_password.age".publicKeys = usersAndSystems;
   "wifi-env.age".publicKeys = usersAndSystems;

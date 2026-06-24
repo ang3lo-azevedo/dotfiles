@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   # Path (relative to this file) to the repo directory containing mango configs
   mangoDir = ../../../home/ang3lo/.config/mango;
-in
-{
+in {
   imports = [
     mango.hmModules.mango
   ];
@@ -23,7 +21,7 @@ in
   systemd.user.services.mango-autosave = {
     Unit = {
       Description = "Autosave Mango session";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
     Service = {
       Type = "oneshot";
@@ -40,14 +38,14 @@ in
       OnUnitActiveSec = "1m";
     };
     Install = {
-      WantedBy = [ "timers.target" ];
+      WantedBy = ["timers.target"];
     };
   };
 
   systemd.user.services.mango-shutdown-save = {
     Unit = {
       Description = "Save Mango session on shutdown/logout";
-      PartOf = [ "graphical-session.target" ];
+      PartOf = ["graphical-session.target"];
     };
     Service = {
       Type = "oneshot";
@@ -56,7 +54,7 @@ in
       ExecStop = "${pkgs.bash}/bin/bash %h/.config/mango/scripts/save-session.sh";
     };
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = ["graphical-session.target"];
     };
   };
 
@@ -85,7 +83,7 @@ in
       PathModified = "%h/.config/mango/";
     };
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = ["default.target"];
     };
   };
 }

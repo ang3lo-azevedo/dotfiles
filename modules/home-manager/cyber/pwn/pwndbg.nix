@@ -1,8 +1,10 @@
-{ pkgs, inputs, ... }:
-let
-  pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.default;
-in
 {
+  pkgs,
+  inputs,
+  ...
+}: let
+  pwndbg = inputs.pwndbg.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in {
   home.packages = [
     pwndbg
   ];

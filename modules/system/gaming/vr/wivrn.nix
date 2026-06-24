@@ -1,5 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   # services.avahi = {
   #   enable = true;
   #   publish = {
@@ -20,19 +25,23 @@
     #highPriority = true;
 
     # Configuration with xrizer multilib support for OpenVR compatibility
-    /* config = {
+    /*
+       config = {
       enable = true;
       json = {
         openvr-compat-path = "${xrizer-multilib}/lib/xrizer";
       };
-    }; */
+    };
+    */
 
     # To increase the overhead of the compositor timewarp
-    /* package = pkgs.wivrn.overrideAttrs (oldAttrs: {
+    /*
+       package = pkgs.wivrn.overrideAttrs (oldAttrs: {
       preFixup = ''
         export U_PACING_COMP_MIN_TIME_MS=8
       '';
-    }); */
+    });
+    */
 
     # If you're running this with an nVidia GPU and want to use GPU Encoding (and don't otherwise have CUDA enabled system wide), you need to override the cudaSupport variable.
     #package = (pkgs.wivrn.override { cudaSupport = true; });
@@ -76,9 +85,11 @@
   #     #"${pkgs.opencomposite}/lib/opencomposite"
   #   ];
   # };
-  
-  /* home-manager.users.ang3lo = {
+
+  /*
+     home-manager.users.ang3lo = {
     xdg.configFile."openxr/1/active_runtime.i686.json".source =
       "${wivrn-server-lib}/share/openxr/1/openxr_wivrn.json";
-  }; */
+  };
+  */
 }

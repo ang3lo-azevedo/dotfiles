@@ -1,9 +1,12 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
     # Wine with both 32-bit and 64-bit support for Wayland
     wineWow64Packages.waylandFull
-    
+
     # Wine tools for managing prefixes and tweaks
     winetricks
   ];
