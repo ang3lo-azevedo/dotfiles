@@ -7,6 +7,7 @@
 
     "modules-left": [
         "privacy",
+        "mpris",
         "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
@@ -31,13 +32,34 @@
         "on-scroll-down": "~/.config/waybar/scripts/waybar-toggle.sh"
     },
 
+    "mpris": {
+        "format": "{player_icon} {status_icon}",
+        "format-paused": "{player_icon} {status_icon}",
+        "player-icons": {
+            "default": "󰎆",
+            "spotify": "󰓇",
+            "firefox": "󰈹",
+            "vlc": "󰕼",
+            "mpv": ""
+        },
+        "status-icons": {
+            "playing": "▶",
+            "paused": "󰏤",
+            "stopped": "⏹"
+        },
+        "on-click": "playerctl play-pause",
+        "on-click-middle": "playerctl next",
+        "on-click-backward": "playerctl previous",
+        "on-click-forward": "playerctl next",
+        "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show && pkill -f waybar-mpris-wrapper.sh",
+        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss && pkill -f waybar-mpris-wrapper.sh"
+    },
+
     "custom/waybar-scrolling-mpris": {
         "return-type": "json",
         "exec": "~/.config/waybar/scripts/waybar-mpris-wrapper.sh",
-        "escape": true,
-        "on-click": "playerctl play-pause",
-        "on-click-right": "touch /tmp/waybar-mpris-dismiss",
-        "on-scroll-up": "swaync-client -cp"
+        "restart-interval": 1,
+        "escape": true
     },
 
     "custom/wlsunset":{

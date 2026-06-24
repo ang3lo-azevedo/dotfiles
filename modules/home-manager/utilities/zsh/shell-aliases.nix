@@ -16,11 +16,11 @@ in {
     code = "antigravity-ide";
 
     # NixOS related aliases
-    fmt = "nix develop -c pre-commit run --all-files";
+    fmt = "(cd ~/nix-config && nix develop -c pre-commit run --all-files)";
     rebuild = "fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
     hmrebuild = "fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
     nvfetcher = "nix run nixpkgs#nvfetcher -- -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
-    update = "cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config && cd -";
+    update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
 
     # Fast day-to-day system apply: no lockfile bump, better progress output.
     upgrade = "update && rebuild";
