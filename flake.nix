@@ -469,9 +469,9 @@
           # Format Nix code
           alejandra.enable = true;
           # Check for missing or unused variables
-          #deadnix.enable = true;
+          deadnix.enable = true;
           # Catch Nix syntax errors and anti-patterns
-          #statix.enable = true;
+          statix.enable = true;
         };
       };
     };
