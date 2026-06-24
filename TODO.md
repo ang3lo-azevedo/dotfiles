@@ -1,7 +1,7 @@
-- [ ] Add github actions linter
 - [ ] Add way to dismiss the mpris
-- [ ] Add this https://github.com/chmouel/nextmeeting
+- [ ] Improve waybar dismiss movements
 - [ ] Add secure boot to system
+- [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
 - [ ] Fix webcam
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
