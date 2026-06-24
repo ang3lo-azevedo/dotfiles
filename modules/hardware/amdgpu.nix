@@ -3,12 +3,6 @@
   boot.initrd.kernelModules = ["amdgpu"];
   services.xserver.videoDrivers = ["amdgpu"];
 
-  # Enable accelerated graphics
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
   # Enable AMD OpenCL runtime via ROCm.
   hardware.amdgpu.opencl.enable = true;
 

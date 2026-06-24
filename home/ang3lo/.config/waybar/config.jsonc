@@ -44,8 +44,8 @@
             "mpv": ""
         },
         "status-icons": {
-            "playing": "▶",
-            "paused": "󰏤",
+            "playing": "󰏤",
+            "paused": "▶",
             "stopped": "⏹"
         },
         "on-click": "playerctl play-pause",

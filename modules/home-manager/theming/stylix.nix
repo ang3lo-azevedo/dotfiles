@@ -15,6 +15,27 @@ in {
       zen-browser.colors.enable = false;
       vscode.colors.enable = false;
       nixcord.colors.enable = false;
+
+      gtk.extraCss = ''
+        .hotkey-overlay {
+          font-family: "JetBrainsMono Nerd Font";
+          font-size: 14px;
+          background-color: #000000;
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .hotkey-overlay row {
+          border-radius: 6px;
+          padding: 2px 8px;
+        }
+
+        .hotkey-overlay row:hover {
+          background-color: #2a2a2a;
+        }
+      '';
     };
 
     fonts = {

@@ -1,14 +1,18 @@
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
 }: let
+  resticPassword = config.age.secrets.restic_password.path;
+  rcloneConf = config.age.secrets.rclone-conf.path;
+
   commonConfig = {
     initialize = true;
-    paths = ["/persist" "/home"];
-    passwordFile = config.age.secrets.restic_password.path;
-    rcloneConfigFile = config.age.secrets.rclone-conf.path;
+    paths = ["/persist" "/home" "/var/lib/sbctl"];
+    passwordFile = resticPassword;
+    rcloneConfigFile = rcloneConf;
     exclude = [
       "/home/*/.cache"
       "/home/*/.local/share/Trash"
@@ -18,30 +22,80 @@
       RandomizedDelaySec = "1h";
     };
   };
+
+  repos = {
+    nas = "rclone:nas:homes/ang3lo/backups/pc-angelo";
+    gdrive-shared = "rclone:gdrive_shared_drive:/backups/pc-angelo";
+  };
+
+  # Send a desktop notification as ang3lo from a root service.
+  desktopNotify = title: body: ''
+    runuser -u ang3lo -- \
+      env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+      ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+        ${lib.escapeShellArg title} ${lib.escapeShellArg body}
+  '';
 in {
-  # Restic Backup Configuration
-  # Backups are configured to run automatically every day.
-
   services.restic.backups = {
-    # --- Backup to NAS (SMB via Rclone) ---
-    nas = commonConfig // {repository = "rclone:nas:homes/ang3lo/backups/pc-angelo";};
-
-    # --- Backup to Google Shared Drive (Rclone) ---
-    gdrive-shared = commonConfig // {repository = "rclone:gdrive_shared_drive:/backups/pc-angelo";};
+    nas = commonConfig // {repository = repos.nas;};
+    gdrive-shared = commonConfig // {repository = repos.gdrive-shared;};
   };
 
   environment.systemPackages = [
     pkgs.restic
-    pkgs.rclone # Needed for Google Drive & SMB backends
+    pkgs.rclone
     inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.rem
   ];
 
-  # Automatically trigger a Server-Side Mirror to the personal Google Drive
-  # immediately after the Shared Drive backup successfully completes!
-  systemd.services.restic-backups-gdrive-shared.postStart = ''
-    echo "Restic backup complete! Triggering Google Server-Side Sync to personal drive..."
-    ${pkgs.rclone}/bin/rclone sync -v --drive-server-side-across-configs \
-      --config ${config.age.secrets.rclone-conf.path} \
-      gdrive_shared_drive:/backups/pc-angelo gdrive:/backups/pc-angelo
-  '';
+  systemd.services = lib.mkMerge (
+    [
+      # Server-side GDrive mirror immediately after the Shared Drive backup completes.
+      {
+        restic-backups-gdrive-shared.postStart = ''
+          echo "Restic backup complete! Triggering Google Server-Side Sync to personal drive..."
+          ${pkgs.rclone}/bin/rclone sync -v --drive-server-side-across-configs \
+            --config ${rcloneConf} \
+            gdrive_shared_drive:/backups/pc-angelo gdrive:/backups/pc-angelo
+        '';
+      }
+    ]
+    ++ lib.mapAttrsToList (name: repo: {
+      # Hook failure notifications onto each backup job.
+      "restic-backups-${name}".unitConfig.OnFailure = "restic-backup-failed-${name}.service";
+      "restic-backup-failed-${name}" = {
+        description = "Notify restic backup failure: ${name}";
+        script = desktopNotify "Backup Failed" "Restic backup [${name}] failed. Check: journalctl -u restic-backups-${name}";
+        serviceConfig.Type = "oneshot";
+      };
+
+      # Weekly integrity check for each repo.
+      "restic-check-${name}" = {
+        description = "Restic integrity check: ${name}";
+        environment.RCLONE_CONFIG = rcloneConf;
+        script = ''
+          ${pkgs.restic}/bin/restic --repo ${lib.escapeShellArg repo} \
+            --password-file ${resticPassword} check
+        '';
+        unitConfig.OnFailure = "restic-check-failed-${name}.service";
+        serviceConfig.Type = "oneshot";
+      };
+      "restic-check-failed-${name}" = {
+        description = "Notify restic check failure: ${name}";
+        script = desktopNotify "Backup Check Failed" "Restic check [${name}] failed. Run: restic -r ${repo} check";
+        serviceConfig.Type = "oneshot";
+      };
+    })
+    repos
+  );
+
+  systemd.timers = lib.mapAttrs' (name: _:
+    lib.nameValuePair "restic-check-${name}" {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnCalendar = "weekly";
+        RandomizedDelaySec = "2h";
+        Persistent = true;
+      };
+    })
+  repos;
 }
