@@ -1,5 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
-    (callPackage ../../../../../../pkgs/registry-spy/default.nix {})
+    (callPackage (inputs.self + "/pkgs/registry-spy/default.nix") {})
   ];
 }

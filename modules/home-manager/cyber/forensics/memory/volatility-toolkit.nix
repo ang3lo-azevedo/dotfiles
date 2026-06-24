@@ -1,5 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
-    (callPackage ../../../../../pkgs/volatility-toolkit/default.nix {})
+    (callPackage (inputs.self + "/pkgs/volatility-toolkit/default.nix") {})
   ];
 }
