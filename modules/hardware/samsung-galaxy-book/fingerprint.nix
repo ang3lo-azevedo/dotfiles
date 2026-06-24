@@ -15,7 +15,7 @@
   };
 
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       libfprint = prev.libfprint.overrideAttrs (old: {
         src = inputs.libfprint-src;
 

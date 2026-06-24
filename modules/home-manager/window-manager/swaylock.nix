@@ -1,6 +1,4 @@
-let
-  swaylockDir = ../../../home/ang3lo/.config/swaylock;
-in {
+{
   programs.swaylock.enable = true;
 
   /*

@@ -1,5 +1,6 @@
 - [ ] Add way to dismiss the mpris
 - [ ] Improve waybar dismiss movements
+- [ ] See about calendar notification times
 - [ ] Add secure boot to system
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
