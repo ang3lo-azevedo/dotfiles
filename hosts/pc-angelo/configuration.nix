@@ -61,6 +61,9 @@ in
   age.secrets.restic_password = userSecretConfig // {
     file = ../../secrets/restic_password.age;
   };
+  age.secrets.nextcloud_caldav = userSecretConfig // {
+    file = ../../secrets/nextcloud_caldav.age;
+  };
 
   nix.extraOptions = ''
     !include ${config.age.secrets.nix_access_tokens.path}

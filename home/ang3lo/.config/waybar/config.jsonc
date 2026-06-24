@@ -56,9 +56,12 @@
 
     "custom/waybar-scrolling-mpris": {
         "return-type": "json",
-        "exec": "ScrollMPRIS --scroll wrapping",
+        "exec": "~/.config/waybar/scripts/waybar-mpris-wrapper.sh",
         "escape": true,
-        "on-click": "playerctl play-pause"
+        "on-click": "playerctl play-pause",
+        "on-click-right": "touch /tmp/waybar-mpris-dismiss",
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "custom/wlsunset":{
