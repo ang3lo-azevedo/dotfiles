@@ -11,8 +11,7 @@
         "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
-        "custom/calendar",
-        "clock"
+        "custom/clock-calendar"
     ],
     "modules-right": [
         "tray",
@@ -25,31 +24,10 @@
         "custom/notification"
     ],
 
-    "custom/calendar": {
-        "exec": "~/.config/waybar/scripts/waybar-khal.sh",
+    "custom/clock-calendar": {
+        "exec": "~/.config/waybar/scripts/waybar-clock-calendar.sh",
         "return-type": "json",
-        "interval": 60,
         "on-click": "ghostty -e khal interactive",
-        "on-scroll-up": "swaync-client -cp",
-        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
-    },
-
-    "clock": {
-        "format": "{:%d.%m %H:%M:%S}",
-        "interval": 1,
-        "locale": "en_US.UTF-8",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode": "month",
-            "weeks-pos": "right",
-            "on-click-right": "mode",
-            "format": {
-                "months": "<span color='#ffead3'><b>{}</b></span>",
-                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-                "days": "<span color='#cccccc'>{}</span>",
-                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
-            }
-        },
         "on-scroll-up": "swaync-client -cp",
         "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
