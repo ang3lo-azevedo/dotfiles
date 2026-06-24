@@ -1,7 +1,6 @@
 {
   lib,
   python2Packages,
-  makeWrapper,
   callPackage,
 }: let
   sources = callPackage ../_sources/generated.nix {};

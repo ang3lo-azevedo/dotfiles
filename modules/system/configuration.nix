@@ -38,9 +38,17 @@
   };
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "pt";
-    variant = "";
+  services = {
+    xserver.xkb = {
+      layout = "pt";
+      variant = "";
+    };
+
+    # Enable PCSC daemon for smart card readers
+    pcscd.enable = true;
+
+    # Enable the OpenSSH daemon.
+    openssh.enable = true;
   };
 
   # Configure console keymap and font for HiDPI screens (makes LUKS prompt readable)
@@ -63,37 +71,36 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with 'passwd'.
-  users.users.ang3lo = {
-    isNormalUser = true;
-    description = "ang3lo";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "dialout"
-      "i2c"
-      "video"
-      "render"
-      "input"
-    ]; # Enable ‘sudo’ for the user.
-    hashedPasswordFile = config.age.secrets.user_password.path;
-    #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
+  users = {
+    mutableUsers = false;
+    users = {
+      ang3lo = {
+        isNormalUser = true;
+        description = "ang3lo";
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "dialout"
+          "i2c"
+          "video"
+          "render"
+          "input"
+        ]; # Enable ‘sudo’ for the user.
+        hashedPasswordFile = config.age.secrets.user_password.path;
+        #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
+      };
+      root = {
+        hashedPasswordFile = config.age.secrets.root_password.path;
+        #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
+      };
+    };
   };
-
-  # Set root password
-  users.users.root.hashedPasswordFile = config.age.secrets.root_password.path;
-  #users.users.root.initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
-
-  # Forbid changing user settings outside of NixOS configuration.
-  users.mutableUsers = false;
 
   # Enable firmware loading for all devices
   hardware.enableAllFirmware = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # Enable PCSC daemon for smart card readers
-  services.pcscd.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -128,9 +135,6 @@
 
   # Enable Polkit
   security.polkit.enable = true;
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

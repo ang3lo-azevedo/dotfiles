@@ -193,8 +193,8 @@ case $SELECTION in
 		TOOLS_SELECTION="$(printf "\uf1de Change Nix Config\n\uf021 Restart Components\n%s" "$CURRENT_IDLE_STATUS" | fuzzel --dmenu -l 3 -p "> ")"
 		case $TOOLS_SELECTION in
 			*"Change Nix Config"*)
-				# Open Nix config in VS Code
-				code ~/nix-config
+				# Open Nix config in default editor
+				${EDITOR} ~/nix-config
 				;;
 			*"Restart Components"*)
 				# Show component restart submenu

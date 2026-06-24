@@ -7,7 +7,7 @@
   # Filter out .vscode directory from mpv-config source
   filteredMpvConfig = lib.cleanSourceWith {
     src = mpv-config;
-    filter = path: type: let
+    filter = path: _: let
       name = baseNameOf (toString path);
     in
       name != ".vscode" && name != ".git" && name != ".gitignore";

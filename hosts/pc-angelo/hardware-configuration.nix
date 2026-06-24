@@ -9,24 +9,28 @@
     ../../modules/hardware
   ];
 
-  # Bootloader kernel modules
-  boot.initrd.availableKernelModules = [
-    "virtio_pci"
-    "virtio_blk"
-    "virtio_scsi"
-    "ata_piix"
-    "uhci_hcd"
-  ];
+  boot = {
+    initrd = {
+      # Bootloader kernel modules
+      availableKernelModules = [
+        "virtio_pci"
+        "virtio_blk"
+        "virtio_scsi"
+        "ata_piix"
+        "uhci_hcd"
+      ];
 
-  # Enable Xen PV drivers in the initrd
-  boot.initrd.kernelModules = ["xe"];
+      # Enable Xen PV drivers in the initrd
+      kernelModules = ["xe"];
 
-  # Add kernel parameter to force Xen to probe all devices
-  boot.kernelParams = ["xe.force_probe=*"];
+      # Required for Btrfs on LVM on LUKS
+      # Also add NTFS support
+      supportedFilesystems = ["btrfs" "ntfs3"];
+    };
 
-  # Required for Btrfs on LVM on LUKS
-  # Also add NTFS support
-  boot.initrd.supportedFilesystems = ["btrfs" "ntfs3"];
+    # Add kernel parameter to force Xen to probe all devices
+    kernelParams = ["xe.force_probe=*"];
+  };
 
   # Enable graphics drivers for Intel integrated GPU
   hardware.graphics = {
