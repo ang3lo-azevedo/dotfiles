@@ -12,9 +12,11 @@
     };
 
     # nixpkgs master
-    /* nixpkgs-master = {
+    /*
+       nixpkgs-master = {
       url = "github:nixos/nixpkgs";
-    }; */
+    };
+    */
 
     # nixpkgs-xr
     nixpkgs-xr = {
@@ -25,7 +27,7 @@
     dmatools = {
       url = "github:tie-infra/dmatools";
     };
-    
+
     # Input for Disko (disk partitioning tool)
     disko = {
       url = "github:nix-community/disko";
@@ -96,7 +98,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
-      }; 
+      };
     };
 
     # Berberman's flakes (for apple-emoji)
@@ -223,6 +225,12 @@
       url = "github:amaanq/nirinit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Pre-commit hooks for Nix
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # These are the flake-level binary caches.
@@ -247,7 +255,7 @@
 
       # Berberman cache (apple-emoji, fcitx5 themes, nvfetcher)
       "https://berberman.cachix.org"
-      
+
       # Cache for nix-gaming-edge (TODO: Re-enable when it is fixed)
       #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
@@ -266,204 +274,217 @@
   };
 
   # The outputs of the flake
-  outputs =
-    {
-      self,
-      nixpkgs,
-      disko,
-      agenix,
-      home-manager,
-      haumea,
-      stylix,
-      nix-cachyos-kernel,
-      proxmox-nixos,
-      zen-browser,
-      nix-vscode-extensions,
-      spicetify-nix,
-      mpv-config,
-      trakt-scrobbler-src,
-      photogimp,
-      nixpkgs-xr,
-      steam-config-nix,
-      nix-gaming,
-      dmatools,
-      chaotic,
-      nirinit,
-      ...
-    }@inputs:
-    let
-      lib = nixpkgs.lib;
+  outputs = {
+    self,
+    nixpkgs,
+    disko,
+    agenix,
+    home-manager,
+    stylix,
+    nix-cachyos-kernel,
+    proxmox-nixos,
+    zen-browser,
+    nix-vscode-extensions,
+    spicetify-nix,
+    mpv-config,
+    trakt-scrobbler-src,
+    chaotic,
+    pre-commit-hooks,
+    ...
+  } @ inputs: let
+    inherit (nixpkgs) lib;
 
-      # Helper function to generate a NixOS system configuration
-      mkNixosSystem =
-        {
-          system,
-          modules,
-          specialArgs,
-        }:
-        nixpkgs.lib.nixosSystem {
-          inherit system modules specialArgs;
-        };
+    # Helper function to generate a NixOS system configuration
+    mkNixosSystem = {
+      system,
+      modules,
+      specialArgs,
+    }:
+      nixpkgs.lib.nixosSystem {
+        inherit system modules specialArgs;
+      };
 
-      # Helper function to generate a reusable host configuration
-      mkHostConfig =
-        {
-          stdenv,
-          hostname,
-          modules ? [ ],
-        }:
-        {
-          system = stdenv.hostPlatform.system;
-          specialArgs = { inherit inputs; };
-          modules = [
-            { networking.hostName = hostname; nixpkgs.config.allowUnsupportedSystem = true; }
-          ]
-          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (
-            import ./hosts/${hostname}/disko.nix
-          ))
-          ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
-          ++ [
-            ./hosts/${hostname}/configuration.nix
-
-            # Agenix for secrets management
-            agenix.nixosModules.default
-          ]
-          ++ modules;
-        };
-
-      # Configuration for pc-angelo
-      pc-angelo-config = mkHostConfig {
-        stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
-        hostname = "pc-angelo";
-        modules = [
-          # Home Manager
-          home-manager.nixosModules.home-manager
+    # Helper function to generate a reusable host configuration
+    mkHostConfig = {
+      stdenv,
+      hostname,
+      modules ? [],
+    }: {
+      system = stdenv.hostPlatform.system;
+      specialArgs = {inherit inputs;};
+      modules =
+        [
           {
-            home-manager.useGlobalPkgs = false;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "hm-backup";
-            home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-            home-manager.extraSpecialArgs = {
-              inherit
-                inputs
-                zen-browser
-                nix-vscode-extensions
-                spicetify-nix
-                mpv-config
-                trakt-scrobbler-src
-                ;
-            };
+            networking.hostName = hostname;
+            nixpkgs.config.allowUnsupportedSystem = true;
           }
+        ]
+        ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) (
+          import ./hosts/${hostname}/disko.nix
+        ))
+        ++ (lib.optional (builtins.pathExists ./hosts/${hostname}/disko.nix) disko.nixosModules.disko)
+        ++ [
+          ./hosts/${hostname}/configuration.nix
 
-          {
-            # Alternatively: use the exact kernel versions as defined in this repo.
-            # Guarantees you have binary cache.
-            nixpkgs.overlays = [
-              nix-cachyos-kernel.overlays.pinned
-              (import ./overlays/python-packages.nix)
-            ];
-          }
+          # Agenix for secrets management
+          agenix.nixosModules.default
+        ]
+        ++ modules;
+    };
 
-          # Stylix overlay
-          stylix.nixosModules.stylix
+    # Configuration for pc-angelo
+    pc-angelo-config = mkHostConfig {
+      stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
+      hostname = "pc-angelo";
+      modules = [
+        # Home Manager
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = false;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "hm-backup";
+          home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
+          home-manager.extraSpecialArgs = {
+            inherit
+              inputs
+              zen-browser
+              nix-vscode-extensions
+              spicetify-nix
+              mpv-config
+              trakt-scrobbler-src
+              ;
+          };
+        }
 
-          # Chaotic Nyx (provides nordvpn and other packages)
-          chaotic.nixosModules.default
-        ];
+        {
+          # Alternatively: use the exact kernel versions as defined in this repo.
+          # Guarantees you have binary cache.
+          nixpkgs.overlays = [
+            nix-cachyos-kernel.overlays.pinned
+            (import ./overlays/python-packages.nix)
+          ];
+        }
+
+        # Stylix overlay
+        stylix.nixosModules.stylix
+
+        # Chaotic Nyx (provides nordvpn and other packages)
+        chaotic.nixosModules.default
+      ];
+    };
+
+    # Reusable server-angelo configuration
+    server-angelo-config = mkHostConfig {
+      stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
+      hostname = "server-angelo";
+      modules = [
+        proxmox-nixos.nixosModules.proxmox-ve
+        {
+          nixpkgs.overlays = [
+            proxmox-nixos.overlays.x86_64-linux
+          ];
+        }
+      ];
+    };
+  in {
+    # NixOS configuration for pc-angelo
+    nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
+
+    # NixOS configuration for server-angelo
+    nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
+
+    # Standalone Home Manager configuration
+    homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = {
+        inherit
+          inputs
+          zen-browser
+          nix-vscode-extensions
+          spicetify-nix
+          mpv-config
+          trakt-scrobbler-src
+          ;
       };
+      modules = [
+        ./home/ang3lo/home.nix
+      ];
+    };
 
-      # Reusable server-angelo configuration
-      server-angelo-config = mkHostConfig {
-        stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
-        hostname = "server-angelo";
-        modules = [
-          proxmox-nixos.nixosModules.proxmox-ve
-          {
-            nixpkgs.overlays = [
-              proxmox-nixos.overlays.x86_64-linux
-            ];
-          }
-        ];
-      };
-    in
-    {
-      # NixOS configuration for pc-angelo
-      nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
+    # Expose the local `angr-management` package so flakes can reference it
+    packages.x86_64-linux.angr-management = import ./pkgs/angr-management/default.nix {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit (nixpkgs) lib;
+      src = inputs.angr-management;
+    };
 
-      # NixOS configuration for server-angelo
-      nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
+    # Expose the local `archi` package so flakes can reference it
+    packages.x86_64-linux.archi = import ./pkgs/archi/default.nix {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit inputs;
+    };
 
-      # Standalone Home Manager configuration
-      homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit
-            inputs
-            zen-browser
-            nix-vscode-extensions
-            spicetify-nix
-            mpv-config
-            trakt-scrobbler-src
-            ;
+    # Expose the local `nuvio-desktop` package so flakes can reference it
+    packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit (nixpkgs) lib;
+    };
+
+    # Expose the local `registry-spy` package so flakes can reference it
+    packages.x86_64-linux.registry-spy = import ./pkgs/registry-spy/default.nix {
+      inherit (nixpkgs) lib;
+      fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
+      python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
+    };
+
+    # Expose the local `dnspy` package so flakes can reference it
+    # Expose the local `rem` package so flakes can reference it
+    packages.x86_64-linux.rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix {};
+
+    packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix {};
+
+    # Expose the local `ctfd-parser` package so flakes can reference it
+    packages.x86_64-linux.ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix {};
+
+    # Expose the local `ese-database-view` package so flakes can reference it
+    packages.x86_64-linux.ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix {};
+
+    # Expose the local `libesedb` package so flakes can reference it
+    packages.x86_64-linux.libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix {};
+
+    # Expose the local `libfsntfs` package so flakes can reference it
+    packages.x86_64-linux.libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
+
+    # Expose the local `sidr` package so flakes can reference it
+    packages.x86_64-linux.sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
+
+    # Expose the local `scrollmpris` package so flakes can reference it
+    packages.x86_64-linux.scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
+
+    # Pre-commit checks
+    checks.x86_64-linux = {
+      pre-commit-check = pre-commit-hooks.lib.x86_64-linux.run {
+        src = ./.;
+        hooks = {
+          # Format Nix code
+          alejandra.enable = true;
+          # Check for missing or unused variables
+          #deadnix.enable = true;
+          # Catch Nix syntax errors and anti-patterns
+          #statix.enable = true;
         };
-        modules = [
-          ./home/ang3lo/home.nix
-        ];
       };
+    };
 
-      # Expose the local `angr-management` package so flakes can reference it
-      packages.x86_64-linux.angr-management = import ./pkgs/angr-management/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        lib = nixpkgs.lib;
-        src = inputs.angr-management;
+    # Development shells
+    devShells.x86_64-linux = {
+      default = nixpkgs.legacyPackages.x86_64-linux.mkShell {
+        inherit (self.checks.x86_64-linux.pre-commit-check) shellHook;
+        buildInputs = self.checks.x86_64-linux.pre-commit-check.enabledPackages;
       };
-
-      # Expose the local `archi` package so flakes can reference it
-      packages.x86_64-linux.archi = import ./pkgs/archi/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        inputs = inputs;
-      };
-
-      # Expose the local `nuvio-desktop` package so flakes can reference it
-      packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        lib = nixpkgs.lib;
-      };
-
-      # Expose the local `registry-spy` package so flakes can reference it
-      packages.x86_64-linux.registry-spy = import ./pkgs/registry-spy/default.nix {
-        lib = nixpkgs.lib;
-        fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
-        python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
-      };
-
-      # Expose the local `dnspy` package so flakes can reference it
-      # Expose the local `rem` package so flakes can reference it
-      packages.x86_64-linux.rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix { };
-
-      packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix { };
-
-      # Expose the local `ctfd-parser` package so flakes can reference it
-      packages.x86_64-linux.ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix { };
-
-      # Expose the local `ese-database-view` package so flakes can reference it
-      packages.x86_64-linux.ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix { };
-
-      # Expose the local `libesedb` package so flakes can reference it
-      packages.x86_64-linux.libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix { };
-
-      # Expose the local `libfsntfs` package so flakes can reference it
-      packages.x86_64-linux.libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix { };
-
-      # Expose the local `sidr` package so flakes can reference it
-      packages.x86_64-linux.sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix { };
-
-      # Expose the local `scrollmpris` package so flakes can reference it
-      packages.x86_64-linux.scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix { };
-
-      # Development shells
-      devShells.x86_64-linux.android = import ./shells/android.nix {
+      android = import ./shells/android.nix {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
       };
     };
+  };
 }

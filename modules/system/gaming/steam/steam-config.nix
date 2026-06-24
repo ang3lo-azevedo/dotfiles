@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Enable Steam at the system level
   programs.steam = {
     enable = true;
@@ -23,4 +22,3 @@
     proton-ge-bin
   ];
 }
-

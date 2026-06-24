@@ -1,6 +1,5 @@
 # Shared extension definitions for VSCode and Cursor
 # This file defines the extension IDs that both editors will use
-
 {
   # List of extension IDs in format: "publisher.extension-name"
   extensionIds = [
@@ -188,4 +187,3 @@
     "tomoki1207.pdf"
   ];
 }
-

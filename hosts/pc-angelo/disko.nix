@@ -3,11 +3,10 @@ let
   #ramSize = 2; # TODO: Change this to actual 32 after testing
   ramSize = 32; # In GB
   device = "/dev/nvme0n1";
-in
-{
+in {
   disko.devices = {
     disk.main = {
-      device = device;
+      inherit device;
       type = "disk";
       content = {
         type = "gpt";
@@ -79,14 +78,16 @@ in
       };
     };
 
-    /* nodev."/" = {
+    /*
+       nodev."/" = {
       fsType = "tmpfs";
       mountOptions = [
         "defaults"
         "size=2G"
         "mode=755"
       ];
-    }; */
+    };
+    */
 
     # LVM Volume Group and Logical Volumes
     lvm_vg.pool = {
@@ -102,7 +103,7 @@ in
           size = "100%FREE";
           content = {
             type = "btrfs";
-            extraArgs = [ "-f" ];
+            extraArgs = ["-f"];
             subvolumes = {
               #"/persist" = {
               "/root" = {
@@ -115,7 +116,7 @@ in
               };
               "/home" = {
                 mountpoint = "/home";
-                mountOptions = [ "compress=zstd" ];
+                mountOptions = ["compress=zstd"];
               };
               "/nix" = {
                 mountpoint = "/nix";

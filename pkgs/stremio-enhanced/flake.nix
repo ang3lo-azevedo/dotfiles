@@ -6,13 +6,16 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
         pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        packages.stremio-enhanced = pkgs.callPackage ./default.nix { };
+      in {
+        packages.stremio-enhanced = pkgs.callPackage ./default.nix {};
         packages.default = self.packages.${system}.stremio-enhanced;
 
         devShells.default = pkgs.mkShell {

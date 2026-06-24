@@ -1,13 +1,16 @@
-{ pkgs, lib, config, ... }:
-let
-  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
-in
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
+in {
   services.swaync.enable = true;
   stylix.targets.swaync.enable = false;
 
-  xdg.configFile."swaync/config.json" = lib.mkForce { source = mkSymlink "swaync/config.json"; };
-  xdg.configFile."swaync/style.css" = lib.mkForce { source = mkSymlink "swaync/style.css"; };
+  xdg.configFile."swaync/config.json" = lib.mkForce {source = mkSymlink "swaync/config.json";};
+  xdg.configFile."swaync/style.css" = lib.mkForce {source = mkSymlink "swaync/style.css";};
 
   systemd.user.paths.swaync-config = {
     Unit.Description = "Watch SwayNC configuration for changes";
@@ -16,7 +19,7 @@ in
       "/home/ang3lo/nix-config/home/ang3lo/.config/swaync/style.css"
     ];
     Path.Unit = "swaync-reload.service";
-    Install.WantedBy = [ "swaync.service" ];
+    Install.WantedBy = ["swaync.service"];
   };
 
   systemd.user.services.swaync-reload = {

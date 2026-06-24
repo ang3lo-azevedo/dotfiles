@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./audio.nix
     ./fingerprint.nix

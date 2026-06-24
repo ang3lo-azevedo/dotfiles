@@ -1,8 +1,10 @@
-{ pkgs, inputs, ... }:
-let
-  appleColorEmojiPackage = inputs.berberman.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji;
-in
 {
+  pkgs,
+  inputs,
+  ...
+}: let
+  appleColorEmojiPackage = inputs.berberman.packages.${pkgs.stdenv.hostPlatform.system}.apple-emoji;
+in {
   stylix = {
     enable = true;
 

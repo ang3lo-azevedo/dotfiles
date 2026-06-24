@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   wlxoverlayDir = ../../../../home/ang3lo/.config/wayvr;
-in
-{
+in {
   home.packages = with pkgs; [
     xr.wayvr
   ];

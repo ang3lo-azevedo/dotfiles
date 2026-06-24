@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    (callPackage ../../../../../pkgs/evolve/default.nix { })
+    (callPackage ../../../../../pkgs/evolve/default.nix {})
   ];
 }
-

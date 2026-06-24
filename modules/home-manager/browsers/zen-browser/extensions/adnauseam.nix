@@ -1,7 +1,10 @@
-{ pkgs, profileName, ... }:
 {
+  pkgs,
+  profileName,
+  ...
+}: {
   programs.zen-browser.profiles.${profileName}.extensions = {
-    packages = [ pkgs.firefoxAddons.adnauseam ];
+    packages = [pkgs.firefoxAddons.adnauseam];
     settings = {
       "adnauseam@rednoise.org".settings = {
         adminSettings = {

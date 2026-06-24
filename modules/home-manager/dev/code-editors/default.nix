@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     # ./vscode
     ./antigravity
@@ -18,7 +17,7 @@
       #!${pkgs.bash}/bin/bash
       # Wrapper script to launch zsh without the "no new privileges" flag
       # Uses systemd-run to create a new process scope
-      
+
       if command -v systemd-run >/dev/null 2>&1; then
         # Use systemd-run to launch in a new scope (bypasses no new privileges flag)
         exec systemd-run --user --scope --quiet ${pkgs.zsh}/bin/zsh "$@"

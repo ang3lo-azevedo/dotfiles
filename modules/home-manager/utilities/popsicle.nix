@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-  home.packages = [ 
+{pkgs, ...}: {
+  home.packages = [
     pkgs.popsicle
   ];
 }

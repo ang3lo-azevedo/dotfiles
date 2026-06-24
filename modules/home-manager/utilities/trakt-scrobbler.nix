@@ -1,12 +1,10 @@
-{ pkgs, ... }:
-
-{
-  home.packages = [ pkgs.trakt-scrobbler ];
+{pkgs, ...}: {
+  home.packages = [pkgs.trakt-scrobbler];
 
   systemd.user.services.trakt-scrobbler = {
     Unit = {
       Description = "Trakt Scrobbler Service";
-      After = [ "network.target" ];
+      After = ["network.target"];
     };
 
     Service = {
@@ -15,7 +13,7 @@
     };
 
     Install = {
-      WantedBy = [ "default.target" ];
+      WantedBy = ["default.target"];
     };
   };
 }

@@ -1,13 +1,14 @@
-{ pkgs, config, ... }:
-
-let
+{
+  pkgs,
+  config,
+  ...
+}: let
   userSecretConfig = {
     owner = "ang3lo";
     group = "users";
     mode = "0440";
   };
-in
-{
+in {
   imports = [
     ./hardware-configuration.nix
     ../../modules/system
@@ -36,34 +37,46 @@ in
   services.usbmuxd.enable = true;
 
   # Identify the SSH host key to be used with Agenix
-  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
   # Provision secrets with Agenix
   age.secrets.user_password.file = ../../secrets/user_password.age;
   age.secrets.root_password.file = ../../secrets/root_password.age;
 
-  age.secrets.nvchecker_keyfile = userSecretConfig // {
-    file = ../../secrets/nvchecker-keyfile.age;
-  };
+  age.secrets.nvchecker_keyfile =
+    userSecretConfig
+    // {
+      file = ../../secrets/nvchecker-keyfile.age;
+    };
 
-  age.secrets.nix_access_tokens = userSecretConfig // {
-    file = ../../secrets/nix-access-tokens.age;
-  };
+  age.secrets.nix_access_tokens =
+    userSecretConfig
+    // {
+      file = ../../secrets/nix-access-tokens.age;
+    };
 
-  age.secrets.git_config = userSecretConfig // {
-    file = ../../secrets/git_config.age;
-  };
+  age.secrets.git_config =
+    userSecretConfig
+    // {
+      file = ../../secrets/git_config.age;
+    };
 
   # Backup secrets
-  age.secrets.rclone-conf = userSecretConfig // {
-    file = ../../secrets/rclone.conf.age;
-  };
-  age.secrets.restic_password = userSecretConfig // {
-    file = ../../secrets/restic_password.age;
-  };
-  age.secrets.nextcloud_caldav = userSecretConfig // {
-    file = ../../secrets/nextcloud_caldav.age;
-  };
+  age.secrets.rclone-conf =
+    userSecretConfig
+    // {
+      file = ../../secrets/rclone.conf.age;
+    };
+  age.secrets.restic_password =
+    userSecretConfig
+    // {
+      file = ../../secrets/restic_password.age;
+    };
+  age.secrets.nextcloud_caldav =
+    userSecretConfig
+    // {
+      file = ../../secrets/nextcloud_caldav.age;
+    };
 
   nix.extraOptions = ''
     !include ${config.age.secrets.nix_access_tokens.path}

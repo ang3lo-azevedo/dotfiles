@@ -1,8 +1,10 @@
-{ pkgs, config, ... }:
-let
-  niriConfig = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/niri";
-in
 {
+  pkgs,
+  config,
+  ...
+}: let
+  niriConfig = config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/niri";
+in {
   xdg.configFile."niri" = {
     source = niriConfig;
   };
@@ -11,7 +13,7 @@ in
     niri
     xwayland-satellite
   ];
-  
+
   # Switch from `Install.WantedBy = [ "graphical-session.target" ]` as defined
   # in the service file provided by the xwayland-satellite package. This links
   # xwayland-satellite to niri specifically, and schedules it so that there is
