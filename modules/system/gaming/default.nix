@@ -2,6 +2,7 @@
   imports = [
     ./steam
     ./gamemode.nix
+    ./openrgb.nix
     ./vr
     inputs.steam-config-nix.nixosModules.default
     inputs.nix-gaming.nixosModules.pipewireLowLatency
