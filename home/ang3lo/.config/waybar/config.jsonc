@@ -3,14 +3,15 @@
     "position": "top",
     "height": 24,
     "spacing": 5,
-    "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-    "on-scroll-down": "swaync-client -cp",
+    "on-scroll-up": "swaync-client -cp",
+    "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service",
 
     "modules-left": [
         "privacy",
         "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
+        "custom/calendar",
         "clock"
     ],
     "modules-right": [
@@ -23,6 +24,15 @@
         "battery",
         "custom/notification"
     ],
+
+    "custom/calendar": {
+        "exec": "~/.config/waybar/scripts/waybar-khal.sh",
+        "return-type": "json",
+        "interval": 60,
+        "on-click": "ghostty -e khal interactive",
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
+    },
 
     "clock": {
         "format": "{:%d.%m %H:%M:%S}",
@@ -40,8 +50,8 @@
                 "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
             }
         },
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "custom/waybar-scrolling-mpris": {
@@ -63,8 +73,8 @@
             "off": "\uf185",
             "on": "\uf186"
         },
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "backlight": {
@@ -94,8 +104,8 @@
             "warning": 30,
             "critical": 15
         },
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "network": {
@@ -108,8 +118,8 @@
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "iwmenu -l fuzzel",
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "bluetooth": {
@@ -122,8 +132,8 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "custom/auto-cpufreq": {
@@ -132,8 +142,8 @@
         "exec": "~/.config/waybar/scripts/auto-cpufreq.sh",
         "interval": 5,
         "on-click": "~/.config/waybar/scripts/auto-cpufreq-toggle.sh",
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "privacy": {
@@ -159,14 +169,14 @@
                 "name": "obs"
             }
         ],
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "tray": {
         "spacing": 16,
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
     },
 
     "custom/notification": {
@@ -183,8 +193,8 @@
         "exec": "swaync-client -swb",
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "swaync-client -cp",
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service",
         "escape": true
     }
 }
