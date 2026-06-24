@@ -1,26 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{...}: {
   imports = [
     ./reduce-disk-usage.nix
     ./auto-upgrade.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Set your time zone.
   time.timeZone = "Europe/Lisbon";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -37,132 +22,23 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
-  # Configure keymap in X11
-  services = {
-    xserver.xkb = {
-      layout = "pt";
-      variant = "";
-    };
-
-    # Enable PCSC daemon for smart card readers
-    pcscd.enable = true;
-
-    # Enable the OpenSSH daemon.
-    openssh.enable = true;
-  };
-
-  # Configure console keymap and font for HiDPI screens (makes LUKS prompt readable)
-  console = {
-    keyMap = "pt-latin1";
-    earlySetup = true;
-    font = "ter-v32n";
-    packages = with pkgs; [terminus_font];
-  };
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with 'passwd'.
-  users = {
-    mutableUsers = false;
-    users = {
-      ang3lo = {
-        isNormalUser = true;
-        description = "ang3lo";
-        extraGroups = [
-          "wheel"
-          "networkmanager"
-          "dialout"
-          "i2c"
-          "video"
-          "render"
-          "input"
-        ]; # Enable ‘sudo’ for the user.
-        hashedPasswordFile = config.age.secrets.user_password.path;
-        #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
-      };
-      root = {
-        hashedPasswordFile = config.age.secrets.root_password.path;
-        #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
-      };
-    };
-  };
-
-  # Enable firmware loading for all devices
-  hardware.enableAllFirmware = true;
+  services.openssh.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  #environment.systemPackages = with pkgs; [
-  #
-  #];
 
   nix.settings = {
     experimental-features = [
       "nix-command"
       "flakes"
     ];
-    # Allow non-root users to use Nix
     trusted-users = [
       "root"
       "ang3lo"
     ];
   };
 
-  # Allow dynamically linked, non-Nix binaries (e.g. IntelliJ Copilot agent) to run.
-  programs.nix-ld.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable Polkit
-  security.polkit.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "26.05"; # Did you read the comment?
+  # This value defines the first NixOS version this machine was installed on.
+  # Do NOT change it after the initial install.
+  system.stateVersion = "26.05";
 }

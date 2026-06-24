@@ -7,9 +7,11 @@
     };
 
     # Latest stable branch of nixpkgs, used for version rollback
+    /*
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
+    */
 
     # nixpkgs master
     /*
@@ -231,6 +233,12 @@
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Lanzaboote for Secure Boot support
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # These are the flake-level binary caches.
@@ -256,6 +264,9 @@
       # Berberman cache (apple-emoji, fcitx5 themes, nvfetcher)
       "https://berberman.cachix.org"
 
+      # Cache for nix-gaming packages (wine, lutris, etc.)
+      "https://nix-gaming.cachix.org"
+
       # Cache for nix-gaming-edge (TODO: Re-enable when it is fixed)
       #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
@@ -265,6 +276,7 @@
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
     # Allow evaluation of packages that are not available for the detected host
@@ -281,6 +293,7 @@
     agenix,
     home-manager,
     stylix,
+    lanzaboote,
     nix-cachyos-kernel,
     proxmox-nixos,
     zen-browser,
@@ -370,6 +383,9 @@
         # Stylix overlay
         stylix.nixosModules.stylix
 
+        # Lanzaboote for Secure Boot
+        lanzaboote.nixosModules.lanzaboote
+
         # Chaotic Nyx (provides nordvpn and other packages)
         chaotic.nixosModules.default
       ];
@@ -455,7 +471,10 @@
         src = ./.;
         hooks = {
           # Format Nix code
-          alejandra.enable = true;
+          alejandra = {
+            enable = true;
+            excludes = [".*generated\\.nix$"];
+          };
           # Check for missing or unused variables
           deadnix = {
             enable = true;

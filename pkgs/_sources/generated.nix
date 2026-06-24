@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   angr-management = {
     pname = "angr-management";
     version = "v9.2.222";
@@ -91,7 +92,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sparseCheckout = [];
+      sparseCheckout = [ ];
       sha256 = "sha256-VQVm229rNHKKb8ZISuOLzhxJLTkaJdGb65/nH1MPaPo=";
     };
     date = "2026-06-23";
@@ -105,7 +106,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sparseCheckout = [];
+      sparseCheckout = [ ];
       sha256 = "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=";
     };
     date = "2026-06-21";
