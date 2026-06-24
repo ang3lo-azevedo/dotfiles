@@ -14,7 +14,7 @@ in {
 
   home.packages = with pkgs; [
     playerctl
-    inputs.self.packages.${pkgs.system}.scrollmpris
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.scrollmpris
   ];
 
   stylix.targets.waybar.enable = false;

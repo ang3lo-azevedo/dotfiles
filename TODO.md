@@ -3,6 +3,7 @@
 - [ ] Add impermanence
 - [ ] Fix webcam
 - [ ] See about calendar notification times
+- [ ] Add Home Assistant Controls to the waybar
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
@@ -12,7 +13,6 @@
 - [ ] Configure server
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Add the missing fn keys
-- [ ] Add Home Assistant Controls to the waybar
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Fix Zen extension settings
