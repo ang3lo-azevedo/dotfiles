@@ -59,12 +59,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Haumea for filesystem-based module system
-    haumea = {
-      url = "github:nix-community/haumea";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Input for Impermanence
     impermanence = {
       url = "github:nix-community/impermanence";
@@ -460,10 +454,8 @@
       libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix {};
       libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
       sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
+      scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
     };
-
-    # Expose the local `scrollmpris` package so flakes can reference it
-    packages.x86_64-linux.scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
 
     # Pre-commit checks
     checks.x86_64-linux = {

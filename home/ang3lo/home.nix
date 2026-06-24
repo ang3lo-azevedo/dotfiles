@@ -22,7 +22,7 @@ in {
   imports = [
     inputs.stylix.homeModules.stylix
     inputs.binaryninja.hmModules.binaryninja
-    ../../modules/home-manager
+    "${inputs.self}/modules/home-manager"
   ];
 
   programs.home-manager.enable = true;
@@ -36,15 +36,15 @@ in {
       ];
     };
     overlays = [
-      (import ../../overlays/python-packages.nix)
+      (import (inputs.self + "/overlays/python-packages.nix"))
       inputs.firefox-addons.overlays.default
       inputs.nix-vscode-extensions.overlays.default
 
       (_: prev: {
-        angr-management = prev.callPackage ../../pkgs/angr-management/default.nix {
+        angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
           src = inputs.angr-management;
         };
-        archi = prev.callPackage ../../pkgs/archi/default.nix {
+        archi = prev.callPackage (inputs.self + "/pkgs/archi/default.nix") {
           inherit inputs;
         };
       })
@@ -70,14 +70,14 @@ in {
         # For QRookie
         glaumar_repo = inputs.glaumar_repo.packages."${system}";
 
-        trakt-scrobbler = prev.callPackage ../../pkgs/trakt-scrobbler/default.nix {};
-        cursor-id-modifier = prev.callPackage ../../pkgs/cursor-id-modifier/default.nix {};
-        stremio-enhanced = prev.callPackage ../../pkgs/stremio-enhanced/default.nix {};
-        ctfd-parser = prev.callPackage ../../pkgs/ctfd-parser/default.nix {};
-        ese-database-view = prev.callPackage ../../pkgs/ese-database-view/default.nix {};
-        libesedb = prev.callPackage ../../pkgs/libesedb/default.nix {};
-        libfsntfs = prev.callPackage ../../pkgs/libfsntfs/default.nix {};
-        sidr = prev.callPackage ../../pkgs/sidr/default.nix {};
+        trakt-scrobbler = prev.callPackage (inputs.self + "/pkgs/trakt-scrobbler/default.nix") {};
+        cursor-id-modifier = prev.callPackage (inputs.self + "/pkgs/cursor-id-modifier/default.nix") {};
+        stremio-enhanced = prev.callPackage (inputs.self + "/pkgs/stremio-enhanced/default.nix") {};
+        ctfd-parser = prev.callPackage (inputs.self + "/pkgs/ctfd-parser/default.nix") {};
+        ese-database-view = prev.callPackage (inputs.self + "/pkgs/ese-database-view/default.nix") {};
+        libesedb = prev.callPackage (inputs.self + "/pkgs/libesedb/default.nix") {};
+        libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
+        sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
       })
     ];
   };

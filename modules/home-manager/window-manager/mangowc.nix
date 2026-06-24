@@ -2,10 +2,11 @@
   mango,
   pkgs,
   lib,
+  inputs,
   ...
 }: let
   # Path (relative to this file) to the repo directory containing mango configs
-  mangoDir = ../../../home/ang3lo/.config/mango;
+  mangoDir = inputs.self + "/home/ang3lo/.config/mango";
 in {
   imports = [
     mango.hmModules.mango

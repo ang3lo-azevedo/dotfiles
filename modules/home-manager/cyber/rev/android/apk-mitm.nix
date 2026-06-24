@@ -1,5 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
-    (callPackage ../../../../../pkgs/apk-mitm/default.nix {})
+    (callPackage (inputs.self + "/pkgs/apk-mitm/default.nix") {})
   ];
 }

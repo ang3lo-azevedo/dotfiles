@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }: let
   userSecretConfig = {
@@ -31,9 +32,9 @@
   };
 in {
   imports = [
-    ./hardware-configuration.nix
-    ../../modules/system
-    ../../modules/system/pc.nix
+    ./hardware/galaxybook5
+    "${inputs.self}/modules/system"
+    "${inputs.self}/modules/system/pc.nix"
   ];
 
   time.hardwareClockInLocalTime = true;
@@ -66,47 +67,47 @@ in {
     identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
     secrets = {
-      user_password.file = ../../secrets/user_password.age;
-      root_password.file = ../../secrets/root_password.age;
+      user_password.file = inputs.self + "/secrets/user_password.age";
+      root_password.file = inputs.self + "/secrets/root_password.age";
 
       nvchecker_keyfile =
         userSecretConfig
         // {
-          file = ../../secrets/nvchecker-keyfile.age;
+          file = inputs.self + "/secrets/nvchecker-keyfile.age";
         };
 
       nix_access_tokens =
         userSecretConfig
         // {
-          file = ../../secrets/nix-access-tokens.age;
+          file = inputs.self + "/secrets/nix-access-tokens.age";
         };
 
       git_config =
         userSecretConfig
         // {
-          file = ../../secrets/git_config.age;
+          file = inputs.self + "/secrets/git_config.age";
         };
 
       # Backup secrets
       rclone-conf =
         userSecretConfig
         // {
-          file = ../../secrets/rclone.conf.age;
+          file = inputs.self + "/secrets/rclone.conf.age";
         };
       restic_password =
         userSecretConfig
         // {
-          file = ../../secrets/restic_password.age;
+          file = inputs.self + "/secrets/restic_password.age";
         };
       nextcloud_caldav =
         userSecretConfig
         // {
-          file = ../../secrets/nextcloud_caldav.age;
+          file = inputs.self + "/secrets/nextcloud_caldav.age";
         };
 
       # WiFi credentials
       wifi-env = {
-        file = ../../secrets/wifi-env.age;
+        file = inputs.self + "/secrets/wifi-env.age";
       };
     };
   };

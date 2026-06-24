@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  # Desktop-only NixOS modules — applied only to pc-angelo.
+  # Desktop-only NixOS modules applied only to pc-angelo.
   imports = [
     ./dev
     ./display-manager
@@ -14,9 +14,7 @@
     ./secure-boot.nix
     #./impermanence.nix
     ./virtualization
-    ./wayland.nix
-    ./polkit_gnome.nix
-    ./window-manager/nirinit.nix
+    ./window-manager
   ];
 
   # Configure keymap in X11
@@ -67,7 +65,4 @@
 
   # Allow dynamically linked, non-Nix binaries (e.g. IntelliJ Copilot agent) to run.
   programs.nix-ld.enable = true;
-
-  # Enable Polkit
-  security.polkit.enable = true;
 }

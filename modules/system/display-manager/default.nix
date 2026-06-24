@@ -3,6 +3,8 @@
   lib,
   ...
 }: {
+  imports = [./wayland.nix];
+
   # Enable Gnome Keyring integration with Ly
   security.pam.services.ly.enableGnomeKeyring = true;
 

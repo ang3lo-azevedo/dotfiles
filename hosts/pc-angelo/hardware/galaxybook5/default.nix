@@ -1,12 +1,16 @@
 {
   config,
   lib,
+  inputs,
   modulesPath,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ../../modules/hardware
+    "${inputs.self}/modules/hardware/bluetooth.nix"
+    "${inputs.self}/modules/hardware/amdgpu.nix"
+    "${inputs.self}/modules/hardware/thunderbolt.nix"
+    "${inputs.self}/modules/hardware/samsung-galaxy-book"
   ];
 
   boot = {
