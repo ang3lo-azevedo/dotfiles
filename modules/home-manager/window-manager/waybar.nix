@@ -18,6 +18,24 @@ in
   xdg.configFile."waybar/config.jsonc" = lib.mkForce { source = mkSymlink "waybar/config.jsonc"; };
   xdg.configFile."waybar/style.css" = lib.mkForce { source = mkSymlink "waybar/style.css"; };
   xdg.configFile."waybar/scripts" = lib.mkForce { source = mkSymlink "waybar/scripts"; };
+  xdg.configFile."waybar/trigger.jsonc" = lib.mkForce { source = mkSymlink "waybar/trigger.jsonc"; };
+  xdg.configFile."waybar/trigger.css" = lib.mkForce { source = mkSymlink "waybar/trigger.css"; };
+
+  systemd.user.services.waybar-trigger = {
+    Unit = {
+      Description = "Waybar trigger bar";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.waybar}/bin/waybar -c /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.jsonc -s /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.css";
+      Restart = "always";
+      RestartSec = "3";
+    };
+  };
 
   systemd.user.paths.waybar-config = {
     Unit.Description = "Watch Waybar configuration for changes";

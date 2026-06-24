@@ -1,0 +1,11 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 1,
+    "modules-center": ["custom/trigger"],
+    "custom/trigger": {
+        "format": " ",
+        "tooltip": false,
+        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
+    }
+}

@@ -8,10 +8,10 @@
 {
   angr-management = {
     pname = "angr-management";
-    version = "v9.2.221";
+    version = "v9.2.222";
     src = fetchurl {
-      url = "https://github.com/angr/angr-management/releases/download/v9.2.221/angr-management-v9.2.221-x86_64.AppImage";
-      sha256 = "sha256-w+oUP5jk9p2AKYfnMdkBCTIq78z4ydl4PE6060QTwjQ=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.2.222/angr-management-v9.2.222-x86_64.AppImage";
+      sha256 = "sha256-ftXvNSMK+HdcTUSwBrcQUUfdDSinyi/p9s2V8dmO4HA=";
     };
   };
   apk-mitm = {

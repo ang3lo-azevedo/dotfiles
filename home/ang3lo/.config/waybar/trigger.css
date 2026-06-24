@@ -1,0 +1,9 @@
+window#waybar {
+    background-color: transparent;
+    border: none;
+}
+
+#custom-trigger {
+    background-color: transparent;
+    color: transparent;
+}
