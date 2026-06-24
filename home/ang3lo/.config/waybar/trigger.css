@@ -6,4 +6,5 @@ window#waybar {
 #custom-trigger {
     background-color: transparent;
     color: transparent;
+    min-width: 5000px;
 }
