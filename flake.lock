@@ -291,11 +291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782281299,
-        "narHash": "sha256-gVGTMeH8023kaqZ3NMlrgy2aBc/dwHf7DVvhQi837uQ=",
+        "lastModified": 1782294190,
+        "narHash": "sha256-O8Yroc84OTAw2/R5MYrH4LSHmZMkAGaj85i1LWdDcZ4=",
         "owner": "Rishabh5321",
         "repo": "custom-packages-flake",
-        "rev": "3ae3cce00aad0f4f7c670de077148ea93386825c",
+        "rev": "91650aafbba2727ffeec228928806b41f7178009",
         "type": "github"
       },
       "original": {
@@ -1228,11 +1228,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1782291984,
-        "narHash": "sha256-XcB0MwdOgY0eSsL10x0sOryu4bD/dqUk/bwAe1VlHHc=",
+        "lastModified": 1782292863,
+        "narHash": "sha256-rFrF8ytrLA2NicRRwHzxScwQtLLm2L7fz6oRoInDK4c=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "f09e799d6ebcc7915125d4ea9a7d743519b164a3",
+        "rev": "d014fb9a39a39f4e34fe15071ad3b3f1e9e709d2",
         "type": "github"
       },
       "original": {

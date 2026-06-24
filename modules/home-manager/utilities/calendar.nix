@@ -24,12 +24,12 @@
       };
       remote = {
         type = "caldav";
-        url = "https://NEXTCLOUD_URL_HERE/remote.php/dav/"; # TODO: Replace with your Nextcloud URL
-        userName = "USERNAME_HERE"; # TODO: Replace with your username
-        passwordCommand = ["cat" "${config.home.homeDirectory}/.config/nextcloud_pass"]; # TODO: Create this file or update command
       };
       vdirsyncer = {
         enable = true;
+        urlCommand = ["sh" "-c" "source /run/agenix/nextcloud_caldav && echo $URL"];
+        userNameCommand = ["sh" "-c" "source /run/agenix/nextcloud_caldav && echo $USERNAME"];
+        passwordCommand = ["sh" "-c" "source /run/agenix/nextcloud_caldav && echo $PASSWORD"];
         collections = [ "from a" "from b" ];
         conflictResolution = "remote wins";
       };

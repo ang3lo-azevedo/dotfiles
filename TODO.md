@@ -1,8 +1,10 @@
 - [ ] Add way to dismiss the mpris
-- [ ] Add way to dismiss the waybar on swipe up and return on swipe down 
 - [ ] Add this https://github.com/chmouel/nextmeeting
+- [ ] Add secure boot to system
+- [ ] Add impermanence
 - [ ] Fix webcam
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
+- [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
 - [ ] Define a forensics windows vm, maybe flare vm or win for
 - [ ] Add wavsteg to cyber tools https://github.com/samolds/wavsteg

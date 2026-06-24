@@ -29,5 +29,6 @@
     ./zapzap.nix
     ./restic-browser.nix
     ./ventoy.nix
+    ./calendar.nix
   ];
 }
