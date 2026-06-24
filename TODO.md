@@ -1,9 +1,8 @@
-- [x] Fix the volume scroll direction
-- [ ] See about calendar notification times
-- [ ] Add secure boot to system
+- [ ] Add secure boot to system https://github.com/nix-community/lanzaboote
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
 - [ ] Fix webcam
+- [ ] See about calendar notification times
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri

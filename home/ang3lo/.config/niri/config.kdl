@@ -4,6 +4,14 @@
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
+    // Default programs (used by keybinds)
+    EDITOR "antigravity-ide"
+    BROWSER "zen-browser"
+    EXPLORER "ghostty -e yazi"
+    MUSIC_PLAYER "spotify"
+    DISCORD "equibop"
+    YOUTUBE_PLAYER "grayjay"
+
 /*     // Display used for xwayland
     // DISPLAY ":0"
 
