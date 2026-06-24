@@ -1,13 +1,16 @@
-{ pkgs, inputs, lib, ... }:
-let
-  photogimp = inputs.photogimp;
-in
 {
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: let
+  inherit (inputs) photogimp;
+in {
   home.packages = with pkgs; [
     gimp
   ];
 
-  home.activation.photogimpConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.photogimpConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
     gimpConfigDir="$HOME/.config/GIMP"
     gimpProfileDir="$gimpConfigDir/3.0"
 

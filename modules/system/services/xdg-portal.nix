@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   # Enable XDG Desktop Portal for niri
   xdg.portal = {
     enable = true;

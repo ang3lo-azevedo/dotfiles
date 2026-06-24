@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   # Enable the Ly display manager
   services.displayManager.ly.enable = true;
 

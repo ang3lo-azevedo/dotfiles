@@ -1,15 +1,20 @@
-{ lib, pkgs, config, ... }:
-let
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
   sharedSettings = import ../shared-settings.nix;
-  antigravitySettings = sharedSettings.sharedSettings // {
-    # Override color theme for Antigravity
-    "workbench.colorTheme" = "Perfect Dark Theme";
-  };
+  antigravitySettings =
+    sharedSettings.sharedSettings
+    // {
+      # Override color theme for Antigravity
+      "workbench.colorTheme" = "Perfect Dark Theme";
+    };
 
   settingsJson = builtins.toJSON antigravitySettings;
   settingsFile = pkgs.writeText "antigravity-settings.json" settingsJson;
-in
-{
+in {
   # Create writable settings file via activation script
   # This applies Nix settings on rebuild but keeps the file writable so the IDE doesn't complain
   home.activation.antigravitySettings = lib.hm.dag.entryAfter ["writeBoundary"] ''

@@ -1,7 +1,8 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
-    (let nuvio = callPackage ../../../pkgs/nuvio-desktop { }; in
+    (let
+      nuvio = callPackage ../../../pkgs/nuvio-desktop {};
+    in
       writeShellScriptBin "nuvio-desktop" ''
         # Adjust this factor if you want it larger/smaller
         SCALE=1.75

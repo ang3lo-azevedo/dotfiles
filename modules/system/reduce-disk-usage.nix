@@ -3,9 +3,11 @@
   boot.loader.systemd-boot.configurationLimit = 10;
   # boot.loader.grub.configurationLimit = 10;
 
-  /* # Automatically optimise the Nix store to reduce disk usage
+  /*
+     # Automatically optimise the Nix store to reduce disk usage
   nix.optimise.automatic = true;
-  nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule */
+  nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
+  */
 
   # Perform garbage collection weekly to maintain low disk usage
   nix.gc = {

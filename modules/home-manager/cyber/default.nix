@@ -5,7 +5,7 @@
     ./web
     ./pwn
     ./crypto
-    
+
     ./python.nix
 
     ./trufflehog.nix

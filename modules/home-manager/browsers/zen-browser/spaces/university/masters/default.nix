@@ -2,8 +2,7 @@ let
   lib = import ../../lib.nix;
   universityConfig = import ../default.nix;
   universityId = (builtins.head universityConfig.spaces).id;
-in
-{
+in {
   pins = [
     {
       name = "Masters";

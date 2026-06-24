@@ -1,8 +1,10 @@
-{ pkgs, spicetify-nix, ... }:
-let
-  spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in
 {
+  pkgs,
+  spicetify-nix,
+  ...
+}: let
+  spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
   imports = [
     spicetify-nix.homeManagerModules.spicetify
   ];

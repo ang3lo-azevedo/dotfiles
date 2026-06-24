@@ -26,10 +26,10 @@
 
   # Disable container versions in favor of native implementations
   services.docker-compose-stacks.stacks = {
-    redis.enable = false;      # Using native Redis instead
+    redis.enable = false; # Using native Redis instead
     vaultwarden.enable = false; # Using native Vaultwarden instead
     adguardhome.enable = false; # Using native AdGuard Home instead
-    minecraft.enable = false;   # Using native Minecraft Server instead
+    minecraft.enable = false; # Using native Minecraft Server instead
     # Note: Nextcloud container disabled if using native, enable one or the other
     # nextcloud.enable = false;
   };
@@ -70,6 +70,6 @@
   ];
 
   # Open firewall for services
-  networking.firewall.allowedTCPPorts = [ 80 443 53 3000 25565 ];
-  networking.firewall.allowedUDPPorts = [ 53 25565 ];
+  networking.firewall.allowedTCPPorts = [80 443 53 3000 25565];
+  networking.firewall.allowedUDPPorts = [53 25565];
 }

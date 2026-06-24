@@ -1,7 +1,6 @@
 let
   lib = import ../lib.nix;
-in
-{
+in {
   spaces = [
     {
       name = "Space";

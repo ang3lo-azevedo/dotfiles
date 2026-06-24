@@ -1,12 +1,11 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
       package = pkgs.qemu_kvm;
       runAsRoot = true;
       swtpm.enable = true;
-      vhostUserPackages = with pkgs; [ virtiofsd ];
+      vhostUserPackages = with pkgs; [virtiofsd];
     };
   };
 
@@ -14,9 +13,9 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
-  users.users.ang3lo.extraGroups = [ "libvirtd" "kvm"];
+  users.users.ang3lo.extraGroups = ["libvirtd" "kvm"];
 
-  environment.systemPackages = with pkgs; [ 
+  environment.systemPackages = with pkgs; [
     dnsmasq
     pciutils
   ];

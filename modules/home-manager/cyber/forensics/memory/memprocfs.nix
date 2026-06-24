@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		memprocfs
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    memprocfs
+  ];
 }
-

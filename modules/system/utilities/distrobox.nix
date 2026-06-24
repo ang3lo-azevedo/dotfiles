@@ -1,4 +1,3 @@
-{ pkgs, ... }:
-{
-  environment.systemPackages = [ pkgs.distrobox ];
+{pkgs, ...}: {
+  environment.systemPackages = [pkgs.distrobox];
 }

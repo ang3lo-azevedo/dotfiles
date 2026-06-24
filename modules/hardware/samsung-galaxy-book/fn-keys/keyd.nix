@@ -1,27 +1,24 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   touchpadtoggle-pkg = pkgs.writeShellApplication {
     name = "toggle-touchpad";
-    runtimeInputs = [ pkgs.libinput pkgs.xinput ];
+    runtimeInputs = [pkgs.libinput pkgs.xinput];
     text = builtins.readFile ./scripts/touchpadtoggle.sh;
   };
 
   kbdillumtoggle-pkg = pkgs.writeShellApplication {
     name = "cycle-kbd-backlight";
-    runtimeInputs = [ pkgs.brightnessctl ];
+    runtimeInputs = [pkgs.brightnessctl];
     text = builtins.readFile ./scripts/kbdillumtoggle.sh;
   };
 
   # Opens this nix-config workspace in VS Code (or VSCodium / xdg-open fallback)
   open-nix-config-pkg = pkgs.writeShellApplication {
     name = "open-nix-config";
-    runtimeInputs = [ pkgs.coreutils pkgs.xdg-utils ];
+    runtimeInputs = [pkgs.coreutils pkgs.xdg-utils];
     text = builtins.readFile ./scripts/open-nix-config.sh;
   };
-in
-{
-  environment.systemPackages = [ 
+in {
+  environment.systemPackages = [
     touchpadtoggle-pkg
     kbdillumtoggle-pkg
     open-nix-config-pkg
@@ -32,7 +29,7 @@ in
     enable = true;
     keyboards = {
       "samsung-galaxybook" = {
-        ids = [ "0001:0001" "0000:0000" ];
+        ids = ["0001:0001" "0000:0000"];
         settings = {
           main = {
             # TODO: Add the missing keys

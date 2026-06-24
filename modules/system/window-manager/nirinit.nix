@@ -1,6 +1,9 @@
-{ inputs, config, ... }:
 {
-  imports = [ inputs.nirinit.nixosModules.nirinit ];
+  inputs,
+  config,
+  ...
+}: {
+  imports = [inputs.nirinit.nixosModules.nirinit];
 
   services.nirinit = {
     enable = true;
@@ -17,5 +20,5 @@
     # };
   };
 
-  environment.systemPackages = [ config.services.nirinit.package ];
+  environment.systemPackages = [config.services.nirinit.package];
 }

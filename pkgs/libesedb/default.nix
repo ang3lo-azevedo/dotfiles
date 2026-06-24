@@ -1,5 +1,7 @@
-{ stdenv, fetchurl }:
-
+{
+  stdenv,
+  fetchurl,
+}:
 stdenv.mkDerivation rec {
   pname = "libesedb";
   version = "20240420";

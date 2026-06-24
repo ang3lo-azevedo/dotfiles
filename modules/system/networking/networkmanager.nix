@@ -1,5 +1,9 @@
-{ pkgs, config, lib, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   mkHomeNetwork = envPrefix: {
     connection = {
       id = "$WIFI_${envPrefix}_SSID";
@@ -20,12 +24,11 @@ let
       method = "auto";
     };
   };
-in
-{
+in {
   # Enable NetworkManager for networking
   networking.networkmanager = {
     enable = true;
-    plugins = [ pkgs.networkmanager-openvpn ];
+    plugins = [pkgs.networkmanager-openvpn];
   };
 
   # WiFi configurations specifically for the laptop

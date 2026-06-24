@@ -1,14 +1,12 @@
-{ config, ... }:
-let
+{config, ...}: let
   # Dynamically pull the secret path if Home Manager is running as a NixOS module,
   # otherwise fallback to the default Agenix path for standalone Home Manager.
-  keyfile = 
-    if config ? osConfig then config.osConfig.age.secrets.nvchecker_keyfile.path
+  keyfile =
+    if config ? osConfig
+    then config.osConfig.age.secrets.nvchecker_keyfile.path
     else "/run/agenix/nvchecker_keyfile";
-in
-{
+in {
   programs.zsh.shellAliases = {
-    
     # Tool related alises
     ll = "eza -l";
     la = "eza -la";

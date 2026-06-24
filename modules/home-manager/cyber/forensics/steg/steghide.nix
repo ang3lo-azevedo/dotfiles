@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		steghide
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    steghide
+  ];
 }

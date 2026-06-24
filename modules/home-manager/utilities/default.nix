@@ -22,7 +22,7 @@
     ./openvpn.nix
 
     #./affinity.nix
-    
+
     ./xournalapp.nix
     ./libreoffice.nix
 

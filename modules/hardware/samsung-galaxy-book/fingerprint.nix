@@ -1,5 +1,8 @@
-{ inputs, lib, ... }:
 {
+  inputs,
+  lib,
+  ...
+}: {
   services.fprintd.enable = true;
 
   # Enable fingerprint authentication for system services

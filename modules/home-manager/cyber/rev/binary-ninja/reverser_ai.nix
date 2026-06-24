@@ -1,18 +1,17 @@
-{ pkgs, ... }:
-let
-  sources = pkgs.callPackage ../../../../../pkgs/_sources/generated.nix { };
+{pkgs, ...}: let
+  sources = pkgs.callPackage ../../../../../pkgs/_sources/generated.nix {};
   reverser_ai = sources.reverser_ai.src;
 
   # Python 3.12 environment with reverser_ai dependencies from ./requirements.txt
-  python312WithReverserAI = pkgs.python312.withPackages (ps: with ps; [
-    huggingface-hub
-    llama-cpp-python
-    networkx
-    toml
-    typer
-  ]);
-in
-{
+  python312WithReverserAI = pkgs.python312.withPackages (ps:
+    with ps; [
+      huggingface-hub
+      llama-cpp-python
+      networkx
+      toml
+      typer
+    ]);
+in {
   # Fetch and link the plugin
   home.file.".binaryninja/plugins/reverser_ai".source = reverser_ai;
 
@@ -24,4 +23,3 @@ in
     export PYTHONPATH="${python312WithReverserAI}/${pkgs.python312.sitePackages}:$PYTHONPATH"
   '';
 }
-

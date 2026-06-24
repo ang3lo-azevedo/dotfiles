@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-    environment.systemPackages = with pkgs; [
-		vagrant
-	];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [
+    vagrant
+  ];
 }

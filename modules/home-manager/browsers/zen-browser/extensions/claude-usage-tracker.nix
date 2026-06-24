@@ -1,4 +1,7 @@
-{ pkgs, profileName, ... }:
 {
-  programs.zen-browser.profiles.${profileName}.extensions.packages = [ pkgs.firefoxAddons.claude-usage-tracker ];
+  pkgs,
+  profileName,
+  ...
+}: {
+  programs.zen-browser.profiles.${profileName}.extensions.packages = [pkgs.firefoxAddons.claude-usage-tracker];
 }

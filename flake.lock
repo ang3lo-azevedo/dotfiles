@@ -239,11 +239,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1782237005,
-        "narHash": "sha256-5qiUrMH4u78cV0Z4O4r/qUnPvwY1gmhs/2fmhkxC9x8=",
+        "lastModified": 1782286240,
+        "narHash": "sha256-QzPhqT/i84whBhc0gnAj9dUxk2D3aQSVsoKSQ1Vryn0=",
         "owner": "chaotic-cx",
         "repo": "nyx",
-        "rev": "01be052d8a6f9e589a9baaeb0aba578651620ea9",
+        "rev": "3e479d39e631e70ee3d19bcebcd5dc45be7b9c8e",
         "type": "github"
       },
       "original": {
@@ -554,6 +554,22 @@
       }
     },
     "flake-compat_8": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_9": {
       "locked": {
         "lastModified": 1747046372,
         "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
@@ -915,6 +931,27 @@
         "type": "github"
       }
     },
+    "gitignore_3": {
+      "inputs": {
+        "nixpkgs": [
+          "pre-commit-hooks",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709087332,
+        "narHash": "sha256-HG2cCnktfHsKV0s4XW83gU3F57gaTljL9KNSuG6bnQs=",
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "637db329424fd7e46cf4185293b9cc8c88c95394",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
     "glaumar_repo": {
       "inputs": {
         "nixpkgs": [
@@ -1001,11 +1038,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782166451,
-        "narHash": "sha256-SA7LyrayyZBvtzZnesnSLV7haciFuVLeZaX2hd5v4j4=",
+        "lastModified": 1782233665,
+        "narHash": "sha256-h/xOtrByoA/Ak1lWHn0O1lVZz4qWYbwOSLQ8YSwQO0I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "471a1d2f840eb7fcbdfd541d99c13a64096f46db",
+        "rev": "062581938b4a378a82dfbb294b494808157153a1",
         "type": "github"
       },
       "original": {
@@ -1678,9 +1715,31 @@
         "type": "github"
       }
     },
-    "proxmox-nixos": {
+    "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_8",
+        "gitignore": "gitignore_3",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781733627,
+        "narHash": "sha256-U3yTuGBnmXvXoQI3qkpfEDsn9RovQPAjN7ndRco+3u0=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "3bbec39bc90eadfa031e6f3b77272f3f60803e39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
+    "proxmox-nixos": {
+      "inputs": {
+        "flake-compat": "flake-compat_9",
         "nixpkgs-libvncserver": "nixpkgs-libvncserver",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "utils": "utils"
@@ -1802,6 +1861,7 @@
         "nixpkgs-xr": "nixpkgs-xr",
         "pear-desktop": "pear-desktop",
         "photogimp": "photogimp",
+        "pre-commit-hooks": "pre-commit-hooks",
         "proxmox-nixos": "proxmox-nixos",
         "pwndbg": "pwndbg",
         "samsung-galaxy-book-linux-fixes": "samsung-galaxy-book-linux-fixes",

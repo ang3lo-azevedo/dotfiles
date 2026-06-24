@@ -3,12 +3,10 @@
   pkgs,
   inputs,
   ...
-}:
-
-let
+}: let
   commonConfig = {
     initialize = true;
-    paths = [ "/persist" "/home" ];
+    paths = ["/persist" "/home"];
     passwordFile = config.age.secrets.restic_password.path;
     rcloneConfigFile = config.age.secrets.rclone-conf.path;
     exclude = [
@@ -20,18 +18,16 @@ let
       RandomizedDelaySec = "1h";
     };
   };
-in
-{
+in {
   # Restic Backup Configuration
   # Backups are configured to run automatically every day.
 
   services.restic.backups = {
     # --- Backup to NAS (SMB via Rclone) ---
-    nas = commonConfig // { repository = "rclone:nas:homes/ang3lo/backups/pc-angelo"; };
-
+    nas = commonConfig // {repository = "rclone:nas:homes/ang3lo/backups/pc-angelo";};
 
     # --- Backup to Google Shared Drive (Rclone) ---
-    gdrive-shared = commonConfig // { repository = "rclone:gdrive_shared_drive:/backups/pc-angelo"; };
+    gdrive-shared = commonConfig // {repository = "rclone:gdrive_shared_drive:/backups/pc-angelo";};
   };
 
   environment.systemPackages = [

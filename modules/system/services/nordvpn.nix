@@ -1,13 +1,13 @@
 {
   users.users.ang3lo = {
-    extraGroups = [ "nordvpn" ];
+    extraGroups = ["nordvpn"];
   };
 
   chaotic.nordvpn.enable = true;
 
   networking.firewall = {
     checkReversePath = false;
-    allowedTCPPorts = [ 443 ];
-    allowedUDPPorts = [ 1194 ];
+    allowedTCPPorts = [443];
+    allowedUDPPorts = [1194];
   };
 }

@@ -1,4 +1,7 @@
-{ pkgs, profileName, ... }:
 {
-  programs.zen-browser.profiles.${profileName}.extensions.packages = [ pkgs.firefoxAddons.violentmonkey ];
+  pkgs,
+  profileName,
+  ...
+}: {
+  programs.zen-browser.profiles.${profileName}.extensions.packages = [pkgs.firefoxAddons.violentmonkey];
 }

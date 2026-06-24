@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		volatility2-bin
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    volatility2-bin
+  ];
 }

@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./reduce-disk-usage.nix
     ./auto-upgrade.nix
@@ -45,7 +48,7 @@
     keyMap = "pt-latin1";
     earlySetup = true;
     font = "ter-v32n";
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
   };
 
   # Enable sound.

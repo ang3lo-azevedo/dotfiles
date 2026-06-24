@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		binwalk
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    binwalk
+  ];
 }

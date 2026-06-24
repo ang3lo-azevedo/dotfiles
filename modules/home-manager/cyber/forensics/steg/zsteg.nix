@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-{
-	home.packages = with pkgs; [
-		zsteg
-		file
-	];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    zsteg
+    file
+  ];
 }

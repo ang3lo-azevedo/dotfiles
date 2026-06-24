@@ -1,3 +1,4 @@
+- [ ] Add github actions linter
 - [ ] Add way to dismiss the mpris
 - [ ] Add this https://github.com/chmouel/nextmeeting
 - [ ] Add secure boot to system

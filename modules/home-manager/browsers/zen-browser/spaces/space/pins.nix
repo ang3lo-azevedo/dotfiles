@@ -2,8 +2,7 @@ let
   lib = import ../lib.nix;
   spaceConfig = import ./default.nix;
   spaceId = (builtins.head spaceConfig.spaces).id;
-in
-{
+in {
   pins = [
     {
       name = "Stremio";

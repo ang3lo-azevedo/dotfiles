@@ -1,11 +1,12 @@
 let
   swaylockDir = ../../../home/ang3lo/.config/swaylock;
-in
-{
+in {
   programs.swaylock.enable = true;
-  
-  /* xdg.configFile."swaylock" = {
+
+  /*
+     xdg.configFile."swaylock" = {
     source = swaylockDir;
     recursive = true;
-  }; */
+  };
+  */
 }
