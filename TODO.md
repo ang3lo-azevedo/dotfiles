@@ -1,22 +1,15 @@
-- [ ] Add clicking on the power profile icon the ability to switch it
-- [ ] Sync swaync and rofi power menus
+- [ ] Add way to dismiss the mpris
 - [ ] Add way to dismiss the waybar on swipe up and return on swipe down 
 - [ ] Add this https://github.com/chmouel/nextmeeting
+- [ ] Fix webcam
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
-- [x] Add wifi configs nixos
-- [x] Fix fakeVoiceOptions nixcord
-- [x] See if the webcam purple tint can be fixed with this https://github.com/Andycodeman/samsung-galaxy-book-linux-fixes/issues/51
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
 - [ ] Define a forensics windows vm, maybe flare vm or win for
 - [ ] Add wavsteg to cyber tools https://github.com/samolds/wavsteg
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
-- [ ] Upgrade hardware galaxy book configs to follow https://github.com/Andycodeman/samsung-galaxy-book4-linux-fixes?tab=readme-ov-file
 - [ ] Configure server
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
-- [ ] Make some config files symlinks, mainly on the window manager configs
-- [ ] Make a general function to add all .nix files inside a folder to the default.nix (Maybe use haumea https://github.com/nix-community/haumea)
 - [ ] Add the missing fn keys
-- [ ] Add the rest of the waybar
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze

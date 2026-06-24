@@ -70,6 +70,7 @@
       "i2c"
       "video"
       "render"
+      "input"
     ]; # Enable ‘sudo’ for the user.
     hashedPasswordFile = config.age.secrets.user_password.path;
     #initialPassword = "test"; # TODO: Remove this line after setting up hashedPasswordFile
