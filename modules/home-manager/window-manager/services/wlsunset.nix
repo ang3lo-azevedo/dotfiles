@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   # Color temperature values in Kelvin
   dayTemp = "6500"; # Daylight neutral
   nightTemp = "3500"; # Warm evening
@@ -6,7 +10,7 @@
   get-location = pkgs.writeShellApplication {
     name = "get-location";
     runtimeInputs = with pkgs; [curl jq];
-    text = builtins.readFile ../../../../home/ang3lo/.config/wlsunset/get-location.sh;
+    text = builtins.readFile (inputs.self + "/home/ang3lo/.config/wlsunset/get-location.sh");
   };
 
   wlsunset-auto = pkgs.writeShellScriptBin "wlsunset-auto" ''

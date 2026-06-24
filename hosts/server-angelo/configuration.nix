@@ -1,8 +1,8 @@
-{
+{inputs, ...}: {
   imports = [
-    ../../modules/system
-    ../../modules/server-services/proxmox-ve.nix
-    ../../modules/server-services/adguardhome-native.nix
+    "${inputs.self}/modules/system"
+    "${inputs.self}/modules/server-services/proxmox-ve.nix"
+    "${inputs.self}/modules/server-services/adguardhome-native.nix"
   ];
 
   # Define a user account. Don't forget to set a password with 'passwd'.

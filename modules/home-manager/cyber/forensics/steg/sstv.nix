@@ -1,5 +1,9 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   home.packages = with pkgs; [
-    (callPackage ../../../../../pkgs/sstv/default.nix {})
+    (callPackage (inputs.self + "/pkgs/sstv/default.nix") {})
   ];
 }

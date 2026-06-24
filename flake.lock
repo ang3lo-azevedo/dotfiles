@@ -1042,26 +1042,6 @@
         "type": "github"
       }
     },
-    "haumea": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1781965792,
-        "narHash": "sha256-RHVZH09T+5Bb2kSA993iuBdMLnaDodIRrrgoz3DUHxQ=",
-        "owner": "nix-community",
-        "repo": "haumea",
-        "rev": "4c86b0b1bbde7982856caba304aa88ee027317f1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "haumea",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1928,7 +1908,6 @@
         "dmatools": "dmatools",
         "firefox-addons": "firefox-addons",
         "glaumar_repo": "glaumar_repo",
-        "haumea": "haumea",
         "home-manager": "home-manager_3",
         "ida-pro-overlay": "ida-pro-overlay",
         "impermanence": "impermanence",
