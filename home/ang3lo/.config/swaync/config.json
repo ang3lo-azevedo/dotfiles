@@ -93,27 +93,31 @@
         "actions": [ 
           {
             "label": "\uf023 Lock Screen",
-            "command": "swaylock -f --image ~/.config/wallpapers/snow_woods.jpg"
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Lock Screen\""
           },
           {
             "label": "\uf236 Suspend System",
-            "command": "systemctl suspend"
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Suspend System\""
           },
           {
-            "label": "\uf023 Log Out",
-            "command": "niri msg action quit"
+            "label": "\uf104 Log Out",
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Log Out\""
           },
           {
-            "label": "\uf021 Restart System",
-            "command": "systemctl reboot"
+            "label": "\uf2f1 Restart System",
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Restart System\""
           },
           {
             "label": "\uf085 Restart to UEFI",
-            "command": "systemctl reboot --firmware-setup"
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Restart to UEFI\""
+          },
+          {
+            "label": "\uf071 Force Restart",
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Force Restart\""
           },
           {
             "label": "\uf011 Shutdown System",
-            "command": "systemctl poweroff"
+            "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Shutdown System\""
           }
         ]
       }

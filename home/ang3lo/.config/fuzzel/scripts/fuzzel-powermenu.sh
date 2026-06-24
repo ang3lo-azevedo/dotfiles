@@ -80,21 +80,25 @@ get_idle_status() {
 # Get current values
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
-# Build menu options dynamically
-MENU_OPTIONS="\uf085 Tools Menu\n\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI"
+if [ -n "$1" ]; then
+    SELECTION="$1"
+else
+    # Build menu options dynamically
+    MENU_OPTIONS="\uf085 Tools Menu\n\uf023 Lock Screen\n\uf236 Suspend System\n\uf104 Log Out\n\uf2f1 Restart System\n\uf085 Restart to UEFI"
 
-# Add Ventoy option if USB is connected
-if check_ventoy_usb; then
-    MENU_OPTIONS="$MENU_OPTIONS\n\uf287 Restart to Ventoy"
+    # Add Ventoy option if USB is connected
+    if check_ventoy_usb; then
+        MENU_OPTIONS="$MENU_OPTIONS\n\uf287 Restart to Ventoy"
+    fi
+
+    MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System"
+
+    # Count menu items for fuzzel -l parameter
+    MENU_COUNT=$(echo -e "$MENU_OPTIONS" | wc -l)
+
+    # Main menu with power options and tools submenu
+    SELECTION="$(printf "$MENU_OPTIONS" | fuzzel --dmenu -l "$MENU_COUNT" -p "> ")"
 fi
-
-MENU_OPTIONS="$MENU_OPTIONS\n\uf071 Force Restart\n\uf011 Shutdown System"
-
-# Count menu items for fuzzel -l parameter
-MENU_COUNT=$(echo -e "$MENU_OPTIONS" | wc -l)
-
-# Main menu with power options and tools submenu
-SELECTION="$(printf "$MENU_OPTIONS" | fuzzel --dmenu l-l "$MENU_COUNT" -p "> ")"
 
 case $SELECTION in
 	*"Lock Screen")
@@ -107,6 +111,8 @@ case $SELECTION in
 		# Try Mango first, then fallback to other methods
 		if command -v mmsg >/dev/null 2>&1; then
 			mmsg -d quit
+		elif command -v niri >/dev/null 2>&1; then
+			niri msg action quit
 		elif [ -n "$XDG_SESSION_ID" ]; then
 			loginctl terminate-session "$XDG_SESSION_ID"
 		else
