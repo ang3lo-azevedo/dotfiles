@@ -9,6 +9,6 @@
   ];
 
   users.groups.dialout.members =
-    lib.mapAttrsToList (name: user: name)
-    (lib.filterAttrs (name: user: user.isNormalUser) config.users.users);
+    lib.mapAttrsToList (name: _: name)
+    (lib.filterAttrs (_: user: user.isNormalUser) config.users.users);
 }

@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   # Custom qcoro with Qml support enabled
-  qcoro-with-qml = pkgs.qt6Packages.qcoro.overrideAttrs (oldAttrs: {
+  qcoro-with-qml = pkgs.qt6Packages.qcoro.overrideAttrs (_: {
     cmakeFlags = [
       "-DQCORO_WITH_QML=ON"
       "-DBUILD_SHARED_LIBS=ON"

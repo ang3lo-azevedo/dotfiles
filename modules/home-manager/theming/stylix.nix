@@ -11,9 +11,11 @@ in {
     # Activate dark mode
     polarity = "dark";
 
-    targets.zen-browser.colors.enable = false;
-    targets.vscode.colors.enable = false;
-    targets.nixcord.colors.enable = false;
+    targets = {
+      zen-browser.colors.enable = false;
+      vscode.colors.enable = false;
+      nixcord.colors.enable = false;
+    };
 
     fonts = {
       serif = {

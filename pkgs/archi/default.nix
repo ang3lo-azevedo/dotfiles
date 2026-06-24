@@ -4,7 +4,7 @@
   ...
 }: let
   sources = callPackage ../_sources/generated.nix {};
-  inherit (pkgs) lib stdenv fetchurl autoPatchelfHook makeWrapper jdk libsecret glib webkitgtk_4_1 wrapGAppsHook3 copyDesktopItems makeDesktopItem _7zz;
+  inherit (pkgs) lib stdenv autoPatchelfHook makeWrapper jdk libsecret glib webkitgtk_4_1 wrapGAppsHook3 copyDesktopItems makeDesktopItem _7zz;
 in
   stdenv.mkDerivation rec {
     pname = "Archi";

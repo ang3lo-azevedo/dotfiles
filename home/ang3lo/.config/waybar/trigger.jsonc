@@ -7,7 +7,7 @@
     "custom/trigger": {
         "format": " ",
         "tooltip": false,
-        "on-scroll-up": "systemctl --user kill -s SIGUSR1 waybar.service",
-        "on-scroll-down": "systemctl --user kill -s SIGUSR1 waybar.service"
+        "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh",
+        "on-scroll-down": "~/.config/waybar/scripts/waybar-toggle.sh"
     }
 }

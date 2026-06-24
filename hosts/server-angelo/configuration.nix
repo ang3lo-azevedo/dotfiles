@@ -16,39 +16,42 @@
     ];
   };
 
-  services.openssh.enable = true;
-
   programs.ssh.enableAskPassword = false;
 
-  # Enable Docker Compose Stacks (for specialized apps)
-  services.docker-compose-stacks.enable = true;
-  services.docker-compose-stacks.dataDir = "/var/lib/docker-compose";
+  services = {
+    openssh.enable = true;
 
-  # Disable container versions in favor of native implementations
-  services.docker-compose-stacks.stacks = {
-    redis.enable = false; # Using native Redis instead
-    vaultwarden.enable = false; # Using native Vaultwarden instead
-    adguardhome.enable = false; # Using native AdGuard Home instead
-    minecraft.enable = false; # Using native Minecraft Server instead
-    # Note: Nextcloud container disabled if using native, enable one or the other
-    # nextcloud.enable = false;
-  };
+    # Enable Docker Compose Stacks (for specialized apps)
+    docker-compose-stacks = {
+      enable = true;
+      dataDir = "/var/lib/docker-compose";
+      # Disable container versions in favor of native implementations
+      stacks = {
+        redis.enable = false; # Using native Redis instead
+        vaultwarden.enable = false; # Using native Vaultwarden instead
+        adguardhome.enable = false; # Using native AdGuard Home instead
+        minecraft.enable = false; # Using native Minecraft Server instead
+        # Note: Nextcloud container disabled if using native, enable one or the other
+        # nextcloud.enable = false;
+      };
+    };
 
-  # Enable native services
-  services.redis-native.enable = true;
+    # Enable native services
+    redis-native.enable = true;
 
-  services.vaultwarden-native = {
-    enable = true;
-    domain = "vault.example.com"; # Change this to your domain
-  };
+    vaultwarden-native = {
+      enable = true;
+      domain = "vault.example.com"; # Change this to your domain
+    };
 
-  services.adguardhome-native.enable = true;
+    adguardhome-native.enable = true;
 
-  services.minecraft-server-native = {
-    enable = true;
-    maxPlayers = 20;
-    motd = "Welcome to NixOS Minecraft!";
-    difficulty = "normal";
+    minecraft-server-native = {
+      enable = true;
+      maxPlayers = 20;
+      motd = "Welcome to NixOS Minecraft!";
+      difficulty = "normal";
+    };
   };
 
   # Optional: Enable native Nextcloud (comment out if using container version)

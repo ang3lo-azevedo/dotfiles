@@ -1,8 +1,10 @@
 {
-  # Enable wireless networking with iwd
-  networking.wireless.iwd.enable = true;
-  networking.wireless.enable = false;
+  networking = {
+    # Enable wireless networking with iwd
+    wireless.iwd.enable = true;
+    wireless.enable = false;
 
-  # Tell NetworkManager to use iwd backend
-  networking.networkmanager.wifi.backend = "iwd";
+    # Tell NetworkManager to use iwd backend
+    networkmanager.wifi.backend = "iwd";
+  };
 }

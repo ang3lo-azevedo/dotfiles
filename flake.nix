@@ -340,19 +340,21 @@
         # Home Manager
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = false;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "hm-backup";
-          home-manager.users.ang3lo = import ./home/ang3lo/home.nix;
-          home-manager.extraSpecialArgs = {
-            inherit
-              inputs
-              zen-browser
-              nix-vscode-extensions
-              spicetify-nix
-              mpv-config
-              trakt-scrobbler-src
-              ;
+          home-manager = {
+            useGlobalPkgs = false;
+            useUserPackages = true;
+            backupFileExtension = "hm-backup";
+            users.ang3lo = import ./home/ang3lo/home.nix;
+            extraSpecialArgs = {
+              inherit
+                inputs
+                zen-browser
+                nix-vscode-extensions
+                spicetify-nix
+                mpv-config
+                trakt-scrobbler-src
+                ;
+            };
           };
         }
 
@@ -411,52 +413,38 @@
       ];
     };
 
-    # Expose the local `angr-management` package so flakes can reference it
-    packages.x86_64-linux.angr-management = import ./pkgs/angr-management/default.nix {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      inherit (nixpkgs) lib;
-      src = inputs.angr-management;
+    # Expose the local packages so flakes can reference them
+    packages.x86_64-linux = {
+      angr-management = import ./pkgs/angr-management/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit (nixpkgs) lib;
+        src = inputs.angr-management;
+      };
+
+      archi = import ./pkgs/archi/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit inputs;
+      };
+
+      nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        inherit (nixpkgs) lib;
+      };
+
+      registry-spy = import ./pkgs/registry-spy/default.nix {
+        inherit (nixpkgs) lib;
+        fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
+        python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
+      };
+
+      rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix {};
+      dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix {};
+      ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix {};
+      ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix {};
+      libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix {};
+      libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
+      sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
     };
-
-    # Expose the local `archi` package so flakes can reference it
-    packages.x86_64-linux.archi = import ./pkgs/archi/default.nix {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      inherit inputs;
-    };
-
-    # Expose the local `nuvio-desktop` package so flakes can reference it
-    packages.x86_64-linux.nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      inherit (nixpkgs) lib;
-    };
-
-    # Expose the local `registry-spy` package so flakes can reference it
-    packages.x86_64-linux.registry-spy = import ./pkgs/registry-spy/default.nix {
-      inherit (nixpkgs) lib;
-      fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
-      python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
-    };
-
-    # Expose the local `dnspy` package so flakes can reference it
-    # Expose the local `rem` package so flakes can reference it
-    packages.x86_64-linux.rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix {};
-
-    packages.x86_64-linux.dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix {};
-
-    # Expose the local `ctfd-parser` package so flakes can reference it
-    packages.x86_64-linux.ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix {};
-
-    # Expose the local `ese-database-view` package so flakes can reference it
-    packages.x86_64-linux.ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix {};
-
-    # Expose the local `libesedb` package so flakes can reference it
-    packages.x86_64-linux.libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix {};
-
-    # Expose the local `libfsntfs` package so flakes can reference it
-    packages.x86_64-linux.libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
-
-    # Expose the local `sidr` package so flakes can reference it
-    packages.x86_64-linux.sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
 
     # Expose the local `scrollmpris` package so flakes can reference it
     packages.x86_64-linux.scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};

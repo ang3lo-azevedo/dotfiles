@@ -12,14 +12,16 @@
       typer
     ]);
 in {
-  # Fetch and link the plugin
-  home.file.".binaryninja/plugins/reverser_ai".source = reverser_ai;
+  home = {
+    # Fetch and link the plugin
+    file.".binaryninja/plugins/reverser_ai".source = reverser_ai;
 
-  # Expose the plugin dependencies to the rest of the Home Manager config
-  home.sessionVariables.PYTHONPATH = "${python312WithReverserAI}/${pkgs.python312.sitePackages}";
+    # Provide an env script that Binary Ninja sources at launch
+    file.".binaryninja/reverser_ai_env.sh".text = ''
+      export PYTHONPATH="${python312WithReverserAI}/${pkgs.python312.sitePackages}:$PYTHONPATH"
+    '';
 
-  # Provide an env script that Binary Ninja sources at launch
-  home.file.".binaryninja/reverser_ai_env.sh".text = ''
-    export PYTHONPATH="${python312WithReverserAI}/${pkgs.python312.sitePackages}:$PYTHONPATH"
-  '';
+    # Expose the plugin dependencies to the rest of the Home Manager config
+    sessionVariables.PYTHONPATH = "${python312WithReverserAI}/${pkgs.python312.sitePackages}";
+  };
 }

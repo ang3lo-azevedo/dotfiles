@@ -456,14 +456,12 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-    Mod+B hotkey-overlay-title="Open Browser: Zen" { spawn "zen-browser"; }
-    Mod+E hotkey-overlay-title="Open Explorer: Nautilus" { spawn "nautilus"; }
-    Mod+A hotkey-overlay-title="Open Editor: VS Code" { spawn "code"; }
-    Mod+S hotkey-overlay-title="Open Music Player: Spotify" { spawn "spotify"; }
-    Mod+Z hotkey-overlay-title="Open Discord: Equibop" { spawn "equibop"; }
-    Mod+G hotkey-overlay-title="Open YouTube: Grayjay" { spawn "grayjay"; }
-    Mod+X hotkey-overlay-title="Open Stremio" { spawn "stremio"; }
-
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "sh" "-c" "exec ${BROWSER}"; }
+    Mod+E hotkey-overlay-title="Open Explorer" { spawn "sh" "-c" "exec ${EXPLORER}"; }
+    Mod+A hotkey-overlay-title="Open Editor" { spawn "sh" "-c" "exec ${EDITOR}"; }
+    Mod+S hotkey-overlay-title="Open Music Player" { spawn "sh" "-c" "exec ${MUSIC_PLAYER}"; }
+    Mod+Z hotkey-overlay-title="Open Discord" { spawn "sh" "-c" "exec ${DISCORD}"; }
+    Mod+G hotkey-overlay-title="Open YouTube" { spawn "sh" "-c" "exec ${YOUTUBE_PLAYER}"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
