@@ -457,7 +457,10 @@
           # Format Nix code
           alejandra.enable = true;
           # Check for missing or unused variables
-          deadnix.enable = true;
+          deadnix = {
+            enable = true;
+            excludes = [".*generated\\.nix$"];
+          };
           # Catch Nix syntax errors and anti-patterns
           statix.enable = true;
         };

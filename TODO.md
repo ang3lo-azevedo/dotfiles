@@ -1,5 +1,4 @@
-- [ ] Add way to dismiss the mpris
-- [ ] Improve waybar dismiss movements
+- [ ] Fix the volume scroll direction
 - [ ] See about calendar notification times
 - [ ] Add secure boot to system
 - [ ] See to add auto comments and auto update of the wiki/README
@@ -27,7 +26,3 @@
 - [ ] Test and improve Windows configuration
 - [ ] Add LaTeX
 - [ ] Improve overlays
-- [ ] Add impermanence
-- [x] Add the backup mechanism
-- [ ] Remove spicetify-nix commit pin in flake.nix when npins mismatch is fixed upstream
-- [ ] Remove zen-browser commit pin in flake.nix when syntax error is fixed upstream

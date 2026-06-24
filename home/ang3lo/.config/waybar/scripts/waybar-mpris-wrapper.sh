@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# File used to mark as dismissed
+# Files used to mark state
 DISMISS_FILE="/tmp/waybar-mpris-dismiss"
-rm -f "$DISMISS_FILE"
+SHOW_FILE="/tmp/waybar-mpris-show"
 
-# Background job to clear the dismiss file when track changes
+# Background job to clear the states when track changes
 playerctl metadata --follow --format '{{title}} - {{artist}}' 2>/dev/null | while read -r line; do
-    rm -f "$DISMISS_FILE"
+    rm -f "$DISMISS_FILE" "$SHOW_FILE"
 done &
 PLAYERCTL_PID=$!
 
@@ -14,11 +14,18 @@ PLAYERCTL_PID=$!
 trap 'kill $PLAYERCTL_PID 2>/dev/null' EXIT
 
 # Run ScrollMPRIS and filter output
-ScrollMPRIS --scroll wrapping | while read -r line; do
+ScrollMPRIS --no-icon --scroll wrapping | while read -r line; do
     if [ -f "$DISMISS_FILE" ]; then
-        # When dismissed, output an empty text to hide the module
-        echo '{"text": "", "tooltip": "Dismissed. Will return on next song."}'
+        # Explicitly dismissed
+        echo '{"text": "", "tooltip": "Dismissed."}'
+    elif [ -f "$SHOW_FILE" ]; then
+        # Explicitly shown (even if paused)
+        echo "$line"
+    elif [[ "$line" == *'"class":"paused"'* ]]; then
+        # Default behavior: hide when paused
+        echo '{"text": "", "tooltip": "Paused"}'
     else
+        # Default behavior: show when playing
         echo "$line"
     fi
 done
