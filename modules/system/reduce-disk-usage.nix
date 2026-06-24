@@ -1,8 +1,4 @@
 {
-  # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 10;
-  # boot.loader.grub.configurationLimit = 10;
-
   /*
      # Automatically optimise the Nix store to reduce disk usage
   nix.optimise.automatic = true;
