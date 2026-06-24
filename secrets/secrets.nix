@@ -18,4 +18,5 @@ in
   "git_config.age".publicKeys = usersAndSystems;
   "rclone.conf.age".publicKeys = usersAndSystems;
   "restic_password.age".publicKeys = usersAndSystems;
+  "nextcloud_caldav.age".publicKeys = usersAndSystems;
 }
