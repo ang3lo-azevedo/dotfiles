@@ -28,8 +28,9 @@
         "exec": "~/.config/waybar/scripts/waybar-clock-calendar.sh",
         "return-type": "json",
         "on-click": "ghostty -e khal interactive",
-        "on-scroll-up": "swaync-client -cp",
-        "on-scroll-down": "~/.config/waybar/scripts/waybar-toggle.sh"
+        "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "mpris": {
@@ -52,7 +53,9 @@
         "on-click-backward": "playerctl previous",
         "on-click-forward": "playerctl next",
         "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show && pkill -f waybar-mpris-wrapper.sh",
-        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss && pkill -f waybar-mpris-wrapper.sh"
+        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss && pkill -f waybar-mpris-wrapper.sh",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "custom/waybar-scrolling-mpris": {
@@ -74,12 +77,16 @@
             "off": "\uf185",
             "on": "\uf186"
         },
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "backlight": {
         "device": "intel_backlight",
-        "format": "{percent}% "
+        "format": "{percent}% ",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "wireplumber": {
@@ -90,6 +97,8 @@
         },
         "format-muted": "\uf026",
         "tooltip-format": "{node_name} ({volume}%)",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false,
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "pwmenu -l fuzzel"
     },
@@ -104,7 +113,9 @@
             "warning": 30,
             "critical": 15
         },
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "network": {
@@ -117,7 +128,9 @@
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "iwmenu -l fuzzel",
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "bluetooth": {
@@ -130,7 +143,9 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "custom/auto-cpufreq": {
@@ -139,7 +154,9 @@
         "exec": "~/.config/waybar/scripts/auto-cpufreq.sh",
         "interval": 5,
         "on-click": "~/.config/waybar/scripts/auto-cpufreq-toggle.sh",
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "privacy": {
@@ -165,12 +182,16 @@
                 "name": "obs"
             }
         ],
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "tray": {
         "spacing": 16,
-        "on-scroll-up": "swaync-client -cp"
+        "on-scroll-up": "swaync-client -cp",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     },
 
     "custom/notification": {
@@ -188,6 +209,8 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "on-scroll-up": "swaync-client -cp",
-        "escape": true
+        "escape": true,
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
     }
 }

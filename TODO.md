@@ -1,4 +1,4 @@
-- [ ] Fix the volume scroll direction
+- [x] Fix the volume scroll direction
 - [ ] See about calendar notification times
 - [ ] Add secure boot to system
 - [ ] See to add auto comments and auto update of the wiki/README
