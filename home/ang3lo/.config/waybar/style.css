@@ -23,6 +23,11 @@
     color: @foreground-inactive;
 }
 
+#custom-fill-left,
+#custom-fill-right {
+    min-width: 400px;
+}
+
 #privacy,
 #mpris,
 #custom-waybar-scrolling-mpris {

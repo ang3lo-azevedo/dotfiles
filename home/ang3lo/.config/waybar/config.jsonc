@@ -10,7 +10,8 @@
     "modules-left": [
         "privacy",
         "mpris",
-        "custom/waybar-scrolling-mpris"
+        "custom/waybar-scrolling-mpris",
+        "custom/fill-left"
     ],
     "modules-center": [
         "custom/spacer-left",
@@ -18,6 +19,7 @@
         "custom/spacer-right"
     ],
     "modules-right": [
+        "custom/fill-right",
         "tray",
         "custom/wlsunset",
         "wireplumber",
@@ -27,6 +29,20 @@
         "battery",
         "custom/notification"
     ],
+
+    "custom/fill-left": {
+        "format": " ",
+        "tooltip": false,
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
+    },
+
+    "custom/fill-right": {
+        "format": " ",
+        "tooltip": false,
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
+    },
 
     "custom/spacer-left": {
         "format": "  ",
