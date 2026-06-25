@@ -8,13 +8,15 @@
       # Listen on localhost so systemd-resolved can forward queries here
       listen_addresses = ["127.0.0.1:53" "[::1]:53"];
 
-      # Mullvad Base (blocks ads, trackers, and malware via DoH)
-      # Sweden jurisdiction, no-log, no ECS (your IP is never forwarded to authoritative servers)
-      server_names = ["mullvad-base-doh"];
+      # Primary: Mullvad DoH, Sweden jurisdiction, no-log, no ECS.
+      # Fallback: Quad9 DoH, Swiss non-profit, no-log, DNSSEC, blocks malware.
+      # dnscrypt-proxy picks the fastest available and falls back automatically.
+      server_names = ["mullvad-base-doh" "mullvad-doh" "quad9-doh-ip4-filter-pri"];
 
       # Only use servers that validate responses (DNSSEC) and have a no-log policy
       require_dnssec = true;
       require_nolog = true;
+
       # Must be false to allow filtering servers (mullvad-base filters by design)
       require_nofilter = false;
 
@@ -39,12 +41,16 @@
     settings.Resolve = {
       # dnscrypt-proxy handles DNSSEC validation upstream
       DNSSEC = "false";
-      # No DoT here — encryption is handled by dnscrypt-proxy
+
+      # No DoT here, encryption is handled by dnscrypt-proxy
       DNSOverTLS = "no";
+
       # Apply this DNS server to all domains
       Domains = "~.";
+
       # Forward all queries to dnscrypt-proxy running on localhost
       DNS = "127.0.0.1";
+
       # Fall back to Mullvad plain DNS if dnscrypt-proxy is unreachable.
       # Still no-log (same provider), just unencrypted, better than no DNS at all.
       FallbackDNS = "194.242.2.2";
