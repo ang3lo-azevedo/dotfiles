@@ -13,7 +13,7 @@ in {
     ls = "eza";
     cat = "bat";
     y = "yazi";
-    code = "antigravity-ide";
+    code = "$EDITOR";
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && nix develop -c pre-commit run --all-files)";
@@ -21,9 +21,9 @@ in {
     hmrebuild = "fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
     nvfetcher = "nix run nixpkgs#nvfetcher -- -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
-
-    # Fast day-to-day system apply: no lockfile bump, better progress output.
     upgrade = "update && rebuild";
+    u = "upgrade";
+    re = "rebuild";
 
     # Backup related aliases
     backup-all = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo systemctl kill -s USR1 --kill-who=main restic-backups-nas.service restic-backups-gdrive-shared.service 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-nas.service restic-backups-gdrive-shared.service && echo \"Backups started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl --output=with-unit -u restic-backups-nas.service -u restic-backups-gdrive-shared.service -f | grep --line-buffered -v \"signal SIGUSR1\" | grep --line-buffered -v \"]: /\"'";
