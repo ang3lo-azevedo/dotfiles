@@ -1,6 +1,6 @@
 {lib, ...}: {
   # dnscrypt-proxy acts as a local DNS resolver that encrypts queries using DoH (DNS-over-HTTPS).
-  # Unlike DoT (port 853), DoH sends DNS queries as regular HTTPS on port 443 — ISPs cannot
+  # Unlike DoT (port 853), DoH sends DNS queries as regular HTTPS on port 443, ISPs cannot
   # distinguish it from normal web traffic and cannot block it without blocking all HTTPS.
   services.dnscrypt-proxy = {
     enable = true;
@@ -8,14 +8,14 @@
       # Listen on localhost so systemd-resolved can forward queries here
       listen_addresses = ["127.0.0.1:53" "[::1]:53"];
 
-      # Mullvad Extended: blocks ads, trackers, and malware via DoH
+      # Mullvad Base (blocks ads, trackers, and malware via DoH)
       # Sweden jurisdiction, no-log, no ECS (your IP is never forwarded to authoritative servers)
-      server_names = ["mullvad-extended"];
+      server_names = ["mullvad-base-doh"];
 
       # Only use servers that validate responses (DNSSEC) and have a no-log policy
       require_dnssec = true;
       require_nolog = true;
-      # Must be false to allow filtering servers (mullvad-extended filters by design)
+      # Must be false to allow filtering servers (mullvad-base filters by design)
       require_nofilter = false;
 
       # Fetch and cache the public list of verified DNS resolvers
@@ -45,6 +45,9 @@
       Domains = "~.";
       # Forward all queries to dnscrypt-proxy running on localhost
       DNS = "127.0.0.1";
+      # Disable fallback DNS, if dnscrypt-proxy is down, DNS should fail rather
+      # than silently leaking queries to unencrypted servers
+      FallbackDNS = "";
     };
   };
 
