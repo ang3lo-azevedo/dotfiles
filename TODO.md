@@ -1,6 +1,5 @@
 - [ ] Fix moz-extension://32440d06-6e51-48ef-abb6-8c646b124fdc/firstrun.html still showing up
 - [ ] Make waybar swipe besides clock show swaync
-- [ ] Fix cursor big waybar icons
 - [ ] Make waybar hide only on that monitor
 - [ ] Add bambu studio
 - [ ] See to add auto comments and auto update of the wiki/README
