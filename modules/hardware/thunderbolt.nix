@@ -1,17 +1,28 @@
-{
-  # Thunderbolt security daemon, manages authorization for new/unknown devices.
-  # Known devices are authorized declaratively by udev rules below.
-  # Unknown devices still require manual approval via boltctl.
+{pkgs, ...}: {
+  # Thunderbolt security daemon, manages authorization. Unknown devices require
+  # manual approval via boltctl. Known devices are enrolled in its database.
   services.hardware.bolt.enable = true;
 
+  # After bolt authorizes a Thunderbolt device, trigger a PCIe rescan so the
+  # eGPU driver binds without needing a hot-replug.
   services.udev.extraRules = ''
-    # Authorize known trusted Thunderbolt devices by UUID. IOMMU isolation is
-    # still enforced by the kernel regardless of how authorization happens.
-    ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{unique_id}=="105a4c17-c0ca-79fd-ffff-ffffffffffff", ATTR{authorized}="1"
-    ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{unique_id}=="c2010000-0082-841e-033a-d28df030ca02", ATTR{authorized}="1"
-
-    # After authorization, trigger a PCIe rescan so the eGPU driver binds
-    # without needing a hot-replug.
-    ACTION=="change", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="1", RUN+="/bin/sh -c 'echo 1 > /sys/bus/pci/rescan'"
+    ACTION=="change", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="1", RUN+="${pkgs.bash}/bin/sh -c 'echo 1 > /sys/bus/pci/rescan'"
   '';
+
+  # The eGPU enclosure powers up slowly and may not enumerate on the Thunderbolt
+  # bus in time for the boot-time scan. This service rescans PCIe a few seconds
+  # after the graphical session starts to catch late-powering devices.
+  systemd.services.egpu-rescan = {
+    description = "Delayed PCIe rescan for eGPU boot initialization";
+    after = ["graphical.target"];
+    wantedBy = ["graphical.target"];
+    script = ''
+      ${pkgs.coreutils}/bin/sleep 5
+      echo 1 > /sys/bus/pci/rescan
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+  };
 }

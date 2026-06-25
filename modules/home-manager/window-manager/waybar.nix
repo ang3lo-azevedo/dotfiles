@@ -43,6 +43,7 @@ in {
           Type = "oneshot";
           ExecStart = "${scripts}/waybar-autostart.sh";
           RemainAfterExit = true;
+          Environment = "PATH=${lib.makeBinPath (with pkgs; [jq niri])}";
         };
       };
 
