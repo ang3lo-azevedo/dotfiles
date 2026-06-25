@@ -1,4 +1,10 @@
-{
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    jq
+    nvfetcher
+    pre-commit
+  ];
+
   imports = [
     ./keyring
     ./zsh

@@ -10,9 +10,6 @@
   ];
 
   home.packages = with pkgs; [
-    jq
-    nvfetcher
-    pre-commit
     nixfmt
     nil
     cargo

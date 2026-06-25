@@ -1,6 +1,6 @@
 {
   "$schema": "/etc/xdg/swaync/configSchema.json",
-  "output": "eDP-1",
+  "notification-window-preferred-output": "eDP-1",
   "positionX": "right",
   "positionY": "top",
   "layer": "overlay",
