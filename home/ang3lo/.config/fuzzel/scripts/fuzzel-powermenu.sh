@@ -47,26 +47,6 @@ check_ventoy_usb() {
 # Get current values
 CURRENT_IDLE_STATUS=$(get_idle_status)
 
-# Function to save session with error handling
-save_session() {
-    local action="$1"
-    
-    if [ -x ~/.config/mango/scripts/save-session.sh ]; then
-        echo "Saving session before $action..."
-        if ~/.config/mango/scripts/save-session.sh; then
-            notify-send "Session Saved" "Current session saved before $action" --expire-time=2000
-            sleep 0.5
-            return 0
-        else
-            notify-send "Session Save Failed" "Could not save session before $action" --urgency=critical --expire-time=3000
-            return 1
-        fi
-    else
-        notify-send "Session Save Error" "Save session script not found or not executable" --urgency=critical --expire-time=3000
-        return 1
-    fi
-}
-
 # Get current idle inhibitor status
 get_idle_status() {
     # Check if idle inhibitor is active by looking for systemd-inhibit process
@@ -106,8 +86,6 @@ case $SELECTION in
 	*"Suspend System")
 		systemctl suspend;;
 	*"Log Out")
-		save_session "logout"
-		
 		# Try Mango first, then fallback to other methods
 		if command -v mmsg >/dev/null 2>&1; then
 			mmsg -d quit
@@ -121,13 +99,10 @@ case $SELECTION in
 		fi
 		;;
 	*"Restart System")
-		save_session "system restart"
 		systemctl reboot;;
 	*"Restart to UEFI")
-		save_session "UEFI restart"
 		systemctl reboot --firmware-setup;;
 	*"Restart to Ventoy")
-		save_session "Ventoy restart"
 		# Find Ventoy USB device and set it as next boot device
 		ventoy_device=""
 		
@@ -183,10 +158,8 @@ case $SELECTION in
 		fi
 		;;
 	*"Force Restart")
-		save_session "force restart"
 		pkexec "echo b > /proc/sysrq-trigger";;
 	*"Shutdown System")
-		save_session "shutdown"
 		systemctl poweroff;;
 	*"Tools Menu"*)
 		# Show tools submenu
