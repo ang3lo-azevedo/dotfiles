@@ -5,7 +5,7 @@
     "spacing": 5,
     "output": "EXTERNAL_OUTPUT",
     "on-scroll-up": "swaync-client -cp",
-    "on-scroll-down": "swaync-client -op",
+    "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
 
     "modules-left": [
         "privacy",
@@ -13,7 +13,9 @@
         "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
-        "custom/clock-calendar"
+        "custom/spacer-left",
+        "custom/clock-calendar",
+        "custom/spacer-right"
     ],
     "modules-right": [
         "tray",
@@ -26,11 +28,26 @@
         "custom/notification"
     ],
 
+    "custom/spacer-left": {
+        "format": "  ",
+        "tooltip": false,
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
+    },
+
+    "custom/spacer-right": {
+        "format": "  ",
+        "tooltip": false,
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
+    },
+
     "custom/clock-calendar": {
         "exec": "~/.config/waybar/scripts/waybar-clock-calendar.sh",
         "return-type": "json",
         "on-click": "ghostty -e khal interactive",
         "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh EXTERNAL_OUTPUT",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -84,6 +101,7 @@
             "on": "\uf186"
         },
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -120,6 +138,7 @@
             "critical": 15
         },
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -135,6 +154,7 @@
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "iwmenu -l fuzzel",
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -150,6 +170,7 @@
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
         "on-click": "bzmenu -l fuzzel",
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -161,6 +182,7 @@
         "interval": 5,
         "on-click": "~/.config/waybar/scripts/auto-cpufreq-toggle.sh",
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -189,6 +211,7 @@
             }
         ],
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -196,6 +219,7 @@
     "tray": {
         "spacing": 16,
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -215,6 +239,7 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "escape": true,
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
