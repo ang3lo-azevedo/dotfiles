@@ -7,6 +7,12 @@
 }: let
   mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
   scripts = "/home/ang3lo/.config/waybar/scripts";
+  waybarAutostart = pkgs.writeShellScript "waybar-autostart" ''
+    ${pkgs.niri}/bin/niri msg --json outputs | ${pkgs.jq}/bin/jq -r 'keys[]' | while IFS= read -r output; do
+      systemctl --user start "waybar-output@''${output}.service"
+      systemctl --user start "waybar-trigger@''${output}.service"
+    done
+  '';
 in {
   programs.waybar = {
     enable = true;
@@ -41,9 +47,8 @@ in {
         };
         Service = {
           Type = "oneshot";
-          ExecStart = "${scripts}/waybar-autostart.sh";
+          ExecStart = "${waybarAutostart}";
           RemainAfterExit = true;
-          Environment = "PATH=${lib.makeBinPath (with pkgs; [jq niri])}";
         };
       };
 
@@ -62,17 +67,14 @@ in {
         };
       };
 
-      waybar-trigger = {
+      "waybar-trigger@" = {
         Unit = {
-          Description = "Waybar trigger bar";
+          Description = "Waybar trigger bar for output %i";
           PartOf = ["graphical-session.target"];
           After = ["graphical-session.target"];
         };
-        Install = {
-          WantedBy = ["graphical-session.target"];
-        };
         Service = {
-          ExecStart = "${pkgs.waybar}/bin/waybar -c /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.jsonc -s /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.css";
+          ExecStart = "${scripts}/start-waybar-trigger.sh %i";
           Restart = "always";
           RestartSec = "3";
         };

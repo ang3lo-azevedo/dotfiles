@@ -16,12 +16,5 @@ echo "$NOW" >"$LAST_RUN_FILE"
 DIFF=$((NOW - LAST_RUN))
 
 if [ "$DIFF" -gt 200 ]; then
-	case "$1" in
-	eDP-1)
-		systemctl --user kill -s SIGUSR1 --kill-who=main waybar.service
-		;;
-	*)
-		systemctl --user kill -s SIGUSR1 --kill-who=main "waybar-output@${1}.service"
-		;;
-	esac
+	systemctl --user kill -s SIGUSR1 --kill-who=main "waybar-output@${1}.service"
 fi
