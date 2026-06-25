@@ -1,4 +1,5 @@
 {
+    "output": "EXTERNAL_OUTPUT",
     "layer": "top",
     "position": "top",
     "exclusive": false,
@@ -7,7 +8,7 @@
     "custom/trigger": {
         "format": " ",
         "tooltip": false,
-        "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh",
-        "on-scroll-down": "~/.config/waybar/scripts/waybar-toggle.sh"
+        "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh EXTERNAL_OUTPUT",
+        "on-scroll-down": "~/.config/waybar/scripts/waybar-toggle.sh EXTERNAL_OUTPUT"
     }
 }
