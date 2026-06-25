@@ -8,6 +8,7 @@
 in {
   programs.zsh.shellAliases = {
     # Tool related alises
+    c = "clear";
     ll = "eza -l";
     la = "eza -la";
     ls = "eza";
@@ -17,11 +18,11 @@ in {
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && nix develop -c pre-commit run --all-files)";
-    rebuild = "fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
+    rebuild = "sudo -v && fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
     hmrebuild = "fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
     nvfetcher = "nix run nixpkgs#nvfetcher -- -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
-    upgrade = "update && rebuild";
+    upgrade = "sudo -v && update && rebuild";
     u = "upgrade";
     re = "rebuild";
 
