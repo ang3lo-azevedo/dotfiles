@@ -1,4 +1,8 @@
-- [ ] Add secure boot to system https://github.com/nix-community/lanzaboote
+see privacy
+- [ ] Make waybar swipe besides clock show swaync
+- [ ] Fix cursor big waybar icons
+- [ ] Make waybar hide only on that monitor
+- [ ] Add bambu studio
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
 - [ ] Fix webcam
