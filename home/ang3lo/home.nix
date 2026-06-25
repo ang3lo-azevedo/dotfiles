@@ -32,7 +32,7 @@ in {
       allowUnfree = true;
       permittedInsecurePackages = [
         "electron-39.8.10"
-        "ventoy-gtk3-1.1.12"
+        "ventoy-1.1.12"
       ];
     };
     overlays = [

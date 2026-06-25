@@ -1,5 +1,5 @@
 {pkgs, ...}: {
   home.packages = [
-    pkgs.ventoy-full-gtk
+    pkgs.ventoy-full
   ];
 }
