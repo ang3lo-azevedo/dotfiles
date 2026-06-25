@@ -492,8 +492,10 @@ binds {
     //ztXF86TouchpadToggle allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
 
     // Notification controls
-    Mod+N hotkey-overlay-title="Toggle Notification Center" { spawn "swaync-client" "-t" "-sw"; }
-    Mod+Shift+N hotkey-overlay-title="Toggle Do Not Disturb" { spawn "swaync-client" "-d" "-sw"; }
+    Mod+Shift+N hotkey-overlay-title="Toggle Notification Center" { spawn "swaync-client" "-t" "-sw"; }
+    Mod+Ctrl+N hotkey-overlay-title="Toggle Do Not Disturb" { spawn "swaync-client" "-d" "-sw"; }
+
+    Mod+N hotkey-overlay-title="Open Nix Config" { spawn "sh" "-c" "exec ${EDITOR} ~/nix-config"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
