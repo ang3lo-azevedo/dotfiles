@@ -31,6 +31,17 @@
   # Restore pinned tabs to their pinned URL on startup
   "pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
 
+  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake
+  "network.dns.echconfig.enabled" = true;
+
+  # Required for ECH, fetch HTTPS DNS records that carry the ECH config
+  "network.dns.use_https_rr_as_altsvc" = true;
+
+  # Use Mullvad DoH as the browser's internal resolver (needed to fetch HTTPS DNS records)
+  # Mode 2, use DoH with fallback to system DNS if unreachable
+  "network.trr.mode" = 2;
+  "network.trr.uri" = "https://base.dns.mullvad.net/dns-query";
+
   # Don't use separate default search engines for private windows
   "browser.search.separatePrivateDefault" = false;
 
