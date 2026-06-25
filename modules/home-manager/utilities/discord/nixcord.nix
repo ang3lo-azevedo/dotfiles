@@ -15,9 +15,6 @@
     discord = {
       vencord.enable = false;
       equicord.enable = true;
-
-      # TODO: Remove when nixcord fixes the openASAR
-      #openASAR.enable = false;
     };
     config = {
       autoUpdate = true;
@@ -26,7 +23,7 @@
         noNitroUpsell.enable = true;
         questify = {
           enable = true;
-          #allowChangingDangerousSettings = true;
+          allowChangingDangerousSettings = true;
           autoCompleteQuestsSimultaneously = true;
           autoCompleteQuestTypes = {
             PLAY_ON_DESKTOP = true;
