@@ -1,6 +1,7 @@
 - [ ] Fix moz-extension://32440d06-6e51-48ef-abb6-8c646b124fdc/firstrun.html still showing up
 - [ ] Make waybar swipe besides clock show swaync
 - [ ] Make waybar hide only on that monitor
+- [ ] Make notifications only show on laptop monitor
 - [ ] Add bambu studio
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
@@ -8,6 +9,7 @@
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
+- [ ] See best AI local module to have
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
 - [ ] Define a forensics windows vm, maybe flare vm or win for
@@ -28,3 +30,4 @@
 - [ ] Test and improve Windows configuration
 - [ ] Add LaTeX
 - [ ] Improve overlays
+- [ ] Make some choices be true of false options

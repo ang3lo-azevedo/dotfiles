@@ -45,9 +45,9 @@
       Domains = "~.";
       # Forward all queries to dnscrypt-proxy running on localhost
       DNS = "127.0.0.1";
-      # Disable fallback DNS, if dnscrypt-proxy is down, DNS should fail rather
-      # than silently leaking queries to unencrypted servers
-      FallbackDNS = "";
+      # Fall back to Mullvad plain DNS if dnscrypt-proxy is unreachable.
+      # Still no-log (same provider), just unencrypted, better than no DNS at all.
+      FallbackDNS = "194.242.2.2";
     };
   };
 

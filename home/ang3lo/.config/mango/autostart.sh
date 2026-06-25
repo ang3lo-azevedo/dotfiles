@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
 # obs
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots >/dev/null 2>&1
 

@@ -6,10 +6,11 @@
   ...
 }: let
   mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
+  scripts = "/home/ang3lo/.config/waybar/scripts";
 in {
   programs.waybar = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
   };
 
   home.packages = with pkgs; [
@@ -28,19 +29,58 @@ in {
   };
 
   systemd.user = {
-    services.waybar-trigger = {
-      Unit = {
-        Description = "Waybar trigger bar";
-        PartOf = ["graphical-session.target"];
-        After = ["graphical-session.target"];
+    services = {
+      waybar-autostart = {
+        Unit = {
+          Description = "Start Waybar on all connected outputs";
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
+        };
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${scripts}/waybar-autostart.sh";
+          RemainAfterExit = true;
+        };
       };
-      Install = {
-        WantedBy = ["graphical-session.target"];
+
+      # Template service for any output. Start with:
+      # systemctl --user start waybar-output@DP-3
+      "waybar-output@" = {
+        Unit = {
+          Description = "Waybar for output %i";
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "${scripts}/start-waybar-output.sh %i";
+          Restart = "always";
+          RestartSec = "3";
+        };
       };
-      Service = {
-        ExecStart = "${pkgs.waybar}/bin/waybar -c /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.jsonc -s /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.css";
-        Restart = "always";
-        RestartSec = "3";
+
+      waybar-trigger = {
+        Unit = {
+          Description = "Waybar trigger bar";
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
+        };
+        Install = {
+          WantedBy = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "${pkgs.waybar}/bin/waybar -c /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.jsonc -s /home/ang3lo/nix-config/home/ang3lo/.config/waybar/trigger.css";
+          Restart = "always";
+          RestartSec = "3";
+        };
+      };
+
+      waybar-reload = {
+        Unit.Description = "Reload all active Waybar instances";
+        Service.Type = "oneshot";
+        Service.ExecStart = "${scripts}/waybar-reload.sh";
       };
     };
 
@@ -51,13 +91,7 @@ in {
         "/home/ang3lo/nix-config/home/ang3lo/.config/waybar/style.css"
       ];
       Path.Unit = "waybar-reload.service";
-      Install.WantedBy = ["waybar.service"];
-    };
-
-    services.waybar-reload = {
-      Unit.Description = "Reload Waybar";
-      Service.Type = "oneshot";
-      Service.ExecStart = "${pkgs.systemd}/bin/systemctl --user reload waybar.service";
+      Install.WantedBy = ["waybar-autostart.service"];
     };
   };
 }
