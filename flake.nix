@@ -474,6 +474,10 @@
           };
           # Catch Nix syntax errors and anti-patterns
           statix.enable = true;
+          # Lint shell scripts for bugs and pitfalls
+          shellcheck.enable = true;
+          # Format shell scripts
+          shfmt.enable = true;
         };
       };
     };
