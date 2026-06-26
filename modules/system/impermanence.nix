@@ -2,10 +2,23 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  rollbackScript = pkgs.writeShellScript "rollback" ''
+    mkdir /btrfs_tmp
+    mount -t btrfs /dev/pool/root /btrfs_tmp
+    if [ -e /btrfs_tmp/root ]; then
+      btrfs subvolume delete /btrfs_tmp/root
+    fi
+    btrfs subvolume create /btrfs_tmp/root
+    umount /btrfs_tmp
+  '';
+in {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
-  # Wipe /root subvolume on every boot before it is mounted
+  # Wipe /root subvolume on every boot before it is mounted.
+  # storePaths ensures the script is included in the initrd image (the Nix store
+  # is not mounted yet when initrd systemd services run).
+  boot.initrd.systemd.storePaths = [rollbackScript];
   boot.initrd.systemd.services.rollback = {
     description = "Rollback BTRFS root subvolume to a clean state";
     wantedBy = ["initrd.target"];
@@ -14,15 +27,7 @@
     unitConfig.DefaultDependencies = "no";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = pkgs.writeShellScript "rollback" ''
-        mkdir /btrfs_tmp
-        mount -t btrfs /dev/pool/root /btrfs_tmp
-        if [ -e /btrfs_tmp/root ]; then
-          btrfs subvolume delete /btrfs_tmp/root
-        fi
-        btrfs subvolume create /btrfs_tmp/root
-        umount /btrfs_tmp
-      '';
+      ExecStart = rollbackScript;
     };
   };
 
@@ -44,7 +49,6 @@
       "/var/lib/systemd/pcrlock.d"
       "/etc/ssh"
       "/var/lib/boltd"
-      "/var/lib/dnscrypt-proxy"
       "/var/lib/nordvpn"
       "/var/lib/containers"
       "/var/lib/libvirt"
