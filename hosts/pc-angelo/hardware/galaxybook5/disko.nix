@@ -45,7 +45,6 @@ in {
               format = "ntfs";
               mountpoint = "/mnt/windows";
               mountOptions = [
-                "rw"
                 "uid=1000"
                 "gid=100"
                 "nofail"
@@ -53,7 +52,7 @@ in {
             };
           };
           shared = {
-            priority = 100; # High priority number to be on the end of the disk
+            priority = 100; # Highest number = lowest priority = created last, placed at end of disk
             size = "100%"; # Use all remaining space
             content = {
               type = "filesystem";
@@ -62,12 +61,10 @@ in {
               mountOptions = [
                 "uid=1000"
                 "gid=100"
-                "rw"
                 "user"
                 "exec" # Allows Linux to launch the games
                 "umask=000"
                 "nofail"
-                "prealloc" # Best performance for ntfs3
               ];
             };
           };
@@ -104,28 +101,19 @@ in {
             subvolumes = {
               "/root" = {
                 mountpoint = "/";
-                mountOptions = [
-                  "compress=zstd"
-                  "noatime"
-                ];
+                mountOptions = ["compress=zstd:3" "noatime" "discard=async"];
               };
               "/persist" = {
                 mountpoint = "/persist";
-                mountOptions = [
-                  "compress=zstd"
-                  "noatime"
-                ];
+                mountOptions = ["compress=zstd:3" "noatime" "discard=async"];
               };
               "/home" = {
                 mountpoint = "/home";
-                mountOptions = ["compress=zstd"];
+                mountOptions = ["compress=zstd:1" "noatime" "discard=async"];
               };
               "/nix" = {
                 mountpoint = "/nix";
-                mountOptions = [
-                  "compress=zstd"
-                  "noatime"
-                ];
+                mountOptions = ["compress=zstd:3" "noatime" "discard=async"];
               };
             };
           };
