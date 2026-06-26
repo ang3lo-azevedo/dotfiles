@@ -14,12 +14,22 @@
     passwordFile = resticPassword;
     rcloneConfigFile = rcloneConf;
     exclude = [
+      # Cache
       "/home/*/.cache"
+
+      # Trash
       "/home/*/.local/share/Trash"
+
+      # VMs
+      #"/persist/var/lib/libvirt/images"
+
+      # Core dumps
+      "/persist/var/lib/systemd/coredump"
     ];
     timerConfig = {
       OnCalendar = "daily";
       RandomizedDelaySec = "1h";
+      Persistent = true;
     };
   };
 
