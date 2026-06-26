@@ -1,10 +1,14 @@
 {pkgs, ...}: {
   home.packages = [
-    # The btrfs_stream integration test fails in the Nix sandbox (cross-device
-    # rename: EXDEV errno 18) because the sandbox bind-mounts make rename(2)
-    # across directories fail. Disable checks; the package itself is fine.
-    (pkgs.unblob.overrideAttrs (_: {
-      doCheck = false;
+    (pkgs.unblob.overrideAttrs (old: {
+      # btrfs_stream handler fails in the Nix sandbox with EXDEV (errno 18):
+      # rename(2) across bind-mount boundaries is not allowed.
+      # Same root cause as the romfs/yaffs tests already disabled upstream.
+      disabledTests =
+        (old.disabledTests or [])
+        ++ [
+          "test_all_handlers[filesystem.btrfs_stream]"
+        ];
     }))
   ];
 }

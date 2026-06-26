@@ -1,43 +1,21 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [./wayland.nix];
 
-  # Enable Gnome Keyring integration with Ly
-  security.pam.services.ly.enableGnomeKeyring = true;
-
-  services = {
-    # Enable the Ly display manager
-    displayManager.ly.enable = true;
-
-    # Enable X11 + GNOME session support
-    xserver.enable = true;
-    desktopManager.gnome.enable = false;
-
-    gnome = {
-      # Keep only GNOME Shell essentials
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-      gnome-initial-setup.enable = false;
-      gnome-browser-connector.enable = false;
-
-      # Disable evolution-data-server (pulls in webkitgtk heavily)
-      evolution-data-server.enable = lib.mkForce false;
-
-      # Disable online accounts (pulls in webkitgtk via evolution)
-      gnome-online-accounts.enable = lib.mkForce false;
+  # greetd is a minimal Wayland-native login daemon.
+  # tuigreet provides the TUI frontend; --remember saves the last username,
+  # --sessions points at the system wayland-sessions dir so any installed
+  # compositor (niri, etc.) shows up automatically without hardcoding store paths.
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --sessions /run/current-system/sw/share/wayland-sessions";
+      user = "greeter";
     };
   };
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-user-docs
-    gnome-initial-setup
-    gnome-browser-connector
-  ];
 
-  # Enable niri at system level so it appears in ly session list
+  # Unlock the GNOME keyring on login so SSH/GPG agents and secret storage work.
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
+  # Register niri as a system-level Wayland session so it appears in tuigreet.
   programs.niri.enable = true;
 }

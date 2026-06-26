@@ -6,7 +6,12 @@
 
 ## Other Fixes
 
-- [ ] See ly starting with Steam and alternatives
+
+
+# Wiki
+
+- [ ] Add autocpu-freq to the wiki
+- [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
 
 
 # Ideas
@@ -19,16 +24,12 @@
 
 ## General Stuff
 
-- [ ] Add autocpu-freq to the wiki
+- [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
 - [ ] Generate default disko with device configurations
-
-- [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
-- [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
 - [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
-- [ ] Improve unlock of gnome keyring
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Fix webcam
 - [ ] See about calendar notification times
@@ -51,6 +52,7 @@
   - nova-nix (https://hackage.haskell.org/package/nova-nix): native Windows Nix implementation (no WSL needed), most NixOS-like option
   - DeadlySquad13 bootstrap (https://github.com/DeadlySquad13/Programming_dotfiles.bootstrap): Ansible-based cross-platform dotfile setup supporting Windows + WSL, uses encrypted secrets
   - NixThePlanet (https://github.com/MatthewCroughan/NixThePlanet/): Nix flake to provision Windows VMs reproducibly, useful for the forensics VM TODO
+  - Winhance (https://github.com/memstechtips/Winhance): GUI debloater/optimizer for Windows 10/11, run via `irm "https://get.winhance.net" | iex`
 
 
 ## VM's Stuff

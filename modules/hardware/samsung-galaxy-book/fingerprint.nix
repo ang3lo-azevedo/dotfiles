@@ -10,7 +10,7 @@
     login.fprintAuth = true;
     sudo.fprintAuth = true;
     swaylock.fprintAuth = true;
-    ly.fprintAuth = true;
+    greetd.fprintAuth = true;
     polkit.fprintAuth = true;
   };
 
