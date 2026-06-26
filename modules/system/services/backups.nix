@@ -48,10 +48,10 @@
   };
 
   # Send a desktop notification as ang3lo from a root service.
-  desktopNotify = title: body: ''
+  desktopNotify = urgency: title: body: ''
     runuser -u ang3lo -- \
       env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
-      ${pkgs.libnotify}/bin/notify-send --urgency=critical \
+      ${pkgs.libnotify}/bin/notify-send --urgency=${urgency} \
         ${lib.escapeShellArg title} ${lib.escapeShellArg body}
   '';
 in {
@@ -79,19 +79,52 @@ in {
       }
     ]
     ++ lib.mapAttrsToList (name: repo: {
-      # Hook failure notifications onto each backup job.
+      # Hook start/success/failure notifications onto each backup job.
       "restic-backups-${name}" =
         networkACService
         // {
+          # Show a different notification if the backup is overdue (machine was off at the
+          # scheduled time and Persistent=true triggered a catch-up run).
+          preStart = ''
+            mkdir -p /persist/var/lib/restic
+            state_file=/persist/var/lib/restic/last-run-${name}
+            if [ -f "$state_file" ]; then
+              last_run=$(cat "$state_file")
+              now=$(date +%s)
+              age=$((now - last_run))
+              if [ "$age" -gt 82800 ]; then
+                title="Missed Backup Starting"
+                body="Backup [${name}] was overdue, running now."
+              else
+                title="Backup Started"
+                body="Restic backup [${name}] started."
+              fi
+            else
+              title="Backup Started"
+              body="Restic backup [${name}] started."
+            fi
+            runuser -u ang3lo -- \
+              env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+              ${pkgs.libnotify}/bin/notify-send --urgency=normal "$title" "$body"
+          '';
           unitConfig =
             networkACService.unitConfig
             // {
               OnFailure = "restic-backup-failed-${name}.service";
+              OnSuccess = "restic-backup-success-${name}.service";
             };
         };
+      "restic-backup-success-${name}" = {
+        description = "Notify restic backup success: ${name}";
+        script = ''
+          date +%s > /persist/var/lib/restic/last-run-${name}
+          ${desktopNotify "normal" "Backup Complete" "Restic backup [${name}] finished successfully."}
+        '';
+        serviceConfig.Type = "oneshot";
+      };
       "restic-backup-failed-${name}" = {
         description = "Notify restic backup failure: ${name}";
-        script = desktopNotify "Backup Failed" "Restic backup [${name}] failed. Check: journalctl -u restic-backups-${name}";
+        script = desktopNotify "critical" "Backup Failed" "Restic backup [${name}] failed. Check: journalctl -u restic-backups-${name}";
         serviceConfig.Type = "oneshot";
       };
 
@@ -104,6 +137,7 @@ in {
             networkACService.unitConfig
             // {
               OnFailure = "restic-check-failed-${name}.service";
+              OnSuccess = "restic-check-success-${name}.service";
             };
           environment.RCLONE_CONFIG = rcloneConf;
           script = ''
@@ -112,9 +146,14 @@ in {
           '';
           serviceConfig.Type = "oneshot";
         };
+      "restic-check-success-${name}" = {
+        description = "Notify restic check success: ${name}";
+        script = desktopNotify "normal" "Backup Check Passed" "Restic integrity check [${name}] passed.";
+        serviceConfig.Type = "oneshot";
+      };
       "restic-check-failed-${name}" = {
         description = "Notify restic check failure: ${name}";
-        script = desktopNotify "Backup Check Failed" "Restic check [${name}] failed. Run: restic -r ${repo} check";
+        script = desktopNotify "critical" "Backup Check Failed" "Restic check [${name}] failed. Run: restic -r ${repo} check";
         serviceConfig.Type = "oneshot";
       };
     })
