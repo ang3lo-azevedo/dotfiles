@@ -1,34 +1,36 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
-}: let
-  rollbackScript = pkgs.writeShellScript "rollback" ''
-    mkdir /btrfs_tmp
-    mount -t btrfs /dev/pool/root /btrfs_tmp
-    if [ -e /btrfs_tmp/root ]; then
-      btrfs subvolume delete /btrfs_tmp/root
-    fi
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-  '';
-in {
+}: {
   imports = [inputs.impermanence.nixosModules.impermanence];
 
   # Wipe /root subvolume on every boot before it is mounted.
-  # storePaths ensures the script is included in the initrd image (the Nix store
-  # is not mounted yet when initrd systemd services run).
-  boot.initrd.systemd.storePaths = [rollbackScript];
+  # Using script (not ExecStart) so the initrd module handles the path automatically.
+  # path includes btrfs-progs so the btrfs binary is available in the initrd.
   boot.initrd.systemd.services.rollback = {
     description = "Rollback BTRFS root subvolume to a clean state";
     wantedBy = ["initrd.target"];
     after = ["dev-pool-root.device"];
     before = ["sysroot.mount"];
+    path = [pkgs.btrfs-progs];
     unitConfig.DefaultDependencies = "no";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = rollbackScript;
-    };
+    serviceConfig.Type = "oneshot";
+    script = ''
+      mkdir /btrfs_tmp
+      mount -t btrfs /dev/pool/root /btrfs_tmp
+      if [ -e /btrfs_tmp/root ]; then
+        btrfs subvolume delete /btrfs_tmp/root
+      fi
+      btrfs subvolume create /btrfs_tmp/root
+      umount /btrfs_tmp
+    '';
+  };
+
+  # Fix permissions of /var/lib/private after impermanence bind-mounts
+  systemd.services."systemd-tmpfiles-resetup" = {
+    serviceConfig.RemainAfterExit = lib.mkForce false;
   };
 
   fileSystems."/persist".neededForBoot = true;
@@ -40,13 +42,12 @@ in {
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
+      "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
       "/var/lib/NetworkManager"
       "/var/lib/iwd"
       "/var/lib/fprint"
       "/var/lib/sbctl"
-      "/var/lib/systemd/pcrlock.d"
       "/etc/ssh"
       "/var/lib/boltd"
       "/var/lib/nordvpn"
@@ -55,11 +56,6 @@ in {
     ];
     files = [
       "/etc/machine-id"
-      "/var/lib/systemd/pcrlock.json"
-      "/var/lib/systemd/random-seed"
-      "/var/lib/systemd/credential.secret"
-      "/var/lib/systemd/tpm2-srk-public-key.pem"
-      "/var/lib/systemd/tpm2-srk-public-key.tpm2b_public"
     ];
   };
 }
