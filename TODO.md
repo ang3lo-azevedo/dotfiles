@@ -61,6 +61,7 @@
 
 ## Server Stuff
 
+- [ ] Add firefly III 
 - [ ] Configure server
 
 
