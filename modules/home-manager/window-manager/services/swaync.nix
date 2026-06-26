@@ -25,6 +25,8 @@ in {
   systemd.user.services.swaync-reload = {
     Unit.Description = "Reload SwayNC";
     Service.Type = "oneshot";
+    # Two commands are needed: -R reloads the config, -rs refreshes the panel to repaint styles.
+    # A single -R leaves the panel visually stale until the next notification arrives.
     Service.ExecStart = "${pkgs.bash}/bin/bash -c '${config.services.swaync.package}/bin/swaync-client -R && ${config.services.swaync.package}/bin/swaync-client -rs'";
   };
 }

@@ -54,7 +54,9 @@
   # Ensure camera/microphone capture stays enabled in Zen.
   "media.navigator.enabled" = true;
   "media.peerconnection.enabled" = true;
+  # Route camera capture through PipeWire instead of direct V4L2, required on Wayland
   "media.webrtc.camera.allow-pipewire" = true;
+  # 0 = ask each time (prompt), 1 = allow always, 2 = block always
   "permissions.default.camera" = 0;
   "permissions.default.microphone" = 0;
 }

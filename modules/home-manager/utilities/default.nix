@@ -1,4 +1,7 @@
 {pkgs, ...}: let
+  # update-flake wraps `nix flake update` with a Hydra build-status check.
+  # Updating while Hydra still has pending builds means many closures will not
+  # be in the binary cache yet, forcing expensive local compilations.
   update-flake = pkgs.writeShellApplication {
     name = "update-flake";
     runtimeInputs = [pkgs.curl pkgs.jq pkgs.nix];

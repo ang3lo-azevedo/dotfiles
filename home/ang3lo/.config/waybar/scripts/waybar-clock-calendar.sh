@@ -7,6 +7,8 @@ update_tooltip() {
 		if [[ -z $agenda || $agenda == *"No events"* ]]; then
 			echo "No upcoming events" >/tmp/waybar_agenda_tooltip
 		else
+			# Escape double quotes for JSON, append literal \n to each line, then collapse
+			# real newlines so the result is a single-line JSON string value
 			tooltip=$(echo "$agenda" | sed -E 's/"/\\"/g; s/$/\\n/g' | tr -d '\n')
 			echo "${tooltip%\\n}" >/tmp/waybar_agenda_tooltip
 		fi

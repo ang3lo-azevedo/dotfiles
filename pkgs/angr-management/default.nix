@@ -28,7 +28,9 @@ in
       Comment=GUI for angr
       EOF
 
-          # Wrap the binary to apply Qt theme overrides
+          # Force the Fusion style and unset platform theme env vars: angr-management
+          # ships its own Qt inside the AppImage and system Qt theme plugins are
+          # incompatible, causing crashes or visual corruption without this override
           mv $out/bin/angr-management $out/bin/.angr-management-wrapped
           cat > $out/bin/angr-management <<EOF
       #!/bin/sh

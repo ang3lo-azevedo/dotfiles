@@ -12,6 +12,8 @@ if [ -f "$SESSION_FILE" ]; then
 		esac
 
 		if command -v "$CMD" >/dev/null 2>&1; then
+			# nohup detaches the process from this shell; sleep 0.5 staggers launches
+			# so apps do not all race for the compositor and GPU at the same time
 			nohup "$CMD" >/dev/null 2>&1 &
 			sleep 0.5
 		fi
