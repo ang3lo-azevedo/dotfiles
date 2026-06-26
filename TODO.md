@@ -18,6 +18,7 @@
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 - [ ] Check if new system would boot normally with all the configs
 - [ ] Switch to tmpfs root for true amnesia (see commented block in hosts/pc-angelo/hardware/galaxybook5/disko.nix)
+- [ ] Test and improve Windows configuration and see if is there anything like NixOS for windows
 - [ ] See best AI local module to have
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
@@ -36,7 +37,6 @@
 - [ ] Fix cursor
 - [ ] Add tmux
 - [ ] Add neovim
-- [ ] Test and improve Windows configuration
 - [ ] Add LaTeX
 - [ ] Improve overlays
 - [ ] Make some choices be true of false options
