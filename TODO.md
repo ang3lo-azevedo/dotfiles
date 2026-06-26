@@ -1,7 +1,7 @@
 - [ ] fix build.yml
 - [ ] Generate default disko with device configurations
 - [ ] See ly starting with Steam and alternatives
-- [ ] Add Davinci Resolve Studio
+- [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
 - [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
 - [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
