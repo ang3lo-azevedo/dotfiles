@@ -1,4 +1,7 @@
-- [ ] Fix dns I guess
+- [ ] See ly starting with Steam
+- [ ] Improve keybinds
+- [ ] Improve unlock of gnome keyring
+- [ ] See if TODO file is the best option
 - [ ] Add closed waybar when monitor is connected
 - [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Make waybar only show on laptop screen by default
