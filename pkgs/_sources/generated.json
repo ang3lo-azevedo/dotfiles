@@ -183,21 +183,6 @@
         },
         "version": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9"
     },
-    "nuvio-desktop": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "nuvio-desktop",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-iPPfUiBFGetl+0de1rd59H4oXaLOih3SE7yEJyrcuvE=",
-            "type": "url",
-            "url": "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.7-alpha/Nuvio-0.1.7-alpha-x86_64.AppImage"
-        },
-        "version": "0.1.7-alpha"
-    },
     "registry-spy": {
         "cargoLock": null,
         "date": null,
