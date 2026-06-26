@@ -1,18 +1,29 @@
-# Waybar Stuff
+# Fixes
+## GitHub Actions Stuff
+
+- [ ] Fix build.yml
+
+
+## Other Fixes
+
+- [ ] See ly starting with Steam and alternatives
+
+
+# Ideas
+## Waybar Stuff
 
 - [ ] Add closed waybar when monitor is connected
 - [ ] Make waybar only show on laptop screen by default
 - [ ] Add waybar icon if kde connect is connected
 
 
-# General Stuff
+## General Stuff
 
 - [ ] Add autocpu-freq to the wiki
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
-- [ ] fix build.yml
 - [ ] Generate default disko with device configurations
-- [ ] See ly starting with Steam and alternatives
+
 - [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
 - [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
 - [ ] See where the keybinds should be if on niri config or not and env variables too
@@ -25,13 +36,14 @@
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
 
 
-# Clean System Stuff
+# TODO
+## Clean System Stuff
 
 - [ ] Check if new system would boot normally with all the configs
 - [ ] Switch to tmpfs root for true amnesia (see commented block in hosts/pc-angelo/hardware/galaxybook5/disko.nix)
 
 
-# Windows Stuff
+## Windows Stuff
 
 - [ ] Test and improve Windows configuration: nothing matches NixOS but closest options are:
   - WinGet DSC (`winget export` + `configuration.dsc.yaml`) for declarative package management
@@ -41,18 +53,18 @@
   - NixThePlanet (https://github.com/MatthewCroughan/NixThePlanet/): Nix flake to provision Windows VMs reproducibly, useful for the forensics VM TODO
 
 
-# VM's Stuff
+## VM's Stuff
 
 - [ ] Add virt manager and VM configs: see NixVirt (https://github.com/AshleyYakeley/NixVirt) for declarative libvirt/QEMU VM management via Nix, has Windows 11 template with Secure Boot + TPM (note: master branch frequently broken, pin a stable commit)
 - [ ] Add GPU Passthrough to the VMs: see imperative-containment (https://github.com/kodicw/imperative-containment/) which combines NixVirt with mutable disk state for Windows gaming VMs, includes PCI passthrough, Hyper-V enlightenments and TPM 2.0
 
 
-# Server Stuff
+## Server Stuff
 
 - [ ] Configure server
 
 
-# Other Stuff
+## Other Stuff
 
 - [ ] See best AI local module to have
 - [ ] Improve wiki maybe do a website mainly about the packages
