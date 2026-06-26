@@ -1,3 +1,8 @@
+[ffmpeg-encoder-plugin-resolve]
+src.github = "EdvinNilsson/ffmpeg_encoder_plugin"
+src.prefix = "v"
+fetch.url = "https://github.com/EdvinNilsson/ffmpeg_encoder_plugin/releases/download/v$ver/ffmpeg_encoder_plugin.dvcp.bundle.zip"
+
 [archi]
 src.github = "archimatetool/archi.io"
 fetch.url = "https://github.com/archimatetool/archi.io/releases/download/$ver/Archi-Linux64-$ver.tgz"

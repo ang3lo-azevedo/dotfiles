@@ -71,6 +71,14 @@
       sha256 = "sha256-IRO2pqRK3pMqv49T4U/aAccilIA9pdVURFTlSeXy5D4=";
     };
   };
+  ffmpeg-encoder-plugin-resolve = {
+    pname = "ffmpeg-encoder-plugin-resolve";
+    version = "1.3.3";
+    src = fetchurl {
+      url = "https://github.com/EdvinNilsson/ffmpeg_encoder_plugin/releases/download/v1.3.3/ffmpeg_encoder_plugin.dvcp.bundle.zip";
+      sha256 = "sha256-QiaqdRfLNTt9i689V86Esk5CyIJ0f+P5FbYJQM+1C90=";
+    };
+  };
   ida-chat-plugin = {
     pname = "ida-chat-plugin";
     version = "883f9b3550725d81eed80c25dd28c75b320f22c7";

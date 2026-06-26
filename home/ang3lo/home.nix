@@ -77,6 +77,7 @@ in {
         stremio-enhanced = prev.callPackage (inputs.self + "/pkgs/stremio-enhanced/default.nix") {};
         ctfd-parser = prev.callPackage (inputs.self + "/pkgs/ctfd-parser/default.nix") {};
         ese-database-view = prev.callPackage (inputs.self + "/pkgs/ese-database-view/default.nix") {};
+        ffmpeg-encoder-plugin-resolve = prev.callPackage (inputs.self + "/pkgs/ffmpeg-encoder-plugin-resolve/default.nix") {};
         libesedb = prev.callPackage (inputs.self + "/pkgs/libesedb/default.nix") {};
         libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
         sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
