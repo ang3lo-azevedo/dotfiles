@@ -116,7 +116,7 @@
     version = "0.1.7-alpha";
     src = fetchurl {
       url = "https://github.com/aelrased/NuvioDesktop/releases/download/v0.1.7-alpha/Nuvio-0.1.7-alpha-x86_64.AppImage";
-      sha256 = "sha256-iPPfUiBFGetl+0de1rd59H4oXaLOih3SE7yEJyrcuvE=";
+      sha256 = "sha256-+RBkmO8qSrPqcWzVekRLz9O9akxGH6X2ukLKJgJO2c0=";
     };
   };
   registry-spy = {
