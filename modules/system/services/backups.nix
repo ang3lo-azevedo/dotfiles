@@ -28,6 +28,15 @@
     gdrive-shared = "rclone:gdrive_shared_drive:/backups/pc-angelo";
   };
 
+  # Shared constraints for all network-dependent backup/check services.
+  networkACService = {
+    wants = ["network-online.target"];
+    after = ["network-online.target"];
+    unitConfig.ConditionACPower = true;
+    startLimitIntervalSec = 12 * 60 * 60;
+    startLimitBurst = 1;
+  };
+
   # Send a desktop notification as ang3lo from a root service.
   desktopNotify = title: body: ''
     runuser -u ang3lo -- \
@@ -61,7 +70,15 @@ in {
     ]
     ++ lib.mapAttrsToList (name: repo: {
       # Hook failure notifications onto each backup job.
-      "restic-backups-${name}".unitConfig.OnFailure = "restic-backup-failed-${name}.service";
+      "restic-backups-${name}" =
+        networkACService
+        // {
+          unitConfig =
+            networkACService.unitConfig
+            // {
+              OnFailure = "restic-backup-failed-${name}.service";
+            };
+        };
       "restic-backup-failed-${name}" = {
         description = "Notify restic backup failure: ${name}";
         script = desktopNotify "Backup Failed" "Restic backup [${name}] failed. Check: journalctl -u restic-backups-${name}";
@@ -69,16 +86,22 @@ in {
       };
 
       # Weekly integrity check for each repo.
-      "restic-check-${name}" = {
-        description = "Restic integrity check: ${name}";
-        environment.RCLONE_CONFIG = rcloneConf;
-        script = ''
-          ${pkgs.restic}/bin/restic --repo ${lib.escapeShellArg repo} \
-            --password-file ${resticPassword} check
-        '';
-        unitConfig.OnFailure = "restic-check-failed-${name}.service";
-        serviceConfig.Type = "oneshot";
-      };
+      "restic-check-${name}" =
+        networkACService
+        // {
+          description = "Restic integrity check: ${name}";
+          unitConfig =
+            networkACService.unitConfig
+            // {
+              OnFailure = "restic-check-failed-${name}.service";
+            };
+          environment.RCLONE_CONFIG = rcloneConf;
+          script = ''
+            ${pkgs.restic}/bin/restic --repo ${lib.escapeShellArg repo} \
+              --password-file ${resticPassword} check --read-data-subset=2.5%
+          '';
+          serviceConfig.Type = "oneshot";
+        };
       "restic-check-failed-${name}" = {
         description = "Notify restic check failure: ${name}";
         script = desktopNotify "Backup Check Failed" "Restic check [${name}] failed. Run: restic -r ${repo} check";
