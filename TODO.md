@@ -42,6 +42,12 @@
 - [ ] Add virt manager and VM configs: see NixVirt (https://github.com/AshleyYakeley/NixVirt) for declarative libvirt/QEMU VM management via Nix, has Windows 11 template with Secure Boot + TPM (note: master branch frequently broken, pin a stable commit)
 - [ ] Add GPU Passthrough to the VMs: see imperative-containment (https://github.com/kodicw/imperative-containment/) which combines NixVirt with mutable disk state for Windows gaming VMs, includes PCI passthrough, Hyper-V enlightenments and TPM 2.0
 
+
+# Server Stuff
+
+- [ ] Configure server
+
+
 # Other Stuff
 
 - [ ] See best AI local module to have
@@ -50,7 +56,6 @@
 - [ ] Define a forensics windows vm, maybe flare vm or win for. For reproducible Windows VM images see wfvm (https://git.m-labs.hk/M-Labs/wfvm): builds Windows images with pre-installed software as Nix layers, actively maintained
 - [ ] Add wavsteg to cyber tools https://github.com/samolds/wavsteg
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
-- [ ] Configure server
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
 - [ ] Add the missing fn keys
 - [ ] Add Kaon https://github.com/LorenDB/kaon
