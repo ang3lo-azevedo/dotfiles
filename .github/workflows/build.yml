@@ -1,0 +1,46 @@
+name: build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            extra-substituters = https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://cache.garnix.io https://berberman.cachix.org
+            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds=
+
+      - name: Check if build needed
+        id: check
+        run: |
+          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel \
+            --dry-run 2>&1 | tee dry-run-output
+          echo "needs-build=$(grep -q 'will be built' dry-run-output && echo 1 || echo 0)" \
+            >> "$GITHUB_OUTPUT"
+
+      - name: Build system
+        if: steps.check.outputs.needs-build == '1'
+        run: |
+          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Check formatting
+        run: nix fmt -- -c
