@@ -9,6 +9,8 @@
   # Wipe /root subvolume on every boot before it is mounted.
   # Using script (not ExecStart) so the initrd module handles the path automatically.
   # path includes btrfs-progs so the btrfs binary is available in the initrd.
+  # Note: if switching to tmpfs root (see disko.nix), remove this service and the
+  # storePaths below: tmpfs never persists so no rollback script is needed.
   boot.initrd.systemd.storePaths = [pkgs.btrfs-progs pkgs.coreutils pkgs.util-linux];
   boot.initrd.systemd.services.rollback = {
     description = "Rollback BTRFS root subvolume to a clean state";

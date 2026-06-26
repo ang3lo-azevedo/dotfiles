@@ -1,6 +1,5 @@
 let
   mainDiskSize = 500; # In GB
-  #ramSize = 2; # TODO: Change this to actual 32 after testing
   ramSize = 32; # In GB
   device = "/dev/nvme0n1";
 in {
@@ -27,7 +26,6 @@ in {
           luks = {
             priority = 2;
             size = toString (mainDiskSize / 2) + "G"; # 50% of mainDiskSize
-            #size = "25G"; # TODO: Remove after testing
             content = {
               type = "luks";
               name = "cryptroot";
@@ -41,7 +39,6 @@ in {
           windows = {
             priority = 3;
             size = toString ((mainDiskSize / 2) / 4) + "G"; # 25% of 50% of mainDiskSize
-            #size = "60G"; # TODO: Remove after testing
             type = "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7"; # Windows Basic Data Partition GUID
             content = {
               type = "filesystem";
@@ -55,13 +52,13 @@ in {
               ];
             };
           };
-          shared_games = {
+          shared = {
             priority = 100; # High priority number to be on the end of the disk
             size = "100%"; # Use all remaining space
             content = {
               type = "filesystem";
               format = "ntfs";
-              mountpoint = "/mnt/shared_games";
+              mountpoint = "/mnt/shared";
               mountOptions = [
                 "uid=1000"
                 "gid=100"
@@ -78,16 +75,16 @@ in {
       };
     };
 
-    /*
-       nodev."/" = {
-      fsType = "tmpfs";
-      mountOptions = [
-        "defaults"
-        "size=2G"
-        "mode=755"
-      ];
-    };
-    */
+    # Alternative: mount root as tmpfs for true amnesia (ephemeral data never touches disk,
+    # power off mid-session leaves no traces). 2G is a cap, not reserved upfront: actual
+    # usage is typically ~200MB with 32GB RAM having no meaningful impact on gaming.
+    # To switch: uncomment this block, remove the /root subvolume below, remove the
+    # rollback service in impermanence.nix, and re-run disko (requires reinstall).
+    #
+    # nodev."/" = {
+    #   fsType = "tmpfs";
+    #   mountOptions = ["defaults" "size=2G" "mode=755"];
+    # };
 
     # LVM Volume Group and Logical Volumes
     lvm_vg.pool = {

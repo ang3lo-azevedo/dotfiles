@@ -1,4 +1,4 @@
-- [ ] See ly starting with Steam
+- [ ] See ly starting with Steam and alternatives
 - [ ] Improve keybinds
 - [ ] Improve unlock of gnome keyring
 - [ ] See if TODO file is the best option
@@ -11,6 +11,7 @@
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
+- [ ] Switch to tmpfs root for true amnesia (see commented block in hosts/pc-angelo/hardware/galaxybook5/disko.nix)
 - [ ] See best AI local module to have
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri
