@@ -99,17 +99,17 @@
   };
   libfsntfs = {
     pname = "libfsntfs";
-    version = "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d";
+    version = "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9";
     src = fetchgit {
       url = "https://github.com/libyal/libfsntfs.git";
-      rev = "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d";
+      rev = "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=";
+      sha256 = "sha256-Q7e1l21asDiAI9PLcwFZktkf6PTxkXLFIeCZbkSNPQ0=";
     };
-    date = "2026-06-21";
+    date = "2026-06-26";
   };
   nuvio-desktop = {
     pname = "nuvio-desktop";

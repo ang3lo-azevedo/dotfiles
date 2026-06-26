@@ -24,5 +24,8 @@
     };
   };
 
-  environment.systemPackages = [pkgs.sbctl];
+  environment.systemPackages = [
+    pkgs.sbctl
+    (pkgs.writeShellScriptBin "systemd-pcrlock" "exec ${pkgs.systemd}/lib/systemd/systemd-pcrlock \"$@\"")
+  ];
 }
