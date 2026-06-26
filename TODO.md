@@ -1,5 +1,4 @@
-- [ ] Make waybar swipe besides clock show swaync
-- [ ] Add bambu studio
+- [ ] Make waybar only show on laptop screen by default
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add impermanence
 - [ ] Fix webcam

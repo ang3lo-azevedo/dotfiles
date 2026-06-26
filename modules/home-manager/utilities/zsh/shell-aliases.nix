@@ -17,10 +17,10 @@ in {
     code = "$EDITOR";
 
     # NixOS related aliases
-    fmt = "(cd ~/nix-config && nix develop -c pre-commit run --all-files)";
-    rebuild = "sudo -v && fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
-    hmrebuild = "fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
-    nvfetcher = "nix run nixpkgs#nvfetcher -- -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
+    fmt = "(cd ~/nix-config && pre-commit run --all-files)";
+    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
+    hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
+    nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
     upgrade = "sudo -v && update && rebuild";
     u = "upgrade";
