@@ -6,20 +6,17 @@
     "output": "EXTERNAL_OUTPUT",
     "on-scroll-up": "swaync-client -cp",
     "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
-
     "modules-left": [
         "privacy",
         "mpris",
-        "custom/waybar-scrolling-mpris",
-        "custom/fill-left"
+        "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
-        "custom/spacer-left",
+        "custom/fill-left",
         "custom/clock-calendar",
-        "custom/spacer-right"
+        "custom/fill-right"
     ],
     "modules-right": [
-        "custom/fill-right",
         "tray",
         "custom/wlsunset",
         "wireplumber",
@@ -29,45 +26,26 @@
         "battery",
         "custom/notification"
     ],
-
     "custom/fill-left": {
         "format": " ",
         "tooltip": false,
         "on-scroll-up": "swaync-client -cp",
         "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
     },
-
     "custom/fill-right": {
         "format": " ",
         "tooltip": false,
         "on-scroll-up": "swaync-client -cp",
         "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
     },
-
-    "custom/spacer-left": {
-        "format": "  ",
-        "tooltip": false,
-        "on-scroll-up": "swaync-client -cp",
-        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
-    },
-
-    "custom/spacer-right": {
-        "format": "  ",
-        "tooltip": false,
-        "on-scroll-up": "swaync-client -cp",
-        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op"
-    },
-
     "custom/clock-calendar": {
         "exec": "~/.config/waybar/scripts/waybar-clock-calendar.sh",
         "return-type": "json",
         "on-click": "ghostty -e khal interactive",
         "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh EXTERNAL_OUTPUT",
-        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "mpris": {
         "format": "{player_icon} {status_icon}",
         "format-paused": "{player_icon} {status_icon}",
@@ -92,10 +70,10 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "custom/waybar-scrolling-mpris": {
         "return-type": "json",
         "exec": "~/.config/waybar/scripts/waybar-mpris-wrapper.sh",
+        "exec-if": "playerctl status 2>/dev/null | grep -qE 'Playing|Paused'",
         "restart-interval": 1,
         "escape": true,
         "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show && pkill -f waybar-mpris-wrapper.sh",
@@ -103,8 +81,7 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
-    "custom/wlsunset":{
+    "custom/wlsunset": {
         "interval": "once",
         "exec": "if systemctl --user is-active --quiet wlsunset; then echo '{\"alt\": \"on\"}'; else echo '{\"alt\": \"off\"}'; fi",
         "on-click": "if systemctl --user is-active --quiet wlsunset; then systemctl --user stop wlsunset; else systemctl --user start wlsunset; fi; pkill -RTMIN+1 waybar",
@@ -121,19 +98,21 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "backlight": {
         "device": "intel_backlight",
         "format": "{percent}% ",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "wireplumber": {
         "format": "{icon}",
         "max-volume": 100,
         "format-icons": {
-            "default": ["\uf026", "\uf027", "\uf028"]
+            "default": [
+                "\uf026",
+                "\uf027",
+                "\uf028"
+            ]
         },
         "format-muted": "\uf026",
         "tooltip-format": "{node_name} ({volume}%)",
@@ -142,12 +121,17 @@
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
         "on-click-right": "pwmenu -l fuzzel"
     },
-
     "battery": {
         "interval": 5,
         "format": "{icon}  {capacity}%",
         "format-full": "",
-        "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+        "format-icons": [
+            "\uf244",
+            "\uf243",
+            "\uf242",
+            "\uf241",
+            "\uf240"
+        ],
         "states": {
             "good": 95,
             "warning": 30,
@@ -158,13 +142,18 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "network": {
         "format": "",
         "format-ethernet": "\uf796",
         "format-wifi": "{icon}",
         "format-disconnected": "\udb83\udc9c",
-        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "format-icons": [
+            "\udb82\udd2f",
+            "\udb82\udd1f",
+            "\udb82\udd22",
+            "\udb82\udd25",
+            "\udb82\udd28"
+        ],
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}",
         "tooltip-format-disconnected": "Disconnected",
@@ -174,7 +163,6 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "bluetooth": {
         "format-on": "\uf294 ",
         "format-off": "\udb80\udcb2",
@@ -190,7 +178,6 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "custom/auto-cpufreq": {
         "format": "{}",
         "return-type": "json",
@@ -202,7 +189,6 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "privacy": {
         "icon-spacing": 18,
         "icon-size": 18,
@@ -231,7 +217,6 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "tray": {
         "spacing": 16,
         "on-scroll-up": "swaync-client -cp",
@@ -239,15 +224,14 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-
     "custom/notification": {
         "tooltip": false,
         "format": "{icon}",
         "format-icons": {
-        "notification": "\uf0f3<span foreground='red'><sup></sup></span>",
-        "none": "\uf0f3",
-        "dnd-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
-        "dnd-none": "\uf1f6"
+            "notification": "\uf0f3<span foreground='red'><sup></sup></span>",
+            "none": "\uf0f3",
+            "dnd-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
+            "dnd-none": "\uf1f6"
         },
         "return-type": "json",
         "exec-if": "which swaync-client",
