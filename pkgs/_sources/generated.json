@@ -165,7 +165,7 @@
     },
     "libfsntfs": {
         "cargoLock": null,
-        "date": "2026-06-21",
+        "date": "2026-06-26",
         "extract": null,
         "name": "libfsntfs",
         "passthru": null,
@@ -175,13 +175,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d",
-            "sha256": "sha256-4EbTZb5P66OBKl3+cYd6FoKYp1Z58maJaP7wa2jbKUg=",
+            "rev": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9",
+            "sha256": "sha256-Q7e1l21asDiAI9PLcwFZktkf6PTxkXLFIeCZbkSNPQ0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/libyal/libfsntfs.git"
         },
-        "version": "a56ac28c5fb2eb6f8339ab2b32f0972b34cf529d"
+        "version": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9"
     },
     "nuvio-desktop": {
         "cargoLock": null,

@@ -60,4 +60,9 @@
   # Prevent NetworkManager from pushing DHCP-provided DNS servers into systemd-resolved,
   # which would bypass dnscrypt-proxy. mkForce overrides the default set by resolved.nix.
   networking.networkmanager.dns = lib.mkForce "none";
+
+  # Delay dnscrypt-proxy until the clock is synced: it verifies TLS certificates
+  # when downloading the resolver list, which fails if the clock is wrong at boot.
+  systemd.services.dnscrypt-proxy.after = ["time-sync.target"];
+  systemd.services.dnscrypt-proxy.wants = ["time-sync.target"];
 }

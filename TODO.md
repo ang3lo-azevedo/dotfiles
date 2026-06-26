@@ -1,4 +1,5 @@
-- [ ] See if its all right with ephemeral root
+- [ ] Fix dns I guess
+- [ ] Add closed waybar when monitor is connected
 - [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Make waybar only show on laptop screen by default
 - [ ] Add waybar icon if kde connect is connected
