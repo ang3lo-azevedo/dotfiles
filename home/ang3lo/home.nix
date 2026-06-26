@@ -69,6 +69,8 @@ in {
       (_: prev: {
         # For QRookie
         glaumar_repo = inputs.glaumar_repo.packages."${system}";
+        # xddxdd's NUR packages (bambu-studio-bin, etc.)
+        xddxdd = inputs.xddxdd-nur.packages."${system}";
 
         trakt-scrobbler = prev.callPackage (inputs.self + "/pkgs/trakt-scrobbler/default.nix") {};
         cursor-id-modifier = prev.callPackage (inputs.self + "/pkgs/cursor-id-modifier/default.nix") {};

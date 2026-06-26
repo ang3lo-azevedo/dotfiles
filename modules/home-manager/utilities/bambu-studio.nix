@@ -1,5 +1,3 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
-    bambu-studio
-  ];
+  home.packages = [pkgs.xddxdd.bambu-studio-bin];
 }

@@ -1,4 +1,6 @@
+- [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Make waybar only show on laptop screen by default
+- [ ] Add waybar icon if kde connect is connected
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Fix webcam
 - [ ] See about calendar notification times

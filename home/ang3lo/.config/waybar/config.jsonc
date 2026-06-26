@@ -54,7 +54,8 @@
             "spotify": "󰓇",
             "firefox": "󰈹",
             "vlc": "󰕼",
-            "mpv": ""
+            "mpv": "",
+            "kdeconnect": "\uf373"
         },
         "status-icons": {
             "playing": "󰏤",

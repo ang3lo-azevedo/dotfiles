@@ -88,6 +88,12 @@
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
 
+    # xddxdd's NUR packages (bambu-studio-bin and others, cached at attic.xuyh0120.win/lantian)
+    xddxdd-nur = {
+      url = "github:xddxdd/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Zen Browser
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
