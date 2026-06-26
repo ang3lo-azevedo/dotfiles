@@ -1,3 +1,5 @@
+- [ ] Add autocpu-freq to the wiki
+- [ ] Keep notification with current backup percentage
 - [ ] fix build.yml
 - [ ] Generate default disko with device configurations
 - [ ] See ly starting with Steam and alternatives
