@@ -105,10 +105,15 @@ in {
             type = "btrfs";
             extraArgs = ["-f"];
             subvolumes = {
-              #"/persist" = {
               "/root" = {
                 mountpoint = "/";
-                #mountpoint = "/persist";
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
+              };
+              "/persist" = {
+                mountpoint = "/persist";
                 mountOptions = [
                   "compress=zstd"
                   "noatime"

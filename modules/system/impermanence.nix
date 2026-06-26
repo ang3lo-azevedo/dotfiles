@@ -1,7 +1,32 @@
-{inputs, ...}: {
-  # TODO: Fix impermanence with tmpfs root
-
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [inputs.impermanence.nixosModules.impermanence];
+
+  # Wipe /root subvolume on every boot before it is mounted
+  boot.initrd.systemd.services.rollback = {
+    description = "Rollback BTRFS root subvolume to a clean state";
+    wantedBy = ["initrd.target"];
+    after = ["dev-pool-root.device"];
+    before = ["sysroot.mount"];
+    unitConfig.DefaultDependencies = "no";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = pkgs.writeShellScript "rollback" ''
+        mkdir /btrfs_tmp
+        mount -t btrfs /dev/pool/root /btrfs_tmp
+        if [ -e /btrfs_tmp/root ]; then
+          btrfs subvolume delete /btrfs_tmp/root
+        fi
+        btrfs subvolume create /btrfs_tmp/root
+        umount /btrfs_tmp
+      '';
+    };
+  };
+
+  fileSystems."/persist".neededForBoot = true;
 
   environment.persistence."/persist" = {
     enable = true;
@@ -15,62 +40,22 @@
       "/var/lib/NetworkManager"
       "/var/lib/iwd"
       "/var/lib/fprint"
+      "/var/lib/sbctl"
+      "/var/lib/systemd/pcrlock.d"
+      "/etc/ssh"
+      "/var/lib/boltd"
+      "/var/lib/dnscrypt-proxy"
       "/var/lib/nordvpn"
       "/var/lib/containers"
-      "/etc/ssh"
-      "/var/lib/sbctl"
-      "/var/lib/auto-cryptenroll"
-      "/var/lib/systemd/pcrlock.d"
+      "/var/lib/libvirt"
     ];
     files = [
       "/etc/machine-id"
       "/var/lib/systemd/pcrlock.json"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/var/lib/systemd/random-seed"
+      "/var/lib/systemd/credential.secret"
+      "/var/lib/systemd/tpm2-srk-public-key.pem"
+      "/var/lib/systemd/tpm2-srk-public-key.tpm2b_public"
     ];
-    # Note: /home is currently a separate persistent subvolume in disko.nix,
-    # so we don't strictly need to persist user files here unless we make /home ephemeral.
-    users.ang3lo = {
-      directories = [
-        # "Downloads"
-        # "Music"
-        # "Pictures"
-        # "Documents"
-        # "Videos"
-      ];
-      files = [
-      ];
-    };
   };
-
-  /*
-     # Wipe /root subvolume on boot
-  boot.initrd.postDeviceCommands = lib.mkAfter ''
-    mkdir /btrfs_tmp
-    mount /dev/mapper/pool-root /btrfs_tmp
-    if [[ -e /btrfs_tmp/root ]]; then
-        mkdir -p /btrfs_tmp/old_roots
-        timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-        mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-    fi
-
-    delete_subvolume_recursively() {
-        IFS=$'\n'
-        for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-            delete_subvolume_recursively "/btrfs_tmp/$i"
-        done
-        btrfs subvolume delete "$1"
-    }
-
-    for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +30); do
-        delete_subvolume_recursively "$i"
-    done
-
-    btrfs subvolume create /btrfs_tmp/root
-    umount /btrfs_tmp
-    rmdir /btrfs_tmp
-  '';
-  */
 }

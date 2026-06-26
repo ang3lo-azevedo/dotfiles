@@ -31,6 +31,7 @@
 
     ./xournalapp.nix
     ./libreoffice.nix
+    ./bambu-studio.nix
 
     ./zapzap.nix
     ./restic-browser.nix

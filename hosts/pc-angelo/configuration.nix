@@ -35,6 +35,7 @@ in {
     ./hardware/galaxybook5
     "${inputs.self}/modules/system"
     "${inputs.self}/modules/system/pc.nix"
+    "${inputs.self}/modules/system/impermanence.nix"
   ];
 
   time.hardwareClockInLocalTime = true;
