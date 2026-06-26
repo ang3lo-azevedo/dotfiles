@@ -1,6 +1,5 @@
 - [ ] Make waybar only show on laptop screen by default
 - [ ] See to add auto comments and auto update of the wiki/README
-- [ ] Add impermanence
 - [ ] Fix webcam
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
