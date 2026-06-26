@@ -21,7 +21,7 @@ in {
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --flake ~/nix-config#pc-angelo -L";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --flake ~/nix-config#ang3lo";
     nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
-    update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
+    update = "(cd ~/nix-config && nvfetcher && update-flake --accept-flake-config)";
     upgrade = "sudo -v && update && rebuild";
     u = "upgrade";
     re = "rebuild";

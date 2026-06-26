@@ -1,8 +1,47 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  update-flake = pkgs.writeShellApplication {
+    name = "update-flake";
+    runtimeInputs = [pkgs.curl pkgs.jq pkgs.nix];
+    text = ''
+      HYDRA="https://hydra.nixos.org/jobset/nixos/trunk-combined/evals"
+
+      echo "Checking Hydra trunk-combined..."
+      if ! resp=$(curl -sf -H "Accept: application/json" "$HYDRA"); then
+        echo "Warning: could not reach Hydra. Update anyway? [y/N]"
+        read -r ans
+        [[ "$ans" =~ ^[Yy]$ ]] || exit 0
+        nix flake update "$@"
+        exit 0
+      fi
+
+      scheduled=$(echo "$resp" | jq '.evals[0].nrscheduled')
+      succeeded=$(echo "$resp" | jq '.evals[0].nrsucceeded')
+      failed=$(echo "$resp"   | jq '.evals[0].nrfailed')
+      total=$(echo "$resp"    | jq '.evals[0].nrbuilds')
+      eval_id=$(echo "$resp"  | jq '.evals[0].id')
+
+      echo "Latest eval #$eval_id: $succeeded succeeded, $failed failed, $scheduled pending / $total total"
+
+      if [[ "$scheduled" -eq 0 ]]; then
+        pct=$(( succeeded * 100 / total ))
+        echo "Eval complete ($pct% succeeded). Running nix flake update..."
+        nix flake update "$@"
+      else
+        pct=$(( (succeeded + failed) * 100 / total ))
+        echo "Warning: $scheduled builds still pending ($pct% done). Binary cache may be incomplete."
+        echo "Update anyway? [y/N]"
+        read -r ans
+        [[ "$ans" =~ ^[Yy]$ ]] || exit 0
+        nix flake update "$@"
+      fi
+    '';
+  };
+in {
   home.packages = with pkgs; [
     jq
     nvfetcher
     pre-commit
+    update-flake
   ];
 
   imports = [
