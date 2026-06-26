@@ -1,8 +1,14 @@
 {
-  # Enable IOMMU
   boot.kernelParams = [
     "intel_iommu=on"
+
+    # passthrough mode, only devices assigned to VMs go through IOMMU translation,
+    # native devices keep DMA identity mappings, avoiding performance overhead
     "iommu=pt"
+
+    # vfio-pci.ids would statically bind the eGPU to VFIO at boot, preventing host use.
+    # The qemu hook below does dynamic bind/unbind instead, so the eGPU is usable on the host
+    # when no VM is running and passed through only when the win11 guest starts.
     #"vfio-pci.ids=1002:7590,1002:ab40"
   ];
 

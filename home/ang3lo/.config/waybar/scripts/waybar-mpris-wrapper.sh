@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-# Files used to mark state
+# Dismiss/show state is stored as flag files so the right-click binding (which runs a
+# separate process) can signal this loop without IPC or a named pipe
 DISMISS_FILE="/tmp/waybar-mpris-dismiss"
 SHOW_FILE="/tmp/waybar-mpris-show"
 
-# Background job to clear the states when track changes
+# Reset dismiss/show overrides whenever the track changes so each new song starts visible
 playerctl metadata --follow --format '{{title}} - {{artist}}' 2>/dev/null | while read -r line; do
 	rm -f "$DISMISS_FILE" "$SHOW_FILE"
 done &

@@ -1,10 +1,10 @@
 {
   networking = {
-    # Enable wireless networking with iwd
     wireless.iwd.enable = true;
+    # wpa_supplicant and iwd conflict: both manage the same wireless interfaces
     wireless.enable = false;
 
-    # Tell NetworkManager to use iwd backend
+    # NM delegates all Wi-Fi operations to iwd: scanning, association, key negotiation
     networkmanager.wifi.backend = "iwd";
   };
 }

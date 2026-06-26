@@ -14,6 +14,8 @@
   services.wivrn = {
     enable = true;
     openFirewall = true;
+    # nixpkgs-xr tracks upstream WiVRn more closely than nixpkgs; the version
+    # in nixpkgs often lags by several releases and may not pair with recent headset firmware.
     package = inputs.nixpkgs-xr.packages.${pkgs.stdenv.hostPlatform.system}.wivrn;
 
     # Run WiVRn as a systemd service on startup

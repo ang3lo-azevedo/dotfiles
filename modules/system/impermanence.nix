@@ -49,18 +49,23 @@
     directories = [
       "/var/log"
       "/var/lib/bluetooth"
+      # nixos tracks uid/gid allocations here: losing it causes mismatches after reboot
       "/var/lib/nixos"
       "/var/lib/systemd"
       "/etc/NetworkManager/system-connections"
       "/var/lib/NetworkManager"
       "/var/lib/iwd"
+      # fingerprint enrollment data for fprintd
       "/var/lib/fprint"
+      # sbctl stores the secure boot signing keys here
       "/var/lib/sbctl"
       "/etc/ssh"
+      # boltd stores Thunderbolt device authorization state
       "/var/lib/boltd"
       "/var/lib/nordvpn"
       "/var/lib/containers"
       "/var/lib/libvirt"
+      # systemd-pcrlock stores PCR policy files used to unseal the TPM at boot
       "/var/lib/pcrlock.d"
     ];
     files = [

@@ -42,7 +42,11 @@
   networkACService = {
     wants = ["network-online.target"];
     after = ["network-online.target"];
+
+    # Skip backup on battery, avoids draining the battery and slowing the machine mid-backup
     unitConfig.ConditionACPower = true;
+
+    # Allow at most one catch-up run per 12-hour window when Persistent=true fires after a missed timer
     startLimitIntervalSec = 12 * 60 * 60;
     startLimitBurst = 1;
   };
@@ -141,6 +145,8 @@ in {
             };
           environment.RCLONE_CONFIG = rcloneConf;
           script = ''
+            # --read-data-subset=2.5% reads a random 2.5% of pack files each week,
+            # covering the full repo over ~40 weeks without a large bandwidth spike
             ${pkgs.restic}/bin/restic --repo ${lib.escapeShellArg repo} \
               --password-file ${resticPassword} check --read-data-subset=2.5%
           '';

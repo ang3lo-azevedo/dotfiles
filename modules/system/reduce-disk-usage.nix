@@ -1,21 +1,27 @@
 {
-  /*
-     # Automatically optimise the Nix store to reduce disk usage
-  nix.optimise.automatic = true;
-  nix.optimise.dates = [ "03:45" ]; # Optional; allows customizing optimisation schedule
-  */
+  # Automatically optimise the Nix store to reduce disk usage
+  nix = {
+    optimise = {
+      automatic = true;
 
-  # Perform garbage collection weekly to maintain low disk usage
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
+      # Optional, allows customizing optimisation schedule
+      dates = [
+        "03:45"
+      ];
+    };
+
+    # 7d retention keeps one week of rollback generations; shorter risks losing
+    # a working config before a problem is noticed, longer wastes significant space.
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 7d";
+    };
+
+    # Deduplicates identical files in the store with hard links after each build.
+    # nix-store --optimise can be run manually for a one-off pass.
+    settings = {
+      auto-optimise-store = true;
+    };
   };
-
-  # Optimize storage
-  # You can also manually optimize the store via:
-  #    nix-store --optimise
-  # Refer to the following link for more details:
-  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
-  nix.settings.auto-optimise-store = true;
 }

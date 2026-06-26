@@ -9,6 +9,9 @@
 
   src = sources.stremio-enhanced.src;
 
+  # stremio-enhanced does not bundle a streaming server: it expects server.js at a fixed
+  # path under XDG_CONFIG_HOME. The version is pinned separately from the AppImage because
+  # the two are released independently and must be compatible with each other.
   serverJs = fetchurl {
     url = "https://dl.strem.io/server/v4.20.12/desktop/server.js";
     hash = "sha256:04xcishc3hw9iq7z29igc1083flwhp7ynz07n9gb7ry643fz69x5";

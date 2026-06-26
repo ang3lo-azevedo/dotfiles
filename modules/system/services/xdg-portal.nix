@@ -11,7 +11,9 @@
         "gtk"
       ];
 
-      # Niri screen sharing needs a backend that actually exposes ScreenCast.
+      # Niri screen sharing needs xdg-desktop-portal-wlr, which implements the
+      # PipeWire-based ScreenCast/Screenshot portals that xdg-desktop-portal-gtk lacks.
+      # mkForce overrides the common.default fallback set above.
       niri = {
         default = lib.mkForce [
           "wlr"

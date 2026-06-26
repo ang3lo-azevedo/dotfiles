@@ -1,23 +1,21 @@
 {pkgs, ...}: {
-  # Enable Steam at the system level
   programs.steam = {
     enable = true;
 
-    # Enable Gamescope session for Steam Deck-like experience
     gamescopeSession.enable = true;
 
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
 
     protontricks.enable = true;
 
-    # Enable SteamOS-like platform optimizations for better game performance (from nix-gaming)
+    # Applies nix-gaming kernel parameters and other SteamOS-like tweaks for better performance
     platformOptimizations.enable = true;
   };
 
-  # Enable Proton GE for better game compatibility
   programs.steam.extraCompatPackages = with pkgs; [
+    # CachyOS Proton build, x86_64-v3 optimized (requires a CPU that supports AVX2)
     proton-cachyos_x86_64_v3
     proton-ge-bin
   ];

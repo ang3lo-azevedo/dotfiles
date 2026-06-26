@@ -25,7 +25,7 @@ if [ -z "$CONTENT" ] || [ "$status" != "success" ]; then
 		CONTENT=$(cat "$CACHE_FILE")
 	else
 		echo "No cache found. Using default coordinates (Lisbon)." >&2
-		CONTENT='{"lat": 38.7223, "lon": -9.1393}'
+		CONTENT='{"lat": 38.7223, "lon": -9.1393}' # IST campus, Lisbon
 	fi
 fi
 
@@ -34,7 +34,7 @@ latitude=$(echo "$CONTENT" | jq -r .lat)
 
 if [ -z "$latitude" ] || [ -z "$longitude" ] || [ "$latitude" = "null" ] || [ "$longitude" = "null" ]; then
 	echo "Failed to extract coordinates, using default (Lisbon)." >&2
-	latitude=38.7223
+	latitude=38.7223 # IST campus, Lisbon
 	longitude=-9.1393
 fi
 
