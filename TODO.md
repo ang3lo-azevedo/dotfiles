@@ -17,9 +17,6 @@
 # Ideas
 ## Waybar Stuff
 
-- [ ] Add closed waybar when monitor is connected
-- [ ] Make waybar only show on laptop screen by default
-- [ ] Add waybar icon if kde connect is connected
 
 
 ## General Stuff
