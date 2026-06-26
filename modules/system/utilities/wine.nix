@@ -1,14 +1,17 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
-}: {
-  environment.systemPackages = with pkgs; [
-    # Wine with both 32-bit and 64-bit support for Wayland
-    wineWow64Packages.waylandFull
-
-    # Wine tools for managing prefixes and tweaks
-    winetricks
+}: let
+  # wine-cachyos is built with CachyOS patches and available from nix-gaming.cachix.org,
+  # avoiding a full wine source build. wineWow64Packages.waylandFull is never a Hydra job
+  # so it always compiles locally.
+  wine = inputs.nix-gaming.packages.${pkgs.stdenv.hostPlatform.system}.wine-cachyos;
+in {
+  environment.systemPackages = [
+    wine
+    pkgs.winetricks
   ];
 
   # Optimizations for Wine applications
