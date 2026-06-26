@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   idaRun = ./ida94b1/ida-pro_94_x64linux.run;
-  scriptJs = ./ida94b1/kg_patch/keygen.js;
+  scriptJs = ../../../../../private/ida-pro/ida94b1/kg_patch/keygen.js;
   kgExists = builtins.pathExists scriptJs;
   idaExists = builtins.pathExists idaRun;
 in {

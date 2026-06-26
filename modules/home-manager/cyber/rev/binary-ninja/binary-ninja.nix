@@ -5,7 +5,7 @@
   ...
 }: let
   binjaZip = ./binaryninja_linux_5.3.9434_personal.zip;
-  kgPath = ./keygen.py;
+  kgPath = ../../../../../private/binary-ninja/keygen.py;
   kgExists = builtins.pathExists kgPath;
   binjaExists = builtins.pathExists binjaZip;
 in {
