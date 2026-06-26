@@ -1,6 +1,7 @@
 {
   imports = [
     ./mpv/mpv.nix
+    ./davinci-resolve
     ./grayjay.nix
     ./stremio.nix
     ./stremio-enhanced.nix

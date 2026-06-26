@@ -122,6 +122,21 @@
         },
         "version": "v1.6"
     },
+    "ffmpeg-encoder-plugin-resolve": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ffmpeg-encoder-plugin-resolve",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QiaqdRfLNTt9i689V86Esk5CyIJ0f+P5FbYJQM+1C90=",
+            "type": "url",
+            "url": "https://github.com/EdvinNilsson/ffmpeg_encoder_plugin/releases/download/v1.3.3/ffmpeg_encoder_plugin.dvcp.bundle.zip"
+        },
+        "version": "1.3.3"
+    },
     "ida-chat-plugin": {
         "cargoLock": null,
         "date": "2026-04-20",
