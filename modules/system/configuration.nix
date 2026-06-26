@@ -36,6 +36,16 @@
       "root"
       "ang3lo"
     ];
+    # Use all cores for builds and allow multiple jobs in parallel.
+    # max-jobs = auto means one build job per logical CPU.
+    max-jobs = "auto";
+    cores = 0;
+    # Keep build outputs on failure so you can inspect what went wrong.
+    keep-failed = true;
+    # Fetch substitutions in parallel while building.
+    http-connections = 128;
+    # Use hard links in the store to save disk space during builds.
+    keep-outputs = true;
   };
 
   # This value defines the first NixOS version this machine was installed on.
