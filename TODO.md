@@ -3,11 +3,10 @@
 - [ ] See ly starting with Steam and alternatives
 - [ ] Add Davinci Resolve Studio
 - [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
+- [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
 - [ ] Improve unlock of gnome keyring
-- [ ] See if TODO file is the best option
 - [ ] Add closed waybar when monitor is connected
-- [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Make waybar only show on laptop screen by default
 - [ ] Add waybar icon if kde connect is connected
 - [ ] See to add auto comments and auto update of the wiki/README
