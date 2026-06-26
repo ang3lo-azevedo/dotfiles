@@ -24,13 +24,13 @@
 
 ## General Stuff
 
+- [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
 - [ ] Generate default disko with device configurations
 - [ ] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
-- [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Fix webcam
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
