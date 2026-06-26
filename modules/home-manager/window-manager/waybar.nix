@@ -64,6 +64,7 @@ in {
           ExecStart = "${scripts}/start-waybar-output.sh %i";
           Restart = "always";
           RestartSec = "3";
+          Environment = "GDK_TOUCH_EMULATE_POINTER=1";
         };
       };
 
