@@ -16,13 +16,14 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
-            extra-substituters = https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://cache.garnix.io https://berberman.cachix.org
-            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds=
+            extra-substituters = https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://cache.garnix.io https://berberman.cachix.org https://nix-gaming.cachix.org
+            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g= berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds= nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=
 
       - name: Check if build needed
         id: check
         run: |
-          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel \
+          nix build --accept-flake-config \
+            .#nixosConfigurations.pc-angelo.config.system.build.toplevel \
             --dry-run 2>&1 | tee dry-run-output
           echo "needs-build=$(grep -q 'will be built' dry-run-output && echo 1 || echo 0)" \
             >> "$GITHUB_OUTPUT"
@@ -30,7 +31,8 @@ jobs:
       - name: Build system
         if: steps.check.outputs.needs-build == '1'
         run: |
-          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
+          nix build --accept-flake-config \
+            .#nixosConfigurations.pc-angelo.config.system.build.toplevel
 
   lint:
     runs-on: ubuntu-latest
@@ -43,4 +45,4 @@ jobs:
         uses: cachix/install-nix-action@v31
 
       - name: Check formatting
-        run: nix fmt -- -c
+        run: nix fmt --accept-flake-config -- --check .
