@@ -2304,11 +2304,11 @@
     "stremio-enhanced": {
       "flake": false,
       "locked": {
-        "lastModified": 1782465260,
-        "narHash": "sha256-NSz0HQUp4bGZuqpLO9rPUE3A1SjY6IsYv8lPJfXezV0=",
+        "lastModified": 1782466688,
+        "narHash": "sha256-+/k6HxSF6qQgRXbfwUEp4IuwbmBCkSdJet6s/GBr8pc=",
         "owner": "REVENGE977",
         "repo": "stremio-enhanced",
-        "rev": "91d97300166cca3d6b0d14362b4bdbae4928ca52",
+        "rev": "0bb39a4263c26970247128c36d9ef8bd8a3c84ad",
         "type": "github"
       },
       "original": {
