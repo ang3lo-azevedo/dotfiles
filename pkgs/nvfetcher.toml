@@ -71,14 +71,6 @@ fetch.github = "iamkroot/trakt-scrobbler"
 src.github = "niklashigi/apk-mitm"
 fetch.github = "niklashigi/apk-mitm"
 
-[nuvio-desktop]
-# pinned: upstream replaced the 0.1.7-alpha asset without bumping the tag,
-# causing CDN inconsistency between nvfetcher and Nix fetcher.
-# Remove pin when a properly versioned release is published.
-pinned = true
-src.github = "aelrased/NuvioDesktop"
-src.prefix = "v"
-fetch.url = "https://github.com/aelrased/NuvioDesktop/releases/download/v$ver/Nuvio-$ver-x86_64.AppImage"
 
 [rem]
 src.github = "liriliri/rem"
