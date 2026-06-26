@@ -499,6 +499,13 @@
       };
     };
 
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.x86_64-linux = let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
+      pkgs.writeShellApplication {
+        name = "alejandra";
+        runtimeInputs = [pkgs.alejandra];
+        text = ''exec alejandra --exclude './pkgs/_sources/generated.nix' "$@"'';
+      };
   };
 }
