@@ -20,6 +20,8 @@ eDP*) ;;
 	;;
 esac
 
-# Forward SIGTERM so systemd can stop the service cleanly
+# Forward SIGTERM so systemd can stop the service cleanly.
+# Ignore SIGUSR1: kill-who=all sends it to the whole cgroup; only waybar should handle it.
 trap 'kill $WAYBAR_PID' TERM INT
+trap '' USR1
 wait $WAYBAR_PID
