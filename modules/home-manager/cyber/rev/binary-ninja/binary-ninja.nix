@@ -4,7 +4,7 @@
   lib ? pkgs.lib,
   ...
 }: let
-  binjaZip = ./binaryninja_linux_5.3.9434_personal.zip;
+  binjaZip = ../../../../../private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip;
   kgPath = ../../../../../private/binary-ninja/keygen.py;
   kgExists = builtins.pathExists kgPath;
   binjaExists = builtins.pathExists binjaZip;
