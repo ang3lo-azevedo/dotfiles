@@ -59,7 +59,7 @@
       "/var/lib/nordvpn"
       "/var/lib/containers"
       "/var/lib/libvirt"
-      "/var/lib/dnscrypt-proxy"
+      "/var/lib/pcrlock.d"
     ];
     files = [
       "/etc/machine-id"

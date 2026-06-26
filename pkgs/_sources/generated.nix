@@ -187,10 +187,10 @@
   };
   stremio-enhanced = {
     pname = "stremio-enhanced";
-    version = "1.1.5";
+    version = "1.2.0";
     src = fetchurl {
-      url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.1.5/Stremio.Enhanced-1.1.5.AppImage";
-      sha256 = "sha256-ATy2ekUWGI3s+CtQemQ2hXOe7etk56hXHWarWC607GA=";
+      url = "https://github.com/REVENGE977/stremio-enhanced/releases/download/v1.2.0/Stremio.Enhanced-1.2.0.AppImage";
+      sha256 = "sha256-a+knxg/rd5Ied4RVK8Gg7xeFElovJab0gqxpjs11fAU=";
     };
   };
   trakt-scrobbler = {
