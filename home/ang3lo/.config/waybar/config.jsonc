@@ -3,7 +3,8 @@
     "spacing": 5,
     "output": "EXTERNAL_OUTPUT",
     "modules-left": [
-        "privacy",
+        "custom/privacy-mic",
+        "custom/privacy-screenshare",
         "mpris",
         "custom/waybar-scrolling-mpris"
     ],
@@ -228,29 +229,21 @@
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
-    "privacy": {
-        "icon-spacing": 18,
-        "icon-size": 18,
-        "transition-duration": 250,
-        "modules": [
-            {
-                "type": "screenshare",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-in",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            }
-        ],
-        "ignore-monitor": true,
-        "ignore": [
-            {
-                "type": "screenshare",
-                "name": "obs"
-            }
-        ],
+    "custom/privacy-mic": {
+        "exec": "~/.config/waybar/scripts/privacy-mic.sh",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
+    },
+    "custom/privacy-screenshare": {
+        "exec": "~/.config/waybar/scripts/privacy-screenshare.sh",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "~/.config/waybar/scripts/privacy-screenshare-kill.sh",
         "on-scroll-up": "swaync-client -cp",
         "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
