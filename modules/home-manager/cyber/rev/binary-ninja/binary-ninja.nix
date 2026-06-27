@@ -1,11 +1,12 @@
 {
   pkgs,
   config,
+  inputs,
   lib ? pkgs.lib,
   ...
 }: let
-  binjaZip = ../../../../../private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip;
-  kgPath = ../../../../../private/binary-ninja/keygen.py;
+  binjaZip = inputs.self + "/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip";
+  kgPath = inputs.self + "/private/binary-ninja/keygen.py";
   kgExists = builtins.pathExists kgPath;
   binjaExists = builtins.pathExists binjaZip;
 in {
