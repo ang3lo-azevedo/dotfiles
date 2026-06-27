@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  cfgDir = inputs.self + "/private/davinci-resolve/resolved-cfg";
+  cfgDir = inputs.self + "/private/davinci-resolve/config";
   hasCfg = builtins.pathExists cfgDir;
 
   davinci =

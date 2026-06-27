@@ -4,8 +4,8 @@
   ...
 }: let
   idaRun = inputs.self + "/private/ida-pro/ida94b1/ida-pro_94_x64linux.run";
-  scriptJs = inputs.self + "/private/ida-pro/ida94b1/kg_patch/keygen.js";
-  kgExists = builtins.pathExists scriptJs;
+  scriptJs = inputs.self + "/private/ida-pro/ida94b1/setup/setup.js";
+  setupExists = builtins.pathExists scriptJs;
   idaExists = builtins.pathExists idaRun;
 in {
   home.packages = with pkgs;
@@ -21,7 +21,7 @@ in {
         postInstall =
           (old.postInstall or "")
           + (
-            if kgExists
+            if setupExists
             then ''
               if [ -d "$out/opt" ]; then
                 cp ${scriptJs} "$out/opt/script.js"
