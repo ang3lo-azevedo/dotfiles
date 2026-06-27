@@ -15,7 +15,7 @@
       # Both are DoH (HTTPS port 443, indistinguishable from web traffic), no-log, no-ECS.
       # Quad9: Swiss non-profit, ~69ms from PT. Mullvad: fallback, different jurisdiction.
       # Ad/tracker blocking is handled locally by the OISD blocklist.
-      server_names = ["quad9-doh-ip4-filter-pri" "mullvad-doh"];
+      server_names = ["quad9-doh-ip4-port443-filter-pri" "mullvad-doh"];
 
       # Only use servers that validate DNSSEC and have a strict no-log policy
       require_dnssec = true;

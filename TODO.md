@@ -5,7 +5,6 @@
 
 ## Other Fixes
 
-- [ ] Check if DNS and handshake privacy stuff is working 
 - [ ] Add vscode kdl extension
 - [ ] Improve private repo stuff
 
