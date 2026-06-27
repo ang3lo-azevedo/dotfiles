@@ -85,3 +85,7 @@ fetch.url = "https://github.com/liriliri/rem/releases/download/v$ver/REM-$ver-li
 [scrollmpris]
 src.git = "https://github.com/BEST8OY/ScrollMPRIS.git"
 fetch.github = "BEST8OY/ScrollMPRIS"
+
+[monkeylauncher]
+src.github = "SaruM4N3/MonkeyLauncher"
+fetch.github = "SaruM4N3/MonkeyLauncher"

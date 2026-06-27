@@ -81,6 +81,7 @@ in {
         libesedb = prev.callPackage (inputs.self + "/pkgs/libesedb/default.nix") {};
         libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
         sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
+        monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
       })
     ];
   };
