@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: let
   profileName = "ang3lo";
@@ -9,7 +10,19 @@ in {
     inputs.zen-browser.homeModules.beta
     ./extensions
     ./mods
+    ./searxng-cookies.nix
   ];
+
+  # installs.ini maps browser installation hashes to profiles and takes priority
+  # over profiles.ini. Stale entries pointing to old profiles cause sessions to
+  # open the wrong profile (no cookies/logins). Clear it whenever it doesn't
+  # reference ang3lo so Firefox rebuilds it correctly from profiles.ini.
+  home.activation.zenBrowserInstalls = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    _installs="$HOME/.config/zen/installs.ini"
+    if [ -f "$_installs" ] && ! grep -q "Default=${profileName}" "$_installs" 2>/dev/null; then
+      rm -f "$_installs"
+    fi
+  '';
 
   _module.args.profileName = profileName;
 
@@ -20,6 +33,8 @@ in {
     profiles.${profileName} =
       {
         extensions.force = true;
+        # Imported as plain attrsets, not modules: settings.nix returns an attrset of
+        # about:config prefs, search.nix returns the search engine configuration.
         settings = import ./settings.nix;
         search = import ./search.nix {inherit pkgs;};
       }

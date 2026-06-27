@@ -1,5 +1,8 @@
-# Shared extension definitions for VSCode and Cursor
-# This file defines the extension IDs that both editors will use
+# Single source of truth for extensions shared across editors.
+# Antigravity: reads this list and symlinks each package from the Nix store directly
+#   into ~/.antigravity-ide/extensions, then regenerates extensions.json on activation.
+# Cursor: reads this list and calls `cursor --install-extension` for each ID on activation.
+# To add an extension to all editors at once, add its "publisher.name" ID here.
 {
   # List of extension IDs in format: "publisher.extension-name"
   extensionIds = [
