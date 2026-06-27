@@ -58,9 +58,9 @@
       # Forward all queries to dnscrypt-proxy running on localhost
       DNS = "127.0.0.1";
 
-      # Fall back to Mullvad plain DNS if dnscrypt-proxy is unreachable.
+      # Fall back to Quad9's plain DNS if dnscrypt-proxy is unreachable.
       # Still no-log (same provider), just unencrypted, better than no DNS at all.
-      FallbackDNS = "194.242.2.2";
+      FallbackDNS = "9.9.9.9";
     };
   };
 
