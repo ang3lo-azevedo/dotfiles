@@ -239,7 +239,7 @@ done
 
 # Standalone system modules
 h3 "Core"
-for f in configuration.nix secure-boot.nix impermanence.nix reduce-disk-usage.nix binary-cache.nix auto-upgrade.nix pc.nix; do
+for f in configuration.nix secure-boot.nix impermanence.nix reduce-disk-usage.nix binary-cache.nix auto-upgrade.nix pc.nix disko.nix; do
 	fp="$REPO_ROOT/modules/system/$f"
 	[ -f "$fp" ] && {
 		enables=$(extract_enables "$fp")
