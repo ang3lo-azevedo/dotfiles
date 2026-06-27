@@ -377,6 +377,9 @@
           nixpkgs.overlays = [
             nix-cachyos-kernel.overlays.pinned
             (import ./overlays/python-packages.nix)
+            (_: prev: {
+              nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+            })
           ];
         }
 
@@ -386,7 +389,7 @@
         # Lanzaboote for Secure Boot
         lanzaboote.nixosModules.lanzaboote
 
-        # Chaotic Nyx (provides nordvpn and other packages)
+        # Chaotic Nyx (provides miscellaneous bleeding-edge packages)
         chaotic.nixosModules.default
       ];
     };
@@ -462,6 +465,8 @@
       sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
       scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
+      nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
+      linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
     };
 
     # Pre-commit checks

@@ -119,6 +119,17 @@
     };
     date = "2026-06-26";
   };
+  linoffice = {
+    pname = "linoffice";
+    version = "v2.2.8";
+    src = fetchFromGitHub {
+      owner = "eylenburg";
+      repo = "linoffice";
+      rev = "v2.2.8";
+      fetchSubmodules = false;
+      sha256 = "sha256-ZsCunfaX6SiT2q8FoXpCG02SIA9XZ8h4Yh+QOfU9LB0=";
+    };
+  };
   monkeylauncher = {
     pname = "monkeylauncher";
     version = "0.2";
@@ -128,6 +139,14 @@
       rev = "0.2";
       fetchSubmodules = false;
       sha256 = "sha256-fHLKxU4gnKnuBhISZDHQIdcfRAYdxp5xGl9cPeNC5XM=";
+    };
+  };
+  nordvpn = {
+    pname = "nordvpn";
+    version = "5.1.0";
+    src = fetchurl {
+      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.1.0_amd64.deb";
+      sha256 = "sha256-10Cfjjy5AQ88ZdFRLyjnR2aL6roGroa0/SuFu2nuD8k=";
     };
   };
   registry-spy = {

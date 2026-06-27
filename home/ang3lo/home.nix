@@ -82,6 +82,7 @@ in {
         libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
         sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
         monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
+        linoffice = prev.callPackage (inputs.self + "/pkgs/linoffice/default.nix") {};
       })
     ];
   };
