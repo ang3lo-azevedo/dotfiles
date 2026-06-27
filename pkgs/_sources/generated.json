@@ -198,6 +198,27 @@
         },
         "version": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9"
     },
+    "linoffice": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "linoffice",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "eylenburg",
+            "repo": "linoffice",
+            "rev": "v2.2.8",
+            "sha256": "sha256-ZsCunfaX6SiT2q8FoXpCG02SIA9XZ8h4Yh+QOfU9LB0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.2.8"
+    },
     "monkeylauncher": {
         "cargoLock": null,
         "date": null,
@@ -218,6 +239,21 @@
             "type": "github"
         },
         "version": "0.2"
+    },
+    "nordvpn": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nordvpn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-10Cfjjy5AQ88ZdFRLyjnR2aL6roGroa0/SuFu2nuD8k=",
+            "type": "url",
+            "url": "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.1.0_amd64.deb"
+        },
+        "version": "5.1.0"
     },
     "registry-spy": {
         "cargoLock": null,

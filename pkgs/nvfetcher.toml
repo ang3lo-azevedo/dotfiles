@@ -89,3 +89,12 @@ fetch.github = "BEST8OY/ScrollMPRIS"
 [monkeylauncher]
 src.github = "SaruM4N3/MonkeyLauncher"
 fetch.github = "SaruM4N3/MonkeyLauncher"
+
+[linoffice]
+src.github = "eylenburg/linoffice"
+fetch.github = "eylenburg/linoffice"
+
+[nordvpn]
+src.webpage = "https://repo.nordvpn.com/deb/nordvpn/debian/dists/stable/main/binary-amd64/Packages"
+src.regex = "Package: nordvpn\nVersion: ([0-9.]+)"
+fetch.url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_$ver_amd64.deb"

@@ -63,6 +63,7 @@ in {
     ./universal-android-debloater.nix
     ./valent.nix
     ./openvpn.nix
+    ./linoffice.nix
 
     #./affinity.nix
 
