@@ -1,6 +1,10 @@
-{pkgs, ...}: let
-  idaRun = ../../../../../private/ida-pro/ida94b1/ida-pro_94_x64linux.run;
-  scriptJs = ../../../../../private/ida-pro/ida94b1/kg_patch/keygen.js;
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  idaRun = inputs.self + "/private/ida-pro/ida94b1/ida-pro_94_x64linux.run";
+  scriptJs = inputs.self + "/private/ida-pro/ida94b1/kg_patch/keygen.js";
   kgExists = builtins.pathExists scriptJs;
   idaExists = builtins.pathExists idaRun;
 in {
