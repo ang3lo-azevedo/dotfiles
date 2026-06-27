@@ -4,39 +4,34 @@
   # be in the binary cache yet, forcing expensive local compilations.
   update-flake = pkgs.writeShellApplication {
     name = "update-flake";
-    runtimeInputs = [pkgs.curl pkgs.jq pkgs.nix];
+    runtimeInputs = [pkgs.curl pkgs.nix];
     text = ''
-      HYDRA="https://hydra.nixos.org/jobset/nixos/trunk-combined/evals"
+      CHANNEL="https://channels.nixos.org/nixos-unstable"
 
-      echo "Checking Hydra trunk-combined..."
-      if ! resp=$(curl -sf -H "Accept: application/json" "$HYDRA"); then
-        echo "Warning: could not reach Hydra. Update anyway? [y/N]"
+      echo "Checking nixos-unstable channel status..."
+      if ! location=$(curl -sI "$CHANNEL" | grep -i "^location:" | tr -d '\r' | awk '{print $2}'); then
+        echo "Warning: could not reach channels.nixos.org. Update anyway? [y/N]"
         read -r ans
         [[ "$ans" =~ ^[Yy]$ ]] || exit 0
         nix flake update "$@"
         exit 0
       fi
 
-      scheduled=$(echo "$resp" | jq '.evals[0].nrscheduled')
-      succeeded=$(echo "$resp" | jq '.evals[0].nrsucceeded')
-      failed=$(echo "$resp"   | jq '.evals[0].nrfailed')
-      total=$(echo "$resp"    | jq '.evals[0].nrbuilds')
-      eval_id=$(echo "$resp"  | jq '.evals[0].id')
-
-      echo "Latest eval #$eval_id: $succeeded succeeded, $failed failed, $scheduled pending / $total total"
-
-      if [[ "$scheduled" -eq 0 ]]; then
-        pct=$(( succeeded * 100 / total ))
-        echo "Eval complete ($pct% succeeded). Running nix flake update..."
-        nix flake update "$@"
-      else
-        pct=$(( (succeeded + failed) * 100 / total ))
-        echo "Warning: $scheduled builds still pending ($pct% done). Binary cache may be incomplete."
-        echo "Update anyway? [y/N]"
+      # URL format: https://releases.nixos.org/nixos/unstable/nixos-26.11pre1022855.e73de5be04e0
+      channel_rev=$(echo "$location" | grep -oE '[a-f0-9]{12}$')
+      if [[ -z "$channel_rev" ]]; then
+        echo "Warning: could not parse channel commit from: $location. Update anyway? [y/N]"
         read -r ans
         [[ "$ans" =~ ^[Yy]$ ]] || exit 0
         nix flake update "$@"
+        exit 0
       fi
+
+      echo "Channel commit: $channel_rev (binary cache is ready)"
+      echo "Updating all inputs..."
+      nix flake update "$@"
+      echo "Pinning nixpkgs to channel commit to guarantee cache hits..."
+      nix flake lock --update-input nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
     '';
   };
 in {
