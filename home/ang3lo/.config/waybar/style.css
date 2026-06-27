@@ -28,10 +28,15 @@
     min-width: 400px;
 }
 
-#privacy,
+#custom-privacy-mic,
+#custom-privacy-screenshare,
 #mpris,
 #custom-waybar-scrolling-mpris {
     padding-left: 1em
+}
+
+#custom-privacy-mic.muted {
+    color: @foreground-inactive;
 }
 
 #mpris.paused {
