@@ -1,17 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  c = config.lib.stylix.colors;
-  theme = "text=#${c.base05};time=#${c.base0D};container=#${c.base00};border=#${c.base0D};title=#${c.base0E};greet=#${c.base04};prompt=#${c.base05};input=#${c.base0B};action=#${c.base03};button=#${c.base0D}";
+{pkgs, ...}: let
+  theme = "text=#ffffff;time=#62a6ff;container=#000000;border=#62a6ff;title=#b675f1;greet=#999999;prompt=#ffffff;input=#58c760;action=#444444;button=#62a6ff";
 in {
   imports = [./wayland.nix];
 
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --sessions /run/current-system/sw/share/wayland-sessions --theme '${theme}'";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --sessions /run/current-system/sw/share/wayland-sessions --theme '${theme}'";
       user = "greeter";
     };
   };

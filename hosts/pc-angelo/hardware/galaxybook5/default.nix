@@ -9,6 +9,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     "${inputs.self}/modules/hardware/bluetooth.nix"
     "${inputs.self}/modules/hardware/amdgpu.nix"
+    "${inputs.self}/modules/hardware/intelgpu.nix"
     "${inputs.self}/modules/hardware/thunderbolt.nix"
     "${inputs.self}/modules/hardware/samsung-galaxy-book"
   ];

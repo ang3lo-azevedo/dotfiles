@@ -22,7 +22,6 @@
 ## General Stuff
 
 - [ ] See to add auto comments and auto update of the wiki/README
-- [ ] Add Davinci Resolve Studio with this https://github.com/EdvinNilsson/ffmpeg_encoder_plugin https://github.com/ChrisTitusTech/resolve-linux
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
 - [ ] Generate default disko with device configurations
