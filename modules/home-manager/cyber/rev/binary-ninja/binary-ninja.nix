@@ -6,8 +6,8 @@
   ...
 }: let
   binjaZip = inputs.self + "/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip";
-  kgPath = inputs.self + "/private/binary-ninja/keygen.py";
-  kgExists = builtins.pathExists kgPath;
+  setupPath = inputs.self + "/private/binary-ninja/setup.py";
+  setupExists = builtins.pathExists setupPath;
   binjaExists = builtins.pathExists binjaZip;
 in {
   home.file.".binaryninja/settings.json".text = builtins.toJSON {
@@ -34,11 +34,11 @@ in {
         postInstall =
           (old.postInstall or "")
           + (
-            if kgExists
+            if setupExists
             then ''
               # Binary Ninja typically installs into $out/opt/binaryninja
               if [ -d "$out/opt/binaryninja" ]; then
-                cp ${kgPath} "$out/opt/binaryninja/script.py"
+                cp ${setupPath} "$out/opt/binaryninja/script.py"
                 cd "$out/opt/binaryninja"
                 ${pkgs.python312}/bin/python3 ./script.py
               fi
