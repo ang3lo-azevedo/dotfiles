@@ -40,9 +40,9 @@
   # Use Mullvad DoH as the browser's internal resolver (needed to fetch HTTPS DNS records)
   # Mode 2, use DoH with fallback to system DNS if unreachable
   "network.trr.mode" = 2;
-  "network.trr.uri" = "https://base.dns.mullvad.net/dns-query";
+  "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
-  # Don't use separate default search engines for private windows
+  # Don't use separate \default search engines for private windows
   "browser.search.separatePrivateDefault" = false;
 
   # Enable search suggestions in the URL bar
