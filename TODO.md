@@ -1,12 +1,11 @@
 # Fixes
 ## GitHub Actions Stuff
 
-- [ ] Fix build.yml
 
 
 ## Other Fixes
 
-
+- [ ] Improve private repo stuff
 
 # Wiki
 
@@ -17,10 +16,12 @@
 # Ideas
 ## Waybar Stuff
 
+- [ ] Make if possible to click the privacy icons to disable camera and micrphone
 
 
 ## General Stuff
 
+- [ ] Add this https://github.com/SaruM4N3/MonkeyLauncher
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
