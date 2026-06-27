@@ -1,9 +1,5 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: let
-  cfgDir = inputs.self + "/private/davinci-resolve/config";
+{pkgs, ...}: let
+  cfgDir = /home/ang3lo/nix-config/private/davinci-resolve/config;
   hasCfg = builtins.pathExists cfgDir;
 
   davinci =
