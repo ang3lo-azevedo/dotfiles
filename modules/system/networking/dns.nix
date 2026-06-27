@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   # dnscrypt-proxy acts as a local DNS resolver that encrypts queries using DoH (DNS-over-HTTPS).
   # Unlike DoT (port 853), DoH sends DNS queries as regular HTTPS on port 443, ISPs cannot
   # distinguish it from normal web traffic and cannot block it without blocking all HTTPS.
@@ -8,17 +12,20 @@
       # Listen on localhost so systemd-resolved can forward queries here
       listen_addresses = ["127.0.0.1:53" "[::1]:53"];
 
-      # Primary: Mullvad DoH, Sweden jurisdiction, no-log, no ECS.
-      # Fallback: Quad9 DoH, Swiss non-profit, no-log, DNSSEC, blocks malware.
-      # dnscrypt-proxy picks the fastest available and falls back automatically.
-      server_names = ["mullvad-base-doh" "mullvad-doh" "quad9-doh-ip4-filter-pri"];
+      # Both are DoH (HTTPS port 443, indistinguishable from web traffic), no-log, no-ECS.
+      # Mullvad: Swedish privacy company, no-log, no-ECS. Quad9: Swiss non-profit, malware blocking.
+      # Ad/tracker blocking is handled locally by the OISD blocklist.
+      server_names = ["mullvad-doh" "quad9-doh-ip4-filter-pri"];
 
-      # Only use servers that validate responses (DNSSEC) and have a no-log policy
+      # Only use servers that validate DNSSEC and have a strict no-log policy
       require_dnssec = true;
       require_nolog = true;
 
-      # Must be false to allow filtering servers (mullvad-base filters by design)
+      # quad9 filters malware, which is fine since local OISD handles ads/trackers
       require_nofilter = false;
+
+      # Block ads/trackers/malware, file populated by oisd-blocklist-update.service
+      blocked_names.blocked_names_file = "/var/lib/dnscrypt-proxy/blocked-names.txt";
 
       # Fetch and cache the public list of verified DNS resolvers
       sources.public-resolvers = {
@@ -63,6 +70,47 @@
 
   # Delay dnscrypt-proxy until the clock is synced: it verifies TLS certificates
   # when downloading the resolver list, which fails if the clock is wrong at boot.
-  systemd.services.dnscrypt-proxy.after = ["time-sync.target"];
-  systemd.services.dnscrypt-proxy.wants = ["time-sync.target"];
+  systemd = {
+    services = {
+      dnscrypt-proxy = {
+        after = ["time-sync.target"];
+        wants = ["time-sync.target"];
+        # Create blocklist file if missing so dnscrypt-proxy doesn't crash on first boot.
+        # Runs as DynamicUser within the service namespace, so it can create files in the state dir.
+        serviceConfig.ExecStartPre = pkgs.writeShellScript "ensure-blocklist" ''
+          [ -f /var/lib/dnscrypt-proxy/blocked-names.txt ] || touch /var/lib/dnscrypt-proxy/blocked-names.txt
+        '';
+      };
+
+      # Downloads the OISD big blocklist after dnscrypt-proxy is up, then restarts it
+      # so the new rules take effect. Runs once 5 minutes after boot, then weekly.
+      oisd-blocklist-update = {
+        description = "Update OISD blocklist for dnscrypt-proxy";
+        after = ["dnscrypt-proxy.service" "network-online.target"];
+        wants = ["network-online.target"];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = pkgs.writeShellScript "update-oisd-blocklist" ''
+            dir=/var/lib/private/dnscrypt-proxy
+            tmp=$(mktemp "$dir/blocked-names.XXXXXX")
+            if ${pkgs.curl}/bin/curl -fsSL https://big.oisd.nl/domainswild -o "$tmp"; then
+              mv "$tmp" "$dir/blocked-names.txt"
+              chmod 644 "$dir/blocked-names.txt"
+              systemctl restart dnscrypt-proxy
+            else
+              rm -f "$tmp"
+            fi
+          '';
+        };
+      };
+    };
+    timers.oisd-blocklist-update = {
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnBootSec = "5min";
+        OnCalendar = "weekly";
+        Persistent = true;
+      };
+    };
+  };
 }

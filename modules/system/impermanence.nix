@@ -67,6 +67,8 @@
       "/var/lib/libvirt"
       # systemd-pcrlock stores PCR policy files used to unseal the TPM at boot
       "/var/lib/pcrlock.d"
+      # dnscrypt-proxy blocklist and resolver cache (StateDirectory uses /var/lib/private)
+      "/var/lib/private/dnscrypt-proxy"
     ];
     files = [
       "/etc/machine-id"
