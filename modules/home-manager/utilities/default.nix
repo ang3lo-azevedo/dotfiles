@@ -61,7 +61,7 @@ in {
     ./yazi.nix
     ./ncdu.nix
     ./universal-android-debloater.nix
-    ./valent.nix
+    ./kdeconnect.nix
     ./openvpn.nix
     #./linoffice.nix
 

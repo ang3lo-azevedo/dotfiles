@@ -1,7 +1,9 @@
-# Shared settings for VSCode and Cursor
-# This file defines the settings that both editors will use
+# Single source of truth for settings shared across editors.
+# Antigravity: merges sharedSettings with its own overrides (//), then copies the result
+#   as a writable settings.json on activation so the IDE can edit it live.
+# Cursor: writes sharedSettings directly as a read-only xdg.configFile symlink.
+# Per-editor overrides are applied with // inside each editor's own settings.nix.
 {
-  # Returns a set of shared settings that can be used by both VSCode and Cursor
   sharedSettings = {
     # Controls [auto save](https://code.visualstudio.com/docs/editor/codebasics#_save-auto-save) of editors that have unsaved changes.
     #  - off: An editor with changes is never automatically saved.

@@ -53,7 +53,7 @@
 
   # Send a desktop notification as ang3lo from a root service.
   desktopNotify = urgency: title: body: ''
-    runuser -u ang3lo -- \
+    ${pkgs.util-linux}/bin/runuser -u ang3lo -- \
       env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
       ${pkgs.libnotify}/bin/notify-send --urgency=${urgency} \
         ${lib.escapeShellArg title} ${lib.escapeShellArg body}
@@ -107,7 +107,7 @@ in {
               title="Backup Started"
               body="Restic backup [${name}] started."
             fi
-            runuser -u ang3lo -- \
+            ${pkgs.util-linux}/bin/runuser -u ang3lo -- \
               env DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
               ${pkgs.libnotify}/bin/notify-send --urgency=normal "$title" "$body"
           '';

@@ -8,9 +8,9 @@
     ./cursor
   ];
 
-  # Create a global wrapper script that launches zsh without the "no new privileges" flag
-  # This uses systemd-run to create a new process scope
-  # Shared among Electron IDEs (Cursor, Antigravity, VSCode) to fix integrated terminal permissions
+  # Electron IDEs inherit systemd's NoNewPrivileges restriction, which blocks sudo
+  # inside the integrated terminal. systemd-run --scope spawns a new transient scope
+  # outside the IDE's cgroup, lifting the restriction for that shell only.
   home.file.".local/bin/ide-zsh-wrapper" = {
     executable = true;
     text = ''

@@ -17,6 +17,7 @@ in {
     };
   };
 
+  programs.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
   programs.niri.enable = true;

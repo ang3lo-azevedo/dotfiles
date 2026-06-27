@@ -13,6 +13,7 @@
           "docs.google.com"
           "github.com"
           "portainer.at.eu.org"
+          "searxng.pi.at.eu.org"
         ];
       };
     };

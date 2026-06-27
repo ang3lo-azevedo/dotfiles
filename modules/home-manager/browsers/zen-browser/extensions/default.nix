@@ -1,9 +1,8 @@
+# Every *.nix file in this directory is auto-imported. To add an extension,
+# drop a new file here, no registration in default.nix required.
 {lib, ...}: let
-  # Get all .nix files in the current directory
   files = builtins.attrNames (builtins.readDir ./.);
-  # Filter out default.nix and keep only .nix files
   nixFiles = builtins.filter (name: name != "default.nix" && lib.hasSuffix ".nix" name) files;
-  # Create paths for imports
   importsList = map (name: ./. + "/${name}") nixFiles;
 in {
   imports = importsList;

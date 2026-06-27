@@ -22,8 +22,6 @@
 
 ## General Stuff
 
-- [ ] Add this https://github.com/SaruM4N3/MonkeyLauncher
-- [ ] Add this https://github.com/eylenburg/linoffice/
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage

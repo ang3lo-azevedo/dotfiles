@@ -17,19 +17,12 @@
     done
   '';
 
-  # Keeps running throughout the session, watching Niri's event stream.
-  # When an output is connected: starts waybar for it.
-  # When an output is disconnected: stops the waybar instance so it doesn't
-  # restart-loop (waybar-output@ has Restart=always for crash recovery).
+  # Polls connected outputs every 3 seconds and reconciles waybar instances.
+  # Event-stream filtering was unreliable for physical connect/disconnect since
+  # Niri only emits config-change events, not plug/unplug events.
   waybarHotplug = pkgs.writeShellScript "waybar-hotplug" ''
-    ${pkgs.niri}/bin/niri msg event-stream | while IFS= read -r event; do
-      # Filter to output-related events only (connect/disconnect)
-      echo "''${event}" | ${pkgs.gnugrep}/bin/grep -qi '"output' || continue
-
-      # Brief delay for Niri to finish registering the output change
-      sleep 0.5
-
-      current=$(${pkgs.niri}/bin/niri msg --json outputs | ${pkgs.jq}/bin/jq -r 'keys[]' 2>/dev/null) || continue
+    while true; do
+      current=$(${pkgs.niri}/bin/niri msg --json outputs | ${pkgs.jq}/bin/jq -r 'keys[]' 2>/dev/null) || { sleep 3; continue; }
 
       # Stop services for outputs no longer connected
       systemctl --user list-units --state=active --plain --no-legend 'waybar-output@*.service' 2>/dev/null \
@@ -42,7 +35,7 @@
             }
           done
 
-      # Start services for newly connected outputs
+      # Start services for connected outputs that don't have waybar running
       echo "''${current}" | while IFS= read -r output; do
         [ -z "''${output}" ] && continue
         systemctl --user is-active --quiet "waybar-output@''${output}.service" || {
@@ -50,6 +43,8 @@
           systemctl --user start "waybar-trigger@''${output}.service"
         }
       done
+
+      sleep 3
     done
   '';
 in {
