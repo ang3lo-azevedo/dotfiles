@@ -5,13 +5,15 @@
 
 ## Other Fixes
 
+- [ ] Check if DNS and handshake privacy stuff is working 
+- [ ] Add vscode kdl extension
 - [ ] Improve private repo stuff
 
 # Wiki
 
 - [ ] Add autocpu-freq to the wiki
 - [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
-
+- [ ] See to use this as base for wiki https://xieby1.github.io/nix_config/
 
 # Ideas
 ## Waybar Stuff
@@ -21,6 +23,7 @@
 
 ## General Stuff
 
+- [ ] Replace KDE Connect with Valent
 - [ ] Add this https://github.com/SaruM4N3/MonkeyLauncher
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
