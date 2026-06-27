@@ -6,8 +6,8 @@
   ...
 }: let
   binjaZip = inputs.self + "/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip";
-  setupPath = inputs.self + "/private/binary-ninja/setup.py";
-  setupExists = builtins.pathExists setupPath;
+  setupDir = inputs.self + "/private/binary-ninja/setup";
+  setupExists = builtins.pathExists setupDir;
   binjaExists = builtins.pathExists binjaZip;
 in {
   home.file.".binaryninja/settings.json".text = builtins.toJSON {
@@ -23,7 +23,7 @@ in {
         python3 = pkgs.python312;
       }).overrideAttrs (old: {
         # Use Python 3.12 for Sidekick plugin compatibility (requires 3.10-3.12)
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.python312Packages.pycryptodome pkgs.makeWrapper];
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.python312 pkgs.python312Packages.pycryptodome pkgs.makeWrapper];
 
         autoPatchelfIgnoreMissingDeps =
           (old.autoPatchelfIgnoreMissingDeps or [])
@@ -35,14 +35,7 @@ in {
           (old.postInstall or "")
           + (
             if setupExists
-            then ''
-              # Binary Ninja typically installs into $out/opt/binaryninja
-              if [ -d "$out/opt/binaryninja" ]; then
-                cp ${setupPath} "$out/opt/binaryninja/script.py"
-                cd "$out/opt/binaryninja"
-                ${pkgs.python312}/bin/python3 ./script.py
-              fi
-            ''
+            then (import setupDir).postInstall
             else ""
           );
 
