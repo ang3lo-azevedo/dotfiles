@@ -1,12 +1,11 @@
 {
   pkgs,
   config,
-  inputs,
   lib ? pkgs.lib,
   ...
 }: let
-  binjaZip = inputs.self + "/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip";
-  setupDir = inputs.self + "/private/binary-ninja/setup";
+  binjaZip = /home/ang3lo/nix-config/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip;
+  setupDir = /home/ang3lo/nix-config/private/binary-ninja/setup;
   setupExists = builtins.pathExists setupDir;
   binjaExists = builtins.pathExists binjaZip;
 in {
