@@ -119,6 +119,17 @@
     };
     date = "2026-06-26";
   };
+  monkeylauncher = {
+    pname = "monkeylauncher";
+    version = "0.2";
+    src = fetchFromGitHub {
+      owner = "SaruM4N3";
+      repo = "MonkeyLauncher";
+      rev = "0.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-fHLKxU4gnKnuBhISZDHQIdcfRAYdxp5xGl9cPeNC5XM=";
+    };
+  };
   registry-spy = {
     pname = "registry-spy";
     version = "v1.1.0";

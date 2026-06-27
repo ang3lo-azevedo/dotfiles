@@ -461,6 +461,7 @@
       libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
       sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
       scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
+      monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
     };
 
     # Pre-commit checks

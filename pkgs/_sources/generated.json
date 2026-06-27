@@ -198,6 +198,27 @@
         },
         "version": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9"
     },
+    "monkeylauncher": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "monkeylauncher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SaruM4N3",
+            "repo": "MonkeyLauncher",
+            "rev": "0.2",
+            "sha256": "sha256-fHLKxU4gnKnuBhISZDHQIdcfRAYdxp5xGl9cPeNC5XM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.2"
+    },
     "registry-spy": {
         "cargoLock": null,
         "date": null,
