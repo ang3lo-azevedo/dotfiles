@@ -47,8 +47,9 @@
 #wireplumber,
 #bluetooth.off,
 #bluetooth.connected,
-#network,
+#custom-kdeconnect,
 #custom-auto-cpufreq,
+#network,
 #battery,
 #custom-notification {
     padding-right: 1em
@@ -60,4 +61,12 @@
 
 #battery.critical .icon {
     color: #f38ba8;
+}
+
+#custom-kdeconnect.warning {
+    color: #f99902;
+}
+
+#custom-kdeconnect.critical {
+    color: #f56464;
 }

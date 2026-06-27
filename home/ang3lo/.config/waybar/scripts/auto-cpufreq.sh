@@ -1,25 +1,19 @@
 #!/usr/bin/env sh
 
-# Read current governor from cpu0
 GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null)
 
 if [ "$GOVERNOR" = "performance" ]; then
-	TEXT="performance"
-	ICON=""
+	ALT="performance"
 	CLASS="performance"
 elif [ "$GOVERNOR" = "powersave" ]; then
-	TEXT="powersave"
-	ICON=""
+	ALT="powersave"
 	CLASS="powersave"
 elif [ "$GOVERNOR" = "schedutil" ] || [ "$GOVERNOR" = "ondemand" ]; then
-	TEXT="balanced"
-	ICON=""
+	ALT="balanced"
 	CLASS="balanced"
 else
-	TEXT="$GOVERNOR"
-	ICON=""
+	ALT="$GOVERNOR"
 	CLASS="unknown"
 fi
 
-# Print JSON for Waybar
-echo "{\"text\": \"$ICON\", \"alt\": \"$TEXT\", \"tooltip\": \"CPU Governor: $TEXT\", \"class\": \"$CLASS\"}"
+echo "{\"text\": \"\", \"alt\": \"$ALT\", \"tooltip\": \"CPU Governor: $ALT\", \"class\": \"$CLASS\"}"
