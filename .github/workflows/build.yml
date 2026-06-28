@@ -22,17 +22,14 @@ jobs:
           remove-docker-images: "true"
           build-mount-path: "/nix"
 
-      - name: Route Nix temp files to large filesystem
-        run: |
-          sudo mkdir -p /nix/tmp
-          sudo chmod 1777 /nix/tmp
-          echo "TMPDIR=/nix/tmp" >> "$GITHUB_ENV"
-
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             accept-flake-config = true
             build-dir = /nix/tmp
+
+      - name: Create Nix build temp dir on large filesystem
+        run: sudo mkdir -p /nix/tmp && sudo chmod 1777 /nix/tmp
 
       - uses: cachix/cachix-action@v15
         with:
