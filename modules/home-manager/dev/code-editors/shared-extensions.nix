@@ -76,7 +76,7 @@
     "clemenspeters.format-json"
 
     # KDL
-    #"kdl-org.kdl"
+    "kdl-org.kdl"
 
     # Kotlin
     "fwcd.kotlin"

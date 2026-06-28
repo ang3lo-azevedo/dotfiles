@@ -5,7 +5,6 @@
 
 ## Other Fixes
 
-- [ ] Add vscode kdl extension
 - [ ] Improve private repo stuff
 
 # Wiki
@@ -25,8 +24,7 @@
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
-- [ ] Generate default disko with device configurations
-- [ ] See where the keybinds should be if on niri config or not and env variables too
+- [x] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
 - [ ] Fix webcam
 - [ ] See about calendar notification times
