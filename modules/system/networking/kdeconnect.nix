@@ -1,6 +1,6 @@
-{pkgs, ...}: {
+_: {
   programs.kdeconnect = {
     enable = true;
-    package = pkgs.valent;
+    #package = pkgs.valent;
   };
 }
