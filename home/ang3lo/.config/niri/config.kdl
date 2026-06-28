@@ -7,9 +7,6 @@ include "monitor.kdl"
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
-    // Default programs (used by keybinds)
-    EDITOR "antigravity-ide"
-    BROWSER "zen-browser"
     EXPLORER "ghostty -e yazi"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
@@ -539,23 +536,23 @@ binds {
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End  { move-column-to-last; }
 
-    Mod+Shift+Left  { focus-monitor-left; }
-    Mod+Shift+Down  { focus-monitor-down; }
-    Mod+Shift+Up    { focus-monitor-up; }
-    Mod+Shift+Right { focus-monitor-right; }
-    Mod+Shift+H     { focus-monitor-left; }
-    Mod+Shift+J     { focus-monitor-down; }
-    Mod+Shift+K     { focus-monitor-up; }
-    Mod+Shift+L     { focus-monitor-right; }
+    Mod+Shift+Left  { move-window-to-monitor-left; }
+    Mod+Shift+Down  { move-window-to-monitor-down; }
+    Mod+Shift+Up    { move-window-to-monitor-up; }
+    Mod+Shift+Right { move-window-to-monitor-right; }
+    Mod+Shift+H     { move-window-to-monitor-left; }
+    Mod+Shift+J     { move-window-to-monitor-down; }
+    Mod+Shift+K     { move-window-to-monitor-up; }
+    Mod+Shift+L     { move-window-to-monitor-right; }
 
-    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Left  { focus-monitor-left; }
+    Mod+Shift+Ctrl+Down  { focus-monitor-down; }
+    Mod+Shift+Ctrl+Up    { focus-monitor-up; }
+    Mod+Shift+Ctrl+Right { focus-monitor-right; }
+    Mod+Shift+Ctrl+H     { focus-monitor-left; }
+    Mod+Shift+Ctrl+J     { focus-monitor-down; }
+    Mod+Shift+Ctrl+K     { focus-monitor-up; }
+    Mod+Shift+Ctrl+L     { focus-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
