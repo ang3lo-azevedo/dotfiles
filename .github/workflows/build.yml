@@ -29,7 +29,10 @@ jobs:
             build-dir = /nix/tmp
 
       - name: Create Nix build temp dir on large filesystem
-        run: sudo mkdir -p /nix/tmp && sudo chmod 1777 /nix/tmp
+        run: |
+          sudo mkdir -p /nix/tmp
+          sudo chmod 1777 /nix/tmp
+          echo "TMPDIR=/nix/tmp" >> "$GITHUB_ENV"
 
       - uses: cachix/cachix-action@v15
         with:
