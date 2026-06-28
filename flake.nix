@@ -249,6 +249,9 @@
   # IMPORTANT: Keep this list in sync with `modules/system/binary-cache.nix`!
   nixConfig = {
     extra-substituters = [
+      # Personal cache — custom packages and full system closure
+      "https://ang3lo.cachix.org"
+
       # Official cache for community flakes (home-manager, disko, impermanence, stylix)
       "https://nix-community.cachix.org"
 
@@ -271,6 +274,7 @@
       #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
+      "ang3lo.cachix.org-1:RckESjXE0fJr+FTfC4akKPi3+EBgpyPQLmZU23N4y3E="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
