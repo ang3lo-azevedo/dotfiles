@@ -17,6 +17,8 @@
 ## Waybar Stuff
 
 - [ ] Make if possible to click the privacy icons to disable camera and micrphone
+- [ ] See about brigtness control on both monitors
+- [ ] Add nightlight slider to sawync
 
 
 ## General Stuff
@@ -24,12 +26,12 @@
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
-- [x] See where the keybinds should be if on niri config or not and env variables too
 - [ ] Improve keybinds
 - [ ] Fix webcam
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
+- [ ] See of adding this https://github.com/doomemacs/core
 
 
 # TODO

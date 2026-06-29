@@ -4,15 +4,9 @@
     runtimeInputs = [pkgs.brightnessctl];
     text = builtins.readFile ./scripts/kbdillumtoggle.sh;
   };
-  open-nix-config-pkg = pkgs.writeShellApplication {
-    name = "open-nix-config";
-    runtimeInputs = [pkgs.niri];
-    text = builtins.readFile ./scripts/open-nix-config.sh;
-  };
 in {
   environment.systemPackages = [
     kbdillumtoggle-pkg
-    open-nix-config-pkg
     pkgs.keyd
   ];
 
@@ -23,9 +17,7 @@ in {
         ids = ["0001:0001" "0000:0000"];
         settings = {
           main = {
-            # Samsung F1 Fn-function emits 'help'; bare F1 runs the command via keyd,
-            # Fn+F1 (help → f1, non-recursive) fires the niri F1 bind instead.
-            "f1" = "command(open-nix-config)";
+            # Samsung F1 Fn-function ('?'/help) emits 'help'; remap to f1 for niri bind.
             "help" = "f1";
             # The laptop defaults to media keys: physical F9 emits 'kbdillumtoggle'
             # and Fn+F9 emits 'f9'. Swap so F9 = F9 and Fn+F9 cycles backlight.

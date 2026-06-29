@@ -92,6 +92,7 @@ input {
 
 
 
+
         map-to-output "eDP-1"
     }
 
@@ -486,8 +487,8 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     // Brightness keys
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "2%+"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "2%-"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "sh" "-c" "brightnessctl set 2%+; ddcutil setvcp 10 + 5 2>/dev/null &"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "sh" "-c" "brightnessctl set 2%-; ddcutil setvcp 10 - 5 2>/dev/null &"; }
 
     // Touchpad toggle: Samsung EC sends Ctrl+Super+F21 for this key
     Mod+Ctrl+F21 allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }

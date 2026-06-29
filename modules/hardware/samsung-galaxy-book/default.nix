@@ -1,9 +1,10 @@
 {...}: {
   imports = [
     ./audio.nix
-    ./fingerprint.nix
-    ./webcam.nix
-    ./fn-keys
+    ./display-brightness.nix
     ./egpu-brightness.nix
+    ./fingerprint.nix
+    ./fn-keys
+    ./webcam.nix
   ];
 }
