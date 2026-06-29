@@ -18,7 +18,7 @@
 
 - [ ] Make if possible to click the privacy icons to disable camera and micrphone
 - [ ] See about brigtness control on both monitors
-- [ ] Add nightlight slider to sawync
+- [x] Add nightlight slider to swaync
 
 
 ## General Stuff

@@ -32,6 +32,7 @@
     "backlight",
     "backlight#KB",
     "volume",
+    "slider#nightlight",
     "mpris",
     "title",
     "dnd",
@@ -59,6 +60,15 @@
       "label": " ",
       "device": "samsung-galaxybook::kbd_backlight",
       "subsystem": "leds"
+    },
+    "slider#nightlight": {
+      "label": "",
+      "min": 1500,
+      "max": 6500,
+      "step": 100,
+      "cmd": "wlsunset-set-temp {}",
+      "value-cmd": "wlsunset-get-temp",
+      "value-first": true
     },
     "menubar#label": {
       "buttons#touchscreen": {
