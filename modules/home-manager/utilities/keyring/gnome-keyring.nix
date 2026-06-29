@@ -1,7 +1,12 @@
 {pkgs, ...}: {
+  services.gnome-keyring = {
+    enable = true;
+    components = ["pkcs11" "secrets" "ssh"];
+  };
+
   home.packages = [
-    pkgs.gcr # Provides org.gnome.keyring.SystemPrompter
-    pkgs.dconf # Required for GNOME/GTK settings
-    pkgs.seahorse # Keyring manager GUI
+    pkgs.gcr
+    pkgs.dconf
+    pkgs.seahorse
   ];
 }
