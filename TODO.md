@@ -72,7 +72,7 @@
 - [ ] Add wavsteg to cyber tools https://github.com/samolds/wavsteg
 - [ ] Check https://til.simonwillison.net/python/cog-to-update-help-in-readme
 - [ ] Add obs-studio https://nixos.wiki/wiki/OBS_Studio
-- [ ] Add the missing fn keys
+- [x] Add the missing fn keys
 - [ ] Add Kaon https://github.com/LorenDB/kaon
 - [ ] Fix the e-gpu unplugging freeze
 - [ ] Fix Zen extension settings
