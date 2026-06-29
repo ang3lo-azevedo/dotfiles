@@ -7,6 +7,7 @@ include "monitor.kdl"
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
+    EDITOR "antigravity-ide"
     EXPLORER "ghostty -e yazi"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
@@ -475,7 +476,7 @@ binds {
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // Fn keys
-    F1 hotkey-overlay-title="Open Niri Config" { spawn "sh" "-c" "exec ${EDITOR} ~/.config/niri/config.kdl"; }
+    F1 hotkey-overlay-title="Open Nix Config" { spawn "sh" "-c" "exec ${EDITOR} ~/nix-config"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
