@@ -1,27 +1,12 @@
 {pkgs, ...}: let
-  touchpadtoggle-pkg = pkgs.writeShellApplication {
-    name = "toggle-touchpad";
-    runtimeInputs = [pkgs.libinput pkgs.xinput];
-    text = builtins.readFile ./scripts/touchpadtoggle.sh;
-  };
-
   kbdillumtoggle-pkg = pkgs.writeShellApplication {
     name = "cycle-kbd-backlight";
     runtimeInputs = [pkgs.brightnessctl];
     text = builtins.readFile ./scripts/kbdillumtoggle.sh;
   };
-
-  # Opens this nix-config workspace in VS Code (or VSCodium / xdg-open fallback)
-  open-nix-config-pkg = pkgs.writeShellApplication {
-    name = "open-nix-config";
-    runtimeInputs = [pkgs.coreutils pkgs.xdg-utils];
-    text = builtins.readFile ./scripts/open-nix-config.sh;
-  };
 in {
   environment.systemPackages = [
-    touchpadtoggle-pkg
     kbdillumtoggle-pkg
-    open-nix-config-pkg
     pkgs.keyd
   ];
 
@@ -32,18 +17,11 @@ in {
         ids = ["0001:0001" "0000:0000"];
         settings = {
           main = {
-            # TODO: Add the missing keys
-
-            # Open nix-config in VS Code
-            #"f1" = "command(open-nix-config)";
-
-            #left meta + p (Fn+F4)
-
-            # Touchpad toggle (Fn+F5) -> (left meta + f21)
-            #"f5" = "command(touchpadtoggle)";
-
-            # Since the laptop defaults to media keys, physical F9 emits 'kbdillumtoggle'
-            # and Fn+F9 emits 'f9'. We swap them here so F9 acts as F9 and Fn+F9 toggles the backlight.
+            # Samsung F1: bare F1 → help (neutral), Fn+F1 → f1 → niri bind opens config.
+            "help" = "f1";
+            "f1" = "help";
+            # The laptop defaults to media keys: physical F9 emits 'kbdillumtoggle'
+            # and Fn+F9 emits 'f9'. Swap so F9 = F9 and Fn+F9 cycles backlight.
             "kbdillumtoggle" = "f9";
             "f9" = "command(cycle-kbd-backlight)";
           };
@@ -52,7 +30,13 @@ in {
     };
   };
 
-  # Optional, but makes sure that when you type the make palm rejection work with keyd
+  # Grant the input group write access to the touchpad inhibit sysfs file
+  # so ~/.config/niri/scripts/touchpad-toggle.sh can disable it without root.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="input", ATTRS{name}=="ZNT0001:00 14E5:E760 Touchpad", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys%p/inhibited"
+  '';
+
+  # Makes palm rejection work with keyd's virtual keyboard
   # https://github.com/rvaiya/keyd/issues/723
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Serial Keyboards]

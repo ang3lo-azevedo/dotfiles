@@ -475,6 +475,7 @@ binds {
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // Fn keys
+    F1 hotkey-overlay-title="Open Niri Config" { spawn "sh" "-c" "exec ${EDITOR} ~/.config/niri/config.kdl"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -487,11 +488,18 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "2%+"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "2%-"; }
 
-    // Keyboard brightness (The keyboard key doesn't work)
-    F9 allow-when-locked=true { spawn "~/.config/niri/scripts/keyboard-brightness.sh";}
+    // Touchpad toggle: Samsung EC sends Ctrl+Super+F21 for this key
+    Mod+Ctrl+F21 allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
 
-    // Touchpad keys
-    //ztXF86TouchpadToggle allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
+    // Media keys
+    XF86AudioPlay  allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPause allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioStop  allow-when-locked=true { spawn "playerctl" "stop"; }
+    XF86AudioNext  allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev  allow-when-locked=true { spawn "playerctl" "previous"; }
+
+    // Sleep
+    XF86Sleep allow-when-locked=true { spawn "swaylock" "-f"; }
 
     // Notification controls
     Mod+Shift+N hotkey-overlay-title="Toggle Notification Center" { spawn "swaync-client" "-t" "-sw"; }
