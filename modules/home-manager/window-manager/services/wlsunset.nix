@@ -7,7 +7,8 @@
   nightTemp = "3500";
 
   tempStateFile = ''"''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wlsunset-night-temp"'';
-  locationCache = ''"$HOME/.cache/wlsunset_location.json"'';
+
+  scripts = inputs.self + "/modules/home-manager/window-manager/services/scripts";
 
   get-location = pkgs.writeShellApplication {
     name = "get-location";
@@ -24,27 +25,15 @@
 
   wlsunset-set-temp = pkgs.writeShellApplication {
     name = "wlsunset-set-temp";
-    runtimeInputs = [pkgs.wlsunset pkgs.jq];
-    text = ''
-      temp="$1"
-      echo "$temp" > ${tempStateFile}
-
-      if [ -f ${locationCache} ]; then
-          lat=$(jq -r .lat < ${locationCache})
-          lon=$(jq -r .lon < ${locationCache})
-      else
-          lat=38.7223
-          lon=-9.1393
-      fi
-
-      pkill wlsunset 2>/dev/null || true
-      wlsunset -l "$lat" -L "$lon" -T ${dayTemp} -t "$temp" &
-    '';
+    runtimeInputs = [pkgs.systemd];
+    text = builtins.readFile (scripts + "/wlsunset-set-temp.sh");
   };
 
-  wlsunset-get-temp = pkgs.writeShellScriptBin "wlsunset-get-temp" ''
-    cat ${tempStateFile} 2>/dev/null || echo ${nightTemp}
-  '';
+  wlsunset-get-temp = pkgs.writeShellApplication {
+    name = "wlsunset-get-temp";
+    runtimeInputs = [];
+    text = builtins.readFile (scripts + "/wlsunset-get-temp.sh");
+  };
 in {
   services.wlsunset.enable = false;
 
