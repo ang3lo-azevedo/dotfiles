@@ -37,6 +37,7 @@
     },
     "custom/clock-calendar": {
         "exec": "~/.config/waybar/scripts/waybar-clock-calendar.sh",
+        "restart-interval": 1,
         "return-type": "json",
         "on-click": "ghostty -e khal interactive",
         "on-scroll-up": "~/.config/waybar/scripts/waybar-toggle.sh EXTERNAL_OUTPUT",
@@ -63,8 +64,8 @@
         "on-click-middle": "playerctl next",
         "on-click-backward": "playerctl previous",
         "on-click-forward": "playerctl next",
-        "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show && pkill -f waybar-mpris-wrapper.sh",
-        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss && pkill -f waybar-mpris-wrapper.sh",
+        "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show",
+        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
@@ -74,8 +75,8 @@
         "exec-if": "playerctl status 2>/dev/null | grep -qE 'Playing|Paused'",
         "restart-interval": 1,
         "escape": true,
-        "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show && pkill -f waybar-mpris-wrapper.sh",
-        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss && pkill -f waybar-mpris-wrapper.sh",
+        "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show",
+        "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },

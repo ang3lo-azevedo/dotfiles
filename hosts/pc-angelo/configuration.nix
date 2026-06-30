@@ -65,7 +65,7 @@ in {
   services.usbmuxd.enable = true;
 
   age = {
-    identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    identityPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];
 
     secrets = {
       user_password.file = inputs.self + "/secrets/user_password.age";

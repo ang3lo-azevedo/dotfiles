@@ -15,7 +15,7 @@ WAYBAR_PID=$!
 case "$OUTPUT" in
 eDP*) ;;
 *)
-	sleep 1
+	sleep 5
 	kill -SIGUSR1 $WAYBAR_PID
 	;;
 esac
