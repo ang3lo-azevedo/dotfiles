@@ -184,6 +184,41 @@
   min-height: 10px;
 }
 
+/* Nightlight Slider Widget */
+.widget-slider {
+  background: transparent;
+  padding: 4px 8px;
+  margin: 2px 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.widget-slider scale {
+  min-height: 2px;
+  min-width: 150px;
+}
+
+.widget-slider scale trough {
+  border-radius: 2px;
+  background: #2a2a2a;
+  border: none;
+  min-height: 3px;
+}
+
+.widget-slider scale highlight {
+  background: #eeeeee;
+  border-radius: 2px;
+}
+
+.widget-slider scale slider {
+  background: #eeeeee;
+  border: 1px solid #eeeeee;
+  border-radius: 50%;
+  margin: -3px;
+  min-width: 10px;
+  min-height: 10px;
+}
+
 /* Buttons Grid Widget (wlsunset) */
 .widget-buttons-grid {
   background: #1a1a1a;
