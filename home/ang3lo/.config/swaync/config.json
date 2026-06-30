@@ -47,7 +47,6 @@
     "dnd": {
       "text": "Do Not Disturb"
     },
-
     "volume": {
       "label": "󰕾",
       "show-per-app": true,
@@ -65,69 +64,76 @@
       "label": "",
       "min": 1500,
       "max": 6500,
-      "step": 100,
-      "cmd": "wlsunset-set-temp {}",
-      "value-cmd": "wlsunset-get-temp",
-      "value-first": true
+      "cmd_setter": "wlsunset-set-temp $value",
+      "cmd_getter": "wlsunset-get-temp"
     },
     "menubar#label": {
+      "buttons#nightlight": {
+        "position": "left",
+        "actions": [
+          {
+            "label": "",
+            "command": "if systemctl --user is-active --quiet wlsunset; then systemctl --user stop wlsunset; else systemctl --user start wlsunset; fi; pkill -RTMIN+1 waybar"
+          }
+        ]
+      },
       "buttons#touchscreen": {
         "position": "right",
         "actions": [
           {
-            "label": "\udb80\uddbd",
+            "label": "󰆽",
             "command": "~/.config/waybar/scripts/touchscreen-toggle.sh toggle"
           }
         ]
       },
       "menu#powermode-buttons": {
-        "label": "\uf0e4", 
+        "label": "",
         "position": "right",
-        "actions": [ 
+        "actions": [
           {
-            "label": "\uf0e7 Performance",
+            "label": " Performance",
             "command": "pkexec auto-cpufreq --force performance"
           },
           {
-            "label": "\uf1ce Auto",
+            "label": " Auto",
             "command": "pkexec auto-cpufreq --force reset"
           },
           {
-            "label": "\uf06c Power-saver",
+            "label": " Power-saver",
             "command": "pkexec auto-cpufreq --force powersave"
           }
         ]
       },
       "menu#power-buttons": {
-        "label": "", 
+        "label": "",
         "position": "right",
-        "actions": [ 
+        "actions": [
           {
-            "label": "\uf023 Lock Screen",
+            "label": " Lock Screen",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Lock Screen\""
           },
           {
-            "label": "\uf236 Suspend System",
+            "label": " Suspend System",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Suspend System\""
           },
           {
-            "label": "\uf104 Log Out",
+            "label": " Log Out",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Log Out\""
           },
           {
-            "label": "\uf2f1 Restart System",
+            "label": " Restart System",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Restart System\""
           },
           {
-            "label": "\uf085 Restart to UEFI",
+            "label": " Restart to UEFI",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Restart to UEFI\""
           },
           {
-            "label": "\uf071 Force Restart",
+            "label": " Force Restart",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Force Restart\""
           },
           {
-            "label": "\uf011 Shutdown System",
+            "label": " Shutdown System",
             "command": "~/.config/fuzzel/scripts/fuzzel-powermenu.sh \"Shutdown System\""
           }
         ]
