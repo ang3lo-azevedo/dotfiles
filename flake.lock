@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782547241,
-        "narHash": "sha256-Az8k1bRae3Db29KaxBjP4mHGRMLSgbOYC/kcJe4m5oU=",
+        "lastModified": 1782807355,
+        "narHash": "sha256-wzlGNNpEcrPrV90lvaQU5UcQbqgdL1rCErVigNar51M=",
         "owner": "jacopone",
         "repo": "antigravity-nix",
-        "rev": "c9185eb03f60c2f1a25f78aa5941408ae1852dd3",
+        "rev": "722480de254c0d46961482b7c92740436093490d",
         "type": "github"
       },
       "original": {
@@ -338,11 +338,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782743969,
-        "narHash": "sha256-PiHwslyuTdeW3fQCG/nJgNXk9wpR/i2bOkhIyixSN+Y=",
+        "lastModified": 1782809867,
+        "narHash": "sha256-Ym4wVmosoQpkQRjuoHd0W/Q1Jv8M0tq5Yygxv2a4Gu8=",
         "owner": "Rishabh5321",
         "repo": "custom-packages-flake",
-        "rev": "f96f47b3f3e1978a97b7c95bcf39abd79d1ed42e",
+        "rev": "091df8c661e4ead9f964b6b4c0cb7121ed566de4",
         "type": "github"
       },
       "original": {
@@ -487,11 +487,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1782717441,
-        "narHash": "sha256-jLLhXIhC7+OOlSmy6fcZWYND8gUWDZj0Uh8Ez0jpZcw=",
+        "lastModified": 1782801792,
+        "narHash": "sha256-CVpl83BBLTR/Jr0GPomi02waBUYTijZYQV3xCcvqzYg=",
         "owner": "osipog",
         "repo": "nix-firefox-addons",
-        "rev": "1a3f5251f34e5f28b11fc89a90c399f2a84d0f0c",
+        "rev": "7514a84eb5fc48377c8b52df1e9fc1b25b7f9207",
         "type": "github"
       },
       "original": {
@@ -1336,11 +1336,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1782731018,
-        "narHash": "sha256-uDVkqX9vuNTps1Ql30sOg+DQBs9dLgHqoWktVAgEVlE=",
+        "lastModified": 1782802988,
+        "narHash": "sha256-kqzM4bD1iYsGxuiiUXGixILRV4HBI5FMnSU+IArj8po=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "b7c30020413dd5a29122d8839b6dfb5dc17ac487",
+        "rev": "ff0fb3cf69a93c30b9d93db8121b36a60708a32b",
         "type": "github"
       },
       "original": {
@@ -1493,11 +1493,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1782781938,
-        "narHash": "sha256-jTY4hJUGOBNyDiGW2rlB1bAqBNxK1WGXZXx4wQ0NzBk=",
+        "lastModified": 1782811267,
+        "narHash": "sha256-PjGGIBV2mJ19ATUoUq1xMA6qw71ZnKDDt0KK0u7xMYk=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "f5779b250d56a6e28960088edba47974c29f070b",
+        "rev": "247bd99be33d434222b2a4e3a3a592159475730c",
         "type": "github"
       },
       "original": {
