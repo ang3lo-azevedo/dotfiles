@@ -115,6 +115,8 @@
   font-size: 14px;
   color: #eeeeee;
   margin-right: 8px;
+  min-width: 24px;
+  max-width: 24px;
 }
 
 .widget-volume scale {
@@ -156,6 +158,8 @@
   font-size: 14px;
   color: #eeeeee;
   margin-right: 8px;
+  min-width: 24px;
+  max-width: 24px;
 }
 
 .widget-backlight scale {
@@ -185,6 +189,14 @@
 }
 
 /* Nightlight Slider Widget */
+.widget-slider label {
+  font-size: 14px;
+  color: #eeeeee;
+  margin-right: 8px;
+  min-width: 28px;
+  max-width: 28px;
+}
+
 .widget-slider {
   background: transparent;
   padding: 4px 8px;

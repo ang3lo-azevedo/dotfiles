@@ -228,6 +228,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # IST Fénix Auto Enroller
+    ist-fenix-auto-enroller = {
+      url = "github:ang3lo-azevedo/ist-fenix-auto-enroller";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Pre-commit hooks for Nix
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -471,6 +477,7 @@
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
       nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
       linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
+      ist-fenix-auto-enroller = inputs.ist-fenix-auto-enroller.packages.x86_64-linux.default;
     };
 
     # Pre-commit checks
