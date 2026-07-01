@@ -113,6 +113,7 @@ cat <<'EOF'
 | `trakt-scrobbler-src` | Trakt scrobbler source used for local package (non-flake src) |
 | `angr-management` | angr-management source for local package build (non-flake src) |
 | `photogimp` | PhotoGIMP assets and config (non-flake src) |
+| `ist-fenix-auto-enroller` | IST Fénix course enrollment automation tool |
 | `steam-config-nix` | Steam launch options and compatibility tool management |
 | `glaumar_repo` | glaumar's NUR — provides QRookie |
 | `stremio-enhanced` | Enhanced Stremio desktop client source (non-flake src) |

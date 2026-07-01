@@ -30,9 +30,9 @@
   "widgets": [
     "menubar#label",
     "backlight",
+    "slider#nightlight",
     "backlight#KB",
     "volume",
-    "slider#nightlight",
     "mpris",
     "title",
     "dnd",
@@ -56,7 +56,7 @@
       "label": "󰃞"
     },
     "backlight#KB": {
-      "label": " ",
+      "label": "",
       "device": "samsung-galaxybook::kbd_backlight",
       "subsystem": "leds"
     },
@@ -68,15 +68,6 @@
       "cmd_getter": "wlsunset-get-temp"
     },
     "menubar#label": {
-      "buttons#nightlight": {
-        "position": "left",
-        "actions": [
-          {
-            "label": "",
-            "command": "if systemctl --user is-active --quiet wlsunset; then systemctl --user stop wlsunset; else systemctl --user start wlsunset; fi; pkill -RTMIN+1 waybar"
-          }
-        ]
-      },
       "buttons#touchscreen": {
         "position": "right",
         "actions": [
