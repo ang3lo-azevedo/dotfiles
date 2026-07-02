@@ -10,5 +10,6 @@
     ./swaylock.nix
     ./wl-clipboard.nix
     ./cliphist.nix
+    ./bemoji.nix
   ];
 }

@@ -477,7 +477,9 @@
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
       nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
       linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
-      ist-fenix-auto-enroller = inputs.ist-fenix-auto-enroller.packages.x86_64-linux.default;
+      ist-fenix-auto-enroller = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ist-fenix-auto-enroller/default.nix {
+        src = inputs.ist-fenix-auto-enroller;
+      };
     };
 
     # Pre-commit checks
