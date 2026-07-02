@@ -107,6 +107,7 @@ cat <<'EOF'
 | `firefox-addons` | Firefox add-on packages for Home Manager |
 | `berberman` | berberman's flakes — provides apple-color-emoji |
 | `nirinit` | nirinit Niri window manager init helper |
+| `niri-main` | niri main branch, patched with shake-to-find-cursor (PR #2797) |
 | `pear-desktop` | Pear Desktop (formerly youtube-music) electron app |
 | `affinity-nix` | Affinity Designer/Photo/Publisher NixOS modules |
 | `mpv-config` | Personal mpv configuration (non-flake src) |

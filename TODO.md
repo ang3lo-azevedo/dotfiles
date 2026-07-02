@@ -61,6 +61,7 @@
 ## Server Stuff
 
 - [ ] Add firefly III 
+- [ ] Add SimpleLogin
 - [ ] Configure server
 - [ ] Set up self-hosted GitHub Actions runner on server-angelo to replace GitHub-hosted runners for CI builds (eliminates minute limits, disk space issues, and dependency on third-party CI services)
 

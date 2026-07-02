@@ -228,6 +228,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # niri main branch, patched with shake-to-find-cursor (PR #2797)
+    niri-main = {
+      url = "github:niri-wm/niri";
+      flake = false;
+    };
+
     # IST Fénix Auto Enroller
     ist-fenix-auto-enroller = {
       url = "github:ang3lo-azevedo/ist-fenix-auto-enroller";
@@ -389,6 +395,22 @@
             (import ./overlays/python-packages.nix)
             (_: prev: {
               nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+              niri = prev.niri.overrideAttrs (_: {
+                src = inputs.niri-main;
+                version = "main-pr2797";
+                patches = [
+                  (prev.fetchpatch {
+                    url = "https://github.com/niri-wm/niri/pull/2797.patch";
+                    hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
+                  })
+                ];
+                cargoDeps = prev.rustPlatform.fetchCargoVendor {
+                  pname = "niri-main-pr2797";
+                  version = "main-pr2797";
+                  src = inputs.niri-main;
+                  hash = "sha256-jGORNwJ/F9UrajObXdGLbOTGEpCv919puUuWojbuVwo=";
+                };
+              });
             })
           ];
         }
