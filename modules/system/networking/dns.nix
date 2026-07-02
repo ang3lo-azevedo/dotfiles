@@ -68,6 +68,26 @@
   # which would bypass dnscrypt-proxy. mkForce overrides the default set by resolved.nix.
   networking.networkmanager.dns = lib.mkForce "none";
 
+  # dns=none stops NM from writing resolv.conf but NM still pushes per-link DNS to
+  # resolved via D-Bus. Revert it immediately after each connection so the only DNS
+  # resolver is the global 127.0.0.1 → dnscrypt-proxy.
+  networking.networkmanager.dispatcherScripts = [
+    {
+      type = "basic";
+      source = lib.getExe (pkgs.writeShellApplication {
+        name = "90-clear-per-link-dns";
+        runtimeInputs = [pkgs.systemd];
+        text = ''
+          case "$2" in
+            up|dhcp4-change|dhcp6-change)
+              resolvectl revert "$1"
+              ;;
+          esac
+        '';
+      });
+    }
+  ];
+
   # Delay dnscrypt-proxy until the clock is synced: it verifies TLS certificates
   # when downloading the resolver list, which fails if the clock is wrong at boot.
   systemd = {

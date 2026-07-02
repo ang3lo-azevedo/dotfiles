@@ -11,6 +11,7 @@
         hidingAds = true;
         clickingAds = true;
         blockingMalware = true;
+        userSettings.webrtcIPShielding = true;
         adminSettings.selectedFilterLists = [
           "user-filters"
           "adnauseam-filters"
@@ -37,6 +38,8 @@
           "adguard-popup-overlays"
           "adguard-widgets"
           "ublock-annoyances"
+          "adguard-social"
+          "fanboy-social"
         ];
       };
     };

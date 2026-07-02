@@ -63,6 +63,7 @@
       # boltd stores Thunderbolt device authorization state
       "/var/lib/boltd"
       "/var/lib/nordvpn"
+      "/var/lib/mullvad-vpn"
       "/var/lib/containers"
       "/var/lib/libvirt"
       # systemd-pcrlock stores PCR policy files used to unseal the TPM at boot
