@@ -42,6 +42,9 @@
   "network.trr.mode" = 2;
   "network.trr.uri" = "https://dns.quad9.net/dns-query";
 
+  # Show a warning bar when DoH is unavailable and the browser falls back to system DNS
+  "network.trr.display_fallback_warning" = true;
+
   # Don't use separate \default search engines for private windows
   "browser.search.separatePrivateDefault" = false;
 

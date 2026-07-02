@@ -1326,6 +1326,22 @@
         "type": "github"
       }
     },
+    "niri-main": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781781064,
+        "narHash": "sha256-Ii/koEm/sRyg65qbAQWqEgboSEIhdH0EL4KglAc14p0=",
+        "owner": "niri-wm",
+        "repo": "niri",
+        "rev": "49fc6117fd6c043adaa2ead316b82db5ed735d36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "niri-wm",
+        "repo": "niri",
+        "type": "github"
+      }
+    },
     "nirinit": {
       "inputs": {
         "fenix": "fenix_2",
@@ -1470,11 +1486,11 @@
         "nixpkgs-nixcord": "nixpkgs-nixcord"
       },
       "locked": {
-        "lastModified": 1782954739,
-        "narHash": "sha256-TNJ+BT/Dy2HzbIZ8z45lL67RDQKs5kIRNxeWoxmNmfI=",
+        "lastModified": 1782989434,
+        "narHash": "sha256-jZl7iUaYxMiaECMisifcrxM5zW6NTQgxrTWS6RHOOxk=",
         "owner": "FlameFlag",
         "repo": "nixcord",
-        "rev": "17d5c4662e5852ef7df55435cea3e898a1a6fead",
+        "rev": "fc88a8644fe0798de630f375626a1b12460e5934",
         "type": "github"
       },
       "original": {
@@ -2141,6 +2157,7 @@
         "lanzaboote": "lanzaboote",
         "libfprint-src": "libfprint-src",
         "mpv-config": "mpv-config",
+        "niri-main": "niri-main",
         "nirinit": "nirinit",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-gaming": "nix-gaming",
