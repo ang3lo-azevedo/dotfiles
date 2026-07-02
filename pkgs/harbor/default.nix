@@ -17,7 +17,10 @@
   pwShim = runCommandCC "pw-log-topic-shim" {} ''
     mkdir -p $out/lib
     cc -shared -fPIC -o $out/lib/pw_log_topic_shim.so \
-      ${writeText "shim.c" "void pw_log_topic_register(void *t) {}"}
+      ${writeText "shim.c" ''
+      void pw_log_topic_register(void *t) {}
+      void pw_log_topic_unregister(void *t) {}
+    ''}
   '';
 
   wrapper = writeShellScript "harbor" ''
@@ -29,14 +32,11 @@ in
     inherit pname version src;
 
     extraInstallCommands = ''
-      icon=$(find ${appimageContents} -name 'harbor.png' -o -name '.DirIcon' | sort | head -1)
-      [ -n "$icon" ] && install -m 444 -D "$icon" $out/share/pixmaps/harbor.png
-
-      desktop=$(find ${appimageContents} -maxdepth 1 -name '*.desktop' | head -1)
-      if [ -n "$desktop" ]; then
-        install -m 444 -D "$desktop" $out/share/applications/harbor.desktop
-        sed -i 's|^Exec=.*|Exec=harbor %u|' $out/share/applications/harbor.desktop
-      fi
+      install -m 444 -D ${appimageContents}/Harbor.png \
+        $out/share/icons/hicolor/256x256/apps/harbor.png
+      install -m 444 -D ${appimageContents}/usr/share/applications/Harbor.desktop \
+        $out/share/applications/harbor.desktop
+      sed -i 's|^Exec=.*|Exec=harbor %u|' $out/share/applications/harbor.desktop
 
       mv $out/bin/harbor $out/bin/.harbor-unwrapped
       cp ${wrapper} $out/bin/harbor
