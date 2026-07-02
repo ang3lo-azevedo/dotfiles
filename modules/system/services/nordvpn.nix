@@ -25,7 +25,6 @@
       RuntimeDirectoryMode = "0750";
       Group = "nordvpn";
     };
-    wantedBy = ["multi-user.target"];
     after = ["network-online.target"];
     wants = ["network-online.target"];
   };

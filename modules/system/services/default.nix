@@ -4,6 +4,7 @@
     ./auto-cpufreq.nix
     ./backups.nix
     ./nordvpn.nix
+    ./mullvad.nix
     ./xdg-portal.nix
     #./suwayomi.nix
     # ./docker-compose.nix

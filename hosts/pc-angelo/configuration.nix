@@ -43,10 +43,15 @@ in {
   boot = {
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
 
-    # Ensure the system knows to open the LUKS container
-    initrd.luks.devices."cryptroot" = {
-      device = "/dev/disk/by-partlabel/disk-main-luks";
-      allowDiscards = true;
+    initrd = {
+      luks.devices."cryptroot" = {
+        device = "/dev/disk/by-partlabel/disk-main-luks";
+        allowDiscards = true;
+      };
+      systemd = {
+        enable = true;
+        storePaths = [pkgs.libxcrypt-legacy];
+      };
     };
 
     # Enable Plymouth for a nice boot splash screen
@@ -56,9 +61,6 @@ in {
         DeviceScale=2
       '';
     };
-
-    # Make sure systemd is enabled in initrd for plymouth
-    initrd.systemd.enable = true;
   };
 
   # Enable USB device multiplexing
