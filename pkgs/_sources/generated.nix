@@ -143,10 +143,10 @@
   };
   nordvpn = {
     pname = "nordvpn";
-    version = "5.1.0";
+    version = "5.2.0";
     src = fetchurl {
-      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.1.0_amd64.deb";
-      sha256 = "sha256-10Cfjjy5AQ88ZdFRLyjnR2aL6roGroa0/SuFu2nuD8k=";
+      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.2.0_amd64.deb";
+      sha256 = "sha256-mFBwH1iedC5NksQ+7h8hiCYt23H0DlRT06KteVA9uJs=";
     };
   };
   registry-spy = {

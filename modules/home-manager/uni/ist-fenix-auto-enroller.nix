@@ -4,6 +4,8 @@
   ...
 }: {
   home.packages = [
-    inputs.ist-fenix-auto-enroller.packages.${pkgs.system}.default
+    (pkgs.callPackage (inputs.self + "/pkgs/ist-fenix-auto-enroller/default.nix") {
+      src = inputs.ist-fenix-auto-enroller;
+    })
   ];
 }
