@@ -79,6 +79,14 @@
       sha256 = "sha256-QiaqdRfLNTt9i689V86Esk5CyIJ0f+P5FbYJQM+1C90=";
     };
   };
+  harbor = {
+    pname = "harbor";
+    version = "0.9.20";
+    src = fetchurl {
+      url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/v0.9.20/Harbor_0.9.20_amd64.AppImage";
+      sha256 = "sha256-mF23E3x9XFo21q3apNdFqtCb4yzuQh4ws/K7vGnnBls=";
+    };
+  };
   ida-chat-plugin = {
     pname = "ida-chat-plugin";
     version = "883f9b3550725d81eed80c25dd28c75b320f22c7";

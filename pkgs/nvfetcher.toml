@@ -98,3 +98,9 @@ fetch.github = "eylenburg/linoffice"
 src.webpage = "https://repo.nordvpn.com/deb/nordvpn/debian/dists/stable/main/binary-amd64/Packages"
 src.regex = "Package: nordvpn\nVersion: ([0-9.]+)"
 fetch.url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_$ver_amd64.deb"
+
+[harbor]
+src.github = "AdityaHebballe/harbor-linux-builds"
+src.github_use_latest_release = true
+src.prefix = "v"
+fetch.url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/v$ver/Harbor_$ver_amd64.AppImage"
