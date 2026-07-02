@@ -7,6 +7,7 @@
     ./stremio-enhanced.nix
     #./playtorrio-v2.nix
     ./nuvio-desktop.nix
+    ./harbor.nix
     #./inkscape.nix
     ./gimp.nix
     ./kdenlive.nix

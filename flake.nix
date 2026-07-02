@@ -503,6 +503,7 @@
       ist-fenix-auto-enroller = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ist-fenix-auto-enroller/default.nix {
         src = inputs.ist-fenix-auto-enroller;
       };
+      harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
     };
 
     # Pre-commit checks
