@@ -2,6 +2,7 @@
   networking.networkmanager = {
     enable = true;
     plugins = [pkgs.networkmanager-openvpn];
+    settings.connection."wifi.cloned-mac-address" = "random";
   };
 
   environment.etc."ssl/certs/ist-eduroam.crt".source = pkgs.fetchurl {

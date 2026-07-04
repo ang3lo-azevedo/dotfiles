@@ -391,10 +391,11 @@ spawn-at-startup "~/.config/niri/scripts/restore-session.sh"
 prefer-no-csd
 
 cursor {
+    xcursor-size 36
     shake {
-        enable
+        on
         max-multiplier 3.0
-        behavior "intensity-based"
+        behavior "hold"
     }
 }
 
