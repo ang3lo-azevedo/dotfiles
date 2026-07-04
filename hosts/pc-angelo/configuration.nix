@@ -18,6 +18,7 @@
     wifi = {
       mode = "infrastructure";
       ssid = "$WIFI_${envPrefix}_SSID";
+      cloned-mac-address = "permanent";
     };
     wifi-security = {
       auth-alg = "open";

@@ -23,6 +23,8 @@
 
 ## General Stuff
 
+- [ ] Add downloader like aria2
+- [ ] Add mpv slide to inscrease brightness
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
