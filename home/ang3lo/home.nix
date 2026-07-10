@@ -38,6 +38,7 @@ in {
     overlays = [
       (import (inputs.self + "/overlays/python-packages.nix"))
       inputs.firefox-addons.overlays.default
+      (import (inputs.self + "/overlays/firefox-addons.nix"))
       inputs.nix-vscode-extensions.overlays.default
 
       (_: prev: {

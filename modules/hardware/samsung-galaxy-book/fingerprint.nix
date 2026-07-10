@@ -14,14 +14,19 @@
     polkit.fprintAuth = true;
   };
 
+  # TODO: remove this overlay once joshuagrisham/libfprint egismoc-sdcp is merged
+  # upstream and nixpkgs packages a version that includes it.
   nixpkgs.overlays = [
     (_: prev: {
       libfprint = prev.libfprint.overrideAttrs (old: {
         src = inputs.libfprint-src;
 
+        # Nixpkgs patches target the upstream source tree; they don't apply to this
+        # fork and cause patchPhase to fail.
+        patches = [];
+
         # Add support for 1c7a:05a5 if not present
         postPatch = ''
-          # Remove tests and examples from build to avoid configuration errors
           sed -i "/subdir('tests')/d" meson.build
           sed -i "/subdir('examples')/d" meson.build
 
@@ -30,11 +35,11 @@
           fi
         '';
 
-        # Disable tests
         doCheck = false;
         doInstallCheck = false;
 
-        # Remove invalid meson option
+        # This fork dropped the meson "tests" option; passing it causes an
+        # "Unknown options" build error, so strip it from what nixpkgs sets.
         mesonFlags = lib.remove "-Dtests=false" old.mesonFlags;
       });
     })

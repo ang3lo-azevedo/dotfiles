@@ -25,7 +25,7 @@ in
 
         mkdir -p $out/{bin,share/{monkeylauncher,applications,icons/hicolor/256x256/apps}}
 
-        # GUI — install directly in bin so wrapGAppsHook3 picks it up
+        # GUI, install directly in bin so wrapGAppsHook3 picks it up
         cp src/MonkeyLauncherGUI.py $out/bin/monkeylauncher
         chmod +x $out/bin/monkeylauncher
         patchShebangs $out/bin/monkeylauncher

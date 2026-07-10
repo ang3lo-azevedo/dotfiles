@@ -24,7 +24,7 @@ in {
     update = "(cd ~/nix-config && nvfetcher && update-flake --accept-flake-config)";
     upgrade = "sudo -v && update && rebuild";
     u = "upgrade";
-    re = "rebuild";
+    rb = "rebuild";
 
     # Backup related aliases
     backup-all = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo systemctl kill -s USR1 --kill-who=main restic-backups-nas.service restic-backups-gdrive-shared.service 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-nas.service restic-backups-gdrive-shared.service && echo \"Backups started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl --output=with-unit -u restic-backups-nas.service -u restic-backups-gdrive-shared.service -f | grep --line-buffered -v \"signal SIGUSR1\" | grep --line-buffered -v \"]: /\"'";

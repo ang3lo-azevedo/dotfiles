@@ -16,7 +16,7 @@ apps=$(pw-dump 2>/dev/null | jq -r '
 muted=$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ 2>/dev/null | grep -c "MUTED" || echo 0)
 
 if [ "$muted" -gt 0 ]; then
-	printf '{"text":"󰍭","class":"muted","tooltip":"Mic muted — %s"}\n' "$apps"
+	printf '{"text":"󰍭","class":"muted","tooltip":"Mic muted - %s"}\n' "$apps"
 else
-	printf '{"text":"","class":"active","tooltip":"Mic in use — %s"}\n' "$apps"
+	printf '{"text":"","class":"active","tooltip":"Mic in use - %s"}\n' "$apps"
 fi

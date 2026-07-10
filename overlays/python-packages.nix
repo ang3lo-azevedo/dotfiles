@@ -20,4 +20,11 @@ final: prev: {
           ];
       });
     };
+
+  # click-threading's test suite imports docs/conf.py which uses pkg_resources
+  # (setuptools), not declared as a dependency. Broken under Python 3.14.
+  # vdirsyncer → click-threading; remove once fixed upstream.
+  python3Packages = prev.python3Packages.overrideScope (_: pyPrev: {
+    click-threading = pyPrev.click-threading.overridePythonAttrs (_: {doCheck = false;});
+  });
 }

@@ -80,7 +80,7 @@ h2 "Flake Inputs"
 cat <<'EOF'
 | Input | Purpose |
 |---|---|
-| `nixpkgs` | nixos-unstable — primary package set |
+| `nixpkgs` | nixos-unstable, primary package set |
 | `home-manager` | User environment management |
 | `agenix` | Secret management (age-encrypted secrets) |
 | `disko` | Declarative disk partitioning |
@@ -105,7 +105,7 @@ cat <<'EOF'
 | `samsung-galaxy-book-linux-fixes` | Kernel/module fixes for Samsung Galaxy Book (non-flake src) |
 | `libfprint-src` | libfprint fork with EgisTec SDCP fingerprint support (non-flake src) |
 | `firefox-addons` | Firefox add-on packages for Home Manager |
-| `berberman` | berberman's flakes — provides apple-color-emoji |
+| `berberman` | berberman's flakes, provides apple-color-emoji |
 | `nirinit` | nirinit Niri window manager init helper |
 | `niri-main` | niri main branch, patched with shake-to-find-cursor (PR #2797) |
 | `pear-desktop` | Pear Desktop (formerly youtube-music) electron app |
@@ -116,9 +116,9 @@ cat <<'EOF'
 | `photogimp` | PhotoGIMP assets and config (non-flake src) |
 | `ist-fenix-auto-enroller` | IST Fénix course enrollment automation tool |
 | `steam-config-nix` | Steam launch options and compatibility tool management |
-| `glaumar_repo` | glaumar's NUR — provides QRookie |
+| `glaumar_repo` | glaumar's NUR, provides QRookie |
 | `stremio-enhanced` | Enhanced Stremio desktop client source (non-flake src) |
-| `custom-packages` | Custom package flake — provides Playtorrio v2 |
+| `custom-packages` | Custom package flake, provides Playtorrio v2 |
 | `nix-vscode-extensions` | VS Code / Cursor extension packages |
 EOF
 
@@ -171,7 +171,7 @@ for host_dir in "$REPO_ROOT"/hosts/*/; do
 	fi
 	# pc-angelo-win is an Ansible/WinPE-based host, not a NixOS configuration
 	if [ "$host" = "pc-angelo-win" ]; then
-		echo "- _Windows host managed via Ansible (bootstrap.ps1 + playbook.yml) — no NixOS configuration._"
+		echo "- _Windows host managed via Ansible (bootstrap.ps1 + playbook.yml), no NixOS configuration._"
 	fi
 	# server-angelo: list notable services imported in configuration.nix
 	if [ "$host" = "server-angelo" ] && [ -f "$host_dir/configuration.nix" ]; then
@@ -225,7 +225,7 @@ echo ""
 for overlay_file in "$REPO_ROOT"/overlays/*.nix; do
 	[ -f "$overlay_file" ] || continue
 	name="$(basename "$overlay_file" .nix)"
-	echo "- \`overlays/$name.nix\` — $(grep -m1 '#' "$overlay_file" 2>/dev/null | sed 's/^[# ]*//' || echo "$name overlay")"
+	echo "- \`overlays/$name.nix\`, $(grep -m1 '#' "$overlay_file" 2>/dev/null | sed 's/^[# ]*//' || echo "$name overlay")"
 done
 
 ###############################################################################
@@ -304,5 +304,5 @@ done
 echo ""
 echo "---"
 cat <<'MARKDOWN'
-_Generated automatically by `scripts/generate-wiki.sh` — do not edit manually._
+_Generated automatically by `scripts/generate-wiki.sh`, do not edit manually._
 MARKDOWN

@@ -75,5 +75,7 @@ in {
     ./restic-browser.nix
     ./ventoy.nix
     ./calendar.nix
+    ./downloads.nix
+    ./auteticacaogovpt.nix
   ];
 }
