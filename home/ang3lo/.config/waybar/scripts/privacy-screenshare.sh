@@ -13,4 +13,4 @@ apps=$(pw-dump 2>/dev/null | jq -r '
 
 [ -z "$apps" ] && exit 0
 
-printf '{"text":"󱛖","class":"active","tooltip":"Screen/camera in use — %s"}\n' "$apps"
+printf '{"text":"󱛖","class":"active","tooltip":"Screen/camera in use - %s"}\n' "$apps"

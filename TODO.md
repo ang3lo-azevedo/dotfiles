@@ -5,7 +5,9 @@
 
 ## Other Fixes
 
+- [ ] Reduce cursor size
 - [ ] Improve private repo stuff
+- [ ] Make consecutive AIOStreams addon fetch
 
 # Wiki
 
@@ -23,8 +25,10 @@
 
 ## General Stuff
 
-- [ ] Add downloader like aria2
+- [ ] Add fingerswiping to niri
+- [ ] Add this https://github.com/blarns/NuvioForLinux
 - [ ] Add mpv slide to inscrease brightness
+- [ ] See if this is better than what I have now https://github.com/ZzEdovec/onlinefix-linux
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage

@@ -261,7 +261,7 @@
   # IMPORTANT: Keep this list in sync with `modules/system/binary-cache.nix`!
   nixConfig = {
     extra-substituters = [
-      # Personal cache — custom packages and full system closure
+      # Personal cache, custom packages and full system closure
       "https://ang3lo.cachix.org"
 
       # Official cache for community flakes (home-manager, disko, impermanence, stylix)
@@ -384,6 +384,9 @@
                 trakt-scrobbler-src
                 ;
             };
+            # useGlobalPkgs = false means HM evaluates its own pkgs without the NixOS
+            # overlays; propagate python-packages so fixes reach HM's package set too.
+            sharedModules = [{nixpkgs.overlays = [(import ./overlays/python-packages.nix)];}];
           };
         }
 
@@ -395,6 +398,10 @@
             (import ./overlays/python-packages.nix)
             (_: prev: {
               nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+              # TODO: drop this override once PR #2797 lands in a niri release and
+              # nixpkgs packages that release.
+              # Track niri main with PR #2797 (pointer/tablet input events) applied
+              # until it lands in a stable release.
               niri = prev.niri.overrideAttrs (_: {
                 src = inputs.niri-main;
                 version = "26.4.0-pr2797";
@@ -408,7 +415,7 @@
                   pname = "niri-main-pr2797";
                   version = "26.4.0-pr2797";
                   src = inputs.niri-main;
-                  hash = "sha256-jGORNwJ/F9UrajObXdGLbOTGEpCv919puUuWojbuVwo=";
+                  hash = "sha256-jmYkGX4M69W16qr9kLHfnAAJWvJ87IMVBQcC2wE9Phc=";
                 };
                 doInstallCheck = false;
               });

@@ -1,71 +1,272 @@
 {
   # https://kb.mozillazine.org/About:config_entries
 
-  # Enable auto-scroll by middle-clicking
+  # ===========================================================================
+  # Preferences
+  # ===========================================================================
+
+  # UI / UX
   "general.autoScroll" = true;
-
-  # Enable Ctrl+Tab to switch tabs by recently used order
   "browser.ctrlTab.sortByRecentlyUsed" = true;
-
-  # Ask where to save each file before downloading
-  "browser.download.useDownloadDir" = false;
-
-  # "Touchy" UI Density
+  # "Touchy" UI density
   "browser.uidensity" = 2;
+  # Open popups as tabs instead of new windows; restriction=0 applies to all popup types.
+  # Downside: payment flows and OAuth dialogs that open as positioned popup windows
+  # (Stripe, Google OAuth on some sites) open as full tabs; sites that check
+  # window.opener may break.
+  "browser.link.open_newwindow" = 3;
+  "browser.link.open_newwindow.restriction" = 0;
+  # Block all media autoplay (audio and video). Value 5 = block audio+video.
+  # Downside: embedded players that expect autoplay won't start automatically.
+  "media.autoplay.default" = 5;
 
-  # Restore previous session on startup
+  # Zen Browser
   "zen.workspaces.continue-where-left-off" = true;
-
-  # Vertical tabs on the right side
   "zen.tabs.vertical.right-side" = true;
-
-  # Enable compact mode
   "zen.view.compact.enable-at-startup" = true;
-
-  # Always open the URL bar in floating mode
   "zen.urlbar.behavior" = "float";
-
-  # optional: without this the addons need to be enabled manually after first install
+  # Without this, extensions need to be enabled manually after first install
   "extensions.autoDisableScopes" = 0;
-
-  # Restore pinned tabs to their pinned URL on startup
   "pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
 
-  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake
-  "network.dns.echconfig.enabled" = true;
+  # Downloads
+  # Ask where to save each file before downloading
+  "browser.download.useDownloadDir" = false;
+  # Downside: prompts every time a new file type is encountered instead of using
+  # the previously chosen handler; mildly repetitive for common types.
+  "browser.download.always_ask_before_handling_new_types" = true;
 
-  # Required for ECH, fetch HTTPS DNS records that carry the ECH config
-  "network.dns.use_https_rr_as_altsvc" = true;
-
-  # Use Mullvad DoH as the browser's internal resolver (needed to fetch HTTPS DNS records)
-  # Mode 2, use DoH with fallback to system DNS if unreachable
-  "network.trr.mode" = 2;
-  "network.trr.uri" = "https://dns.quad9.net/dns-query";
-
-  # Show a warning bar when DoH is unavailable and the browser falls back to system DNS
-  "network.trr.display_fallback_warning" = true;
-
-  # Don't use separate \default search engines for private windows
+  # Search
   "browser.search.separatePrivateDefault" = false;
-
-  # Enable search suggestions in the URL bar
   "browser.search.suggest.enabled" = true;
-
-  # Enable search suggestions in private windows
   "browser.search.suggest.enabled.private" = true;
 
-  # Ensure camera/microphone capture stays enabled in Zen.
+  # Camera / microphone
   "media.navigator.enabled" = true;
   "media.peerconnection.enabled" = true;
-
-  # Only expose the default route IP to WebRTC, not all local interfaces.
-  # Prevents sites from discovering LAN IPs via ICE candidates.
-  "media.peerconnection.ice.default_address_only" = true;
-
   # Route camera capture through PipeWire instead of direct V4L2, required on Wayland
   "media.webrtc.camera.allow-pipewire" = true;
-
   # 0 = ask each time (prompt), 1 = allow always, 2 = block always
   "permissions.default.camera" = 0;
   "permissions.default.microphone" = 0;
+
+  # ===========================================================================
+  # Privacy & Security
+  # ===========================================================================
+
+  # Prevent websites from moving or resizing the browser window via JS
+  "dom.disable_window_move_resize" = true;
+  # Sites can trigger the Firefox UI tour; disabling removes that attack surface
+  "browser.uitour.enabled" = false;
+  # Remote debugging listens on a local port; disable unless actively developing
+  "devtools.debugger.remote-enabled" = false;
+  # Middle-clicking a tab searches clipboard contents, leaking it to the URL bar
+  "browser.tabs.searchclipboardfor.middleclick" = false;
+  # CSP violation reports sent to report-uri endpoints can be used to track users
+  "security.csp.reporting.enabled" = false;
+  # Don't pin downloaded files to the OS recent-documents list
+  "browser.download.manager.addToRecentDocs" = false;
+
+  # ---------------------------------------------------------------------------
+  # No phone-home: studies, experiments, crash reports, captive portal
+  # ---------------------------------------------------------------------------
+
+  # Opt out of Firefox shield studies (A/B experiments that change browser behaviour)
+  "app.shield.optoutstudies.enabled" = false;
+  # Normandy can push and run arbitrary JS experiments without explicit user consent
+  "app.normandy.enabled" = false;
+  "app.normandy.api_url" = "";
+  # Don't send crash report URLs or submit crash data to Mozilla
+  "breakpad.reportURL" = "";
+  "browser.tabs.crashReporting.sendReport" = false;
+  # Captive portal and connectivity checks phone home on every network change.
+  # Disabled would require manually navigating to an HTTP URL on hotel/airport WiFi
+  # to trigger the redirect page. Kept at defaults so captive portals open automatically.
+  # "captivedetect.canonicalURL" = "";
+  # "network.captive-portal-service.enabled" = false;
+  # "network.connectivity-service.enabled" = false;
+
+  # ---------------------------------------------------------------------------
+  # Safe browsing
+  # ---------------------------------------------------------------------------
+
+  # The local malware/phishing check is kept; only the remote hash lookup that
+  # sends file metadata to Google on every download is disabled.
+  # Downside: novel malware not yet in the local database won't be flagged.
+  "browser.safebrowsing.downloads.remote.enabled" = false;
+
+  # ---------------------------------------------------------------------------
+  # Network: DoH, ECH, prefetch
+  # ---------------------------------------------------------------------------
+
+  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake
+  "network.dns.echconfig.enabled" = true;
+  # Required for ECH, fetch HTTPS DNS records that carry the ECH config
+  "network.dns.use_https_rr_as_altsvc" = true;
+  # Use Quad9 DoH as the browser's internal resolver (needed to fetch HTTPS DNS records).
+  # Mode 2: DoH with fallback to system DNS if unreachable.
+  # Downside: browser ignores VPN/split-horizon DNS; internal hostnames won't resolve inside Zen.
+  "network.trr.mode" = 2;
+  "network.trr.uri" = "https://dns.quad9.net/dns-query";
+  # Show a warning bar when DoH is unavailable and the browser falls back to system DNS
+  "network.trr.display_fallback_warning" = true;
+  # Disable all forms of speculative/prefetch network activity, they fetch resources
+  # before the user navigates, leaking browsing intent to third-party servers.
+  # Downside: first-load latency is slightly higher since no connections are pre-opened;
+  # most noticeable on slow connections or pages with many sub-resources.
+  "network.prefetch-next" = false;
+  "network.dns.disablePrefetch" = true;
+  "network.dns.disablePrefetchFromHTTPS" = true;
+  "network.predictor.enabled" = false;
+  "network.http.speculative-parallel-limit" = 0;
+  "browser.places.speculativeConnect.enabled" = false;
+  "browser.urlbar.speculativeConnect.enabled" = false;
+  # GIO protocol handlers (gvfs mounts, smb://, sftp://) can be abused to trigger
+  # outbound connections; clearing the list removes the attack surface on Linux.
+  # Downside: clicking smb:// or sftp:// links in web pages silently does nothing.
+  "network.gio.supported-protocols" = "";
+
+  # ---------------------------------------------------------------------------
+  # URL bar: disable Mozilla's expanding suggestion features
+  # ---------------------------------------------------------------------------
+
+  # These send URL bar keystrokes to Mozilla/partners for trending searches,
+  # weather, Yelp, Wikipedia, MDN, and sponsored results.
+  "browser.urlbar.quicksuggest.enabled" = false;
+  "browser.urlbar.suggest.quicksuggest.nonsponsored" = false;
+  "browser.urlbar.suggest.quicksuggest.sponsored" = false;
+  "browser.urlbar.trending.featureGate" = false;
+  "browser.urlbar.addons.featureGate" = false;
+  "browser.urlbar.amp.featureGate" = false;
+  "browser.urlbar.importantDates.featureGate" = false;
+  "browser.urlbar.market.featureGate" = false;
+  "browser.urlbar.mdn.featureGate" = false;
+  "browser.urlbar.weather.featureGate" = false;
+  "browser.urlbar.wikipedia.featureGate" = false;
+  "browser.urlbar.yelp.featureGate" = false;
+  "browser.urlbar.yelpRealtime.featureGate" = false;
+
+  # ---------------------------------------------------------------------------
+  # Passwords
+  # ---------------------------------------------------------------------------
+
+  # Don't autofill saved passwords into forms (requires explicit user action).
+  # Downside: one extra click per login, you must click the field and pick from
+  # the popup instead of having it filled automatically.
+  "signon.autofillForms" = false;
+  # Don't capture credentials from forms that lack a <form> element
+  "signon.formlessCapture.enabled" = false;
+  # Block subresource requests (images, scripts) from triggering HTTP auth dialogs,
+  # which can be used to silently ping an attacker-controlled server with credentials.
+  # Downside: authenticated CDN assets that use HTTP Basic auth may fail silently.
+  "network.auth.subresource-http-auth-allow" = 1;
+
+  # ---------------------------------------------------------------------------
+  # Session / disk
+  # ---------------------------------------------------------------------------
+
+  # Don't write form data, scroll position, or POST data to the session store.
+  # Level 2 = don't store session data for any page (HTTPS or HTTP).
+  # Downside: if Zen crashes mid-form, text you typed is not recoverable on relaunch.
+  "browser.sessionstore.privacy_level" = 2;
+
+  # ---------------------------------------------------------------------------
+  # TLS / HTTPS / certificates
+  # ---------------------------------------------------------------------------
+
+  # Reject plain HTTP connections; show an error page instead of silently downgrading.
+  # Downside: router admin UIs (http://192.168.1.1), local dev servers
+  # (http://localhost:3000), and captive portal redirect pages all require clicking
+  # through the error page.
+  "dom.security.https_only_mode" = true;
+  # Don't send a background HTTP request when upgrading to HTTPS, it would reveal
+  # the site visit to network observers even if the HTTPS connection succeeds.
+  "dom.security.https_only_mode_send_http_background_request" = false;
+  # Disable TLS 1.3 0-RTT early data: replayed requests can attack idempotent endpoints
+  "security.tls.enable_0rtt_data" = false;
+  # Require RFC 5746 safe TLS renegotiation; drop connections that don't support it.
+  # Downside: breaks servers older than ~2010 that never patched CVE-2009-3555.
+  "security.ssl.require_safe_negotiation" = true;
+  # Show a broken padlock indicator for connections that use unsafe renegotiation
+  "security.ssl.treat_unsafe_negotiation_as_broken" = true;
+  # Enforce certificate pinning for built-in pins; reject MITM certs even from trusted CAs.
+  # Downside: breaks corporate TLS inspection proxies that intercept pinned connections.
+  "security.cert_pinning.enforcement_level" = 2;
+  # Use CRLite for certificate revocation: a local bloom filter updated in the background,
+  # faster and more reliable than live OCSP lookups (which can time out and fail open).
+  "security.remote_settings.crlite_filters.enabled" = true;
+  # Mode 2: enforce CRLite, fall back to OCSP only when filter has no data.
+  "security.pki.crlite_mode" = 2;
+
+  # ---------------------------------------------------------------------------
+  # Tracking protection
+  # ---------------------------------------------------------------------------
+
+  # Strict ETP: blocks cross-site tracking cookies and known fingerprinters.
+  # Downside: embedded Spotify/YouTube players lose login state across pages;
+  # Disqus comment sections may not load while logged in; some SSO/OAuth
+  # redirects that rely on third-party cookies fail entirely.
+  "browser.contentblocking.category" = "strict";
+
+  # ---------------------------------------------------------------------------
+  # WebRTC
+  # ---------------------------------------------------------------------------
+
+  # Only expose the default route IP to WebRTC, not all local interfaces.
+  # Prevents sites from discovering LAN IPs via ICE candidates, but LAN peer-to-peer
+  # video calls fall back to relay servers adding latency. LAN IP leakage is a low
+  # threat in practice, so the tradeoff is not worth it.
+  # "media.peerconnection.ice.default_address_only" = true;
+
+  # ---------------------------------------------------------------------------
+  # Fingerprinting
+  # ---------------------------------------------------------------------------
+
+  # Older per-API spoofing (canvas, WebGL, AudioContext, screen, CPU, memory).
+  # Superseded by RFP below; kept commented in case RFP causes breakage.
+  # "privacy.fingerprintingProtection" = true;
+
+  # Full anti-fingerprint suite: spoofs timezone (UTC), UA, WebGL vendor, canvas,
+  # AudioContext, screen size, CPU cores, device memory, and more.
+  # Downside: JS Date objects report UTC, so site timestamps show UTC not local time;
+  # window size is rounded to fixed buckets; UA spoofing can trigger browser-detection
+  # quirks; canvas noise may trigger bot-detection CAPTCHAs.
+  "privacy.resistFingerprinting" = true;
+  # RFP forces prefers-color-scheme: light; this override restores dark mode.
+  # 0 = dark, 1 = light, 2 = system (default)
+  "layout.css.prefers-color-scheme.content-override" = 0;
+
+  # ---------------------------------------------------------------------------
+  # Containers
+  # ---------------------------------------------------------------------------
+
+  # Enable container tabs (site isolation per identity context)
+  "privacy.userContext.enabled" = true;
+  # Show the container tab UI in the toolbar and new-tab menu
+  "privacy.userContext.ui.enabled" = true;
+
+  # ---------------------------------------------------------------------------
+  # Misc
+  # ---------------------------------------------------------------------------
+
+  # Show internationalized domain names in punycode in the URL bar.
+  # Prevents homograph phishing (e.g. аpple.com with a Cyrillic 'а' looks identical).
+  "network.IDN_show_punycode" = true;
+  # Block JavaScript execution inside PDFs.
+  # Downside: fillable PDF forms with calculated fields (tax forms, invoices with
+  # auto-totals) won't compute; the fields accept input but formulas don't run.
+  "pdfjs.enableScripting" = false;
+  # Disable the Beacon API (navigator.sendBeacon): used to fire analytics pings on page
+  # unload, bypassing normal request cancellation when the user navigates away.
+  # Downside: self-hosted analytics (Plausible, Matomo) and some contact-form completion
+  # tracking that you may intentionally want will also stop working.
+  "beacon.enabled" = false;
+  # Cross-origin referrer policy:
+  # XOriginPolicy = 0: always send Referer cross-origin. Setting this to 2 (never
+  # send) breaks OAuth/SSO flows; the identity provider receives no Referer on the
+  # redirect and some implementations reject the request. Keeping at 0 preserves flows.
+  # XOriginTrimmingPolicy = 2: even though the Referer is sent cross-origin, it is
+  # trimmed to the bare origin (https://example.com); path and query string are not exposed.
+  "network.http.referer.XOriginPolicy" = 0;
+  "network.http.referer.XOriginTrimmingPolicy" = 2;
 }
