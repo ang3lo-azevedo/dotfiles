@@ -110,16 +110,16 @@
   "network.trr.uri" = "https://dns.quad9.net/dns-query";
   # Show a warning bar when DoH is unavailable and the browser falls back to system DNS
   "network.trr.display_fallback_warning" = true;
-  # Disable all forms of speculative/prefetch network activity, they fetch resources
-  # before the user navigates, leaking browsing intent to third-party servers.
-  # Downside: first-load latency is slightly higher since no connections are pre-opened;
-  # most noticeable on slow connections or pages with many sub-resources.
+  # Fetches full page resources before the user navigates: real content leak to third-party servers.
   "network.prefetch-next" = false;
-  "network.dns.disablePrefetch" = true;
-  "network.dns.disablePrefetchFromHTTPS" = true;
-  "network.predictor.enabled" = false;
-  "network.http.speculative-parallel-limit" = 0;
-  "browser.places.speculativeConnect.enabled" = false;
+  # DNS-only prefetch: queries go to Quad9 over DoH regardless, so disabling adds no extra protection.
+  # "network.dns.disablePrefetch" = true;
+  # "network.dns.disablePrefetchFromHTTPS" = true;
+  # Pre-resolves DNS only for hostnames already visible on the current page: no new exposure.
+  # "network.predictor.enabled" = false;
+  # Opens TCP connections to domains on the current page: server sees a SYN, not what was clicked.
+  # "network.http.speculative-parallel-limit" = 0;
+  # "browser.places.speculativeConnect.enabled" = false;
   "browser.urlbar.speculativeConnect.enabled" = false;
   # GIO protocol handlers (gvfs mounts, smb://, sftp://) can be abused to trigger
   # outbound connections; clearing the list removes the attack surface on Linux.
@@ -182,8 +182,8 @@
   # Don't send a background HTTP request when upgrading to HTTPS, it would reveal
   # the site visit to network observers even if the HTTPS connection succeeds.
   "dom.security.https_only_mode_send_http_background_request" = false;
-  # Disable TLS 1.3 0-RTT early data: replayed requests can attack idempotent endpoints
-  "security.tls.enable_0rtt_data" = false;
+  # Replay requires an active attacker + non-idempotent endpoint hit within the same session window.
+  # "security.tls.enable_0rtt_data" = false;
   # Require RFC 5746 safe TLS renegotiation; drop connections that don't support it.
   # Downside: breaks servers older than ~2010 that never patched CVE-2009-3555.
   "security.ssl.require_safe_negotiation" = true;
