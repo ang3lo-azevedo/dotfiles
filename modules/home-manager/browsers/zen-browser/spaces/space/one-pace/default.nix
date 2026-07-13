@@ -5,8 +5,8 @@ let
 in {
   pins = [
     {
-      name = "CTFs";
-      id = lib.mkId (spaceId + "CTFs");
+      name = "One Pace";
+      id = lib.mkId (spaceId + "One Pace");
       workspace = spaceId;
       isGroup = true;
       isFolderCollapsed = false;

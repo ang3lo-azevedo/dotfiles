@@ -5,14 +5,14 @@ let
 in {
   pins = [
     {
-      name = "CTFs";
-      id = lib.mkId (spaceId + "CTFs");
+      name = "Stremio Config";
+      id = lib.mkId (spaceId + "Stremio Config");
       workspace = spaceId;
       isGroup = true;
       isFolderCollapsed = false;
       editedTitle = true;
-      folderIcon = "chrome://browser/skin/zen-icons/selectable/flag.svg";
-      order = 1;
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/rocket.svg";
+      order = 4;
     }
   ];
 }

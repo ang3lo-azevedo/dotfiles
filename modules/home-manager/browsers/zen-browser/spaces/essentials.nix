@@ -18,5 +18,11 @@
       url = "https://nextcloud.at.eu.org/apps/calendar/timeGridWeek/now";
       isEssential = true;
     }
+    {
+      name = "Telegram";
+      id = "6e427c80-1b5d-3c45-ae31-e3d71c524043";
+      url = "https://web.telegram.org/k/";
+      isEssential = true;
+    }
   ];
 }

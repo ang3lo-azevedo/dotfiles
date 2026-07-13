@@ -5,14 +5,13 @@ let
 in {
   pins = [
     {
-      name = "CTFs";
-      id = lib.mkId (spaceId + "CTFs");
+      name = "ETFs";
+      id = lib.mkId (spaceId + "ETFs");
       workspace = spaceId;
       isGroup = true;
       isFolderCollapsed = false;
       editedTitle = true;
-      folderIcon = "chrome://browser/skin/zen-icons/selectable/flag.svg";
-      order = 1;
+      order = 2;
     }
   ];
 }
