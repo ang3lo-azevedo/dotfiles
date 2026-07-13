@@ -1,19 +1,8 @@
-let
-  lib = import ../../lib.nix;
-  spaceConfig = import ../default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
-  folderConfig = import ./default.nix;
-  folderId = (builtins.head folderConfig.pins).id;
+{lib}: let
+  spaceId = lib.mkId "Cyber";
+  folderId = lib.mkId (spaceId + "Tools");
 in {
   pins = [
-    {
-      name = "CyberChef";
-      id = lib.mkId (spaceId + "CyberChef");
-      url = "https://gchq.github.io/CyberChef/";
-      workspace = spaceId;
-      folderParentId = folderId;
-      order = 1;
-    }
     {
       name = "PayloadsAllTheThings";
       id = lib.mkId (spaceId + "PayloadsAllTheThings");

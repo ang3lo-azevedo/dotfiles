@@ -1,12 +1,10 @@
-let
-  lib = import ../lib.nix;
-in {
+{lib}: {
   spaces = [
     {
       name = "University";
       id = lib.mkId "University";
       icon = "🎓";
-      # theme = lib.blackTheme;
+      theme = lib.blackTheme;
     }
   ];
 }
