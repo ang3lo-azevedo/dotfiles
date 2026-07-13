@@ -1,9 +1,14 @@
-let
-  lib = import ../lib.nix;
-  spaceConfig = import ./default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
+{lib}: let
+  spaceId = lib.mkId "Cyber";
 in {
   pins = [
+    {
+      name = "CyberChef";
+      id = lib.mkId "CyberChef";
+      url = "https://gchq.github.io/CyberChef/";
+      workspace = spaceId;
+      order = 1;
+    }
     {
       name = "Yandex";
       id = lib.mkId (spaceId + "Yandex");

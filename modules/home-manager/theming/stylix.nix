@@ -64,8 +64,8 @@ in {
     # Custom base16 color scheme
     base16Scheme = {
       base00 = "000000"; # Default Background
-      base01 = "111111"; # Lighter Background (Used for status bars, line number and folding marks)
-      base02 = "2a2a2a"; # Selection Background
+      base01 = "000000"; # Lighter Background (Used for status bars, line number and folding marks)
+      base02 = "111111"; # Selection Background
       base03 = "444444"; # Comments, Invisibles, Line Highlighting
       base04 = "999999"; # Dark Foreground (Used for status bars)
       base05 = "ffffff"; # Default Foreground, Caret, Delimiters, Operators
@@ -76,7 +76,7 @@ in {
       base0A = "f99902"; # Classes, Markup Bold, Search Text Background
       base0B = "58c760"; # Strings, Inherited Class, Markup Code, Diff Inserted
       base0C = "14cbb7"; # Support, Regular Expressions, Escape Characters, Markup Quotes
-      base0D = "62a6ff"; # Functions, Methods, Attribute IDs, Headings
+      base0D = "888888"; # Functions, Methods, Attribute IDs, Headings
       base0E = "b675f1"; # Keywords, Storage, Selector, Markup Italic, Diff Changed
       base0F = "b675f1"; # Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
     };

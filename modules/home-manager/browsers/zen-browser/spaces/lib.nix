@@ -11,9 +11,6 @@
         green = 0;
         blue = 0;
         algorithm = "floating";
-        lightness = 3;
-        position.x = 180;
-        position.y = 175;
       }
     ];
     opacity = 1.0;

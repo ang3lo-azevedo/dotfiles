@@ -1,18 +1,15 @@
-let
-  lib = import ../../../lib.nix;
-  spaceConfig = import ../../default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
-  parentConfig = import ../default.nix;
-  parentId = (builtins.head parentConfig.pins).id;
+{lib}: let
+  spaceId = lib.mkId "Cyber";
+  toolsId = lib.mkId (spaceId + "Tools");
 in {
   pins = [
     {
       name = "OSINT";
       id = lib.mkId (spaceId + "OSINT");
       workspace = spaceId;
-      folderParentId = parentId;
+      folderParentId = toolsId;
       isGroup = true;
-      isFolderCollapsed = false;
+      isFolderCollapsed = true;
       editedTitle = true;
       order = 3;
     }

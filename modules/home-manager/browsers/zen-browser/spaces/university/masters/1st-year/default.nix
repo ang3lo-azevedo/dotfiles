@@ -1,14 +1,13 @@
-let
-  lib = import ../../../lib.nix;
-  parentConfig = import ../default.nix;
-  parentPin = builtins.head parentConfig.pins;
+{lib}: let
+  spaceId = lib.mkId "University";
+  mastersId = lib.mkId (spaceId + "Masters");
 in {
   pins = [
     {
       name = "1st Year";
-      id = lib.mkId (parentPin.id + "1st Year");
-      inherit (parentPin) workspace;
-      folderParentId = parentPin.id;
+      id = lib.mkId (mastersId + "1st Year");
+      workspace = spaceId;
+      folderParentId = mastersId;
       isGroup = true;
       isFolderCollapsed = true;
       editedTitle = true;

@@ -1,7 +1,5 @@
-let
-  lib = import ../../lib.nix;
-  spaceConfig = import ../default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
+{lib}: let
+  spaceId = lib.mkId "Space";
 in {
   pins = [
     {
@@ -9,7 +7,7 @@ in {
       id = lib.mkId (spaceId + "ETFs");
       workspace = spaceId;
       isGroup = true;
-      isFolderCollapsed = false;
+      isFolderCollapsed = true;
       editedTitle = true;
       order = 2;
     }

@@ -1,18 +1,15 @@
-let
-  lib = import ../../../lib.nix;
-  spaceConfig = import ../../default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
-  parentConfig = import ../default.nix;
-  parentId = (builtins.head parentConfig.pins).id;
+{lib}: let
+  spaceId = lib.mkId "Cyber";
+  toolsId = lib.mkId (spaceId + "Tools");
 in {
   pins = [
     {
       name = "GitHub Stars";
       id = lib.mkId (spaceId + "GitHub Stars");
       workspace = spaceId;
-      folderParentId = parentId;
+      folderParentId = toolsId;
       isGroup = true;
-      isFolderCollapsed = false;
+      isFolderCollapsed = true;
       editedTitle = true;
       folderIcon = "chrome://browser/skin/zen-icons/selectable/star-1.svg";
       order = 7;
