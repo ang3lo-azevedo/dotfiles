@@ -51,8 +51,8 @@ in {
       order = 6;
     }
     {
-      name = "FMHY";
-      id = lib.mkId (spaceId + "FMHY");
+      name = "Welcome • freemediaheckyeah";
+      id = lib.mkId (spaceId + "Welcome • freemediaheckyeah");
       url = "https://fmhy.net/";
       workspace = spaceId;
       folderParentId = folderId;

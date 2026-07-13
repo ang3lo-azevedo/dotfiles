@@ -12,8 +12,8 @@ in {
       order = 1;
     }
     {
-      name = "Subtitle Guide";
-      id = lib.mkId (spaceId + "One Pace Subtitle Guide");
+      name = "One Pace Viewing Guide";
+      id = lib.mkId (spaceId + "One Pace Viewing Guide");
       url = "https://gist.github.com/ang3lo-azevedo/0e50cdc0954347854919aa9df24fbf6b";
       workspace = spaceId;
       folderParentId = folderId;
