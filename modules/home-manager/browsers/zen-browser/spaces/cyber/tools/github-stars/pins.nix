@@ -7,17 +7,17 @@ let
 in {
   pins = [
     {
-      name = "vecert";
-      id = lib.mkId (spaceId + "vecert");
-      url = "https://analyzer.vecert.io/forum";
+      name = "Your Stars";
+      id = lib.mkId (spaceId + "Stars");
+      url = "https://github.com/ang3lo-azevedo?tab=stars";
       workspace = spaceId;
       folderParentId = folderId;
       order = 1;
     }
     {
-      name = "breach.house PT";
-      id = lib.mkId (spaceId + "breach.house PT");
-      url = "https://breach.house/all_breaches?group-filter=&country-filter=PT&discovered-order=newest";
+      name = "my-awesome-stars";
+      id = lib.mkId (spaceId + "my-awesome-stars");
+      url = "https://github.com/ang3lo-azevedo/my-awesome-stars";
       workspace = spaceId;
       folderParentId = folderId;
       order = 2;

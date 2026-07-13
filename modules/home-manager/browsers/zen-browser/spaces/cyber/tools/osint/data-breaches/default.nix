@@ -1,6 +1,6 @@
 let
-  lib = import ../../../lib.nix;
-  spaceConfig = import ../../default.nix;
+  lib = import ../../../../lib.nix;
+  spaceConfig = import ../../../default.nix;
   spaceId = (builtins.head spaceConfig.spaces).id;
   parentConfig = import ../default.nix;
   parentId = (builtins.head parentConfig.pins).id;

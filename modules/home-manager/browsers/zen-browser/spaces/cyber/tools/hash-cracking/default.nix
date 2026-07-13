@@ -7,14 +7,15 @@ let
 in {
   pins = [
     {
-      name = "🔍";
-      id = lib.mkId (spaceId + "identity");
+      name = "Hash Cracking";
+      id = lib.mkId (spaceId + "Hash Cracking");
       workspace = spaceId;
       folderParentId = parentId;
       isGroup = true;
       isFolderCollapsed = false;
       editedTitle = true;
-      order = 5;
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/skull.svg";
+      order = 8;
     }
   ];
 }
