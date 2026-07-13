@@ -8,6 +8,7 @@
 in {
   programs.zsh.shellAliases = {
     # Tool related alises
+    "7z" = "7zz";
     c = "clear";
     ll = "eza -l";
     la = "eza -la";

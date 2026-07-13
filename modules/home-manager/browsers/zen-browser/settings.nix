@@ -20,6 +20,13 @@
   # Downside: embedded players that expect autoplay won't start automatically.
   "media.autoplay.default" = 5;
 
+  # Force dark browser chrome regardless of GTK color-scheme signal
+  "ui.systemUsesDarkTheme" = 1;
+
+  # Spellcheck
+  "spellchecker.dictionary" = "pt-PT";
+  "layout.spellcheckDefault" = 1;
+
   # Zen Browser
   "zen.workspaces.continue-where-left-off" = true;
   "zen.tabs.vertical.right-side" = true;

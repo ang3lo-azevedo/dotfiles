@@ -4,6 +4,6 @@
   ];
 
   hardware.samsungGalaxyBook.webcamFixBook5 = {
-    videoFlip = true;
+    videoFlip = false;
   };
 }

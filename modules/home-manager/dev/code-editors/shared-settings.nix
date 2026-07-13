@@ -67,17 +67,16 @@
 
     # Nix
     # Use LSP instead of nix-instantiate and the formatter configured via `nix.formatterPath`.
-    "nix.enableLanguageServer" = true; # Enable LSP.
+    "nix.enableLanguageServer" = true;
+    "nix.serverPath" = "nil";
+    "nix.serverSettings" = {
+      nil.formatting.command = ["nixfmt"];
+    };
 
-    # Location of the nix language server command.
-    "nix.serverPath" = "nil"; # The path to the LSP server executable.
-
-    # Uncomment these to tweak settings.
-    # "nix.serverSettings": {
-    #   "nil": {
-    #     "formatting": { "command": ["nixfmt"] }
-    #   }
-    # }
+    "[nix]" = {
+      "editor.defaultFormatter" = "jnoortheen.nix-ide";
+      "editor.formatOnSave" = true;
+    };
 
     # Controls whether the Explorer should ask for confirmation to move files and folders via drag and drop.
     "explorer.confirmDragAndDrop" = false;
