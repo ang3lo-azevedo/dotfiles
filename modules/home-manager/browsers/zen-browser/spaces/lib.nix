@@ -7,16 +7,16 @@
   blackTheme = {
     colors = [
       {
-        red = 8;
-        green = 8;
-        blue = 8;
+        red = 0;
+        green = 0;
+        blue = 0;
         algorithm = "floating";
         lightness = 3;
         position.x = 180;
         position.y = 175;
       }
     ];
-    opacity = 0.9;
+    opacity = 1.0;
     texture = 0.0;
   };
 }
