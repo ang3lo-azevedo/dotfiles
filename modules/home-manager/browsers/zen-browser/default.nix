@@ -10,6 +10,7 @@ in {
     inputs.zen-browser.homeModules.beta
     ./extensions
     ./mods
+    ./routing.nix
     ./searxng-cookies.nix
   ];
 

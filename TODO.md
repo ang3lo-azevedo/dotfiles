@@ -5,7 +5,6 @@
 
 ## Other Fixes
 
-- [ ] Reduce cursor size
 - [ ] Improve private repo stuff
 - [ ] Make consecutive AIOStreams addon fetch
 

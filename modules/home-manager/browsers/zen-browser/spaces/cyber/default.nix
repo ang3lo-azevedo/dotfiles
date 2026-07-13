@@ -3,7 +3,8 @@
     {
       name = "Cyber";
       id = lib.mkId "Cyber";
-      icon = "chrome://browser/skin/zen-icons/selectable/school.svg";
+      order = 4;
+      icon = "chrome://browser/skin/zen-icons/selectable/terminal.svg";
       container = 1;
     }
   ];

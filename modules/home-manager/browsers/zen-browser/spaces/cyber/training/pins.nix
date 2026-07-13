@@ -12,16 +12,16 @@ in {
       order = 1;
     }
     {
-      name = "crackmes.one";
-      id = lib.mkId (spaceId + "crackmes.one");
+      name = "Crackmes.one";
+      id = lib.mkId (spaceId + "Crackmes.one");
       url = "https://crackmes.one/";
       workspace = spaceId;
       folderParentId = folderId;
       order = 2;
     }
     {
-      name = "PortSwigger Academy";
-      id = lib.mkId (spaceId + "PortSwigger Academy");
+      name = "Dashboard | Web Security Academy - PortSwigger";
+      id = lib.mkId (spaceId + "Dashboard | Web Security Academy - PortSwigger");
       url = "https://portswigger.net/web-security/dashboard";
       workspace = spaceId;
       folderParentId = folderId;
