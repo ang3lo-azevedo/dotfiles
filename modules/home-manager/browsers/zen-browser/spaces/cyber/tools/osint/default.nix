@@ -11,7 +11,8 @@ in {
       isGroup = true;
       isFolderCollapsed = true;
       editedTitle = true;
-      order = 3;
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/eye.svg";
+      order = 97;
     }
   ];
 }

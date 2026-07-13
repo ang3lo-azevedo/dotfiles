@@ -12,7 +12,7 @@ in {
       isFolderCollapsed = true;
       editedTitle = true;
       folderIcon = "chrome://browser/skin/zen-icons/selectable/star-1.svg";
-      order = 7;
+      order = 98;
     }
   ];
 }
