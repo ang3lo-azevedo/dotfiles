@@ -27,5 +27,13 @@ in {
       folderParentId = folderId;
       order = 3;
     }
+    {
+      name = "CyLab Security Academy - Dashboard";
+      id = lib.mkId (spaceId + "CyLab Security Academy - Dashboard");
+      url = "https://learn.cylabacademy.org/dashboard";
+      workspace = spaceId;
+      folderParentId = folderId;
+      order = 4;
+    }
   ];
 }
