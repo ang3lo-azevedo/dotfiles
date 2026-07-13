@@ -1,13 +1,11 @@
-let
-  lib = import ../../lib.nix;
-  universityConfig = import ../default.nix;
-  universityId = (builtins.head universityConfig.spaces).id;
+{lib}: let
+  spaceId = lib.mkId "University";
 in {
   pins = [
     {
       name = "Masters";
-      id = lib.mkId (universityId + "Masters");
-      workspace = universityId;
+      id = lib.mkId (spaceId + "Masters");
+      workspace = spaceId;
       isGroup = true;
       isFolderCollapsed = true;
       editedTitle = true;

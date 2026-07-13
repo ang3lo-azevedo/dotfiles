@@ -103,17 +103,17 @@
   # Network: DoH, ECH, prefetch
   # ---------------------------------------------------------------------------
 
-  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake
+  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
+  # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;
-  # Required for ECH, fetch HTTPS DNS records that carry the ECH config
+  # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
+  # (dnscrypt-proxy), which caches aggressively — no per-query overhead after warmup.
   "network.dns.use_https_rr_as_altsvc" = true;
-  # Use Quad9 DoH as the browser's internal resolver (needed to fetch HTTPS DNS records).
-  # Mode 2: DoH with fallback to system DNS if unreachable.
-  # Downside: browser ignores VPN/split-horizon DNS; internal hostnames won't resolve inside Zen.
-  "network.trr.mode" = 2;
-  "network.trr.uri" = "https://dns.quad9.net/dns-query";
-  # Show a warning bar when DoH is unavailable and the browser falls back to system DNS
-  "network.trr.display_fallback_warning" = true;
+  # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
+  # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
+  # and HTTPS record queries go cold to Quad9 on every new domain — causing 20 s+ loads.
+  # Mode 0 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
+  "network.trr.mode" = 0;
   # Fetches full page resources before the user navigates: real content leak to third-party servers.
   "network.prefetch-next" = false;
   # DNS-only prefetch: queries go to Quad9 over DoH regardless, so disabling adds no extra protection.
@@ -231,10 +231,25 @@
   # Replaces the legacy privacy.resistFingerprinting — supports per-target overrides.
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
   "privacy.fingerprintingProtection" = true;
-  # Restore true prefers-color-scheme so dark mode works.
-  # layout.css.prefers-color-scheme.content-override was deprecated in Firefox 127
-  # and no longer overrides RFP; this per-target override is the correct replacement.
-  "privacy.fingerprintingProtection.overrides" = "-CSSPrefersColorScheme";
+  # Explicitly disable the legacy RFP — it can linger in prefs.js from old configs and
+  # overrides everything above, including per-target overrides and content-override.
+  # "privacy.resistFingerprinting" = false;
+  # Remove color scheme spoofing so dark mode works, and explicitly add ScreenSize
+  # because fingerprintingProtection's default set doesn't spoof screen.width/height
+  # (only screen.avail* and window inner/outer sizes), leaving the raw display
+  # resolution (2880x1800 on this machine) exposed as a near-unique metric.
+  "privacy.fingerprintingProtection.overrides" = "-CSSPrefersColorScheme,+ScreenSize";
+  # Force dark mode for page content regardless of fingerprinting protection state.
+  # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
+  "layout.css.prefers-color-scheme.content-override" = 2;
+
+  # Spoof the WebGL unmasked vendor and renderer strings. fingerprintingProtection
+  # randomises the WebGL *hash* per first-party domain but leaves the vendor/renderer
+  # strings readable, contributing ~6 bits. These values match common Intel Mesa
+  # configurations on Linux so they blend into the crowd without conflicting with
+  # the Firefox/Linux user agent.
+  "webgl.override-unmasked-vendor" = "Intel Open Source Technology Center";
+  "webgl.override-unmasked-renderer" = "Mesa Intel(R) HD Graphics 620 (KBL GT2)";
 
   # ---------------------------------------------------------------------------
   # Containers

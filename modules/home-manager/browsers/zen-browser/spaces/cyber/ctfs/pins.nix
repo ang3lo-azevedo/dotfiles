@@ -1,9 +1,6 @@
-let
-  lib = import ../../lib.nix;
-  spaceConfig = import ../default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
-  folderConfig = import ./default.nix;
-  folderId = (builtins.head folderConfig.pins).id;
+{lib}: let
+  spaceId = lib.mkId "Cyber";
+  folderId = lib.mkId (spaceId + "CTFs");
 in {
   pins = [
     {

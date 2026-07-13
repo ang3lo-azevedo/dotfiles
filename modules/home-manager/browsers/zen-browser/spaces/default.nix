@@ -1,4 +1,7 @@
 {lib}: let
+  spaceLib = import ./lib.nix;
+  extLib = lib // spaceLib;
+
   findNixFiles = dir: let
     files = builtins.readDir dir;
     process = name: type: let
@@ -14,12 +17,18 @@
 
   allFiles = findNixFiles ./.;
 
-  # Sort files by path length to ensure parents (shorter paths) are processed first
   sortedFiles = builtins.sort (a: b: builtins.stringLength (toString a) < builtins.stringLength (toString b)) allFiles;
 
-  configFiles = builtins.filter (p: p != ./default.nix) sortedFiles;
+  configFiles = builtins.filter (p: p != ./default.nix && p != ./lib.nix) sortedFiles;
 
-  configs = map (f: removeAttrs (import f) ["imports"]) configFiles;
+  importFile = f: let
+    imported = import f;
+  in
+    if builtins.isFunction imported
+    then removeAttrs (imported {lib = extLib;}) ["imports"]
+    else removeAttrs imported ["imports"];
+
+  configs = map importFile configFiles;
 
   allPins = builtins.concatLists (map (c: c.pins or []) configs);
   allSpaces = builtins.concatLists (map (c: c.spaces or []) configs);
@@ -45,7 +54,7 @@
       })
       items);
 in {
-  pinsForce = false; # Pins are not forced by default, allowing for user overrides
+  pinsForce = false;
   spacesForce = true;
   containersForce = true;
   pins = processItems allPins 100;

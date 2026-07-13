@@ -1,7 +1,5 @@
-let
-  lib = import ../lib.nix;
-  spaceConfig = import ./default.nix;
-  spaceId = (builtins.head spaceConfig.spaces).id;
+{lib}: let
+  spaceId = lib.mkId "Space";
 in {
   pins = [
     {
