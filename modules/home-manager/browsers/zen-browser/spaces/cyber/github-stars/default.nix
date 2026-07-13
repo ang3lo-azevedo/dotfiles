@@ -5,13 +5,13 @@ let
 in {
   pins = [
     {
-      name = "EPT/ROB9-16";
-      id = lib.mkId "EPT/ROB9-16";
+      name = "GitHub Stars";
+      id = lib.mkId (spaceId + "GitHub Stars");
       workspace = spaceId;
-      order = 1;
       isGroup = true;
-      isFolderCollapsed = true;
+      isFolderCollapsed = false;
       editedTitle = true;
+      order = 7;
     }
   ];
 }

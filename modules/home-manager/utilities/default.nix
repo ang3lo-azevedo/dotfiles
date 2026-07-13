@@ -35,12 +35,14 @@
     '';
   };
 in {
-  home.packages = with pkgs; [
-    jq
-    nvfetcher
-    pre-commit
-    update-flake
-  ];
+  home.packages =
+    [pkgs._7zz]
+    ++ (with pkgs; [
+      jq
+      nvfetcher
+      pre-commit
+      update-flake
+    ]);
 
   imports = [
     ./keyring
