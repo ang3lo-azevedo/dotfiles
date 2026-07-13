@@ -12,7 +12,7 @@ in {
     polarity = "dark";
 
     targets = {
-      zen-browser.colors.enable = false;
+      zen-browser.colors.enable = true;
       vscode.colors.enable = false;
       nixcord.colors.enable = false;
 
