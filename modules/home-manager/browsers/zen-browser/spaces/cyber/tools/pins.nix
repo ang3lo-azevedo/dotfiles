@@ -38,5 +38,29 @@ in {
       folderParentId = folderId;
       order = 4;
     }
+    {
+      name = "CSP Bypass";
+      id = lib.mkId (spaceId + "CSP Bypass");
+      url = "https://cspbypass.com/";
+      workspace = spaceId;
+      folderParentId = folderId;
+      order = 5;
+    }
+    {
+      name = "PoC-in-GitHub";
+      id = lib.mkId (spaceId + "PoC-in-GitHub");
+      url = "https://github.com/nomi-sec/PoC-in-GitHub";
+      workspace = spaceId;
+      folderParentId = folderId;
+      order = 6;
+    }
+    {
+      name = "FMHY";
+      id = lib.mkId (spaceId + "FMHY");
+      url = "https://fmhy.net/";
+      workspace = spaceId;
+      folderParentId = folderId;
+      order = 7;
+    }
   ];
 }

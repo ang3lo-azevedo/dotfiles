@@ -20,9 +20,6 @@
   # Downside: embedded players that expect autoplay won't start automatically.
   "media.autoplay.default" = 5;
 
-  # Force dark browser chrome regardless of GTK color-scheme signal
-  "ui.systemUsesDarkTheme" = 1;
-
   # Spellcheck
   "spellchecker.dictionary" = "pt-PT";
   "layout.spellcheckDefault" = 1;
@@ -229,19 +226,15 @@
   # Fingerprinting
   # ---------------------------------------------------------------------------
 
-  # Older per-API spoofing (canvas, WebGL, AudioContext, screen, CPU, memory).
-  # Superseded by RFP below; kept commented in case RFP causes breakage.
-  # "privacy.fingerprintingProtection" = true;
-
-  # Full anti-fingerprint suite: spoofs timezone (UTC), UA, WebGL vendor, canvas,
-  # AudioContext, screen size, CPU cores, device memory, and more.
-  # Downside: JS Date objects report UTC, so site timestamps show UTC not local time;
-  # window size is rounded to fixed buckets; UA spoofing can trigger browser-detection
-  # quirks; canvas noise may trigger bot-detection CAPTCHAs.
-  "privacy.resistFingerprinting" = true;
-  # RFP forces prefers-color-scheme: light; this override restores dark mode.
-  # 0 = dark, 1 = light, 2 = system (default)
-  "layout.css.prefers-color-scheme.content-override" = 0;
+  # Granular fingerprint protection suite: spoofs canvas, WebGL, AudioContext,
+  # screen size, CPU, device memory, timezone, UA, and color scheme.
+  # Replaces the legacy privacy.resistFingerprinting — supports per-target overrides.
+  # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
+  "privacy.fingerprintingProtection" = true;
+  # Restore true prefers-color-scheme so dark mode works.
+  # layout.css.prefers-color-scheme.content-override was deprecated in Firefox 127
+  # and no longer overrides RFP; this per-target override is the correct replacement.
+  "privacy.fingerprintingProtection.overrides" = "-CSSPrefersColorScheme";
 
   # ---------------------------------------------------------------------------
   # Containers
