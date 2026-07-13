@@ -4,6 +4,13 @@
 in {
   pins = [
     {
+      name = "CyberChef";
+      id = lib.mkId "CyberChef";
+      url = "https://gchq.github.io/CyberChef/";
+      workspace = spaceId;
+      order = 1;
+    }
+    {
       name = "PayloadsAllTheThings";
       id = lib.mkId (spaceId + "PayloadsAllTheThings");
       url = "https://swisskyrepo.github.io/PayloadsAllTheThings/";
