@@ -6,7 +6,7 @@ in {
       name = "Cyber";
       id = lib.mkId "Cyber";
       icon = "chrome://browser/skin/zen-icons/selectable/bug.svg";
-      theme = lib.blackTheme;
+      # theme = lib.blackTheme;
       container = 6;
     }
   ];
