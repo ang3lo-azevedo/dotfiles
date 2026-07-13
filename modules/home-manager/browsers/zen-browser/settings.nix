@@ -70,7 +70,14 @@
   "security.csp.reporting.enabled" = false;
   # Don't pin downloaded files to the OS recent-documents list
   "browser.download.manager.addToRecentDocs" = false;
-
+  # Battery API leaks charge level and charging state, usable as a fingerprint vector
+  "dom.battery.enabled" = false;
+  # <a ping> sends a background POST to a tracking URL on every link click
+  "browser.send_pings" = false;
+  # OCSP sends a certificate status request to the CA for every HTTPS site visited,
+  # leaking browsing history to the CA. Firefox uses CRLite for revocation instead,
+  # making OCSP redundant.
+  "security.OCSP.enabled" = 0;
   # ---------------------------------------------------------------------------
   # No phone-home: studies, experiments, crash reports, captive portal
   # ---------------------------------------------------------------------------
@@ -242,14 +249,6 @@
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
   "layout.css.prefers-color-scheme.content-override" = 2;
-
-  # Spoof the WebGL unmasked vendor and renderer strings. fingerprintingProtection
-  # randomises the WebGL *hash* per first-party domain but leaves the vendor/renderer
-  # strings readable, contributing ~6 bits. These values match common Intel Mesa
-  # configurations on Linux so they blend into the crowd without conflicting with
-  # the Firefox/Linux user agent.
-  "webgl.override-unmasked-vendor" = "Intel Open Source Technology Center";
-  "webgl.override-unmasked-renderer" = "Mesa Intel(R) HD Graphics 620 (KBL GT2)";
 
   # ---------------------------------------------------------------------------
   # Containers
