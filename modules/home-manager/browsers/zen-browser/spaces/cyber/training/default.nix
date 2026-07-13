@@ -10,7 +10,7 @@ in {
       isFolderCollapsed = true;
       editedTitle = true;
       folderIcon = "chrome://browser/skin/zen-icons/selectable/school.svg";
-      order = 9;
+      order = 3;
     }
   ];
 }
