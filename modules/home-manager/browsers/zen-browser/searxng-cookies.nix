@@ -36,10 +36,34 @@
   };
 
   sqlFile = pkgs.writeText "searxng-cookies.sql" (lib.concatStringsSep "\n" (lib.mapAttrsToList ins cookies));
-in {
-  home.activation.searxngCookies = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    _profile="$HOME/.config/zen/ang3lo/cookies.sqlite"
-    [ -f "$_profile" ] || exit 0
-    ${pkgs.sqlite}/bin/sqlite3 "$_profile" < ${sqlFile} 2>/dev/null || true
+
+  applyScript = pkgs.writeShellScript "searxng-cookies-apply" ''
+    profile="$HOME/.config/zen/ang3lo/cookies.sqlite"
+    [ -f "$profile" ] || exit 0
+    if ! ${pkgs.sqlite}/bin/sqlite3 "$profile" < ${sqlFile} 2>&1; then
+      echo "searxng-cookies: failed to write (browser may be open, will retry next login)" >&2
+    fi
   '';
+in {
+  # Runs at each home-manager activation; fails visibly if the browser is open.
+  home.activation.searxngCookies = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD ${applyScript}
+  '';
+
+  # Runs early in every graphical session, before the browser is open, so the
+  # activation-time failure (browser was running during `home-manager switch`)
+  # is always recovered on the next login.
+  systemd.user.services.searxng-cookies = {
+    Unit = {
+      Description = "Write SearXNG preference cookies to Zen Browser profile";
+      After = ["graphical-session-pre.target"];
+      PartOf = ["graphical-session.target"];
+    };
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${applyScript}";
+      RemainAfterExit = false;
+    };
+    Install.WantedBy = ["graphical-session-pre.target"];
+  };
 }
