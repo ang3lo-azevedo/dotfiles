@@ -5,14 +5,14 @@ let
 in {
   pins = [
     {
-      name = "CTFs";
-      id = lib.mkId (spaceId + "CTFs");
+      name = "Debrid";
+      id = lib.mkId (spaceId + "Debrid");
       workspace = spaceId;
       isGroup = true;
       isFolderCollapsed = false;
       editedTitle = true;
-      folderIcon = "chrome://browser/skin/zen-icons/selectable/flag.svg";
-      order = 1;
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/cloud.svg";
+      order = 3;
     }
   ];
 }

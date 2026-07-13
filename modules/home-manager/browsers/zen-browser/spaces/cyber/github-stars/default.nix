@@ -11,6 +11,7 @@ in {
       isGroup = true;
       isFolderCollapsed = false;
       editedTitle = true;
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/star-1.svg";
       order = 7;
     }
   ];
