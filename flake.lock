@@ -345,26 +345,6 @@
         "type": "github"
       }
     },
-    "custom-packages": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784210405,
-        "narHash": "sha256-EoC34eCA87OUcsAfiI9LU4THPHfT91K7g2YR88JNdMc=",
-        "owner": "Rishabh5321",
-        "repo": "custom-packages-flake",
-        "rev": "e6dddba5400d9da6cfde154e34cfa0fca35d0f48",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Rishabh5321",
-        "repo": "custom-packages-flake",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -1868,26 +1848,6 @@
         "type": "github"
       }
     },
-    "pear-desktop": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1784095996,
-        "narHash": "sha256-UOzIuG5wLAWkuGaK7ESuT1tARuAkGG5Bta8JW7KJcOM=",
-        "owner": "h-banii",
-        "repo": "youtube-music-nix",
-        "rev": "72bfecfa93998121631bdab10217859127540f5c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "h-banii",
-        "repo": "youtube-music-nix",
-        "type": "github"
-      }
-    },
     "photogimp": {
       "flake": false,
       "locked": {
@@ -2091,7 +2051,6 @@
         "berberman": "berberman",
         "binaryninja": "binaryninja",
         "chaotic": "chaotic",
-        "custom-packages": "custom-packages",
         "disko": "disko",
         "dmatools": "dmatools",
         "firefox-addons": "firefox-addons",
@@ -2111,7 +2070,6 @@
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-xr": "nixpkgs-xr",
-        "pear-desktop": "pear-desktop",
         "photogimp": "photogimp",
         "pre-commit-hooks": "pre-commit-hooks",
         "proxmox-nixos": "proxmox-nixos",
@@ -2119,9 +2077,7 @@
         "samsung-galaxy-book-linux-fixes": "samsung-galaxy-book-linux-fixes",
         "spicetify-nix": "spicetify-nix",
         "steam-config-nix": "steam-config-nix",
-        "stremio-enhanced": "stremio-enhanced",
         "stylix": "stylix",
-        "trakt-scrobbler-src": "trakt-scrobbler-src",
         "xddxdd-nur": "xddxdd-nur",
         "zen-browser": "zen-browser"
       }
@@ -2237,22 +2193,6 @@
       "original": {
         "owner": "different-name",
         "repo": "steam-config-nix",
-        "type": "github"
-      }
-    },
-    "stremio-enhanced": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782466688,
-        "narHash": "sha256-+/k6HxSF6qQgRXbfwUEp4IuwbmBCkSdJet6s/GBr8pc=",
-        "owner": "REVENGE977",
-        "repo": "stremio-enhanced",
-        "rev": "0bb39a4263c26970247128c36d9ef8bd8a3c84ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "REVENGE977",
-        "repo": "stremio-enhanced",
         "type": "github"
       }
     },
@@ -2500,22 +2440,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
-        "type": "github"
-      }
-    },
-    "trakt-scrobbler-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1779947734,
-        "narHash": "sha256-U1sPBTgB9c1U3BDeCJhVik0m8IhEL8nuqF+dIWNY5Nw=",
-        "owner": "iamkroot",
-        "repo": "trakt-scrobbler",
-        "rev": "aa95b6caa9c4e32638059d93d2940bf1a29df40a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "iamkroot",
-        "repo": "trakt-scrobbler",
         "type": "github"
       }
     },
