@@ -16,8 +16,9 @@
         redirectType = "main_frame";
       };
       redlib = [
-        "https://redlib.pi.at.eu.org"
+        "https://rl.bloat.cat"
         "https://redlib.privadency.com"
+        "https://redlib.pi.at.eu.org"
       ];
 
       # ---- inactive (defaults kept for clean first-run state) ----

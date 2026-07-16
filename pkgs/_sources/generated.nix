@@ -8,10 +8,10 @@
 {
   angr-management = {
     pname = "angr-management";
-    version = "v9.2.223";
+    version = "v9.3.0";
     src = fetchurl {
-      url = "https://github.com/angr/angr-management/releases/download/v9.2.223/angr-management-v9.2.223-x86_64.AppImage";
-      sha256 = "sha256-K35DJf8o4gPHKN+SHFxE2imiQKReB2J3M2eAe5wYH+w=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.3.0/angr-management-v9.3.0-x86_64.AppImage";
+      sha256 = "sha256-atJlpnqOD2ZJjI46oihZ10boV6BnJjTn5ZFf8YozdGU=";
     };
   };
   apk-mitm = {
@@ -81,10 +81,10 @@
   };
   harbor = {
     pname = "harbor";
-    version = "0.9.20";
+    version = "0.9.21";
     src = fetchurl {
-      url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/v0.9.20/Harbor_0.9.20_amd64.AppImage";
-      sha256 = "sha256-mF23E3x9XFo21q3apNdFqtCb4yzuQh4ws/K7vGnnBls=";
+      url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/V0.9.21/Harbor_0.9.21_amd64.deb";
+      sha256 = "sha256-cqtu5ZIYSxrez/05oEnnOVFOWOZMOYN/vutWX0Izi1U=";
     };
   };
   ida-chat-plugin = {

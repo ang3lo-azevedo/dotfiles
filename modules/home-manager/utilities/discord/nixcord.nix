@@ -59,6 +59,7 @@
           disableFileConversion = true;
         };
         previewMessage.enable = true;
+        noMiddleClickPaste.enable = true;
       };
     };
   };

@@ -9,7 +9,7 @@
       "adnauseam@rednoise.org".settings = {
         firstInstall = false;
         hidingAds = true;
-        clickingAds = true;
+        clickingAds = false;
         blockingMalware = true;
         userSettings.webrtcIPShielding = true;
         adminSettings.selectedFilterLists = [

@@ -17,6 +17,8 @@
   programs.steam.extraCompatPackages = with pkgs; [
     # CachyOS Proton build, x86_64-v3 optimized (requires a CPU that supports AVX2)
     proton-cachyos_x86_64_v3
+    # LinUwUx-patched CachyOS Proton (syscall/CPUID spoofing, anti-cheat compat)
+    proton-cachyos-linuwux
     proton-ge-bin
   ];
 }

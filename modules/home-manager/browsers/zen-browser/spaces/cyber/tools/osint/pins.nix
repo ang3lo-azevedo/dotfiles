@@ -1,6 +1,6 @@
 {lib}: let
   spaceId = lib.mkId "Cyber";
-  folderId = lib.mkId (spaceId + "OSINT");
+  osintId = lib.mkId (spaceId + "OSINT");
 in {
   pins = [
     {
@@ -8,7 +8,7 @@ in {
       id = lib.mkId (spaceId + "dox.soy");
       url = "https://dox.soy/";
       workspace = spaceId;
-      folderParentId = folderId;
+      folderParentId = osintId;
       order = 1;
     }
     {
@@ -16,7 +16,7 @@ in {
       id = lib.mkId (spaceId + "OSINT Toolbox");
       url = "https://github.com/The-Osint-Toolbox/Data-Acquisition-OSINT";
       workspace = spaceId;
-      folderParentId = folderId;
+      folderParentId = osintId;
       order = 2;
     }
     {
@@ -24,7 +24,7 @@ in {
       id = lib.mkId (spaceId + "offshore.cat OSINT");
       url = "https://offshore.cat/?page=osint";
       workspace = spaceId;
-      folderParentId = folderId;
+      folderParentId = osintId;
       order = 3;
     }
   ];

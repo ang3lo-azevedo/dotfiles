@@ -5,9 +5,10 @@ in {
   pins = [
     {
       name = "CyberChef";
-      id = lib.mkId "CyberChef";
+      id = lib.mkId (spaceId + "CyberChef");
       url = "https://gchq.github.io/CyberChef/";
       workspace = spaceId;
+      folderParentId = folderId;
       order = 1;
     }
     {

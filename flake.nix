@@ -251,6 +251,12 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # cryinkfly's Autodesk Fusion 360 on Linux installer
+    autodesk-fusion = {
+      url = "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/main.tar.gz";
+      flake = false;
+    };
   };
 
   # These are the flake-level binary caches.
@@ -370,7 +376,7 @@
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            useGlobalPkgs = false;
+            useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "hm-backup";
             users.ang3lo = import ./home/ang3lo/home.nix;
@@ -384,43 +390,89 @@
                 trakt-scrobbler-src
                 ;
             };
-            # useGlobalPkgs = false means HM evaluates its own pkgs without the NixOS
-            # overlays; propagate python-packages so fixes reach HM's package set too.
-            sharedModules = [{nixpkgs.overlays = [(import ./overlays/python-packages.nix)];}];
           };
         }
 
         {
           # Alternatively: use the exact kernel versions as defined in this repo.
           # Guarantees you have binary cache.
-          nixpkgs.overlays = [
-            nix-cachyos-kernel.overlays.pinned
-            (import ./overlays/python-packages.nix)
-            (_: prev: {
-              nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
-              # TODO: drop this override once PR #2797 lands in a niri release and
-              # nixpkgs packages that release.
-              # Track niri main with PR #2797 (pointer/tablet input events) applied
-              # until it lands in a stable release.
-              niri = prev.niri.overrideAttrs (_: {
-                src = inputs.niri-main;
-                version = "26.4.0-pr2797";
-                patches = [
-                  (prev.fetchpatch {
-                    url = "https://github.com/niri-wm/niri/pull/2797.patch";
-                    hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
-                  })
-                ];
-                cargoDeps = prev.rustPlatform.fetchCargoVendor {
-                  pname = "niri-main-pr2797";
-                  version = "26.4.0-pr2797";
-                  src = inputs.niri-main;
-                  hash = "sha256-jmYkGX4M69W16qr9kLHfnAAJWvJ87IMVBQcC2wE9Phc=";
+          nixpkgs = {
+            config = {
+              allowBroken = true;
+              permittedInsecurePackages = [
+                "electron-39.8.10"
+                "ventoy-1.1.12"
+              ];
+            };
+            overlays = [
+              nix-cachyos-kernel.overlays.pinned
+              (import ./overlays/python-packages.nix)
+              inputs.firefox-addons.overlays.default
+              (import ./overlays/firefox-addons.nix)
+              inputs.nix-vscode-extensions.overlays.default
+              inputs.antigravity-nix.overlays.default
+              inputs.ida-pro-overlay.overlays.default
+              inputs.binaryninja.overlays.default
+              inputs.dmatools.overlays.default
+              (_: _: {
+                xr = inputs.nixpkgs-xr.packages."x86_64-linux";
+              })
+              (_: prev: {
+                # TODO: remove once gdal test_zarr_read_simple_sharding is fixed upstream
+                gdalMinimal = prev.gdalMinimal.overrideAttrs (old: {
+                  disabledTests = old.disabledTests ++ ["test_zarr_read_simple_sharding"];
+                });
+                nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+                angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
+                  src = inputs.angr-management;
                 };
-                doInstallCheck = false;
-              });
-            })
-          ];
+                archi = prev.callPackage (inputs.self + "/pkgs/archi/default.nix") {
+                  inherit inputs;
+                };
+                autodesk-fusion = prev.callPackage (inputs.self + "/pkgs/autodesk-fusion/default.nix") {
+                  wine = inputs.nix-gaming.packages."x86_64-linux".wine-cachyos;
+                  src = inputs.autodesk-fusion;
+                };
+                # TODO: drop this override once PR #2797 lands in a niri release and
+                # nixpkgs packages that release.
+                # Track niri main with PR #2797 (pointer/tablet input events) applied
+                # until it lands in a stable release.
+                niri = prev.niri.overrideAttrs (_: {
+                  src = inputs.niri-main;
+                  version = "26.4.0-pr2797";
+                  patches = [
+                    (prev.fetchpatch {
+                      url = "https://github.com/niri-wm/niri/pull/2797.patch";
+                      hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
+                    })
+                  ];
+                  cargoDeps = prev.rustPlatform.fetchCargoVendor {
+                    pname = "niri-main-pr2797";
+                    version = "26.4.0-pr2797";
+                    src = inputs.niri-main;
+                    hash = "sha256-jmYkGX4M69W16qr9kLHfnAAJWvJ87IMVBQcC2wE9Phc=";
+                  };
+                  doInstallCheck = false;
+                });
+              })
+              (_: prev: {
+                glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
+                xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
+                trakt-scrobbler = prev.callPackage (inputs.self + "/pkgs/trakt-scrobbler/default.nix") {};
+                cursor-id-modifier = prev.callPackage (inputs.self + "/pkgs/cursor-id-modifier/default.nix") {};
+                stremio-enhanced = prev.callPackage (inputs.self + "/pkgs/stremio-enhanced/default.nix") {};
+                ctfd-parser = prev.callPackage (inputs.self + "/pkgs/ctfd-parser/default.nix") {};
+                ese-database-view = prev.callPackage (inputs.self + "/pkgs/ese-database-view/default.nix") {};
+                ffmpeg-encoder-plugin-resolve = prev.callPackage (inputs.self + "/pkgs/ffmpeg-encoder-plugin-resolve/default.nix") {};
+                libesedb = prev.callPackage (inputs.self + "/pkgs/libesedb/default.nix") {};
+                libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
+                sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
+                monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
+                linoffice = prev.callPackage (inputs.self + "/pkgs/linoffice/default.nix") {};
+                proton-cachyos-linuwux = prev.callPackage (inputs.self + "/pkgs/proton-linuwux/default.nix") {};
+              })
+            ];
+          };
         }
 
         # Stylix overlay
@@ -505,12 +557,17 @@
       sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
       scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
+      autodesk-fusion = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/autodesk-fusion/default.nix {
+        wine = inputs.nix-gaming.packages.x86_64-linux.wine-cachyos;
+        src = inputs.autodesk-fusion;
+      };
       nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
       linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
       ist-fenix-auto-enroller = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ist-fenix-auto-enroller/default.nix {
         src = inputs.ist-fenix-auto-enroller;
       };
       harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
+      proton-cachyos-linuwux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/proton-linuwux/default.nix {};
     };
 
     # Pre-commit checks
