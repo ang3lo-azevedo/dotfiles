@@ -90,6 +90,20 @@
         "type": "github"
       }
     },
+    "autodesk-fusion": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781935856,
+        "narHash": "sha256-k3ECZzYHV5gJq4qDR9YcYMoUGK4YW94iVGp62K5KbSM=",
+        "rev": "53b02038548f01a6e0a1fa2def0a9b545f1561c1",
+        "type": "tarball",
+        "url": "https://codeberg.org/api/v1/repos/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/53b02038548f01a6e0a1fa2def0a9b545f1561c1.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/main.tar.gz"
+      }
+    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -2073,6 +2087,7 @@
         "agenix": "agenix",
         "angr-management": "angr-management",
         "antigravity-nix": "antigravity-nix",
+        "autodesk-fusion": "autodesk-fusion",
         "berberman": "berberman",
         "binaryninja": "binaryninja",
         "chaotic": "chaotic",

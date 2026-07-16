@@ -8,7 +8,7 @@
   ts = "cast(strftime('%s', 'now') as integer) * 1000000";
   expiry = "4070908800";
 
-  ins = n: v: "INSERT OR REPLACE INTO moz_cookies (${cols}) VALUES ('', '${n}', '${v}', '${host}', '/', ${expiry}, ${ts}, ${ts}, 0, 0, 0, 0);";
+  ins = ctx: n: v: "INSERT OR REPLACE INTO moz_cookies (${cols}) VALUES ('${ctx}', '${n}', '${v}', '${host}', '/', ${expiry}, ${ts}, ${ts}, 0, 0, 0, 0);";
 
   cookies = {
     autocomplete = "google";
@@ -35,7 +35,14 @@
     url_formatting = "pretty";
   };
 
-  sqlFile = pkgs.writeText "searxng-cookies.sql" (lib.concatStringsSep "\n" (lib.mapAttrsToList ins cookies));
+  # Insert cookies for every container context so preferences apply regardless
+  # of which space (and thus which Firefox container) SearXNG is opened from.
+  # originAttributes="" is the default (no container); "^userContextId=N" is container N.
+  contexts = ["" "^userContextId=1"];
+
+  sqlFile =
+    pkgs.writeText "searxng-cookies.sql" (lib.concatStringsSep "\n"
+      (lib.concatLists (map (ctx: lib.mapAttrsToList (ins ctx) cookies) contexts)));
 
   applyScript = pkgs.writeShellScript "searxng-cookies-apply" ''
     profile="$HOME/.config/zen/ang3lo/cookies.sqlite"

@@ -38,6 +38,15 @@ in {
         # about:config prefs, search.nix returns the search engine configuration.
         settings = import ./settings.nix;
         search = import ./search.nix {inherit pkgs;};
+        # Webmail renders user-submitted HTML (inline color: #000000 text) inside iframes.
+        # When prefers-color-scheme is forced dark, the iframe background goes dark but
+        # inline text stays black — black on black. "only light" prevents dark-mode
+        # color adjustments on those iframes without affecting the rest of the UI.
+        userContent = ''
+          @-moz-document domain("app.mailbox.org") {
+            iframe { color-scheme: only light !important; }
+          }
+        '';
       }
       // import ./spaces {inherit (pkgs) lib;};
   };

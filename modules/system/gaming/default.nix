@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./steam
+    ./cpuid-fault.nix
     ./gamemode.nix
     ./openrgb.nix
     ./vr

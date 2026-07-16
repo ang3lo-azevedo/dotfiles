@@ -72,6 +72,8 @@ in {
     ./xournalapp.nix
     ./libreoffice.nix
     ./bambu-studio.nix
+    ./freecad.nix
+    ./autodesk-fusion.nix
 
     ./zapzap.nix
     ./restic-browser.nix

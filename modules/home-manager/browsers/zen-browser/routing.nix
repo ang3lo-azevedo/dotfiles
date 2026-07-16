@@ -11,7 +11,6 @@
       "nuvio.tv"
       "torbox.app"
       "elfhosted.com"
-      "pi.at.eu.org"
     ];
     "Cyber" = [
       "portswigger.net"
@@ -35,7 +34,7 @@
             id = mkId ("route-" + domain);
             reference = domain;
             matchType = "contains";
-            openIn = mkId space;
+            openIn = "{${mkId space}}";
           })
           domains
       )
