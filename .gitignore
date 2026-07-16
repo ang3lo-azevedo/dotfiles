@@ -5,6 +5,7 @@
 
 # Local VM artifacts
 *.qcow2
+*.tar.xz
 
 # Local backup/export dumps
 /portainer-backup*/
