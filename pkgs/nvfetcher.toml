@@ -102,5 +102,5 @@ fetch.url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nor
 [harbor]
 src.github = "AdityaHebballe/harbor-linux-builds"
 src.github_use_latest_release = true
-src.prefix = "v"
-fetch.url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/v$ver/Harbor_$ver_amd64.AppImage"
+src.prefix = "V"
+fetch.url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/V$ver/Harbor_$ver_amd64.deb"

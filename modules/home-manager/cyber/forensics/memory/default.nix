@@ -5,6 +5,6 @@
     ./volatility-toolkit.nix
     #./evolve.nix
     ./bulk_extractor.nix
-    #./memprocfs.nix
+    ./memprocfs.nix
   ];
 }

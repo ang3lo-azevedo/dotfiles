@@ -193,6 +193,8 @@
   # Don't send a background HTTP request when upgrading to HTTPS, it would reveal
   # the site visit to network observers even if the HTTPS connection succeeds.
   "dom.security.https_only_mode_send_http_background_request" = false;
+  # Without background check, HTTP-only sites wait 3500ms before error page; cut it to 1500ms.
+  "dom.security.https_only_mode.upgrade_timeout" = 1500;
   # Replay requires an active attacker + non-idempotent endpoint hit within the same session window.
   # "security.tls.enable_0rtt_data" = false;
   # Require RFC 5746 safe TLS renegotiation; drop connections that don't support it.

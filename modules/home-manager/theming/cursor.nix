@@ -7,4 +7,9 @@
     package = pkgs.adwaita-icon-theme;
     size = 34;
   };
+
+  gtk = {
+    gtk3.extraConfig.gtk-enable-primary-paste = false;
+    gtk4.extraConfig.gtk-enable-primary-paste = false;
+  };
 }

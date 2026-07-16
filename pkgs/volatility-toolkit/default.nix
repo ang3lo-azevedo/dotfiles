@@ -20,6 +20,11 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
+    # Fix bash set -e bug where (( i++ )) causes the script to abort when i=0
+    postPatch = ''
+      sed -E -i 's/\(\([[:space:]]*[a-zA-Z0-9_]+\+\+[[:space:]]*\)\)/& || true/g' scripts/vol-analyze.sh
+    '';
+
     installPhase = ''
       runHook preInstall
 

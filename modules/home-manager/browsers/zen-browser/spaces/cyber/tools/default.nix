@@ -9,7 +9,7 @@ in {
       isGroup = true;
       isFolderCollapsed = true;
       editedTitle = true;
-      folderIcon = "chrome://browser/skin/zen-icons/selectable/build.svg";
+      folderIcon = "chrome://browser/skin/zen-icons/selectable/construct.svg";
       order = 2;
     }
   ];
