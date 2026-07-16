@@ -19,8 +19,6 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/bin $out/share
     tar -C $out/bin --strip=1 -x -f $src
     sed -i -r 's|"\w+_[0-9]+\.[0-9]+_[0-9]+-LinUwUx.*"|"Proton-CachyOS-LinUwUx"|' $out/bin/compatibilitytool.vdf
-    cp ${./LinUwUx.patch} $out/share/LinUwUx.patch
-    ln -s $src $out/share/cachyos_11.0_20260702-LinUwUx.tar.xz
   '';
 
   meta = {
