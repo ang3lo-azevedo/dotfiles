@@ -6,7 +6,6 @@
     ./openrgb.nix
     ./vr
     inputs.steam-config-nix.nixosModules.default
-    inputs.nix-gaming.nixosModules.pipewireLowLatency
     inputs.nix-gaming.nixosModules.platformOptimizations
   ];
 

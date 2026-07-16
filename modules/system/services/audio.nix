@@ -10,15 +10,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
-
-      # quantum/rate set the period size and sample rate of the processing graph.
-      # 64/48000 = ~1.33 ms per period, low enough for gaming but high enough to avoid xruns.
-      # Halving quantum further (32) reduces latency but causes xruns on slower hardware.
-      lowLatency = {
-        enable = true;
-        quantum = 64;
-        rate = 48000;
-      };
     };
   };
 }
