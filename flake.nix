@@ -418,9 +418,19 @@
                 xr = inputs.nixpkgs-xr.packages."x86_64-linux";
               })
               (_: prev: {
-                # TODO: remove once gdal test_zarr_read_simple_sharding is fixed upstream
-                gdalMinimal = prev.gdalMinimal.overrideAttrs (old: {
-                  disabledTests = old.disabledTests ++ ["test_zarr_read_simple_sharding"];
+                # TODO: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
+                pdal = prev.pdal.overrideAttrs (old: {
+                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
+                });
+                vtk = prev.vtk.overrideAttrs (old: {
+                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
+                });
+                # TODO: remove once dmatools updates memprocfs past 5.9.10.157:
+                # (1) vendored sqlite3 3.43.0 fails under GCC 15's C23 default; -std=gnu17 reverts to C17
+                # (2) vmmpyc.h sets Py_LIMITED_API before Python.h, hiding PyRun_SimpleString (cpython/pythonrun.h);
+                #     GCC 15 makes the resulting implicit declaration a hard error even in C17 mode
+                memprocfs = prev.memprocfs.overrideAttrs (old: {
+                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -std=gnu17 -Wno-implicit-function-declaration";};
                 });
                 nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
                 angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
@@ -430,7 +440,7 @@
                   inherit inputs;
                 };
                 autodesk-fusion = prev.callPackage (inputs.self + "/pkgs/autodesk-fusion/default.nix") {
-                  wine = inputs.nix-gaming.packages."x86_64-linux".wine-cachyos;
+                  wine = prev.wineWow64Packages.full;
                   src = inputs.autodesk-fusion;
                 };
                 # TODO: drop this override once PR #2797 lands in a niri release and
@@ -558,7 +568,7 @@
       scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
       autodesk-fusion = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/autodesk-fusion/default.nix {
-        wine = inputs.nix-gaming.packages.x86_64-linux.wine-cachyos;
+        wine = nixpkgs.legacyPackages.x86_64-linux.wineWow64Packages.full;
         src = inputs.autodesk-fusion;
       };
       nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
