@@ -38,6 +38,7 @@ in {
   home.packages =
     [pkgs._7zz]
     ++ (with pkgs; [
+      cachix
       jq
       nvfetcher
       pre-commit
