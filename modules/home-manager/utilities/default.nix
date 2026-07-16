@@ -72,7 +72,7 @@ in {
     ./xournalapp.nix
     ./libreoffice.nix
     ./bambu-studio.nix
-    ./freecad.nix
+    #./freecad.nix
     ./autodesk-fusion.nix
 
     ./zapzap.nix

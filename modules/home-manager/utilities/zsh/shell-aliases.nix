@@ -19,7 +19,7 @@ in {
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
-    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake ~/nix-config#pc-angelo -L --keep-going";
+    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake ~/nix-config#pc-angelo -L --keep-going && nix path-info --recursive /run/current-system | cachix push ang3lo";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake ~/nix-config#ang3lo";
     nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && update-flake --accept-flake-config)";
@@ -34,7 +34,7 @@ in {
     backup-shared = "bash -c 'trap \"kill 0 2>/dev/null\" EXIT; (while sleep 15; do sudo systemctl kill -s USR1 --kill-who=main restic-backups-gdrive-shared.service 2>/dev/null || true; done) & sudo systemctl start --no-block restic-backups-gdrive-shared.service && echo \"Shared Drive Backup started. Auto-pinging progress every 15s. (Press Ctrl+C to stop watching):\" && journalctl -u restic-backups-gdrive-shared.service -f | grep --line-buffered -v \"signal SIGUSR1\" | grep --line-buffered -v \"]: /\"'";
   };
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     _cache-check() {
       print -P "%F{cyan}:: Checking binary cache...%f"
       local to_build
