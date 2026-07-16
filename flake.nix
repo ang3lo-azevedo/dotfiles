@@ -425,24 +425,6 @@
                 vtk = prev.vtk.overrideAttrs (old: {
                   env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
                 });
-                # TODO: remove once dmatools updates memprocfs past 5.9.10.157:
-                # (1) vendored sqlite3 3.43.0 fails under GCC 15's C23 default; -std=gnu17 reverts to C17
-                # (2) vmmpyc.h sets Py_LIMITED_API before Python.h, hiding PyRun_SimpleString (cpython/pythonrun.h);
-                #     GCC 15 makes the resulting implicit declaration a hard error even in C17 mode
-                memprocfs = prev.memprocfs.overrideAttrs (old: {
-                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -std=gnu17 -Wno-implicit-function-declaration";};
-                });
-                nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
-                angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
-                  src = inputs.angr-management;
-                };
-                archi = prev.callPackage (inputs.self + "/pkgs/archi/default.nix") {
-                  inherit inputs;
-                };
-                autodesk-fusion = prev.callPackage (inputs.self + "/pkgs/autodesk-fusion/default.nix") {
-                  wine = prev.wineWow64Packages.full;
-                  src = inputs.autodesk-fusion;
-                };
                 # TODO: drop this override once PR #2797 lands in a niri release and
                 # nixpkgs packages that release.
                 # Track niri main with PR #2797 (pointer/tablet input events) applied
@@ -468,6 +450,17 @@
               (_: prev: {
                 glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
                 xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
+                nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+                angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
+                  src = inputs.angr-management;
+                };
+                archi = prev.callPackage (inputs.self + "/pkgs/archi/default.nix") {
+                  inherit inputs;
+                };
+                autodesk-fusion = prev.callPackage (inputs.self + "/pkgs/autodesk-fusion/default.nix") {
+                  wine = prev.wineWow64Packages.full;
+                  src = inputs.autodesk-fusion;
+                };
                 trakt-scrobbler = prev.callPackage (inputs.self + "/pkgs/trakt-scrobbler/default.nix") {};
                 cursor-id-modifier = prev.callPackage (inputs.self + "/pkgs/cursor-id-modifier/default.nix") {};
                 stremio-enhanced = prev.callPackage (inputs.self + "/pkgs/stremio-enhanced/default.nix") {};
