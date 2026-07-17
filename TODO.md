@@ -24,6 +24,8 @@
 
 ## General Stuff
 
+- [ ] Add this https://github.com/Midrags/SFF
+- [x] Fix jackify
 - [ ] Add fingerswiping to niri
 - [ ] Add this https://github.com/blarns/NuvioForLinux
 - [ ] Add mpv slide to inscrease brightness

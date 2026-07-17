@@ -257,6 +257,12 @@
       url = "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/main.tar.gz";
       flake = false;
     };
+
+    # SteaMidra - Steam game setup and management tool
+    steamidra = {
+      url = "github:Midrags/SFF";
+      flake = false;
+    };
   };
 
   # These are the flake-level binary caches.
@@ -473,6 +479,7 @@
                 monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
                 linoffice = prev.callPackage (inputs.self + "/pkgs/linoffice/default.nix") {};
                 proton-cachyos-linuwux = prev.callPackage (inputs.self + "/pkgs/proton-linuwux/default.nix") {};
+                steamidra = prev.callPackage (inputs.self + "/pkgs/steamidra/default.nix") {};
               })
             ];
           };
@@ -571,6 +578,7 @@
       };
       harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
       proton-cachyos-linuwux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/proton-linuwux/default.nix {};
+      steamidra = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/steamidra/default.nix {};
     };
 
     # Pre-commit checks

@@ -104,3 +104,12 @@ src.github = "AdityaHebballe/harbor-linux-builds"
 src.github_use_latest_release = true
 src.prefix = "V"
 fetch.url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/V$ver/Harbor_$ver_amd64.deb"
+
+[jackify]
+src.github = "Omni-guides/Jackify"
+src.prefix = "v"
+fetch.url = "https://github.com/Omni-guides/Jackify/releases/download/v$ver/Jackify.AppImage"
+
+[steamidra]
+src.github = "Midrags/SFF"
+fetch.github = "Midrags/SFF"

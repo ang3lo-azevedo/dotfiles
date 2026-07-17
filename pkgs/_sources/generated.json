@@ -173,6 +173,21 @@
         },
         "version": "883f9b3550725d81eed80c25dd28c75b320f22c7"
     },
+    "jackify": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "jackify",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-6z+Su8VYBnDWl7A+K8DiRQeuWtXxNf/nXOjv5yXCcQE=",
+            "type": "url",
+            "url": "https://github.com/Omni-guides/Jackify/releases/download/v0.7.1.1/Jackify.AppImage"
+        },
+        "version": "0.7.1.1"
+    },
     "libesedb": {
         "cargoLock": null,
         "date": "2026-07-04",
@@ -389,6 +404,27 @@
             "type": "github"
         },
         "version": "3e556eee8ad4c4425799cb652bac26ee58f8e113"
+    },
+    "steamidra": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "steamidra",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Midrags",
+            "repo": "SFF",
+            "rev": "v6.4.1",
+            "sha256": "sha256-Zqo0QAT9/DvDjj0FwFsCOr+47gSjpGtYFc8u3MZ9JF4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v6.4.1"
     },
     "stremio-enhanced": {
         "cargoLock": null,
