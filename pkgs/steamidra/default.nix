@@ -67,6 +67,7 @@
       cryptography
       jeepney
       secretstorage
+      platformdirs
     ]);
 in
   stdenv.mkDerivation {
@@ -78,35 +79,57 @@ in
     buildInputs = [pythonEnv];
 
     installPhase = ''
-        runHook preInstall
+            runHook preInstall
 
-        mkdir -p $out/{bin,share/steamidra,share/applications,share/icons/hicolor/256x256/apps}
+            mkdir -p $out/{bin,share/steamidra,share/applications,share/icons/hicolor/256x256/apps}
 
-        cp -r . $out/share/steamidra/
+            cp -r . $out/share/steamidra/
 
-        makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
-          --add-flags "$out/share/steamidra/Main_gui.py" \
-          --prefix PYTHONPATH : $out/share/steamidra
+            cat > sff_data_dir_patch.py <<'PYEOF'
+      import re
+      import sys
+      p = sys.argv[1]
+      with open(p) as f:
+          content = f.read()
+      pat = r'def sff_data_dir\(\) -> Path:.*?(?=\n    def |\ndef |\n\n\n)'
+      repl = """def sff_data_dir() -> Path:
+          env_dir = os.environ.get("STEAMIDRA_DATA_DIR")
+          if env_dir:
+              return Path(env_dir)
+          import platformdirs
+          return Path(platformdirs.user_data_dir("steamidra", ensure_exists=True))
+      """
+      new = re.sub(pat, repl, content, count=1, flags=re.DOTALL)
+      with open(p, 'w') as f:
+          f.write(new)
+      PYEOF
+            ${pythonEnv}/bin/python sff_data_dir_patch.py $out/share/steamidra/sff/utils.py
 
-        makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra-cli \
-          --add-flags "$out/share/steamidra/Main.py" \
-          --prefix PYTHONPATH : $out/share/steamidra
+            makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
+              --add-flags "$out/share/steamidra/Main_gui.py" \
+              --prefix PYTHONPATH : $out/share/steamidra \
+              --set STEAMIDRA_DATA_DIR "\''${XDG_DATA_HOME:-$HOME/.local/share}/steamidra"
 
-        cp $out/share/steamidra/SFF.png $out/share/icons/hicolor/256x256/apps/steamidra.png
+            makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra-cli \
+              --add-flags "$out/share/steamidra/Main.py" \
+              --prefix PYTHONPATH : $out/share/steamidra \
+              --set STEAMIDRA_DATA_DIR "\''${XDG_DATA_HOME:-$HOME/.local/share}/steamidra"
 
-        cat > $out/share/applications/steamidra.desktop <<EOF
-      [Desktop Entry]
-      Name=SteaMidra
-      Comment=Advanced Steam game setup and management tool
-      Exec=$out/bin/steamidra
-      Icon=steamidra
-      Type=Application
-      Categories=Game;Utility;
-      Terminal=false
-      StartupNotify=true
-      EOF
+            cp $out/share/steamidra/SFF.png $out/share/icons/hicolor/256x256/apps/steamidra.png
 
-        runHook postInstall
+            cat > $out/share/applications/steamidra.desktop <<EOF
+          [Desktop Entry]
+          Name=SteaMidra
+          Comment=Advanced Steam game setup and management tool
+          Exec=$out/bin/steamidra
+          Icon=steamidra
+          Type=Application
+          Categories=Game;Utility;
+          Terminal=false
+          StartupNotify=true
+          EOF
+
+            runHook postInstall
     '';
 
     meta = with lib; {
