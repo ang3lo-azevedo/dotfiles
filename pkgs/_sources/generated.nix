@@ -99,6 +99,14 @@
     };
     date = "2026-04-20";
   };
+  jackify = {
+    pname = "jackify";
+    version = "0.7.1.1";
+    src = fetchurl {
+      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.1.1/Jackify.AppImage";
+      sha256 = "sha256-6z+Su8VYBnDWl7A+K8DiRQeuWtXxNf/nXOjv5yXCcQE=";
+    };
+  };
   libesedb = {
     pname = "libesedb";
     version = "cf49b6d420d4a44dcd6355bc0d6b36f9f580f350";
@@ -222,6 +230,17 @@
       sha256 = "sha256-s+G3MUVxEL/CwLaLk2nFcTFfRqq4Hrbj6qa/GhhzFMc=";
     };
     date = "2019-11-04";
+  };
+  steamidra = {
+    pname = "steamidra";
+    version = "v6.4.1";
+    src = fetchFromGitHub {
+      owner = "Midrags";
+      repo = "SFF";
+      rev = "v6.4.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-Zqo0QAT9/DvDjj0FwFsCOr+47gSjpGtYFc8u3MZ9JF4=";
+    };
   };
   stremio-enhanced = {
     pname = "stremio-enhanced";
