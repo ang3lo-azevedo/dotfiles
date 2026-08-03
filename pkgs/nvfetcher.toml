@@ -103,7 +103,7 @@ fetch.url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nor
 src.github = "harborstremio-linux/harbor-linux-builds"
 src.github_use_latest_release = true
 src.prefix = "v"
-fetch.url = "https://github.com/harborstremio-linux/harbor-linux-builds/releases/download/v$ver/Harbor_v$ver_amd64.deb"
+fetch.url = "https://github.com/harborstremio-linux/harbor-linux-builds/releases/download/v$ver/Harbor_$ver_amd64.deb"
 
 [jackify]
 src.github = "Omni-guides/Jackify"
