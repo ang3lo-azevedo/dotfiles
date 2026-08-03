@@ -9,40 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-system:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up nixbuild SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
-          chmod 600 ~/.ssh/nixbuild_key
-          cat > ~/.ssh/config <<'SSHCFG'
-          Host eu.nixbuild.net
-            IdentityFile ~/.ssh/nixbuild_key
-            PubkeyAcceptedKeyTypes ssh-ed25519
-            ServerAliveInterval 60
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
-          SSHCFG
-          sudo mkdir -p /root/.ssh
-          sudo cp ~/.ssh/nixbuild_key /root/.ssh/
-          sudo cp ~/.ssh/config /root/.ssh/
-          sudo chmod 600 /root/.ssh/nixbuild_key
-
-      - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            accept-flake-config = true
-            builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
-            builders-use-substitutes = true
-
-      - name: Build system
-        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
-
-  lint:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +17,9 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: accept-flake-config = true
+
+      - name: Evaluate system
+        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --dry-run
 
       - name: Lint
         run: nix build .#checks.x86_64-linux.pre-commit-check
