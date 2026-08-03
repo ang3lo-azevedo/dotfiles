@@ -19,13 +19,18 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
           chmod 600 ~/.ssh/nixbuild_key
-          cat >> ~/.ssh/config <<'SSHCFG'
+          cat > ~/.ssh/config <<'SSHCFG'
           Host eu.nixbuild.net
             IdentityFile ~/.ssh/nixbuild_key
             PubkeyAcceptedKeyTypes ssh-ed25519
             ServerAliveInterval 60
-            StrictHostKeyChecking accept-new
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
           SSHCFG
+          sudo mkdir -p /root/.ssh
+          sudo cp ~/.ssh/nixbuild_key /root/.ssh/
+          sudo cp ~/.ssh/config /root/.ssh/
+          sudo chmod 600 /root/.ssh/nixbuild_key
 
       - uses: cachix/install-nix-action@v31
         with:
