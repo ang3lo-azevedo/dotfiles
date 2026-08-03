@@ -64,64 +64,6 @@ jobs:
         run: |
           nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
 
-  build-packages:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        package:
-          - angr-management
-          - archi
-          - nuvio-desktop
-          - registry-spy
-          - rem
-          - dnspy
-          - ctfd-parser
-          - ese-database-view
-          - libesedb
-          - libfsntfs
-          - sidr
-          - scrollmpris
-          - monkeylauncher
-          - nordvpn
-          - linoffice
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up nixbuild SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
-          chmod 600 ~/.ssh/nixbuild_key
-          cat >> ~/.ssh/config <<'SSHCFG'
-          Host eu.nixbuild.net
-            IdentityFile ~/.ssh/nixbuild_key
-            PubkeyAcceptedKeyTypes ssh-ed25519
-            ServerAliveInterval 60
-            StrictHostKeyChecking accept-new
-          SSHCFG
-
-      - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            accept-flake-config = true
-            builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
-            builders-use-substitutes = true
-            max-jobs = 0
-
-      - name: Check if build needed
-        id: check
-        run: |
-          nix build .#packages.x86_64-linux.${{ matrix.package }} \
-            --dry-run 2>&1 | tee dry-run-output
-          grep -q 'will be built' dry-run-output \
-            && echo "needed=true" >> "$GITHUB_OUTPUT" \
-            || echo "needed=false" >> "$GITHUB_OUTPUT"
-
-      - name: Build package
-        if: steps.check.outputs.needed == 'true'
-        run: nix build .#packages.x86_64-linux.${{ matrix.package }}
-
   lint:
     runs-on: ubuntu-latest
     steps:
