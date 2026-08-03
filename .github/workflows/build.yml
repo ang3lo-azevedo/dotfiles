@@ -4,23 +4,15 @@ on:
   push:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build-system:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Free disk space
-        uses: easimon/maximize-build-space@v10
-        with:
-          root-reserve-mb: "1024"
-          swap-size-mb: "1024"
-          remove-dotnet: "true"
-          remove-android: "true"
-          remove-haskell: "true"
-          remove-codeql: "true"
-          remove-docker-images: "true"
-          build-mount-path: "/nix"
 
       - name: Set up nixbuild SSH key
         run: |
@@ -39,30 +31,12 @@ jobs:
         with:
           extra_nix_config: |
             accept-flake-config = true
-            build-dir = /nix/tmp
             builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
             builders-use-substitutes = true
             max-jobs = 0
 
-      - name: Create Nix build temp dir on large filesystem
-        run: |
-          sudo mkdir -p /nix/tmp
-          sudo chmod 1777 /nix/tmp
-          echo "TMPDIR=/nix/tmp" >> "$GITHUB_ENV"
-
-      - name: Check if build needed
-        id: check
-        run: |
-          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel \
-            --dry-run 2>&1 | tee dry-run-output
-          grep -q 'will be built' dry-run-output \
-            && echo "needed=true" >> "$GITHUB_OUTPUT" \
-            || echo "needed=false" >> "$GITHUB_OUTPUT"
-
       - name: Build system
-        if: steps.check.outputs.needed == 'true'
-        run: |
-          nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
+        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
 
   lint:
     runs-on: ubuntu-latest
