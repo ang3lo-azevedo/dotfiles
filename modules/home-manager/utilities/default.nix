@@ -40,7 +40,7 @@
       echo "Updating all inputs..."
       nix flake update "$@"
       echo "Pinning nixpkgs to channel commit to guarantee cache hits..."
-      nix flake lock --update-input nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
+      nix flake update nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
     '';
   };
 in {
