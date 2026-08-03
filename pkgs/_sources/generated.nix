@@ -83,8 +83,8 @@
     pname = "harbor";
     version = "0.9.21";
     src = fetchurl {
-      url = "https://github.com/AdityaHebballe/harbor-linux-builds/releases/download/V0.9.21/Harbor_0.9.21_amd64.deb";
-      sha256 = "sha256-cqtu5ZIYSxrez/05oEnnOVFOWOZMOYN/vutWX0Izi1U=";
+      url = "https://github.com/harborstremio-linux/harbor-linux-builds/releases/download/v0.9.21/Harbor_v0.9.21_amd64.deb";
+      sha256 = "sha256-0gcik1i344l7cypai41q4j3dqjl883s2qfsfwbx0h38nzq2fwx4g=";
     };
   };
   ida-chat-plugin = {
