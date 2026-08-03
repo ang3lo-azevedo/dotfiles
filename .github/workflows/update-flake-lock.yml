@@ -1,26 +1,55 @@
 name: update-flake-lock
 on:
-  workflow_dispatch: # allows manual triggering
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # runs daily at 00:00
+    - cron: '0 3 * * *'
 
 jobs:
-  lockfile:
+  update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        run: nix flake update --accept-flake-config
+
+      - name: Set up nixbuild SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
+          chmod 600 ~/.ssh/nixbuild_key
+          cat > ~/.ssh/config <<'SSHCFG'
+          Host eu.nixbuild.net
+            IdentityFile ~/.ssh/nixbuild_key
+            PubkeyAcceptedKeyTypes ssh-ed25519
+            ServerAliveInterval 60
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          SSHCFG
+          sudo mkdir -p /root/.ssh
+          sudo cp ~/.ssh/nixbuild_key /root/.ssh/
+          sudo cp ~/.ssh/config /root/.ssh/
+          sudo chmod 600 /root/.ssh/nixbuild_key
+
+      - uses: cachix/install-nix-action@v31
         with:
-          pr-title: "chore: update flake.lock"
-          pr-labels: |
-            dependencies
-            automated
+          extra_nix_config: |
+            accept-flake-config = true
+            builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
+            builders-use-substitutes = true
+            max-jobs = 0
+
+      - name: Build system closure
+        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --no-link
+
+      - name: Commit updated lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git diff --staged --quiet || git commit -m "chore: update flake.lock"
+          git push
