@@ -1,4 +1,25 @@
 {
+    "analyzeMFT": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "analyzeMFT",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "rowingdude",
+            "repo": "analyzeMFT",
+            "rev": "v3.1.1.0",
+            "sha256": "sha256-piCH88uQaRt3U1g+hfkBL1wVrN5C9v1sXVaAV6YQioo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.1.1.0"
+    },
     "angr-management": {
         "cargoLock": null,
         "date": null,
@@ -8,11 +29,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-atJlpnqOD2ZJjI46oihZ10boV6BnJjTn5ZFf8YozdGU=",
+            "sha256": "sha256-o2sLSlix27vcA7AYG6iaUeuV/sDcUunob5aEIRlqD+w=",
             "type": "url",
-            "url": "https://github.com/angr/angr-management/releases/download/v9.3.0/angr-management-v9.3.0-x86_64.AppImage"
+            "url": "https://github.com/angr/angr-management/releases/download/v9.3.1/angr-management-v9.3.1-x86_64.AppImage"
         },
-        "version": "v9.3.0"
+        "version": "v9.3.1"
     },
     "apk-mitm": {
         "cargoLock": null,
@@ -182,11 +203,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EpRh4DcjNpbJ9zlizEGbIpUNB/vtIGPNRUcaGon/h38=",
+            "sha256": "sha256-gAQYSQstQ7WJSPbNi8FmjzAG/wXzf6y702Y0Fr3CuaI=",
             "type": "url",
-            "url": "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2/Jackify.AppImage"
+            "url": "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2.1/Jackify.AppImage"
         },
-        "version": "0.7.2"
+        "version": "0.7.2.1"
     },
     "libesedb": {
         "cargoLock": null,
@@ -210,7 +231,7 @@
     },
     "libfsntfs": {
         "cargoLock": null,
-        "date": "2026-06-26",
+        "date": "2026-07-27",
         "extract": null,
         "name": "libfsntfs",
         "passthru": null,
@@ -220,13 +241,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9",
-            "sha256": "sha256-Q7e1l21asDiAI9PLcwFZktkf6PTxkXLFIeCZbkSNPQ0=",
+            "rev": "2eccb7a4356e919d50bb7f8956a683131141f0d3",
+            "sha256": "sha256-ZqM0OR5pBGEiqBs6NfwNZG6TAIDZXV1j5pHMpCMLQdM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/libyal/libfsntfs.git"
         },
-        "version": "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9"
+        "version": "2eccb7a4356e919d50bb7f8956a683131141f0d3"
     },
     "linoffice": {
         "cargoLock": null,
@@ -419,12 +440,12 @@
             "name": null,
             "owner": "Midrags",
             "repo": "SFF",
-            "rev": "v6.4.1",
-            "sha256": "sha256-Zqo0QAT9/DvDjj0FwFsCOr+47gSjpGtYFc8u3MZ9JF4=",
+            "rev": "v6.5.9",
+            "sha256": "sha256-dl/MxBwhkzdwn+N5SFsctLkVceyeIJ36VZpBxTsFzDo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.4.1"
+        "version": "v6.5.9"
     },
     "stremio-enhanced": {
         "cargoLock": null,

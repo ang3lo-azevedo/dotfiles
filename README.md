@@ -40,6 +40,17 @@ cd ~/nix-config
 sudo nixos-rebuild switch --flake .#pc-angelo
 ```
 
+## Distributed Builds (nixbuild.net)
+
+This config offloads heavy compilation to [nixbuild.net](https://nixbuild.net) and pushes results directly to Cachix for instant pulls across machines.
+
+```bash
+# Update deps + rebuild (aliased as 'u')
+u
+```
+
+The `u` alias runs nvfetcher, updates the flake lock, checks binary cache availability, then rebuilds via nixbuild. No local compilation — nixbuild compiles and uploads to Cachix automatically.
+
 ---
 
 <div align="center">
