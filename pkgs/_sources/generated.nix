@@ -6,12 +6,23 @@
   dockerTools,
 }:
 {
+  analyzeMFT = {
+    pname = "analyzeMFT";
+    version = "v3.1.1.0";
+    src = fetchFromGitHub {
+      owner = "rowingdude";
+      repo = "analyzeMFT";
+      rev = "v3.1.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-piCH88uQaRt3U1g+hfkBL1wVrN5C9v1sXVaAV6YQioo=";
+    };
+  };
   angr-management = {
     pname = "angr-management";
-    version = "v9.3.0";
+    version = "v9.3.1";
     src = fetchurl {
-      url = "https://github.com/angr/angr-management/releases/download/v9.3.0/angr-management-v9.3.0-x86_64.AppImage";
-      sha256 = "sha256-atJlpnqOD2ZJjI46oihZ10boV6BnJjTn5ZFf8YozdGU=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.3.1/angr-management-v9.3.1-x86_64.AppImage";
+      sha256 = "sha256-o2sLSlix27vcA7AYG6iaUeuV/sDcUunob5aEIRlqD+w=";
     };
   };
   apk-mitm = {
@@ -101,10 +112,10 @@
   };
   jackify = {
     pname = "jackify";
-    version = "0.7.2";
+    version = "0.7.2.1";
     src = fetchurl {
-      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2/Jackify.AppImage";
-      sha256 = "sha256-EpRh4DcjNpbJ9zlizEGbIpUNB/vtIGPNRUcaGon/h38=";
+      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2.1/Jackify.AppImage";
+      sha256 = "sha256-gAQYSQstQ7WJSPbNi8FmjzAG/wXzf6y702Y0Fr3CuaI=";
     };
   };
   libesedb = {
@@ -123,17 +134,17 @@
   };
   libfsntfs = {
     pname = "libfsntfs";
-    version = "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9";
+    version = "2eccb7a4356e919d50bb7f8956a683131141f0d3";
     src = fetchgit {
       url = "https://github.com/libyal/libfsntfs.git";
-      rev = "ff95361c7812ee43bb6503fdd6d0c4b7958db3b9";
+      rev = "2eccb7a4356e919d50bb7f8956a683131141f0d3";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-Q7e1l21asDiAI9PLcwFZktkf6PTxkXLFIeCZbkSNPQ0=";
+      sha256 = "sha256-ZqM0OR5pBGEiqBs6NfwNZG6TAIDZXV1j5pHMpCMLQdM=";
     };
-    date = "2026-06-26";
+    date = "2026-07-27";
   };
   linoffice = {
     pname = "linoffice";
@@ -233,13 +244,13 @@
   };
   steamidra = {
     pname = "steamidra";
-    version = "v6.4.1";
+    version = "v6.5.9";
     src = fetchFromGitHub {
       owner = "Midrags";
       repo = "SFF";
-      rev = "v6.4.1";
+      rev = "v6.5.9";
       fetchSubmodules = false;
-      sha256 = "sha256-Zqo0QAT9/DvDjj0FwFsCOr+47gSjpGtYFc8u3MZ9JF4=";
+      sha256 = "sha256-dl/MxBwhkzdwn+N5SFsctLkVceyeIJ36VZpBxTsFzDo=";
     };
   };
   stremio-enhanced = {
@@ -270,17 +281,6 @@
       rev = "v2.1.1";
       fetchSubmodules = false;
       sha256 = "sha256-2HdfpF1DCn95HsArcvAeuWh5FNwjj9LxwJ/nlosHBmk=";
-    };
-  };
-  analyzeMFT = {
-    pname = "analyzeMFT";
-    version = "3.1.1";
-    src = fetchFromGitHub {
-      owner = "rowingdude";
-      repo = "analyzeMFT";
-      rev = "d82bc980af51ba57dd3fdad80b4ee5be93d29729";
-      fetchSubmodules = false;
-      sha256 = "sha256-piCH88uQaRt3U1g+hfkBL1wVrN5C9v1sXVaAV6YQioo=";
     };
   };
 }
