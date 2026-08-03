@@ -38,7 +38,6 @@ jobs:
             accept-flake-config = true
             builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
             builders-use-substitutes = true
-            max-jobs = 0
 
       - name: Build system
         run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel
