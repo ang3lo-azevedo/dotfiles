@@ -41,7 +41,7 @@
           makeMobileVideoQuestsDesktopCompatible = true;
           resumeInterruptedQuests = true;
         };
-        spotifyActivityToggle.enable = true;
+        #spotifyActivityToggle.enable = true;
         spotifyCrack = {
           enable = true;
           noSpotifyAutoPause = false;
