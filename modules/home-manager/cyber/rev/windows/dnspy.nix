@@ -4,6 +4,6 @@
   ...
 }: {
   home.packages = [
-    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.dnspy
+    inputs.self.packages.${pkgs.unstable.stdenv.hostPlatform.system}.dnspy
   ];
 }

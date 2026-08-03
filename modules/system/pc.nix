@@ -36,6 +36,10 @@
     packages = with pkgs; [terminus_font];
   };
 
+  environment.systemPackages = with pkgs; [
+    so-crates
+  ];
+
   # Define a user account. Don't forget to set a password with 'passwd'.
   users = {
     mutableUsers = false;

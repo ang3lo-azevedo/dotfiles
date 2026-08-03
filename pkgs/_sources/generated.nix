@@ -101,10 +101,10 @@
   };
   jackify = {
     pname = "jackify";
-    version = "0.7.1.1";
+    version = "0.7.2";
     src = fetchurl {
-      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.1.1/Jackify.AppImage";
-      sha256 = "sha256-6z+Su8VYBnDWl7A+K8DiRQeuWtXxNf/nXOjv5yXCcQE=";
+      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2/Jackify.AppImage";
+      sha256 = "sha256-EpRh4DcjNpbJ9zlizEGbIpUNB/vtIGPNRUcaGon/h38=";
     };
   };
   libesedb = {
@@ -270,6 +270,17 @@
       rev = "v2.1.1";
       fetchSubmodules = false;
       sha256 = "sha256-2HdfpF1DCn95HsArcvAeuWh5FNwjj9LxwJ/nlosHBmk=";
+    };
+  };
+  analyzeMFT = {
+    pname = "analyzeMFT";
+    version = "3.1.1";
+    src = fetchFromGitHub {
+      owner = "rowingdude";
+      repo = "analyzeMFT";
+      rev = "d82bc980af51ba57dd3fdad80b4ee5be93d29729";
+      fetchSubmodules = false;
+      sha256 = "sha256-piCH88uQaRt3U1g+hfkBL1wVrN5C9v1sXVaAV6YQioo=";
     };
   };
 }

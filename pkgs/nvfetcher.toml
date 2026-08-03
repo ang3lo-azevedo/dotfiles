@@ -113,3 +113,7 @@ fetch.url = "https://github.com/Omni-guides/Jackify/releases/download/v$ver/Jack
 [steamidra]
 src.github = "Midrags/SFF"
 fetch.github = "Midrags/SFF"
+
+[analyzeMFT]
+src.github = "rowingdude/analyzeMFT"
+fetch.github = "rowingdude/analyzeMFT"

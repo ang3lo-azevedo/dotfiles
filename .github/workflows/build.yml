@@ -34,11 +34,6 @@ jobs:
           sudo chmod 1777 /nix/tmp
           echo "TMPDIR=/nix/tmp" >> "$GITHUB_ENV"
 
-      - uses: cachix/cachix-action@v15
-        with:
-          name: ang3lo
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
       - name: Check if build needed
         id: check
         run: |
@@ -81,11 +76,6 @@ jobs:
         with:
           extra_nix_config: accept-flake-config = true
 
-      - uses: cachix/cachix-action@v15
-        with:
-          name: ang3lo
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-
       - name: Check if build needed
         id: check
         run: |
@@ -107,11 +97,6 @@ jobs:
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: accept-flake-config = true
-
-      - uses: cachix/cachix-action@v15
-        with:
-          name: ang3lo
-          skipPush: true
 
       - name: Lint
         run: nix build .#checks.x86_64-linux.pre-commit-check
