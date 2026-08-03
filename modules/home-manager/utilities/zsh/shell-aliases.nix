@@ -19,8 +19,8 @@ in {
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
-    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake ~/nix-config#pc-angelo -L --keep-going && nix path-info --recursive /run/current-system | cachix push ang3lo";
-    hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake ~/nix-config#ang3lo";
+    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake ~/nix-config#pc-angelo -L --keep-going --max-jobs 0";
+    hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake ~/nix-config#ang3lo --max-jobs 0";
     nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && update-flake --accept-flake-config)";
     upgrade = "sudo -v && update && _cache-check && rebuild";
