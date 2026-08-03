@@ -23,7 +23,7 @@ in {
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake ~/nix-config#ang3lo --max-jobs 0";
     nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
     update = "(cd ~/nix-config && nvfetcher && update-flake --accept-flake-config)";
-    upgrade = "sudo -v && nvfetcher && rebuild";
+    upgrade = "sudo -v && git -C ~/nix-config pull && nvfetcher && rebuild";
     u = "upgrade";
     rb = "rebuild";
 
