@@ -12,7 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: nixbuild/nix-quick-install-action@v35
+
+      - uses: nixbuild/nixbuild-action@v25
+        with:
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
       - name: Update flake.lock
         run: nix flake update --accept-flake-config
@@ -20,36 +24,10 @@ jobs:
       - name: Update custom packages
         run: nix run nixpkgs#nvfetcher -- -c pkgs/nvfetcher.toml -o pkgs/_sources
 
-      - name: Set up nixbuild SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
-          chmod 600 ~/.ssh/nixbuild_key
-          cat > ~/.ssh/config <<'SSHCFG'
-          Host eu.nixbuild.net
-            IdentityFile ~/.ssh/nixbuild_key
-            PubkeyAcceptedKeyTypes ssh-ed25519
-            ServerAliveInterval 60
-            StrictHostKeyChecking no
-            UserKnownHostsFile /dev/null
-          SSHCFG
-          sudo mkdir -p /root/.ssh
-          sudo cp ~/.ssh/nixbuild_key /root/.ssh/
-          sudo cp ~/.ssh/config /root/.ssh/
-          sudo chmod 600 /root/.ssh/nixbuild_key
-
-      - uses: cachix/install-nix-action@v31
-        with:
-          extra_nix_config: |
-            accept-flake-config = true
-            builders = ssh-ng://eu.nixbuild.net?system=x86_64-linux&max-jobs=100&supported-features=benchmark,big-parallel
-            builders-use-substitutes = true
-            max-jobs = 0
-
       - name: Build system closure
-        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --no-link
+        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --no-link --print-build-logs
 
-      - name: Commit updated lock
+      - name: Commit updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
