@@ -40,7 +40,7 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             build-dir = /nix/tmp
-            builders = ssh-ng://eu.nixbuild.net x86_64-linux - 100 benchmark,big-parallel
+            builders = ssh-ng://eu.nixbuild.net x86_64-linux 100 benchmark,big-parallel
             builders-use-substitutes = true
             max-jobs = 0
 
@@ -105,7 +105,7 @@ jobs:
         with:
           extra_nix_config: |
             accept-flake-config = true
-            builders = ssh-ng://eu.nixbuild.net x86_64-linux - 100 benchmark,big-parallel
+            builders = ssh-ng://eu.nixbuild.net x86_64-linux 100 benchmark,big-parallel
             builders-use-substitutes = true
             max-jobs = 0
 
