@@ -22,11 +22,27 @@ jobs:
           remove-docker-images: "true"
           build-mount-path: "/nix"
 
+      - name: Set up nixbuild SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
+          chmod 600 ~/.ssh/nixbuild_key
+          cat >> ~/.ssh/config <<'SSHCFG'
+          Host eu.nixbuild.net
+            IdentityFile ~/.ssh/nixbuild_key
+            PubkeyAcceptedKeyTypes ssh-ed25519
+            ServerAliveInterval 60
+            StrictHostKeyChecking accept-new
+          SSHCFG
+
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             accept-flake-config = true
             build-dir = /nix/tmp
+            builders = ssh-ng://eu.nixbuild.net x86_64-linux - 100 benchmark,big-parallel
+            builders-use-substitutes = true
+            max-jobs = 0
 
       - name: Create Nix build temp dir on large filesystem
         run: |
@@ -72,9 +88,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up nixbuild SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NIXBUILD_KEY }}" > ~/.ssh/nixbuild_key
+          chmod 600 ~/.ssh/nixbuild_key
+          cat >> ~/.ssh/config <<'SSHCFG'
+          Host eu.nixbuild.net
+            IdentityFile ~/.ssh/nixbuild_key
+            PubkeyAcceptedKeyTypes ssh-ed25519
+            ServerAliveInterval 60
+            StrictHostKeyChecking accept-new
+          SSHCFG
+
       - uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: accept-flake-config = true
+          extra_nix_config: |
+            accept-flake-config = true
+            builders = ssh-ng://eu.nixbuild.net x86_64-linux - 100 benchmark,big-parallel
+            builders-use-substitutes = true
+            max-jobs = 0
 
       - name: Check if build needed
         id: check
