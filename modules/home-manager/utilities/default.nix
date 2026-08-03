@@ -16,7 +16,7 @@
 
       if [[ -n "$channel_rev" ]]; then
         echo "Pinning nixpkgs to $channel_rev (max cache hits)..."
-        nix flake update nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
+        nix flake lock --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$FLAKE_DIR"
       fi
     '';
   };
