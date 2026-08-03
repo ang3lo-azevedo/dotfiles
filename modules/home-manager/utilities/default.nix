@@ -1,7 +1,4 @@
 {pkgs, ...}: let
-  # update-flake wraps `nix flake update` with a Hydra build-status check.
-  # Updating while Hydra still has pending builds means many closures will not
-  # be in the binary cache yet, forcing expensive local compilations.
   update-flake = pkgs.writeShellApplication {
     name = "update-flake";
     runtimeInputs = [
@@ -11,36 +8,16 @@
     text = ''
       FLAKE_DIR="''${FLAKE_DIR:-.}"
 
-      # Auto-detect the nixpkgs channel from flake.nix to match what the config uses
       NIXPKGS_REF=$(grep -A1 'nixpkgs\s*=' "$FLAKE_DIR/flake.nix" | grep -oP 'nixos-[^"#/]+' || true)
       NIXPKGS_REF="''${NIXPKGS_REF:-nixos-unstable}"
-      CHANNEL="https://channels.nixos.org/$NIXPKGS_REF"
+      channel_rev=$(curl -sI "https://channels.nixos.org/$NIXPKGS_REF" | grep -i "^location:" | tr -d '\r' | awk '{print $2}' | grep -oE '[a-f0-9]{12}$')
 
-      echo "Detected nixpkgs channel: $NIXPKGS_REF"
-      echo "Checking channel status..."
-      if ! location=$(curl -sI "$CHANNEL" | grep -i "^location:" | tr -d '\r' | awk '{print $2}'); then
-        echo "Warning: could not reach channels.nixos.org. Update anyway? [y/N]"
-        read -r ans
-        [[ "$ans" =~ ^[Yy]$ ]] || exit 0
-        nix flake update "$@"
-        exit 0
-      fi
-
-      # URL format: https://releases.nixos.org/nixos/.../nixos-26.11pre1022855.e73de5be04e0
-      channel_rev=$(echo "$location" | grep -oE '[a-f0-9]{12}$')
-      if [[ -z "$channel_rev" ]]; then
-        echo "Warning: could not parse channel commit from: $location. Update anyway? [y/N]"
-        read -r ans
-        [[ "$ans" =~ ^[Yy]$ ]] || exit 0
-        nix flake update "$@"
-        exit 0
-      fi
-
-      echo "Channel commit: $channel_rev (binary cache is ready)"
-      echo "Updating all inputs..."
       nix flake update "$@"
-      echo "Pinning nixpkgs to channel commit to guarantee cache hits..."
-      nix flake update nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
+
+      if [[ -n "$channel_rev" ]]; then
+        echo "Pinning nixpkgs to $channel_rev (max cache hits)..."
+        nix flake update nixpkgs --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$@"
+      fi
     '';
   };
 in {
