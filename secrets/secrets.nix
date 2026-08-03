@@ -18,4 +18,5 @@ in {
   "rclone.conf.age".publicKeys = usersAndSystems;
   "restic_password.age".publicKeys = usersAndSystems;
   "nextcloud_caldav.age".publicKeys = usersAndSystems;
+  "nixbuild_key.age".publicKeys = usersAndSystems;
 }

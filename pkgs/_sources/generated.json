@@ -182,11 +182,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6z+Su8VYBnDWl7A+K8DiRQeuWtXxNf/nXOjv5yXCcQE=",
+            "sha256": "sha256-EpRh4DcjNpbJ9zlizEGbIpUNB/vtIGPNRUcaGon/h38=",
             "type": "url",
-            "url": "https://github.com/Omni-guides/Jackify/releases/download/v0.7.1.1/Jackify.AppImage"
+            "url": "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2/Jackify.AppImage"
         },
-        "version": "0.7.1.1"
+        "version": "0.7.2"
     },
     "libesedb": {
         "cargoLock": null,

@@ -40,10 +40,10 @@
     # max-jobs = auto means one build job per logical CPU.
     max-jobs = "auto";
     cores = 0;
-    # Keep build outputs on failure so you can inspect what went wrong.
-    keep-failed = true;
     # Fetch substitutions in parallel while building.
     http-connections = 128;
+    # cache.nixos.org often has HTTP/2 framing issues causing retries.
+    http2 = false;
     # Use hard links in the store to save disk space during builds.
     keep-outputs = true;
   };

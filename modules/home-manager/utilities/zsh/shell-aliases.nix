@@ -14,7 +14,7 @@ in {
     la = "eza -la";
     ls = "eza";
     cat = "bat";
-    y = "yazi";
+    y = "superfile";
     code = "$EDITOR";
 
     # NixOS related aliases
@@ -56,6 +56,27 @@ in {
       total=$(echo "$to_build" | wc -l | tr -d ' ')
       print -P "%F{yellow}$total package(s) will be compiled locally (heavy: ''${(j:, :)found}).%f"
       print -P "%F{yellow}Cache may not be populated yet — this could take hours.%f"
+
+      local prev_rev=""
+      if ! git -C ~/nix-config diff --quiet -- flake.lock 2>/dev/null; then
+        prev_rev=$(git -C ~/nix-config show HEAD:flake.lock 2>/dev/null | jq -r '.nodes.nixpkgs.locked.rev // empty')
+      fi
+
+      if [[ -n "$prev_rev" ]]; then
+        read -rk1 "?Proceed anyway, revert nixpkgs to last cached commit, or abort? [y/r/N] "
+        echo
+        case "$REPLY" in
+          [yY]) return 0 ;;
+          [rR])
+            print -P "%F{cyan}:: Reverting nixpkgs to previously locked commit $prev_rev...%f"
+            nix flake lock --override-input nixpkgs "github:NixOS/nixpkgs/$prev_rev" ~/nix-config
+            _cache-check
+            return $?
+            ;;
+          *) return 1 ;;
+        esac
+      fi
+
       read -rk1 "?Proceed anyway? [y/N] "
       echo
       [[ "$REPLY" == [yY] ]]

@@ -4,11 +4,20 @@
   # be in the binary cache yet, forcing expensive local compilations.
   update-flake = pkgs.writeShellApplication {
     name = "update-flake";
-    runtimeInputs = [pkgs.curl pkgs.nix];
+    runtimeInputs = [
+      pkgs.curl
+      pkgs.nix
+    ];
     text = ''
-      CHANNEL="https://channels.nixos.org/nixos-unstable"
+      FLAKE_DIR="''${FLAKE_DIR:-.}"
 
-      echo "Checking nixos-unstable channel status..."
+      # Auto-detect the nixpkgs channel from flake.nix to match what the config uses
+      NIXPKGS_REF=$(grep -A1 'nixpkgs\s*=' "$FLAKE_DIR/flake.nix" | grep -oP 'nixos-[^"#/]+' || true)
+      NIXPKGS_REF="''${NIXPKGS_REF:-nixos-unstable}"
+      CHANNEL="https://channels.nixos.org/$NIXPKGS_REF"
+
+      echo "Detected nixpkgs channel: $NIXPKGS_REF"
+      echo "Checking channel status..."
       if ! location=$(curl -sI "$CHANNEL" | grep -i "^location:" | tr -d '\r' | awk '{print $2}'); then
         echo "Warning: could not reach channels.nixos.org. Update anyway? [y/N]"
         read -r ans
@@ -17,7 +26,7 @@
         exit 0
       fi
 
-      # URL format: https://releases.nixos.org/nixos/unstable/nixos-26.11pre1022855.e73de5be04e0
+      # URL format: https://releases.nixos.org/nixos/.../nixos-26.11pre1022855.e73de5be04e0
       channel_rev=$(echo "$location" | grep -oE '[a-f0-9]{12}$')
       if [[ -z "$channel_rev" ]]; then
         echo "Warning: could not parse channel commit from: $location. Update anyway? [y/N]"
@@ -36,7 +45,9 @@
   };
 in {
   home.packages =
-    [pkgs._7zz]
+    [
+      pkgs._7zz
+    ]
     ++ (with pkgs; [
       cachix
       jq
@@ -61,7 +72,8 @@ in {
     ./nautilus.nix
     ./network-manager-applet.nix
     #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
-    ./yazi.nix
+    #./yazi.nix
+    ./superfile.nix
     ./ncdu.nix
     ./universal-android-debloater.nix
     ./kdeconnect.nix
@@ -74,9 +86,10 @@ in {
     ./libreoffice.nix
     ./bambu-studio.nix
     #./freecad.nix
-    ./autodesk-fusion.nix
+    #./autodesk-fusion.nix
 
     ./zapzap.nix
+    ./betterbird.nix
     ./restic-browser.nix
     ./ventoy.nix
     ./calendar.nix

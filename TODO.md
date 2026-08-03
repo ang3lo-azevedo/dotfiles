@@ -23,8 +23,10 @@
 
 
 ## General Stuff
-
-- [ ] Add this https://github.com/Midrags/SFF
+- [x] Change yazi to https://github.com/yorukot/superfile
+- [x] Add this https://github.com/fortra/impacket and nmap and https://github.com/Yamato-Security/hayabusa and https://github.com/WithSecureLabs/chainsaw
+- [x] Add this https://github.com/rowingdude/analyzeMFT
+- [x] Add this https://github.com/Midrags/SFF
 - [x] Fix jackify
 - [ ] Add fingerswiping to niri
 - [ ] Add this https://github.com/blarns/NuvioForLinux

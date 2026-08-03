@@ -15,6 +15,9 @@
     discord = {
       vencord.enable = false;
       equicord.enable = true;
+      commandLineArgs = [
+        "--disable-gpu"
+      ];
     };
     config = {
       autoUpdate = true;
@@ -56,7 +59,6 @@
         summaries.enable = true;
         splitLargeMessages = {
           enable = true;
-          disableFileConversion = true;
         };
         previewMessage.enable = true;
         noMiddleClickPaste.enable = true;
