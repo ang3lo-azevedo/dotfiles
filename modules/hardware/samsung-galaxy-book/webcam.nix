@@ -7,6 +7,7 @@
 
   hardware.samsungGalaxyBook.webcamFixBook5 = {
     enable = false;
+
     # Must be inputs.nixpkgs.legacyPackages, NOT pkgs. The `pkgs` argument is
     # already the overlaid fixed-point, so pkgs.pipewire is the same patched
     # version that causes the cascade. Only a fresh legacyPackages evaluation

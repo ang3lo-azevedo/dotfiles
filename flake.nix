@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs = {
+      url = "github:NixOS/nixpkgs/753cc8a3a87467296ddd1fa93f0cc3e81120ee46";
+    };
+
+    nixpkgs-unstable = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
@@ -172,7 +176,7 @@
     # Pwndbg
     pwndbg = {
       url = "github:pwndbg/pwndbg";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # For IDA Pro
@@ -317,6 +321,7 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     disko,
     agenix,
     home-manager,
@@ -412,6 +417,16 @@
             };
             overlays = [
               nix-cachyos-kernel.overlays.pinned
+              (_: prev: {
+                unstable = import nixpkgs-unstable {
+                  system = prev.stdenv.hostPlatform.system;
+                  config = {
+                    allowUnfree = true;
+                    allowBroken = true;
+                    permittedInsecurePackages = prev.config.permittedInsecurePackages or [];
+                  };
+                };
+              })
               (import ./overlays/python-packages.nix)
               inputs.firefox-addons.overlays.default
               (import ./overlays/firefox-addons.nix)
@@ -457,6 +472,7 @@
                 glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
                 xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
                 nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
+                so-crates = prev.callPackage (inputs.self + "/pkgs/so-crates/default.nix") {};
                 angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
                   src = inputs.angr-management;
                 };
@@ -478,8 +494,10 @@
                 sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
                 monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
                 linoffice = prev.callPackage (inputs.self + "/pkgs/linoffice/default.nix") {};
+                betterbird = prev.callPackage (inputs.self + "/pkgs/betterbird/default.nix") {};
                 proton-cachyos-linuwux = prev.callPackage (inputs.self + "/pkgs/proton-linuwux/default.nix") {};
                 steamidra = prev.callPackage (inputs.self + "/pkgs/steamidra/default.nix") {};
+                analyzeMFT = prev.callPackage (inputs.self + "/pkgs/analyzeMFT/default.nix") {};
               })
             ];
           };
@@ -572,6 +590,7 @@
         src = inputs.autodesk-fusion;
       };
       nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
+      so-crates = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/so-crates/default.nix {};
       linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
       ist-fenix-auto-enroller = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ist-fenix-auto-enroller/default.nix {
         src = inputs.ist-fenix-auto-enroller;
@@ -579,6 +598,8 @@
       harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
       proton-cachyos-linuwux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/proton-linuwux/default.nix {};
       steamidra = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/steamidra/default.nix {};
+      betterbird = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/betterbird/default.nix {};
+      analyzeMFT = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/analyzeMFT/default.nix {};
     };
 
     # Pre-commit checks

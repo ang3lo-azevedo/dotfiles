@@ -37,6 +37,7 @@ in {
     "${inputs.self}/modules/system"
     "${inputs.self}/modules/system/pc.nix"
     "${inputs.self}/modules/system/impermanence.nix"
+    "${inputs.self}/modules/system/nixbuild"
   ];
 
   time.hardwareClockInLocalTime = true;
@@ -84,6 +85,13 @@ in {
         userSecretConfig
         // {
           file = inputs.self + "/secrets/nix-access-tokens.age";
+        };
+
+      nixbuild_key =
+        userSecretConfig
+        // {
+          file = inputs.self + "/secrets/nixbuild_key.age";
+          mode = "0400";
         };
 
       git_config =
