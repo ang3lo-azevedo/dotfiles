@@ -73,6 +73,8 @@
 
 ## Other Stuff
 
+- [ ] Add so-crates
+- [ ] Fix when laptop is closed bluetooth and wifi are stopped
 - [ ] See best AI local module to have
 - [ ] Improve wiki maybe do a website mainly about the packages
 - [ ] See about the niri stuff https://github.com/calico32/nirilayout https://github.com/stepbrobd/nirimon https://github.com/stefonarch/niri-settings https://github.com/srinivasr/nirimod https://github.com/niri-wm/awesome-niri

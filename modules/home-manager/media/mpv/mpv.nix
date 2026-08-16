@@ -12,9 +12,19 @@
     in
       name != ".vscode" && name != ".git" && name != ".gitignore";
   };
+  # Wrap mpv to disable MangoHud which crashes on dynamic vkCreateDevice
+  mpv-wrapped = pkgs.symlinkJoin {
+    name = "mpv";
+    paths = [(pkgs.mpv.override {mpv-unwrapped = pkgs.mpv-unwrapped.override {vapoursynthSupport = true;};})];
+    buildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/mpv \
+        --set MANGOHUD 0
+    '';
+  };
 in {
   home.packages = [
-    (pkgs.mpv.override {mpv-unwrapped = pkgs.mpv-unwrapped.override {vapoursynthSupport = true;};})
+    mpv-wrapped
     pkgs.mpv-handler
     pkgs.vapoursynth
     pkgs.vapoursynth-mvtools
