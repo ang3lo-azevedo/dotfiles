@@ -4,7 +4,6 @@
   makeWrapper,
   python3,
   callPackage,
-  dotnetCorePackages,
   p7zip,
 }: let
   sources = callPackage ../_sources/generated.nix {};
@@ -131,13 +130,13 @@ in
                         makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
                           --add-flags "$out/share/steamidra/Main_gui.py" \
                           --prefix PYTHONPATH : $out/share/steamidra \
-                          --prefix PATH : ${lib.makeBinPath [dotnetCorePackages.sdk_9_0 p7zip]} \
+                          --prefix PATH : ${lib.makeBinPath [p7zip]} \
                           --set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION python
 
                         makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra-cli \
                           --add-flags "$out/share/steamidra/Main.py" \
                           --prefix PYTHONPATH : $out/share/steamidra \
-                          --prefix PATH : ${lib.makeBinPath [dotnetCorePackages.sdk_9_0 p7zip]} \
+                          --prefix PATH : ${lib.makeBinPath [p7zip]} \
                           --set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION python
 
                         cp $out/share/steamidra/SFF.png $out/share/icons/hicolor/256x256/apps/steamidra.png
