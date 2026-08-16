@@ -18,7 +18,8 @@
               -g "3,LR,*,*,${pkgs.niri}/bin/niri msg action focus-column-left" \
               -g "3,DU,*,*,${pkgs.niri}/bin/niri msg action focus-workspace-down" \
               -g "3,UD,*,*,${pkgs.niri}/bin/niri msg action focus-workspace-up" \
-              -g "4,DU,*,*,${pkgs.niri}/bin/niri msg action toggle-overview"
+              -g "4,DU,*,*,${pkgs.niri}/bin/niri msg action toggle-overview" \
+              -g "4,UD,*,*,${pkgs.niri}/bin/niri msg action close-window"
           else
             echo "Touchscreen not found!"
             exit 1

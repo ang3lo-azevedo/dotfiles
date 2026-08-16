@@ -1180,11 +1180,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1786844688,
-        "narHash": "sha256-hL+hWFNfCMtzlk5hXnY9dEJwDXYpA+xLFgZPhQQo+tQ=",
+        "lastModified": 1786911725,
+        "narHash": "sha256-S2GT+JNI0DR5a3bz/O5bn6ytRG8mk+oF6ECHnCAW6Qw=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "8d5286a88ab7c89616953ff738f106eccd008ed2",
+        "rev": "42e31b05e9650ef3b4e232c084816ae5eb289b81",
         "type": "github"
       },
       "original": {
