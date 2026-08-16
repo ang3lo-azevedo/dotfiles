@@ -24,11 +24,9 @@
 
 ## General Stuff
 - [ ] Fix meta r no opening superfile and fix its theme
-- [ ] Fix Zen Browser black theme
 - [ ] Fix nuvio desktop
 - [ ] Change yazi to https://github.com/yorukot/superfile
 - [ ] Fix steamidra
-- [ ] Fix jackify
 - [ ] Add fingerswiping to niri
 - [ ] Add mpv slide to inscrease brightness
 - [ ] Add https://github.com/ZzEdovec/onlinefix-linux
