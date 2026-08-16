@@ -117,11 +117,11 @@
   # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
-  # (dnscrypt-proxy), which caches aggressively — no per-query overhead after warmup.
+  # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
   "network.dns.use_https_rr_as_altsvc" = true;
   # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
   # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
-  # and HTTPS record queries go cold to Quad9 on every new domain — causing 20 s+ loads.
+  # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
   # Mode 0 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
   "network.trr.mode" = 0;
   # Fetches full page resources before the user navigates: real content leak to third-party servers.
@@ -240,17 +240,16 @@
 
   # Granular fingerprint protection suite: spoofs canvas, WebGL, AudioContext,
   # screen size, CPU, device memory, timezone, UA, and color scheme.
-  # Replaces the legacy privacy.resistFingerprinting — supports per-target overrides.
+  # Replaces the legacy privacy.resistFingerprinting (supports per-target overrides).
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
   "privacy.fingerprintingProtection" = true;
-  # Explicitly disable the legacy RFP — it can linger in prefs.js from old configs and
-  # overrides everything above, including per-target overrides and content-override.
+  # Explicitly disable the legacy RFP (it can linger in prefs.js from old configs and
+  # overrides everything above, including per-target overrides and content-override).
   # "privacy.resistFingerprinting" = false;
-  # Remove color scheme spoofing so dark mode works, and explicitly add ScreenSize
-  # because fingerprintingProtection's default set doesn't spoof screen.width/height
-  # (only screen.avail* and window inner/outer sizes), leaving the raw display
-  # resolution (2880x1800 on this machine) exposed as a near-unique metric.
-  "privacy.fingerprintingProtection.overrides" = "-CSSPrefersColorScheme,+ScreenSize";
+  # Use +AllTargets to spoof WebGL, Fonts, UserAgent, etc.
+  # -CSSPrefersColorScheme: prevents Dark Mode from breaking.
+  # -JSDateTimeUTC: prevents chat apps (WhatsApp Web, etc) and calendars from showing wrong times.
+  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC";
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
   "layout.css.prefers-color-scheme.content-override" = 2;
