@@ -1,26 +1,4 @@
-{pkgs, ...}: let
-  update-flake = pkgs.writeShellApplication {
-    name = "update-flake";
-    runtimeInputs = [
-      pkgs.curl
-      pkgs.nix
-    ];
-    text = ''
-      FLAKE_DIR="''${FLAKE_DIR:-.}"
-
-      NIXPKGS_REF=$(grep -A1 'nixpkgs\s*=' "$FLAKE_DIR/flake.nix" | grep -oP 'nixos-[^"#/]+' || true)
-      NIXPKGS_REF="''${NIXPKGS_REF:-nixos-unstable}"
-      channel_rev=$(curl -sI "https://channels.nixos.org/$NIXPKGS_REF" | grep -i "^location:" | tr -d '\r' | awk '{print $2}' | grep -oE '[a-f0-9]{12}$')
-
-      nix flake update "$@"
-
-      if [[ -n "$channel_rev" ]]; then
-        echo "Pinning nixpkgs to $channel_rev (max cache hits)..."
-        nix flake lock --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" "$FLAKE_DIR"
-      fi
-    '';
-  };
-in {
+{pkgs, ...}: {
   home.packages =
     [
       pkgs._7zz
@@ -30,7 +8,6 @@ in {
       jq
       nvfetcher
       pre-commit
-      update-flake
     ]);
 
   imports = [

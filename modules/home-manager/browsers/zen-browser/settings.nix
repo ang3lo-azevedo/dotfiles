@@ -13,9 +13,9 @@
   # Open popups as tabs instead of new windows; restriction=0 applies to all popup types.
   # Downside: payment flows and OAuth dialogs that open as positioned popup windows
   # (Stripe, Google OAuth on some sites) open as full tabs; sites that check
-  # window.opener may break.
+  # window.opener may break. Set restriction=2 to allow proper popups for OAuth.
   "browser.link.open_newwindow" = 3;
-  "browser.link.open_newwindow.restriction" = 0;
+  "browser.link.open_newwindow.restriction" = 2;
   # Block all media autoplay (audio and video). Value 5 = block audio+video.
   # Downside: embedded players that expect autoplay won't start automatically.
   "media.autoplay.default" = 5;
@@ -110,6 +110,9 @@
   # Network: DoH, ECH, prefetch
   # ---------------------------------------------------------------------------
 
+  # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
+  # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
+  #"network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;

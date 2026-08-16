@@ -8,7 +8,20 @@ in
     inherit version;
     src = appimage;
 
-    extraPkgs = _: [];
+    extraPkgs = pkgs: with pkgs; [zstd];
+
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications
+      cp ${pkgs.makeDesktopItem {
+        name = "jackify";
+        exec = "jackify %u";
+        icon = "com.jackify.app";
+        desktopName = "Jackify";
+        comment = "Wabbajack modlist manager for Linux";
+        categories = ["Game" "Utility"];
+        mimeTypes = ["x-scheme-handler/jackify" "x-scheme-handler/nxm"];
+      }}/share/applications/* $out/share/applications/
+    '';
 
     meta = {
       description = "Simplifying Wabbajack modlist installation and configuration on Linux";

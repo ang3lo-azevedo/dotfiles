@@ -19,13 +19,16 @@ jobs:
           nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
 
       - name: Update flake.lock
-        run: nix flake update --accept-flake-config
+        run: |
+          nix flake update --accept-flake-config
+          channel_rev=$(curl -sI https://channels.nixos.org/nixos-unstable | grep -i "^location:" | tr -d '\r' | awk '{print $2}' | grep -oE '[a-f0-9]{12}$')
+          [ -n "$channel_rev" ] && nix flake lock --override-input nixpkgs "github:NixOS/nixpkgs/$channel_rev" --accept-flake-config || true
 
       - name: Update custom packages
         run: nix run nixpkgs#nvfetcher -- -c pkgs/nvfetcher.toml -o pkgs/_sources
 
       - name: Build system closure
-        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --no-link --print-build-logs
+        run: nix build .#nixosConfigurations.pc-angelo.config.system.build.toplevel --no-link --print-build-logs --keep-going || true
 
       - name: Commit updates
         run: |

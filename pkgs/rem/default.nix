@@ -3,7 +3,7 @@
   version = sources.rem.version;
   appimage = sources.rem.src;
 
-  appimageContents = pkgs.appimageTools.extractType2 {
+  appimageContents = pkgs.appimageTools.extract {
     pname = "rem";
     inherit version;
     src = appimage;

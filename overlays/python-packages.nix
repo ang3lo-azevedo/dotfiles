@@ -1,61 +1,9 @@
-final: prev: {
-  python3Packages = prev.python3Packages.overrideScope (pyFinal: pyPrev: {
-    # pycparser 3.00 made CLexer.filename a read-only property; angr's sim_type.py
-    # still assigns to it directly (`self.clex.filename = filename`), which crashes
-    # on import. Pin the last 2.x release until angr updates for pycparser 3.
-    # TODO: Remove once angr supports pycparser>=3.
-    pycparser = pyPrev.pycparser.overrideAttrs (_: {
-      version = "2.22";
-      src = final.fetchFromGitHub {
-        owner = "eliben";
-        repo = "pycparser";
-        tag = "release_v2.22";
-        hash = "sha256-RY0xQ4Mj8IfYAcypZQx4lDBmcgzYqtM4ARm9NSccBgA=";
-      };
-    });
+final: prev: let
+  customOverrides = _pyFinal: pyPrev: {
+    # Import our complex angr packaging fixes (commented out due to missing pyxdia in nixpkgs)
+    # } // (import ./angr.nix final _pyFinal pyPrev) // {
 
-    # angr ships a real Rust extension (native/angr, built via setuptools-rust) that
-    # nixpkgs' build-system = [ setuptools ] doesn't account for.
-    # TODO: Remove when nixpkgs adds setuptools-rust/cargo to angr's build inputs upstream
-    #
-    # angr also pins archinfo/cle/pyvex to its own exact version (both as a
-    # [build-system] requirement and as a runtime dependency), but nixpkgs carries
-    # older releases of those siblings than of angr itself. pythonRelaxDeps only
-    # patches the built wheel's METADATA (postBuild), too late for the pyproject.toml
-    # build-system pin that's checked before the build starts, so strip the pins
-    # from pyproject.toml directly; the angr suite's lockstep releases stay
-    # API-compatible across these minor gaps.
-    # TODO: Remove once nixpkgs syncs archinfo/cle/pyvex to angr's version.
-    angr = pyPrev.angr.overridePythonAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          sed -i -E 's/(archinfo|cle|pyvex)==[0-9.]+/\1/' pyproject.toml
-        '';
-      cargoDeps = final.rustPlatform.fetchCargoVendor {
-        inherit (old) src;
-        name = "angr-${old.version}";
-        hash = "sha256-HnvNJW7Q3bWr2VxtM+Ux0gyDC5P5QlHjZwooyOkGaow=";
-      };
-      nativeBuildInputs =
-        (old.nativeBuildInputs or [])
-        ++ [
-          pyFinal.setuptools-rust
-          final.rustPlatform.cargoSetupHook
-          final.rustc
-          final.cargo
-        ];
-      # v9.2.193's wheel requires these but nixpkgs' `dependencies` list hasn't caught up yet.
-      dependencies =
-        (old.dependencies or [])
-        ++ [
-          pyFinal.lmdb
-          pyFinal.msgspec
-          pyFinal.pypcode
-        ];
-    });
-
-    # TODO: remove once fs 2.4.x migrates from pkg_resources to importlib.metadata upstream.
+    # HACK: remove once fs 2.4.x migrates from pkg_resources to importlib.metadata upstream.
     # Two pkg_resources issues, both because setuptools is not in the build sandbox:
     # (1) fs/__init__.py (and opener/__init__.py) call declare_namespace -- strip those
     #     (Python 3.3+ native namespace packages, PEP 420, make this a no-op).
@@ -88,22 +36,17 @@ final: prev: {
       propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [pyPrev.setuptools];
     });
 
-    # click-threading's test suite imports docs/conf.py which uses pkg_resources
-    # (setuptools), not declared as a dependency. Broken under Python 3.14.
-    # vdirsyncer → click-threading; remove once fixed upstream.
-    click-threading = pyPrev.click-threading.overridePythonAttrs (_: {doCheck = false;});
-
-    # test_build_linkcheck.py / test_anchors_ignored spins up a local HTTP server
-    # which times out in the Nix sandbox (no loopback networking).
-    # TODO: Remove when nixpkgs disables network-dependent tests upstream.
-    sphinx = pyPrev.sphinx.overridePythonAttrs (old: {
-      disabledTests =
-        (old.disabledTests or [])
-        ++ [
-          "test_anchors_ignored"
-        ];
+    # HACK: python-registry is broken in nixpkgs unstable because its derivation says 1.4
+    # but the internal METADATA says 1.3.1. This causes pythonMetadataCheckPhase to fail.
+    # Used by: Windows registry forensics tools (like volatility3).
+    python-registry = pyPrev.python-registry.overridePythonAttrs (_: {
+      version = "1.3.1";
+      name = "python-registry-1.3.1";
     });
-
-    i3ipc = pyPrev.i3ipc.overridePythonAttrs (_: {doCheck = false;});
-  });
+  };
+in {
+  customPythonOverrides = customOverrides;
+  customPython3Packages = prev.python3Packages.overrideScope customOverrides;
+  customPython313 = prev.python313.override {packageOverrides = customOverrides;};
+  customPython313Packages = final.customPython313.pkgs;
 }

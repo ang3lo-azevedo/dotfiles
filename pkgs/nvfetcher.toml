@@ -117,3 +117,18 @@ fetch.github = "Midrags/SFF"
 [analyzeMFT]
 src.github = "rowingdude/analyzeMFT"
 fetch.github = "rowingdude/analyzeMFT"
+
+[nuvio]
+src.github = "blarns/NuvioForLinux"
+src.prefix = "v"
+fetch.url = "https://github.com/blarns/NuvioForLinux/releases/download/v$ver/Nuvio-$ver-x86_64.AppImage"
+
+[onlinefix-linux]
+src.github = "ZzEdovec/onlinefix-linux"
+src.prefix = "v"
+fetch.url = "https://github.com/ZzEdovec/onlinefix-linux/releases/download/v$ver/OFMELauncher.jar"
+
+[hayabusa]
+src.github = "Yamato-Security/hayabusa"
+fetch.url = "https://github.com/Yamato-Security/hayabusa/releases/download/v$ver/hayabusa-$ver-lin-x64-gnu.zip"
+src.prefix = "v"

@@ -28,6 +28,7 @@
       rich
       setuptools
       six
+      steam
       tqdm
       websocket-client
       vdf
@@ -79,13 +80,13 @@ in
     buildInputs = [pythonEnv];
 
     installPhase = ''
-            runHook preInstall
+                        runHook preInstall
 
-            mkdir -p $out/{bin,share/steamidra,share/applications,share/icons/hicolor/256x256/apps}
+                        mkdir -p $out/{bin,share/steamidra,share/applications,share/icons/hicolor/256x256/apps}
 
-            cp -r . $out/share/steamidra/
+                        cp -r . $out/share/steamidra/
 
-            cat > sff_data_dir_patch.py <<'PYEOF'
+                        cat > sff_data_dir_patch.py <<'PYEOF'
       import re
       import sys
       p = sys.argv[1]
@@ -103,33 +104,33 @@ in
       with open(p, 'w') as f:
           f.write(new)
       PYEOF
-            ${pythonEnv}/bin/python sff_data_dir_patch.py $out/share/steamidra/sff/utils.py
+                        ${pythonEnv}/bin/python sff_data_dir_patch.py $out/share/steamidra/sff/core/utils.py
 
-            makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
-              --add-flags "$out/share/steamidra/Main_gui.py" \
-              --prefix PYTHONPATH : $out/share/steamidra \
-              --set STEAMIDRA_DATA_DIR "\''${XDG_DATA_HOME:-$HOME/.local/share}/steamidra"
+                        makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
+                          --add-flags "$out/share/steamidra/Main_gui.py" \
+                          --prefix PYTHONPATH : $out/share/steamidra \
+                          --set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION python
 
-            makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra-cli \
-              --add-flags "$out/share/steamidra/Main.py" \
-              --prefix PYTHONPATH : $out/share/steamidra \
-              --set STEAMIDRA_DATA_DIR "\''${XDG_DATA_HOME:-$HOME/.local/share}/steamidra"
+                        makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra-cli \
+                          --add-flags "$out/share/steamidra/Main.py" \
+                          --prefix PYTHONPATH : $out/share/steamidra \
+                          --set PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION python
 
-            cp $out/share/steamidra/SFF.png $out/share/icons/hicolor/256x256/apps/steamidra.png
+                        cp $out/share/steamidra/SFF.png $out/share/icons/hicolor/256x256/apps/steamidra.png
 
-            cat > $out/share/applications/steamidra.desktop <<EOF
-          [Desktop Entry]
-          Name=SteaMidra
-          Comment=Advanced Steam game setup and management tool
-          Exec=$out/bin/steamidra
-          Icon=steamidra
-          Type=Application
-          Categories=Game;Utility;
-          Terminal=false
-          StartupNotify=true
-          EOF
+                        cat > $out/share/applications/steamidra.desktop <<EOF
+      [Desktop Entry]
+      Name=SteaMidra
+      Comment=Advanced Steam game setup and management tool
+      Exec=$out/bin/steamidra
+      Icon=steamidra
+      Type=Application
+      Categories=Game;Utility;
+      Terminal=false
+      StartupNotify=true
+      EOF
 
-            runHook postInstall
+                        runHook postInstall
     '';
 
     meta = with lib; {

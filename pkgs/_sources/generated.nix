@@ -19,10 +19,10 @@
   };
   angr-management = {
     pname = "angr-management";
-    version = "v9.3.1";
+    version = "v9.3.2";
     src = fetchurl {
-      url = "https://github.com/angr/angr-management/releases/download/v9.3.1/angr-management-v9.3.1-x86_64.AppImage";
-      sha256 = "sha256-o2sLSlix27vcA7AYG6iaUeuV/sDcUunob5aEIRlqD+w=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.3.2/angr-management-v9.3.2-x86_64.AppImage";
+      sha256 = "sha256-q9UsWJ6GRXWN8fk5d/9K5nQLGplx85LRc15kbjYptmQ=";
     };
   };
   apk-mitm = {
@@ -84,10 +84,10 @@
   };
   ffmpeg-encoder-plugin-resolve = {
     pname = "ffmpeg-encoder-plugin-resolve";
-    version = "1.3.3";
+    version = "1.4.0";
     src = fetchurl {
-      url = "https://github.com/EdvinNilsson/ffmpeg_encoder_plugin/releases/download/v1.3.3/ffmpeg_encoder_plugin.dvcp.bundle.zip";
-      sha256 = "sha256-QiaqdRfLNTt9i689V86Esk5CyIJ0f+P5FbYJQM+1C90=";
+      url = "https://github.com/EdvinNilsson/ffmpeg_encoder_plugin/releases/download/v1.4.0/ffmpeg_encoder_plugin.dvcp.bundle.zip";
+      sha256 = "sha256-0Qzsd3h/JtjX8WzkFUBdFIxg/HUKFvP1p8K0b0Ai8UY=";
     };
   };
   harbor = {
@@ -96,6 +96,14 @@
     src = fetchurl {
       url = "https://github.com/harborstremio-linux/harbor-linux-builds/releases/download/v0.9.21/Harbor_0.9.21_amd64.deb";
       sha256 = "sha256-j3TuBP4WDQj64k47LPRAiErchiQ4kKiuZ4cSMmKYkT0=";
+    };
+  };
+  hayabusa = {
+    pname = "hayabusa";
+    version = "4.0.0";
+    src = fetchurl {
+      url = "https://github.com/Yamato-Security/hayabusa/releases/download/v4.0.0/hayabusa-4.0.0-lin-x64-gnu.zip";
+      sha256 = "sha256-ETfifHleg/iDfJYvITbPFjSmemVde6jvqLLTijO6CbQ=";
     };
   };
   ida-chat-plugin = {
@@ -112,10 +120,10 @@
   };
   jackify = {
     pname = "jackify";
-    version = "0.7.2.1";
+    version = "0.7.2.2";
     src = fetchurl {
-      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2.1/Jackify.AppImage";
-      sha256 = "sha256-gAQYSQstQ7WJSPbNi8FmjzAG/wXzf6y702Y0Fr3CuaI=";
+      url = "https://github.com/Omni-guides/Jackify/releases/download/v0.7.2.2/Jackify.AppImage";
+      sha256 = "sha256-Xc9XO/fSeqb52V2rzl2z50zG85SB+GkLxF7V3yiB1P0=";
     };
   };
   libesedb = {
@@ -170,10 +178,26 @@
   };
   nordvpn = {
     pname = "nordvpn";
-    version = "5.2.0";
+    version = "5.3.0";
     src = fetchurl {
-      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.2.0_amd64.deb";
-      sha256 = "sha256-mFBwH1iedC5NksQ+7h8hiCYt23H0DlRT06KteVA9uJs=";
+      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_5.3.0_amd64.deb";
+      sha256 = "sha256-NM3qcqdclwDChblQ7S7Jasru1NYHATo6vRg2ZzH4wzQ=";
+    };
+  };
+  nuvio = {
+    pname = "nuvio";
+    version = "0.3.4";
+    src = fetchurl {
+      url = "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.4/Nuvio-0.3.4-x86_64.AppImage";
+      sha256 = "sha256-GAR5LzxjtgsI50sNQw2FLzldLs+EW6Gx8tHe8qS3qTM=";
+    };
+  };
+  onlinefix-linux = {
+    pname = "onlinefix-linux";
+    version = "2.7.1";
+    src = fetchurl {
+      url = "https://github.com/ZzEdovec/onlinefix-linux/releases/download/v2.7.1/OFMELauncher.jar";
+      sha256 = "sha256-nK5PLMBmaewaFHcQLR0lrPlvg5PJwdYcNyhCTS7cpdE=";
     };
   };
   registry-spy = {
@@ -244,13 +268,13 @@
   };
   steamidra = {
     pname = "steamidra";
-    version = "v6.5.9";
+    version = "v6.6.4";
     src = fetchFromGitHub {
       owner = "Midrags";
       repo = "SFF";
-      rev = "v6.5.9";
+      rev = "v6.6.4";
       fetchSubmodules = false;
-      sha256 = "sha256-dl/MxBwhkzdwn+N5SFsctLkVceyeIJ36VZpBxTsFzDo=";
+      sha256 = "sha256-ai0SsynfFvZzQgY2qFbk7uED47NCOYaZO5DViRaMY/8=";
     };
   };
   stremio-enhanced = {

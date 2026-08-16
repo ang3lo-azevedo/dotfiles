@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/753cc8a3a87467296ddd1fa93f0cc3e81120ee46";
+      url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
     nixpkgs-unstable = {
@@ -11,11 +11,9 @@
     };
 
     # Latest stable branch of nixpkgs, used for version rollback
-    /*
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
-    */
 
     # nixpkgs master
     /*
@@ -76,8 +74,11 @@
     };
 
     # Libfprint fork for EgisTec support
+    # We use the TenSeventy7 fork instead of upstream's feature/sdcp-v2 branch because
+    # TenSeventy7 is a stable community base that safely handles our egismoc.c `sed` patch,
+    # whereas the upstream sdcp-v2 is an actively moving refactor that may break it.
     libfprint-src = {
-      url = "gitlab:joshuagrisham/libfprint/egismoc-sdcp?host=gitlab.freedesktop.org";
+      url = "github:TenSeventy7/libfprint-egismoc-sdcp";
       flake = false;
     };
 
@@ -295,7 +296,7 @@
       # Cache for nix-gaming packages (wine, lutris, etc.)
       "https://nix-gaming.cachix.org"
 
-      # Cache for nix-gaming-edge (TODO: Re-enable when it is fixed)
+      # Cache for nix-gaming-edge (FIXME: Re-enable when it is fixed)
       #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
@@ -318,6 +319,7 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    nixpkgs-stable,
     disko,
     agenix,
     home-manager,
@@ -421,6 +423,15 @@
                     allowBroken = true;
                     permittedInsecurePackages = prev.config.permittedInsecurePackages or [];
                   };
+                  overlays = [
+                    (import ./overlays/python-packages.nix)
+                  ];
+                };
+                stable = import nixpkgs-stable {
+                  system = prev.stdenv.hostPlatform.system;
+                  config = {
+                    allowUnfree = true;
+                  };
                 };
               })
               (import ./overlays/python-packages.nix)
@@ -435,14 +446,18 @@
                 xr = inputs.nixpkgs-xr.packages."x86_64-linux";
               })
               (_: prev: {
-                # TODO: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
+                # HACK: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
                 pdal = prev.pdal.overrideAttrs (old: {
                   env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
                 });
                 vtk = prev.vtk.overrideAttrs (old: {
                   env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
                 });
-                # TODO: drop this override once PR #2797 lands in a niri release and
+                # The block below contains a custom override for Niri that pulls from the main branch
+                # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
+                # the system uses the default, stable `niri` package from Nixpkgs instead.
+                /*
+                # HACK: drop this override once PR #2797 lands in a niri release and
                 # nixpkgs packages that release.
                 # Track niri main with PR #2797 (pointer/tablet input events) applied
                 # until it lands in a stable release.
@@ -459,10 +474,11 @@
                     pname = "niri-main-pr2797";
                     version = "26.4.0-pr2797";
                     src = inputs.niri-main;
-                    hash = "sha256-jmYkGX4M69W16qr9kLHfnAAJWvJ87IMVBQcC2wE9Phc=";
+                    hash = "sha256-aNovCzrTtmqTO33YtZap47npdN73zXC1bap5q5dZvZk=";
                   };
                   doInstallCheck = false;
                 });
+                */
               })
               (_: prev: {
                 glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
@@ -493,6 +509,7 @@
                 betterbird = prev.callPackage (inputs.self + "/pkgs/betterbird/default.nix") {};
                 proton-cachyos-linuwux = prev.callPackage (inputs.self + "/pkgs/proton-linuwux/default.nix") {};
                 steamidra = prev.callPackage (inputs.self + "/pkgs/steamidra/default.nix") {};
+                hayabusa = prev.callPackage (inputs.self + "/pkgs/hayabusa/default.nix") {};
                 analyzeMFT = prev.callPackage (inputs.self + "/pkgs/analyzeMFT/default.nix") {};
               })
             ];
@@ -561,11 +578,6 @@
         inherit inputs;
       };
 
-      nuvio-desktop = import ./pkgs/nuvio-desktop/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        inherit (nixpkgs) lib;
-      };
-
       registry-spy = import ./pkgs/registry-spy/default.nix {
         inherit (nixpkgs) lib;
         fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
@@ -581,6 +593,8 @@
       sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
       scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
       monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
+      nuvio = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nuvio/default.nix {};
+      onlinefix-linux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/onlinefix-linux/default.nix {};
       autodesk-fusion = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/autodesk-fusion/default.nix {
         wine = nixpkgs.legacyPackages.x86_64-linux.wineWow64Packages.full;
         src = inputs.autodesk-fusion;
@@ -594,6 +608,7 @@
       harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
       proton-cachyos-linuwux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/proton-linuwux/default.nix {};
       steamidra = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/steamidra/default.nix {};
+      hayabusa = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/hayabusa/default.nix {};
       betterbird = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/betterbird/default.nix {};
       analyzeMFT = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/analyzeMFT/default.nix {};
     };

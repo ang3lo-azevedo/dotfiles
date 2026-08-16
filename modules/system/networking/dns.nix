@@ -10,18 +10,27 @@
     enable = true;
     settings = {
       # Listen on localhost so systemd-resolved can forward queries here
-      listen_addresses = ["127.0.0.1:53" "[::1]:53"];
+      listen_addresses = [
+        "127.0.0.1:53"
+        "[::1]:53"
+      ];
 
-      # Both are DoH (HTTPS port 443, indistinguishable from web traffic), no-log, no-ECS.
-      # Quad9: Swiss non-profit, ~69ms from PT. Mullvad: fallback, different jurisdiction.
+      # Only use DNSCrypt protocol (port 443/8443 encrypted UDP/TCP), disable DoH
+      dnscrypt_servers = true;
+      doh_servers = false;
+
+      # Automatically pick the fastest DNSCrypt servers that match our privacy criteria.
       # Ad/tracker blocking is handled locally by the OISD blocklist.
-      server_names = ["quad9-doh-ip4-port443-filter-pri" "mullvad-doh"];
+      server_names = [
+        "quad9-dnscrypt-ip4-filter-pri"
+        "quad9-dnscrypt-ip4-filter-alt"
+      ];
 
       # Only use servers that validate DNSSEC and have a strict no-log policy
       require_dnssec = true;
       require_nolog = true;
 
-      # quad9 filters malware, which is fine since local OISD handles ads/trackers
+      # Allow servers that filter malware (like Quad9), since local OISD handles ads
       require_nofilter = false;
 
       # Block ads/trackers/malware, file populated by oisd-blocklist-update.service
@@ -74,17 +83,19 @@
   networking.networkmanager.dispatcherScripts = [
     {
       type = "basic";
-      source = lib.getExe (pkgs.writeShellApplication {
-        name = "90-clear-per-link-dns";
-        runtimeInputs = [pkgs.systemd];
-        text = ''
-          case "$2" in
-            up|dhcp4-change|dhcp6-change)
-              resolvectl revert "$1"
-              ;;
-          esac
-        '';
-      });
+      source = lib.getExe (
+        pkgs.writeShellApplication {
+          name = "90-clear-per-link-dns";
+          runtimeInputs = [pkgs.systemd];
+          text = ''
+            case "$2" in
+              up|dhcp4-change|dhcp6-change)
+                resolvectl revert "$1"
+                ;;
+            esac
+          '';
+        }
+      );
     }
   ];
 
@@ -106,7 +117,10 @@
       # so the new rules take effect. Runs once 5 minutes after boot, then weekly.
       oisd-blocklist-update = {
         description = "Update OISD blocklist for dnscrypt-proxy";
-        after = ["dnscrypt-proxy.service" "network-online.target"];
+        after = [
+          "dnscrypt-proxy.service"
+          "network-online.target"
+        ];
         wants = ["network-online.target"];
         serviceConfig = {
           Type = "oneshot";

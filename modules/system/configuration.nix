@@ -26,6 +26,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.doCheckByDefault = false;
 
   nix.settings = {
     experimental-features = [
@@ -37,7 +38,7 @@
       "ang3lo"
     ];
     # Use all cores for builds and allow multiple jobs in parallel.
-    # max-jobs = auto means one build job per logical CPU.
+    # max-jobs = "auto" allows local building for small things, but heavy builds will still be sent to remote builders (nixbuild).
     max-jobs = "auto";
     cores = 0;
     # Fetch substitutions in parallel while building.
