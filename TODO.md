@@ -24,7 +24,8 @@
 
 ## General Stuff
 - [ ] Fix nuvio desktop
-- [ ] Add fingerswiping to niri
+- [ ] Make fingerprint unlock keyring
+- [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness
 - [ ] Add https://github.com/ZzEdovec/onlinefix-linux
 - [ ] See to add auto comments and auto update of the wiki/README

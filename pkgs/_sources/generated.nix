@@ -156,13 +156,13 @@
   };
   linoffice = {
     pname = "linoffice";
-    version = "v2.2.8";
+    version = "v2.2.9";
     src = fetchFromGitHub {
       owner = "eylenburg";
       repo = "linoffice";
-      rev = "v2.2.8";
+      rev = "v2.2.9";
       fetchSubmodules = false;
-      sha256 = "sha256-ZsCunfaX6SiT2q8FoXpCG02SIA9XZ8h4Yh+QOfU9LB0=";
+      sha256 = "sha256-oL9CObGNFaZuh4mi2ibtxzD7/Ih/Cq+BeNkfRtZW25Y=";
     };
   };
   monkeylauncher = {
@@ -268,13 +268,13 @@
   };
   steamidra = {
     pname = "steamidra";
-    version = "v6.6.4";
+    version = "v6.6.5";
     src = fetchFromGitHub {
       owner = "Midrags";
       repo = "SFF";
-      rev = "v6.6.4";
+      rev = "v6.6.5";
       fetchSubmodules = false;
-      sha256 = "sha256-ai0SsynfFvZzQgY2qFbk7uED47NCOYaZO5DViRaMY/8=";
+      sha256 = "sha256-q1KTEw1aukl7pJkldUKfVfQdBKC291RH1I6jB/LJDyk=";
     };
   };
   stremio-enhanced = {

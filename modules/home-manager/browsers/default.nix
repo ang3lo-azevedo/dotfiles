@@ -3,6 +3,6 @@
     ./zen-browser
   ];
   home.packages = with pkgs; [
-    #ungoogled-chromium
+    ungoogled-chromium
   ];
 }
