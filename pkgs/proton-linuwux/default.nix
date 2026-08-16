@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     homepage = "https://github.com/CachyOS/proton-cachyos";
-    description = "Proton-CachyOS with LinUwUx patch — syscall/CPUID spoofing for game compatibility";
+    description = "Proton-CachyOS with LinUwUx patch - syscall/CPUID spoofing for game compatibility";
     license = {
       fullName = "BSD 3-Clause";
     };

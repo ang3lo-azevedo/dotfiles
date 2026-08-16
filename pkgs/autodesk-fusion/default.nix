@@ -63,7 +63,7 @@ in
       #!/usr/bin/env bash
       launcher="$HOME/.autodesk_fusion/bin/autodesk_fusion_launcher.sh"
       if [ ! -f "$launcher" ]; then
-        echo "Fusion 360 not installed — run 'fusion360-install' first." >&2
+        echo "Fusion 360 not installed, run 'fusion360-install' first." >&2
         exit 1
       fi
       export PATH="@DEPS@:$PATH"

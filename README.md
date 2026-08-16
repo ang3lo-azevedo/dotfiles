@@ -49,7 +49,7 @@ This config offloads heavy compilation to [nixbuild.net](https://nixbuild.net) a
 u
 ```
 
-The `u` alias runs nvfetcher, updates the flake lock, checks binary cache availability, then rebuilds via nixbuild. No local compilation — nixbuild compiles and uploads to Cachix automatically.
+The `u` alias runs nvfetcher, updates the flake lock, checks binary cache availability, then rebuilds via nixbuild. No local compilation, nixbuild compiles and uploads to Cachix automatically.
 
 ---
 
