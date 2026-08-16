@@ -8,17 +8,19 @@
 in {
   imports = [./wayland.nix];
 
-  services.greetd = {
-    enable = true;
-    useTextGreeter = true;
-    settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --sessions ${sessions} --theme '${theme}'";
-      user = "greeter";
+  config = {
+    programs.niri.enable = true;
+
+    services.greetd = {
+      enable = true;
+      useTextGreeter = true;
+      settings.default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --sessions ${sessions} --theme '${theme}'";
+        user = "greeter";
+      };
     };
+
+    services.gnome.gnome-keyring.enable = true;
+    security.pam.services.greetd.enableGnomeKeyring = true;
   };
-
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.greetd.enableGnomeKeyring = true;
-
-  programs.niri.enable = true;
 }

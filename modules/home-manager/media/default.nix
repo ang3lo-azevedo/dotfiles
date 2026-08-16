@@ -1,7 +1,7 @@
 {
   imports = [
     ./mpv/mpv.nix
-    ./davinci-resolve
+    #./davinci-resolve
     ./grayjay.nix
     ./stremio.nix
     ./stremio-enhanced.nix
@@ -10,7 +10,7 @@
     ./harbor.nix
     #./inkscape.nix
     ./gimp.nix
-    ./kdenlive.nix
+    #./kdenlive.nix
     ./audacity.nix
     #./inform7.nix
   ];

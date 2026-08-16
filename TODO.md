@@ -23,15 +23,15 @@
 
 
 ## General Stuff
-- [x] Change yazi to https://github.com/yorukot/superfile
-- [x] Add this https://github.com/fortra/impacket and nmap and https://github.com/Yamato-Security/hayabusa and https://github.com/WithSecureLabs/chainsaw
-- [x] Add this https://github.com/rowingdude/analyzeMFT
-- [x] Add this https://github.com/Midrags/SFF
-- [x] Fix jackify
+- [ ] Fix meta r no opening superfile and fix its theme
+- [ ] Fix Zen Browser black theme
+- [ ] Fix nuvio desktop
+- [ ] Change yazi to https://github.com/yorukot/superfile
+- [ ] Fix steamidra
+- [ ] Fix jackify
 - [ ] Add fingerswiping to niri
-- [ ] Add this https://github.com/blarns/NuvioForLinux
 - [ ] Add mpv slide to inscrease brightness
-- [ ] See if this is better than what I have now https://github.com/ZzEdovec/onlinefix-linux
+- [ ] Add https://github.com/ZzEdovec/onlinefix-linux
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage

@@ -1,7 +1,10 @@
 {
   lib,
   python3Packages,
+  customPython3Packages,
   callPackage,
+  copyDesktopItems,
+  makeDesktopItem,
 }: let
   sources = callPackage ../_sources/generated.nix {};
 in
@@ -12,11 +15,21 @@ in
 
     src = sources.registry-spy.src;
 
-    nativeBuildInputs = with python3Packages; [setuptools];
+    nativeBuildInputs = with python3Packages; [setuptools] ++ [copyDesktopItems];
 
-    propagatedBuildInputs = with python3Packages; [
-      pyside6
-      python-registry
+    propagatedBuildInputs = [
+      python3Packages.pyside6
+      customPython3Packages.python-registry
+    ];
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "registry-spy";
+        exec = "registryspy";
+        desktopName = "Registry Spy";
+        comment = "Cross-platform Windows Registry browser";
+        categories = ["Utility" "System"];
+      })
     ];
 
     doCheck = false;

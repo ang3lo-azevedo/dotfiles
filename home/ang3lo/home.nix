@@ -20,4 +20,12 @@
   ];
 
   programs.home-manager.enable = true;
+
+  # Avoid warning when using home-manager.useGlobalPkgs, since NixOS already applies the stylix overlays to the global pkgs.
+  stylix.overlays.enable = false;
+
+  # Silence the evaluation warning caused by `binaryninja` injecting its overlay into HM.
+  # Since useGlobalPkgs is true, this overlay is ignored by HM anyway, and it's already
+  # applied globally in flake.nix. Forcing it to empty prevents the warning.
+  nixpkgs.overlays = inputs.nixpkgs.lib.mkForce [];
 }

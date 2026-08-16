@@ -52,7 +52,8 @@ in {
       };
       systemd = {
         enable = true;
-        storePaths = [pkgs.libxcrypt-legacy];
+        # HACK: Remove pkgs.openssl workaround once Nixpkgs fixes libssl.so.4 missing in initrd
+        storePaths = [pkgs.libxcrypt-legacy pkgs.openssl];
       };
     };
 

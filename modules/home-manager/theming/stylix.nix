@@ -55,7 +55,6 @@ in {
       };
 
       emoji = {
-        #package = inputs.apple-emoji.packages.${pkgs.stdenv.hostPlatform.system}.default;
         package = appleColorEmojiPackage;
         name = "Apple Color Emoji";
       };

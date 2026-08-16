@@ -14,7 +14,7 @@
     polkit.fprintAuth = true;
   };
 
-  # TODO: remove this overlay once joshuagrisham/libfprint egismoc-sdcp is merged
+  # HACK: remove this overlay once joshuagrisham/libfprint egismoc-sdcp is merged
   # upstream and nixpkgs packages a version that includes it.
   nixpkgs.overlays = [
     (_: prev: {
