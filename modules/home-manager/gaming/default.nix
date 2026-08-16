@@ -6,6 +6,7 @@
     ./monkeylauncher.nix
     ./faugus-launcher.nix
     ./steamidra.nix
+    ./onlinefix.nix
     ./prismlauncher.nix
     ./vr
     ./emulators

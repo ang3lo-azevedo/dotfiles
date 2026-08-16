@@ -109,6 +109,25 @@ in
       PYEOF
                         ${pythonEnv}/bin/python sff_data_dir_patch.py $out/share/steamidra/sff/core/utils.py
 
+                        cat > sff_provider_patch.py <<'PYEOF'
+      import re
+      import sys
+      p = sys.argv[1]
+      with open(p) as f:
+          content = f.read()
+      pat = r'def cache_dir\(\) -> Path:.*?(?=\n    return d|\n\n\n|\n\ndef )(\n    return d)?'
+      repl = """def cache_dir() -> Path:
+          from sff.core.utils import sff_data_dir
+          d = sff_data_dir() / "provider_cache"
+          d.mkdir(parents=True, exist_ok=True)
+          return d
+      """
+      new = re.sub(pat, repl, content, count=1, flags=re.DOTALL)
+      with open(p, 'w') as f:
+          f.write(new)
+      PYEOF
+                        ${pythonEnv}/bin/python sff_provider_patch.py $out/share/steamidra/sff/lua/provider.py
+
                         makeWrapper ${pythonEnv}/bin/python $out/bin/steamidra \
                           --add-flags "$out/share/steamidra/Main_gui.py" \
                           --prefix PYTHONPATH : $out/share/steamidra \
