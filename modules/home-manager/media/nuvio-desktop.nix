@@ -10,7 +10,7 @@
       buildInputs = [makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/nuvio \
-          --run 'export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dsun.java2d.uiScale=1.75"'
+          --run 'export JAVA_TOOL_OPTIONS="$JAVA_TOOL_OPTIONS -Dsun.java2d.uiScale=2"'
       '';
     })
   ];
