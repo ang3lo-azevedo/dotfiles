@@ -124,6 +124,14 @@
   # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
   # Mode 0 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
   "network.trr.mode" = 0;
+
+  # ALTERNATIVE SOLUTION (Browser DoH with strict timeout):
+  # If you prefer Zen to handle its own DNS instead of dnscrypt-proxy, you can
+  # enable browser DoH and set a strict timeout. If a broken domain drops the ECH
+  # (TYPE65) request, Zen will timeout the DoH request in 1.5s instead of hanging.
+  # "network.trr.mode" = 2;
+  # "network.trr.uri" = "https://dns.quad9.net/dns-query";
+  # "network.trr.request-timeout" = 1500;
   # Fetches full page resources before the user navigates: real content leak to third-party servers.
   "network.prefetch-next" = false;
   # DNS-only prefetch: queries go to Quad9 over DoH regardless, so disabling adds no extra protection.
