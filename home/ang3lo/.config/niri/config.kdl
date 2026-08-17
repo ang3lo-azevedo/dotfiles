@@ -426,7 +426,7 @@ animations {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Automatically open btop in fullscreen
 window-rule {
-    match app-id=r#"^com\.mitchellh\.ghostty$"# title="^btop_fullscreen$"
+    match app-id=r#"^com\.mitchellh\.ghostty$"# title="(?i)btop"
     open-fullscreen true
 }
 
