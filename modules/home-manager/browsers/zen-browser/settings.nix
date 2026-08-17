@@ -112,19 +112,18 @@
 
   # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
   # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
-  "network.dns.disableIPv6" = true;
+  #"network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
   # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
   "network.dns.use_https_rr_as_altsvc" = true;
-  # Use browser-level DoH (Quad9) to manage timeouts directly.
-  # If a broken domain drops the ECH (TYPE65) request, Zen will timeout the DoH
-  # request in 1.5s instead of hanging for 15s+ on dnscrypt-proxy.
-  "network.trr.mode" = 2;
-  "network.trr.uri" = "https://dns.quad9.net/dns-query";
-  "network.trr.request-timeout" = 1500;
+  # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
+  # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
+  # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
+  # Mode 0 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
+  "network.trr.mode" = 0;
   # Fetches full page resources before the user navigates: real content leak to third-party servers.
   "network.prefetch-next" = false;
   # DNS-only prefetch: queries go to Quad9 over DoH regardless, so disabling adds no extra protection.
