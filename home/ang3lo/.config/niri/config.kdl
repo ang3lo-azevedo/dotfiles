@@ -9,7 +9,7 @@ include "monitor.kdl"
 environment {
     EDITOR "antigravity-ide"
     EXPLORER "ghostty -e superfile"
-    SYSTEM_MONITOR "ghostty --title=btop_fullscreen -e btop"
+    SYSTEM_MONITOR "ghostty --title=btop_fullscreen -e sh -c 'sleep 0.1 && exec btop'"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
     YOUTUBE_PLAYER "grayjay"
