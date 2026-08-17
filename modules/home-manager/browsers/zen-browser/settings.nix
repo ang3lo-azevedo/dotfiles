@@ -112,13 +112,16 @@
 
   # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
   # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
-  #"network.dns.disableIPv6" = true;
+  "network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
   # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
-  "network.dns.use_https_rr_as_altsvc" = true;
+  # SET TO FALSE: Many authoritative nameservers on the internet drop TYPE65 (HTTPS)
+  # queries instead of answering them. This causes the DNS resolver to wait for a
+  # 15+ second timeout on the very first visit to a domain!
+  "network.dns.use_https_rr_as_altsvc" = false;
   # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
   # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
   # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
