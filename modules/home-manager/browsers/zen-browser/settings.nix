@@ -286,5 +286,5 @@
   # XOriginTrimmingPolicy = 2: even though the Referer is sent cross-origin, it is
   # trimmed to the bare origin (https://example.com); path and query string are not exposed.
   "network.http.referer.XOriginPolicy" = 0;
-  "network.http.referer.XOriginTrimmingPolicy" = 2;
+  "network.http.referer.XOriginTrimmingPolicy" = 0;
 }
