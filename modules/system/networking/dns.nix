@@ -19,6 +19,9 @@
       dnscrypt_servers = true;
       doh_servers = false;
 
+      # Abort unresponsive queries (like dropped ECH packets) after 2 seconds
+      timeout = 2000;
+
       # Automatically pick the fastest DNSCrypt servers that match our privacy criteria.
       # Ad/tracker blocking is handled locally by the OISD blocklist.
       server_names = [
