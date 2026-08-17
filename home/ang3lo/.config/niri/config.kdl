@@ -423,6 +423,12 @@ animations {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+// Automatically open btop in fullscreen
+window-rule {
+    match app-id=r#"^com\.mitchellh\.ghostty$"# title="^btop_fullscreen$"
+    open-fullscreen true
+}
+
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
 window-rule {
@@ -474,6 +480,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Shift+1 hotkey-overlay-title="Show Hotkey Overlay" { show-hotkey-overlay; }
     Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+    Ctrl+Shift+Escape hotkey-overlay-title="System Monitor (btop)" { spawn "ghostty" "--title=btop_fullscreen" "-e" "btop"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Period hotkey-overlay-title="Pick an Emoji: bemoji" { spawn "bemoji"; }
     Super+Alt+L hotkey-overlay-title="Suspend System" { spawn "systemctl" "suspend"; }
