@@ -17,6 +17,12 @@ in {
       nixcord.colors.enable = false;
 
       gtk.extraCss = ''
+        /* Force all GTK animations to be very fast */
+        * {
+          transition-duration: 0.1s !important;
+          animation-duration: 0.1s !important;
+        }
+
         .hotkey-overlay {
           font-family: "JetBrainsMono Nerd Font";
           font-size: 14px;

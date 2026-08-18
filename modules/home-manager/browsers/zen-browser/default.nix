@@ -38,6 +38,15 @@ in {
         # about:config prefs, search.nix returns the search engine configuration.
         settings = import ./settings.nix;
         search = import ./search.nix {inherit pkgs;};
+
+        # Force all Zen UI animations to be very fast
+        userChrome = ''
+          * {
+            transition-duration: 0.1s !important;
+            animation-duration: 0.1s !important;
+          }
+        '';
+
         # Force an empty userContent to completely override Stylix's web page theming.
         # This keeps Stylix for the Zen Browser UI, but prevents it from forcing black
         # backgrounds on websites.
