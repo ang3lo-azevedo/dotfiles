@@ -7,9 +7,10 @@ include "monitor.kdl"
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
 environment {
+    TERMINAL "ghostty"
     EDITOR "antigravity-ide"
-    EXPLORER "ghostty -e superfile"
-    SYSTEM_MONITOR "ghostty --title=btop -e btop"
+    EXPLORER "${TERMINAL} -e superfile"
+    SYSTEM_MONITOR "${TERMINAL} --title=btop -e btop"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
     YOUTUBE_PLAYER "grayjay"
@@ -476,18 +477,18 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Shift+1 hotkey-overlay-title="Show Hotkey Overlay" { show-hotkey-overlay; }
-    Mod+T hotkey-overlay-title="Open a Terminal" { spawn "sh" "-c" "exec ${TERMINAL}"; }
-    Ctrl+Shift+Escape hotkey-overlay-title="System Monitor" { spawn "sh" "-c" "exec ${SYSTEM_MONITOR}"; }
+    Mod+T hotkey-overlay-title="Open a Terminal" { spawn "sh" "-c" "eval \"exec \\${TERMINAL}\""; }
+    Ctrl+Shift+Escape hotkey-overlay-title="System Monitor" { spawn "sh" "-c" "eval \"exec \\${SYSTEM_MONITOR}\""; }
     Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
     Mod+Period hotkey-overlay-title="Pick an Emoji" { spawn "bemoji"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "swaylock"; }
     Super+Alt+Shift+L hotkey-overlay-title="Suspend System" { spawn "systemctl" "suspend"; }
-    Mod+B hotkey-overlay-title="Open Browser" { spawn "sh" "-c" "exec ${BROWSER}"; }
-    Mod+E hotkey-overlay-title="Open Explorer" { spawn "sh" "-c" "exec ${EXPLORER}"; }
-    Mod+A hotkey-overlay-title="Open Editor" { spawn "sh" "-c" "exec ${EDITOR}"; }
-    Mod+S hotkey-overlay-title="Open Music Player" { spawn "sh" "-c" "exec ${MUSIC_PLAYER}"; }
-    Mod+Z hotkey-overlay-title="Open Discord" { spawn "sh" "-c" "exec ${DISCORD}"; }
-    Mod+G hotkey-overlay-title="Open YouTube" { spawn "sh" "-c" "exec ${YOUTUBE_PLAYER}"; }
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "sh" "-c" "eval \"exec \\${BROWSER}\""; }
+    Mod+E hotkey-overlay-title="Open Explorer" { spawn "sh" "-c" "eval \"exec \\${EXPLORER}\""; }
+    Mod+A hotkey-overlay-title="Open Editor" { spawn "sh" "-c" "eval \"exec \\${EDITOR}\""; }
+    Mod+S hotkey-overlay-title="Open Music Player" { spawn "sh" "-c" "eval \"exec \\${MUSIC_PLAYER}\""; }
+    Mod+Z hotkey-overlay-title="Open Discord" { spawn "sh" "-c" "eval \"exec \\${DISCORD}\""; }
+    Mod+G hotkey-overlay-title="Open YouTube" { spawn "sh" "-c" "eval \"exec \\${YOUTUBE_PLAYER}\""; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
