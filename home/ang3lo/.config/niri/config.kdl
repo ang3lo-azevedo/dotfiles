@@ -9,7 +9,7 @@ include "monitor.kdl"
 environment {
     EDITOR "antigravity-ide"
     EXPLORER "ghostty -e superfile"
-    SYSTEM_MONITOR "ghostty --title=btop_fullscreen -e sh -c 'sleep 0.1 && exec btop'"
+    SYSTEM_MONITOR "ghostty --title=btop -e btop"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
     YOUTUBE_PLAYER "grayjay"
@@ -90,11 +90,6 @@ input {
     }
 
     touch {
-
-
-
-
-
         map-to-output "eDP-1"
     }
 
@@ -484,7 +479,8 @@ binds {
     Ctrl+Shift+Escape hotkey-overlay-title="System Monitor (btop)" { spawn "sh" "-c" "exec ${SYSTEM_MONITOR}"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Mod+Period hotkey-overlay-title="Pick an Emoji: bemoji" { spawn "bemoji"; }
-    Super+Alt+L hotkey-overlay-title="Suspend System" { spawn "systemctl" "suspend"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+Shift+L hotkey-overlay-title="Suspend System" { spawn "systemctl" "suspend"; }
     Mod+B hotkey-overlay-title="Open Browser" { spawn "sh" "-c" "exec ${BROWSER}"; }
     Mod+E hotkey-overlay-title="Open Explorer" { spawn "sh" "-c" "exec ${EXPLORER}"; }
     Mod+A hotkey-overlay-title="Open Editor" { spawn "sh" "-c" "exec ${EDITOR}"; }

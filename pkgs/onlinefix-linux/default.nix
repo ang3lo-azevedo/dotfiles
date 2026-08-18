@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  jre,
+  jdk17,
+  openjfx17,
   ffmpeg,
   makeWrapper,
   callPackage,
@@ -37,8 +38,8 @@ in
       mkdir -p $out/bin $out/share/java/onlinefix-linux
       cp $src $out/share/java/onlinefix-linux/OFMELauncher.jar
 
-      makeWrapper ${jre}/bin/java $out/bin/onlinefix-linux \
-        --add-flags "-jar $out/share/java/onlinefix-linux/OFMELauncher.jar" \
+      makeWrapper ${jdk17}/bin/java $out/bin/onlinefix-linux \
+        --add-flags "--module-path ${openjfx17}/lib --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.swing,javafx.media,javafx.graphics -jar $out/share/java/onlinefix-linux/OFMELauncher.jar" \
         --prefix PATH : ${lib.makeBinPath [ffmpeg]}
 
       runHook postInstall
