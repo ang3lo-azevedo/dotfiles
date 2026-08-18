@@ -49,5 +49,6 @@
     ./calendar.nix
     ./downloads.nix
     ./auteticacaogovpt.nix
+    ./btop-override.nix
   ];
 }
