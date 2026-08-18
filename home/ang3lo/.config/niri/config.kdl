@@ -10,9 +10,10 @@ environment {
     TERMINAL "ghostty"
     EDITOR "antigravity-ide"
     EXPLORER "${TERMINAL} -e superfile"
-    SYSTEM_MONITOR "${TERMINAL} --class=app.btop -e btop"
+    SYSTEM_MONITOR "${TERMINAL} --title=btop --class=app.btop -e btop"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
+    CHAT_APP "flare"
     YOUTUBE_PLAYER "grayjay"
 
 /*     // Display used for xwayland
@@ -487,6 +488,7 @@ binds {
     Mod+A hotkey-overlay-title="Open Editor" { spawn "sh" "-c" "eval \"exec ${EDITOR}\""; }
     Mod+S hotkey-overlay-title="Open Music Player" { spawn "sh" "-c" "eval \"exec ${MUSIC_PLAYER}\""; }
     Mod+Z hotkey-overlay-title="Open Discord" { spawn "sh" "-c" "eval \"exec ${DISCORD}\""; }
+    Mod+M hotkey-overlay-title="Open Chat (Signal)" { spawn "sh" "-c" "eval \"exec ${CHAT_APP}\""; }
     Mod+G hotkey-overlay-title="Open YouTube" { spawn "sh" "-c" "eval \"exec ${YOUTUBE_PLAYER}\""; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
