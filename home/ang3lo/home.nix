@@ -6,6 +6,7 @@
     sessionVariables = {
       EDITOR = "antigravity-ide";
       BROWSER = "zen-browser";
+      TERMINAL = "ghostty";
       EXPLORER = "ghostty -e superfile";
       MUSIC_PLAYER = "spotify";
       DISCORD = "equibop";
