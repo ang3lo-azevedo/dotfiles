@@ -418,14 +418,19 @@ animations {
     // slowdown 3.0
 }
 
-workspace "discord" {
+// Create a dedicated workspace for social/media apps.
+// This workspace will prefer opening on the laptop screen (eDP-1) when available.
+// When only one screen is active, Niri will dynamically append this workspace 
+// to the bottom of the workspace list.
+workspace "social" {
     open-on-output "eDP-1"
 }
 
+// Group Discord and Spotify together in the social workspace.
 window-rule {
     match app-id="(?i)discord"
     match app-id="(?i)spotify"
-    open-on-workspace "discord"
+    open-on-workspace "social"
 }
 
 // Window rules let you adjust behavior for individual windows.
