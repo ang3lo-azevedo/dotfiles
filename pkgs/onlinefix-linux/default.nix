@@ -10,6 +10,11 @@
   makeDesktopItem,
 }: let
   sources = callPackage ../_sources/generated.nix {};
+
+  openjdk = jdk17.override {
+    enableJavaFX = true;
+    openjfx_jdk = openjfx17;
+  };
 in
   stdenv.mkDerivation rec {
     pname = "onlinefix-linux";
@@ -38,8 +43,8 @@ in
       mkdir -p $out/bin $out/share/java/onlinefix-linux
       cp $src $out/share/java/onlinefix-linux/OFMELauncher.jar
 
-      makeWrapper ${jdk17}/bin/java $out/bin/onlinefix-linux \
-        --add-flags "--module-path ${openjfx17}/lib --add-modules javafx.controls,javafx.fxml,javafx.web,javafx.swing,javafx.media,javafx.graphics -jar $out/share/java/onlinefix-linux/OFMELauncher.jar" \
+      makeWrapper ${openjdk}/bin/java $out/bin/onlinefix-linux \
+        --add-flags "-jar $out/share/java/onlinefix-linux/OFMELauncher.jar" \
         --prefix PATH : ${lib.makeBinPath [ffmpeg]}
 
       runHook postInstall
