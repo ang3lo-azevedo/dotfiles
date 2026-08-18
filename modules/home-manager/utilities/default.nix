@@ -26,7 +26,7 @@
     ./nautilus.nix
     ./network-manager-applet.nix
     #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
-    #./yazi.nix
+    ./yazi.nix
     ./superfile.nix
     ./ncdu.nix
     ./universal-android-debloater.nix
