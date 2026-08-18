@@ -16,7 +16,7 @@ in {
     cat = "bat";
     y = "superfile";
     code = "$EDITOR";
-    btop = "niri msg action set-column-width 33%; command btop";
+    btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
