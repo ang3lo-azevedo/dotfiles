@@ -23,6 +23,8 @@
 
 
 ## General Stuff
+- [ ] Fix Zen taking too much time
+- [ ] Fix error messages login screen
 - [x] Improve superfile
   - [x] Make pdfs open on zen
 - [ ] Make fingerprint unlock keyring
