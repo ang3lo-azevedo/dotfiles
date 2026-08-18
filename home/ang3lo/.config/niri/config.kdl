@@ -10,7 +10,7 @@ environment {
     TERMINAL "ghostty"
     EDITOR "antigravity-ide"
     EXPLORER "${TERMINAL} -e superfile"
-    SYSTEM_MONITOR "${TERMINAL} --title=btop -e btop"
+    SYSTEM_MONITOR "${TERMINAL} --title=btop --class=app.btop -e btop"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
     YOUTUBE_PLAYER "grayjay"
@@ -423,7 +423,7 @@ animations {
 // Automatically open btop in fullscreen
 window-rule {
     match app-id="(?i)btop"
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.45; }
 }
 
 // Work around WezTerm's initial configure bug
