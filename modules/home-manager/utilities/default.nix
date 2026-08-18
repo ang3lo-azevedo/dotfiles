@@ -11,6 +11,7 @@
     ]);
 
   imports = [
+    ./flare-signal.nix
     ./keyring
     ./zsh
     ./ghostty.nix
