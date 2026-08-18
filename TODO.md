@@ -23,11 +23,12 @@
 
 
 ## General Stuff
-- [ ] Fix nuvio desktop
+- [x] Improve superfile
+  - [x] Make pdfs open on zen
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness
-- [ ] Add https://github.com/ZzEdovec/onlinefix-linux
+- [x] fix https://github.com/ZzEdovec/onlinefix-linux
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage

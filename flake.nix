@@ -410,7 +410,7 @@
               allowBroken = true;
               permittedInsecurePackages = [
                 "electron-39.8.10"
-                "ventoy-1.1.12"
+                "ventoy-1.1.17"
               ];
             };
             overlays = [
