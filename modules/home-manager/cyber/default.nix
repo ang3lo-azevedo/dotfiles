@@ -13,5 +13,8 @@
     ./responder.nix
 
     ./ctfd-parser.nix
+
+    ./john.nix
+    ./mimikatz.nix
   ];
 }
