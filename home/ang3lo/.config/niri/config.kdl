@@ -424,7 +424,7 @@ animations {
 window-rule {
     match app-id=r#"^com\.mitchellh\.ghostty$"# title="(?i)btop"
     match app-id="(?i)btop"
-    open-fullscreen true
+    open-maximized true
 }
 
 // Work around WezTerm's initial configure bug

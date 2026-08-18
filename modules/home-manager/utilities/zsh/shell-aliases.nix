@@ -16,7 +16,7 @@ in {
     cat = "bat";
     y = "superfile";
     code = "$EDITOR";
-    btop = "niri msg action fullscreen-window; command btop; niri msg action fullscreen-window";
+    btop = "niri msg action maximize-column; command btop; niri msg action maximize-column";
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
