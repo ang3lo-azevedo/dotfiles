@@ -424,6 +424,7 @@ workspace "discord" {
 
 window-rule {
     match app-id="(?i)discord"
+    match app-id="(?i)spotify"
     open-on-workspace "discord"
 }
 
