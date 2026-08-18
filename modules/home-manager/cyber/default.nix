@@ -5,16 +5,8 @@
     ./web
     ./pwn
     ./crypto
-
-    ./python.nix
-
-    ./trufflehog.nix
-
-    ./responder.nix
-
-    ./ctfd-parser.nix
-
-    ./john.nix
-    ./mimikatz.nix
+    ./hash-cracking
+    ./redteam
+    ./misc
   ];
 }
