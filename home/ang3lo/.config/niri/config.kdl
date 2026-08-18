@@ -422,9 +422,8 @@ animations {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 // Automatically open btop in fullscreen
 window-rule {
-    match app-id=r#"^com\.mitchellh\.ghostty$"# title="(?i)btop"
     match app-id="(?i)btop"
-    open-maximized true
+    default-column-width { proportion 0.5; }
 }
 
 // Work around WezTerm's initial configure bug
