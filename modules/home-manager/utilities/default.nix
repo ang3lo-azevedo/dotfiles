@@ -11,7 +11,6 @@
     ]);
 
   imports = [
-    ./flare-signal.nix
     ./keyring
     ./zsh
     ./ghostty.nix
@@ -43,6 +42,7 @@
     #./freecad.nix
     #./autodesk-fusion.nix
 
+    ./flare-signal.nix
     ./zapzap.nix
     ./betterbird.nix
     ./restic-browser.nix

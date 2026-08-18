@@ -6,5 +6,6 @@
     ./binary-ninja
     ./ida-pro
     ./angr-management.nix
+    ./flare-floss.nix
   ];
 }
