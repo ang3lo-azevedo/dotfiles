@@ -9,12 +9,12 @@ include "monitor.kdl"
 environment {
     TERMINAL "ghostty"
     EDITOR "antigravity-ide"
-    EXPLORER "${TERMINAL} -e superfile"
+    EXPLORER "${TERMINAL} -e yazi"
     SYSTEM_MONITOR "${TERMINAL} --class=app.btop -e btop"
     MUSIC_PLAYER "spotify"
     DISCORD "discord"
     CHAT_APP "flare"
-    YOUTUBE_PLAYER "grayjay"
+    YOUTUBE_PLAYER "Grayjay"
 
 /*     // Display used for xwayland
     // DISPLAY ":0"
