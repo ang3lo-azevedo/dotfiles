@@ -23,7 +23,7 @@
 
 
 ## General Stuff
-- [x] Fix Zen taking too much time
+- [ ] Fix Zen taking too much time
 - [ ] Fix error messages login screen
 - [x] Improve superfile
   - [x] Make pdfs open on zen

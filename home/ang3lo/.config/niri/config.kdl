@@ -444,8 +444,7 @@ workspace "social" {
 
 // Group Discord and Spotify together in the social workspace.
 window-rule {
-    match app-id="(?i)discord"
-    match app-id="(?i)spotify"
+    match app-id="(?i)(discord|spotify)"
     open-on-workspace "social"
 }
 
