@@ -35,8 +35,11 @@ in {
       mimeType = ["inode/directory"];
     };
 
-    mimeApps.defaultApplications = {
-      "inode/directory" = lib.mkForce ["superfile.desktop"];
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = lib.mkForce ["superfile.desktop"];
+      };
     };
 
     configFile = {
