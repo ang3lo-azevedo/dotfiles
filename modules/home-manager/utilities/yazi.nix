@@ -1,12 +1,8 @@
-{pkgs, ...}: {
+_: {
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
     shellWrapperName = "yy";
-
-    plugins = {
-      mount = pkgs.yaziPlugins.mount;
-    };
 
     settings = {
       manager = {
