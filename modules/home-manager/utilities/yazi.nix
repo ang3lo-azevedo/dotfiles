@@ -13,6 +13,16 @@ _: {
         sort_dir_first = true;
       };
     };
+
+    keymap = {
+      manager.prepend_keymap = [
+        {
+          on = ["M"];
+          run = "plugin mount";
+          desc = "Open mount manager";
+        }
+      ];
+    };
   };
 
   xdg.mimeApps.defaultApplications = {
