@@ -115,7 +115,7 @@
   #"network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
-  "network.dns.echconfig.enabled" = false;
+  "network.dns.echconfig.enabled" = true;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
   # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
   "network.dns.use_https_rr_as_altsvc" = true;
