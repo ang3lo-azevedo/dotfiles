@@ -4,20 +4,20 @@
   lib ? pkgs.lib,
   ...
 }: let
-  binjaZip = /home/ang3lo/nix-config/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip;
-  setupDir = /home/ang3lo/nix-config/private/binary-ninja/setup;
+  binjaZip = ../../../../../private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip;
+  setupDir = ../../../../../private/binary-ninja/setup;
   setupExists = builtins.pathExists setupDir;
   binjaExists = builtins.pathExists binjaZip;
 in {
-  home.file.".binaryninja/settings.json".text = builtins.toJSON {
-    "python.binaryOverride" = "${pkgs.python312}/bin/python3.12";
-    "python.interpreter" = "${pkgs.python312}/lib/libpython3.12.so";
+  home.file.".binaryninja/settings.json" = lib.mkIf binjaExists {
+    text = builtins.toJSON {
+      "python.binaryOverride" = "${pkgs.python312}/bin/python3.12";
+      "python.interpreter" = "${pkgs.python312}/lib/libpython3.12.so";
+    };
   };
 
-  programs.binary-ninja = lib.mkIf binjaExists {
-    enable = true;
-    package =
-      (pkgs.binary-ninja-personal-wayland.override {
+  home.packages = lib.mkIf binjaExists [
+    ((pkgs.binary-ninja-personal-wayland.override {
         overrideSource = binjaZip;
         python3 = pkgs.python312;
       }).overrideAttrs (old: {
@@ -54,6 +54,6 @@ in {
               sed -i 's|^Icon=.*|Icon='"$out"'/share/pixmaps/binaryninja.png|' "$out/share/applications/Binary Ninja.desktop"
             fi
           '';
-      });
-  };
+      }))
+  ];
 }
