@@ -29,11 +29,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-q9UsWJ6GRXWN8fk5d/9K5nQLGplx85LRc15kbjYptmQ=",
+            "sha256": "sha256-831I6hqwMMQqvil8savtRJrgzVv3oKXlfHur1jzMAs8=",
             "type": "url",
-            "url": "https://github.com/angr/angr-management/releases/download/v9.3.2/angr-management-v9.3.2-x86_64.AppImage"
+            "url": "https://github.com/angr/angr-management/releases/download/v9.3.3/angr-management-v9.3.3-x86_64.AppImage"
         },
-        "version": "v9.3.2"
+        "version": "v9.3.3"
     },
     "apk-mitm": {
         "cargoLock": null,
@@ -278,12 +278,12 @@
             "name": null,
             "owner": "eylenburg",
             "repo": "linoffice",
-            "rev": "v2.2.9",
-            "sha256": "sha256-oL9CObGNFaZuh4mi2ibtxzD7/Ih/Cq+BeNkfRtZW25Y=",
+            "rev": "v2.2.10",
+            "sha256": "sha256-kLZEUZDz4rvUmVqvKVdMpAAmNdja56i81GaQ9jT+BLU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.2.9"
+        "version": "v2.2.10"
     },
     "monkeylauncher": {
         "cargoLock": null,

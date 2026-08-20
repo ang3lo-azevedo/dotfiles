@@ -19,10 +19,10 @@
   };
   angr-management = {
     pname = "angr-management";
-    version = "v9.3.2";
+    version = "v9.3.3";
     src = fetchurl {
-      url = "https://github.com/angr/angr-management/releases/download/v9.3.2/angr-management-v9.3.2-x86_64.AppImage";
-      sha256 = "sha256-q9UsWJ6GRXWN8fk5d/9K5nQLGplx85LRc15kbjYptmQ=";
+      url = "https://github.com/angr/angr-management/releases/download/v9.3.3/angr-management-v9.3.3-x86_64.AppImage";
+      sha256 = "sha256-831I6hqwMMQqvil8savtRJrgzVv3oKXlfHur1jzMAs8=";
     };
   };
   apk-mitm = {
@@ -156,13 +156,13 @@
   };
   linoffice = {
     pname = "linoffice";
-    version = "v2.2.9";
+    version = "v2.2.10";
     src = fetchFromGitHub {
       owner = "eylenburg";
       repo = "linoffice";
-      rev = "v2.2.9";
+      rev = "v2.2.10";
       fetchSubmodules = false;
-      sha256 = "sha256-oL9CObGNFaZuh4mi2ibtxzD7/Ih/Cq+BeNkfRtZW25Y=";
+      sha256 = "sha256-kLZEUZDz4rvUmVqvKVdMpAAmNdja56i81GaQ9jT+BLU=";
     };
   };
   monkeylauncher = {
