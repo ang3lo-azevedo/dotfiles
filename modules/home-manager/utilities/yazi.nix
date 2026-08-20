@@ -1,8 +1,19 @@
-_: {
+{pkgs, ...}: {
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
     shellWrapperName = "yy";
+
+    plugins = {
+      mount =
+        pkgs.fetchFromGitHub {
+          owner = "yazi-rs";
+          repo = "plugins";
+          rev = "main";
+          sha256 = "1g98jbl52jgwl389rfzj15q7ikm4njblwaf9bd5dq3kw1v6fw65r";
+        }
+        + "/mount.yazi";
+    };
 
     settings = {
       manager = {
