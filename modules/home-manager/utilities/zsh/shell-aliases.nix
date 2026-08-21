@@ -14,7 +14,6 @@ in {
     la = "eza -la";
     ls = "eza";
     cat = "bat";
-    y = "yy";
     code = "$EDITOR";
     btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
 

@@ -485,12 +485,12 @@
             "name": null,
             "owner": "Midrags",
             "repo": "SFF",
-            "rev": "v6.6.5",
-            "sha256": "sha256-q1KTEw1aukl7pJkldUKfVfQdBKC291RH1I6jB/LJDyk=",
+            "rev": "v6.6.6",
+            "sha256": "sha256-75pGSL2qBJ0BsK6FLFyLk13I5nqvTgniaR6BgbYeK2o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.6.5"
+        "version": "v6.6.6"
     },
     "stremio-enhanced": {
         "cargoLock": null,
