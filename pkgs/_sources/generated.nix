@@ -268,13 +268,13 @@
   };
   steamidra = {
     pname = "steamidra";
-    version = "v6.6.5";
+    version = "v6.6.6";
     src = fetchFromGitHub {
       owner = "Midrags";
       repo = "SFF";
-      rev = "v6.6.5";
+      rev = "v6.6.6";
       fetchSubmodules = false;
-      sha256 = "sha256-q1KTEw1aukl7pJkldUKfVfQdBKC291RH1I6jB/LJDyk=";
+      sha256 = "sha256-75pGSL2qBJ0BsK6FLFyLk13I5nqvTgniaR6BgbYeK2o=";
     };
   };
   stremio-enhanced = {
