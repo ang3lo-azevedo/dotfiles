@@ -29,11 +29,39 @@
           run = "plugin mount";
           desc = "Open mount manager";
         }
+        {
+          on = ["P"];
+          run = "shell --confirm 'mount-android'";
+          desc = "Mount and open Android phone";
+        }
+        {
+          on = ["g" "p"];
+          run = "cd ~/Documents/projects";
+          desc = "Go to projects folder";
+        }
+        {
+          on = ["g" "n"];
+          run = "cd ~/nix-config";
+          desc = "Go to nix-config";
+        }
+        {
+          on = ["A"];
+          run = "shell --confirm 'agy'";
+          desc = "Open Antigravity in current folder";
+        }
       ];
     };
   };
 
-  home.packages = [pkgs.yazi];
+  home.packages = [
+    pkgs.yazi
+    (pkgs.writeShellScriptBin "mount-android" ''
+      gio mount -li | awk -F= '{if(index($2,"mtp://") != 0) system("gio mount "$2)}'
+      if ls -d /run/user/1000/gvfs/mtp* 1> /dev/null 2>&1; then
+          ya emit cd "$(ls -d /run/user/1000/gvfs/mtp* | head -n 1)"
+      fi
+    '')
+  ];
 
   xdg.mimeApps.defaultApplications = {
     "inode/directory" = ["yazi.desktop"];
