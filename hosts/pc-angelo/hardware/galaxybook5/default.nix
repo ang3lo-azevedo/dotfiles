@@ -30,7 +30,7 @@
 
       # Required for Btrfs on LVM on LUKS
       # Also add NTFS support
-      supportedFilesystems = ["btrfs" "ntfs3"];
+      supportedFilesystems = ["btrfs" "ntfs3" "ntfs"];
     };
 
     # Add kernel parameter to force Xen to probe all devices
