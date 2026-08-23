@@ -2,6 +2,8 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
+    my-nur.url = "github:ang3lo-azevedo/nur-packages";
+
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -335,7 +337,21 @@
     chaotic,
     pre-commit-hooks,
     ...
-  } @ inputs: let
+  } @ originalInputs: let
+    # Conditionally override inputs with local paths if they exist
+    inputs =
+      originalInputs
+      // {
+        my-nur =
+          if builtins.pathExists /home/ang3lo/nur-packages
+          then builtins.getFlake "git+file:///home/ang3lo/nur-packages"
+          else originalInputs.my-nur;
+        mpv-config =
+          if builtins.pathExists /home/ang3lo/Documents/projects/mpv
+          then /home/ang3lo/Documents/projects/mpv
+          else originalInputs.mpv-config;
+      };
+
     inherit (nixpkgs) lib;
 
     # Helper function to generate a NixOS system configuration
