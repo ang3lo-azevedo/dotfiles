@@ -348,7 +348,7 @@
       // {
         ang3lo-nur =
           if builtins.pathExists ./pkgs/ang3lo-nur/flake.nix
-          then builtins.getFlake "git+file://${toString ./.}/pkgs/ang3lo-nur"
+          then builtins.getFlake "path:${toString ./.}/pkgs/ang3lo-nur"
           else originalInputs.ang3lo-nur;
         mpv-config =
           if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
