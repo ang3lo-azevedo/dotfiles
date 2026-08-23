@@ -330,11 +330,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2K9JBJKP2IQoEauFum1GLdXNWW73Ck5qYZmRJk3znqY=",
+            "sha256": "sha256-p0eSK/jOhxp2A0ix4yMaCT4gPncAD52X44n6cA4C83Y=",
             "type": "url",
-            "url": "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.5/Nuvio-0.3.5-x86_64.AppImage"
+            "url": "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.6/Nuvio-0.3.6-x86_64.AppImage"
         },
-        "version": "0.3.5"
+        "version": "0.3.6"
     },
     "onlinefix-linux": {
         "cargoLock": null,
@@ -410,7 +410,7 @@
     },
     "scrollmpris": {
         "cargoLock": null,
-        "date": "2026-06-04",
+        "date": "2026-08-23",
         "extract": null,
         "name": "scrollmpris",
         "passthru": null,
@@ -422,12 +422,12 @@
             "name": null,
             "owner": "BEST8OY",
             "repo": "ScrollMPRIS",
-            "rev": "6f6261cb0ca405e5c1c53747e455f049dc95e867",
-            "sha256": "sha256-euT3rxUDaIkwZpEG2PRmyTUWIzDkG64L8L2QoJkmKwM=",
+            "rev": "27c0014a4bb6a74acc22879cc55b219681d87c1a",
+            "sha256": "sha256-ZxMVRDuxgO7cd6H+ovRpcUsUungli7rz93BKmA/zpJg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6f6261cb0ca405e5c1c53747e455f049dc95e867"
+        "version": "27c0014a4bb6a74acc22879cc55b219681d87c1a"
     },
     "sidr": {
         "cargoLock": null,

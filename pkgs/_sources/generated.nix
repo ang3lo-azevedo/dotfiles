@@ -186,10 +186,10 @@
   };
   nuvio = {
     pname = "nuvio";
-    version = "0.3.5";
+    version = "0.3.6";
     src = fetchurl {
-      url = "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.5/Nuvio-0.3.5-x86_64.AppImage";
-      sha256 = "sha256-2K9JBJKP2IQoEauFum1GLdXNWW73Ck5qYZmRJk3znqY=";
+      url = "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.6/Nuvio-0.3.6-x86_64.AppImage";
+      sha256 = "sha256-p0eSK/jOhxp2A0ix4yMaCT4gPncAD52X44n6cA4C83Y=";
     };
   };
   onlinefix-linux = {
@@ -233,15 +233,15 @@
   };
   scrollmpris = {
     pname = "scrollmpris";
-    version = "6f6261cb0ca405e5c1c53747e455f049dc95e867";
+    version = "27c0014a4bb6a74acc22879cc55b219681d87c1a";
     src = fetchFromGitHub {
       owner = "BEST8OY";
       repo = "ScrollMPRIS";
-      rev = "6f6261cb0ca405e5c1c53747e455f049dc95e867";
+      rev = "27c0014a4bb6a74acc22879cc55b219681d87c1a";
       fetchSubmodules = false;
-      sha256 = "sha256-euT3rxUDaIkwZpEG2PRmyTUWIzDkG64L8L2QoJkmKwM=";
+      sha256 = "sha256-ZxMVRDuxgO7cd6H+ovRpcUsUungli7rz93BKmA/zpJg=";
     };
-    date = "2026-06-04";
+    date = "2026-08-23";
   };
   sidr = {
     pname = "sidr";
