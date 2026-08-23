@@ -444,8 +444,15 @@ workspace "social" {
 
 // Group Discord and Spotify together in the social workspace.
 window-rule {
-    match app-id="(?i)(discord|spotify)"
+    match app-id="(?i)(discord|spotify|vesktop|equicord)"
+    match title="(?i)(discord|spotify|vesktop|equicord)"
     open-on-workspace "social"
+}
+
+// Open nix-config on the right side (laptop screen)
+window-rule {
+    match title="(?i)nix-config"
+    open-on-output "eDP-1"
 }
 
 // Window rules let you adjust behavior for individual windows.
