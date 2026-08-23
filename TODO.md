@@ -23,10 +23,9 @@
 
 
 ## General Stuff
-- [x] Add ctf-dl
-- [x] Make nix config open on second screen
-- [x] Fix Zen taking too much time
-- [x] Fix Chromium taking WAY less time than Zen
+- [ ] Add ctf-dl
+- [ ] Make nix config open on second screen
+- [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness
