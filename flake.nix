@@ -2,8 +2,12 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    my-nur.url = "github:ang3lo-azevedo/nur-packages";
-    mpv-config = {
+    ang3lo-nur = {
+      url = "github:ang3lo-azevedo/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    mpv = {
       url = "github:ang3lo-azevedo/mpv";
       flake = false;
     };
@@ -332,7 +336,7 @@
     zen-browser,
     nix-vscode-extensions,
     spicetify-nix,
-    mpv-config,
+    mpv,
     trakt-scrobbler-src,
     chaotic,
     pre-commit-hooks,
@@ -342,14 +346,14 @@
     inputs =
       originalInputs
       // {
-        my-nur =
-          if builtins.pathExists ./nur-packages/flake.nix
-          then builtins.getFlake "git+file://${toString ./.}/nur-packages"
-          else originalInputs.my-nur;
-        mpv-config =
-          if builtins.pathExists ./mpv-config/mpv.conf
-          then ./. + "/mpv-config"
-          else originalInputs.mpv-config;
+        ang3lo-nur =
+          if builtins.pathExists ./pkgs/ang3lo-nur/flake.nix
+          then builtins.getFlake "git+file://${toString ./.}/pkgs/ang3lo-nur"
+          else originalInputs.ang3lo-nur;
+        mpv =
+          if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
+          then ./. + "/home/ang3lo/.config/mpv"
+          else originalInputs.mpv;
       };
 
     inherit (nixpkgs) lib;
@@ -411,7 +415,7 @@
                 zen-browser
                 nix-vscode-extensions
                 spicetify-nix
-                mpv-config
+                mpv
                 trakt-scrobbler-src
                 ;
             };
@@ -551,7 +555,7 @@
           zen-browser
           nix-vscode-extensions
           spicetify-nix
-          mpv-config
+          mpv
           trakt-scrobbler-src
           ;
       };
