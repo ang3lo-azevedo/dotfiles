@@ -186,10 +186,10 @@
   };
   nuvio = {
     pname = "nuvio";
-    version = "0.3.6";
+    version = "0.3.6.1";
     src = fetchurl {
-      url = "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.6/Nuvio-0.3.6-x86_64.AppImage";
-      sha256 = "sha256-p0eSK/jOhxp2A0ix4yMaCT4gPncAD52X44n6cA4C83Y=";
+      url = "https://github.com/blarns/NuvioForLinux/releases/download/v0.3.6.1/Nuvio-0.3.6.1-x86_64.AppImage";
+      sha256 = "sha256-aG56lPtDo6e0NAhJXGxnWKE1RXcR8tJSRgUlRtJfTW0=";
     };
   };
   onlinefix-linux = {

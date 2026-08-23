@@ -23,6 +23,7 @@
     ./brightnessctl.nix
     ./fastfetch.nix
     ./pavucontrol.nix
+    ./qpwgraph.nix
     ./nautilus.nix
     ./network-manager-applet.nix
     #./trakt-scrobbler.nix TODO: Fix Trakt Scrobbler
