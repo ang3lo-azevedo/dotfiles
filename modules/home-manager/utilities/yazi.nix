@@ -10,7 +10,24 @@
 
     plugins = {
       mount = "${pkgs.yaziPlugins.mount}";
+      bookmarks = "${pkgs.yaziPlugins.bookmarks}";
     };
+
+    initLua = ''
+      require("bookmarks"):setup({
+        persist = "all",
+        desc_format = "full",
+        notify = {
+          enable = true,
+          timeout = 1,
+          message = {
+            new = "New bookmark '<key>' -> '<folder>'",
+            delete = "Deleted bookmark in '<key>'",
+            delete_all = "Deleted all bookmarks",
+          },
+        },
+      })
+    '';
 
     settings = {
       manager = {
@@ -24,6 +41,26 @@
 
     keymap = {
       mgr.prepend_keymap = [
+        {
+          on = ["m"];
+          run = "plugin bookmarks save";
+          desc = "Save current position as a bookmark";
+        }
+        {
+          on = ["'"];
+          run = "plugin bookmarks jump";
+          desc = "Jump to a bookmark";
+        }
+        {
+          on = ["b" "d"];
+          run = "plugin bookmarks delete";
+          desc = "Delete a bookmark";
+        }
+        {
+          on = ["b" "D"];
+          run = "plugin bookmarks delete_all";
+          desc = "Delete all bookmarks";
+        }
         {
           on = ["M"];
           run = "plugin mount";
