@@ -42,12 +42,12 @@
     keymap = {
       mgr.prepend_keymap = [
         {
-          on = ["m"];
+          on = ["b" "a"];
           run = "plugin bookmarks save";
           desc = "Save current position as a bookmark";
         }
         {
-          on = ["'"];
+          on = ["b" "j"];
           run = "plugin bookmarks jump";
           desc = "Jump to a bookmark";
         }
@@ -83,8 +83,8 @@
         }
         {
           on = ["A"];
-          run = "shell --confirm 'agy'";
-          desc = "Open Antigravity in current folder";
+          run = "shell --confirm 'code'";
+          desc = "Open code editor in current folder";
         }
       ];
     };
