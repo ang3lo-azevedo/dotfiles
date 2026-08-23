@@ -1,7 +1,7 @@
 {
   pkgs ? import <nixpkgs> {},
   inputs ? {},
-  system ? pkgs.system,
+  ...
 }:
 {
   angr-management = import ./angr-management/default.nix {
