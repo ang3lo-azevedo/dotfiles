@@ -343,12 +343,12 @@
       originalInputs
       // {
         my-nur =
-          if builtins.pathExists /home/ang3lo/nur-packages
-          then builtins.getFlake "git+file:///home/ang3lo/nur-packages"
+          if builtins.pathExists ./nur-packages/flake.nix
+          then builtins.getFlake "git+file://${toString ./.}/nur-packages"
           else originalInputs.my-nur;
         mpv-config =
-          if builtins.pathExists /home/ang3lo/Documents/projects/mpv
-          then /home/ang3lo/Documents/projects/mpv
+          if builtins.pathExists ./mpv-config/mpv.conf
+          then ./. + "/mpv-config"
           else originalInputs.mpv-config;
       };
 
