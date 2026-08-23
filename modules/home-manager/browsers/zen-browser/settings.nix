@@ -117,10 +117,10 @@
   "network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
-  "network.dns.echconfig.enabled" = true;
+  "network.dns.echconfig.enabled" = false;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
   # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
-  "network.dns.use_https_rr_as_altsvc" = true;
+  "network.dns.use_https_rr_as_altsvc" = false;
   # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
   # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
   # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
