@@ -1,6 +1,6 @@
 {
   imports = [
+    ./ida-chat-plugin.nix
     ./ida-pro.nix
-    #./ida-chat-plugin.nix
   ];
 }

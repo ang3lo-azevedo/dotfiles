@@ -2,14 +2,16 @@
   spaceId = lib.mkId "Cyber";
   folderId = lib.mkId (spaceId + "Discord");
 in {
-  pins = [
+  pins = lib.imap1 (i: v:
+    v
+    // {
+      order = i;
+      workspace = folderId;
+      id = lib.mkId (folderId + v.name);
+    }) [
     {
       name = "dis.cord.cat";
-      id = lib.mkId (spaceId + "dis.cord.cat");
       url = "https://dis.cord.cat/";
-      workspace = spaceId;
-      folderParentId = folderId;
-      order = 1;
     }
   ];
 }

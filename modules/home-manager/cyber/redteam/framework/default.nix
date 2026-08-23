@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./metasploit.nix
+  ];
+}

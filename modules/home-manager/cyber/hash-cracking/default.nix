@@ -1,6 +1,6 @@
 {
   imports = [
-    ./john.nix
     ./hashcat.nix
+    ./john.nix
   ];
 }

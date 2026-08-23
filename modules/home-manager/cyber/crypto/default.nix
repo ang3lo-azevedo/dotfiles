@@ -1,1 +1,6 @@
-_: {}
+{
+  imports = [
+    ./cryptanalysis
+    ./math
+  ];
+}

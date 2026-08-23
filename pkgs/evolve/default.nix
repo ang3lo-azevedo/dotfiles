@@ -1,11 +1,11 @@
 {
   lib,
-  python2Packages,
+  python3Packages,
   callPackage,
 }: let
   sources = callPackage ../_sources/generated.nix {};
 in
-  python2Packages.buildPythonApplication {
+  python3Packages.buildPythonApplication {
     pname = "evolve";
     version = sources.evolve.version;
 
@@ -13,15 +13,15 @@ in
 
     format = "setuptools";
 
-    nativeBuildInputs = with python2Packages; [setuptools];
+    nativeBuildInputs = with python3Packages; [setuptools];
 
-    propagatedBuildInputs = with python2Packages; [bottle maxminddb];
+    propagatedBuildInputs = with python3Packages; [bottle maxminddb];
 
     doCheck = false;
 
     postInstall = ''
       install -Dm755 evolve.py $out/share/evolve/evolve.py
-      makeWrapper ${python2Packages.python.interpreter} $out/bin/evolve \
+      makeWrapper ${python3Packages.python.interpreter} $out/bin/evolve \
         --add-flags $out/share/evolve/evolve.py
     '';
 

@@ -1,7 +1,7 @@
 {
   imports = [
-    ./apktool.nix
     ./apk-mitm.nix
-    #./qark.nix
+    ./apktool.nix
+    ./qark.nix
   ];
 }

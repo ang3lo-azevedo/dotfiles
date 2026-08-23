@@ -1,7 +1,7 @@
 {
   imports = [
+    ./ese-database-view.nix
     ./libesedb.nix
-    #./ese-database-view.nix
     ./sidr.nix
   ];
 }

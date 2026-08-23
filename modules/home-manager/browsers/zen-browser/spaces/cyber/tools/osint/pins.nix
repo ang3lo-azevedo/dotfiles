@@ -1,31 +1,25 @@
 {lib}: let
   spaceId = lib.mkId "Cyber";
-  osintId = lib.mkId (spaceId + "OSINT");
+  folderId = lib.mkId (spaceId + "OSINT");
 in {
-  pins = [
+  pins = lib.imap1 (i: v:
+    v
+    // {
+      order = i;
+      workspace = folderId;
+      id = lib.mkId (folderId + v.name);
+    }) [
     {
       name = "dox.soy";
-      id = lib.mkId (spaceId + "dox.soy");
       url = "https://dox.soy/";
-      workspace = spaceId;
-      folderParentId = osintId;
-      order = 1;
     }
     {
       name = "OSINT Toolbox";
-      id = lib.mkId (spaceId + "OSINT Toolbox");
       url = "https://github.com/The-Osint-Toolbox/Data-Acquisition-OSINT";
-      workspace = spaceId;
-      folderParentId = osintId;
-      order = 2;
     }
     {
       name = "offshore.cat OSINT";
-      id = lib.mkId (spaceId + "offshore.cat OSINT");
       url = "https://offshore.cat/?page=osint";
-      workspace = spaceId;
-      folderParentId = osintId;
-      order = 3;
     }
   ];
 }

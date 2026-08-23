@@ -7,7 +7,7 @@
       EDITOR = "antigravity-ide";
       BROWSER = "zen-browser";
       TERMINAL = "ghostty";
-      EXPLORER = "$TERMINAL -e superfile";
+      EXPLORER = "$TERMINAL -e yazi";
       MUSIC_PLAYER = "spotify";
       DISCORD = "equibop";
       YOUTUBE_PLAYER = "grayjay";

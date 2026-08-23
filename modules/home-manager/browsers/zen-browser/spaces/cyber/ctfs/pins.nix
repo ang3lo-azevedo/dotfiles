@@ -2,14 +2,16 @@
   spaceId = lib.mkId "Cyber";
   folderId = lib.mkId (spaceId + "CTFs");
 in {
-  pins = [
+  pins = lib.imap1 (i: v:
+    v
+    // {
+      order = i;
+      workspace = folderId;
+      id = lib.mkId (folderId + v.name);
+    }) [
     {
       name = "CTFtime";
-      id = lib.mkId (spaceId + "CTFtime");
       url = "https://ctftime.org/";
-      workspace = spaceId;
-      folderParentId = folderId;
-      order = 1;
     }
   ];
 }

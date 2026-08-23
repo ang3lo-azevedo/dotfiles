@@ -7,6 +7,7 @@
     ./crypto
     ./hash-cracking
     ./redteam
+    ./wordlists
     ./misc
   ];
 }
