@@ -21,12 +21,13 @@ in {
     code = "$EDITOR";
     btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
     chainsaw-hunt = "chainsaw hunt --mapping ${pkgs.chainsaw-rules}/share/chainsaw/mappings/sigma-event-logs-all.yml --sigma ${pkgs.chainsaw-rules}/share/chainsaw/sigma/rules";
+    phone = "gio mount -li | awk -F= '{if(index($2,\"mtp://\") != 0) system(\"gio mount \"$2)}'; yy /run/user/1000/gvfs/mtp*";
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake ~/nix-config#pc-angelo -L --keep-going";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake ~/nix-config#ang3lo";
-    nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\")";
+    nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\") && if [ -d ~/nur-packages ]; then nvfetcher -c ~/nur-packages/nvfetcher.toml -o ~/nur-packages/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\"); fi";
     update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
     upgrade = "sudo -v && git -C ~/nix-config pull && nvfetcher && rebuild";
     u = "upgrade";

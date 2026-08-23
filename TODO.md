@@ -23,8 +23,8 @@
 
 
 ## General Stuff
-- [ ] See to connect 3 headphones
-- [ ] Create nur
+- [ ] Add ctf-dl
+- [ ] Make nix config open on second screen
 - [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping

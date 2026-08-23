@@ -1,5 +1,9 @@
-{pkgs, ...}: let
-  sources = pkgs.callPackage ../../../../../pkgs/_sources/generated.nix {};
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  sources = pkgs.callPackage "${inputs.ang3lo-nur}/pkgs/_sources/generated.nix" {};
   ida-chat-plugin = sources.ida-chat-plugin.src;
 in {
   home.packages = with pkgs; [
