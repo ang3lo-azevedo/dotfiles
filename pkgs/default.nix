@@ -20,7 +20,7 @@
   };
 }
 // (
-  if inputs ? my-nur
-  then inputs.my-nur.packages.${system}
+  if inputs ? ang3lo-nur
+  then inputs.ang3lo-nur.packages.${system}
   else {}
 )
