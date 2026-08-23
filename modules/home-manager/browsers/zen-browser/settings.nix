@@ -114,7 +114,7 @@
 
   # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
   # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
-  #"network.dns.disableIPv6" = true;
+  "network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
   # Requires HTTPS DNS records to deliver the ECH config.
   "network.dns.echconfig.enabled" = true;

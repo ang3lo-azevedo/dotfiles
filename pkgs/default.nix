@@ -21,6 +21,6 @@
 }
 // (
   if inputs ? ang3lo-nur
-  then inputs.ang3lo-nur.packages.${system}
+  then builtins.removeAttrs (import "${inputs.ang3lo-nur}/default.nix" {inherit pkgs;}) ["lib" "nixosModules" "overlays"]
   else {}
 )

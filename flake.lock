@@ -53,6 +53,26 @@
         "type": "github"
       }
     },
+    "ang3lo-nur": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787516406,
+        "narHash": "sha256-SiByCmcHi7+nG2euNorxw71xO8pwhxtKzADG86EZjKo=",
+        "owner": "ang3lo-azevedo",
+        "repo": "nur-packages",
+        "rev": "653c246fbb48c071568c0de88d3cf11cdff7d7a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ang3lo-azevedo",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "angr-management": {
       "flake": false,
       "locked": {
@@ -1180,11 +1200,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1787449621,
-        "narHash": "sha256-882e+U3f98+Y8ftOn774VqY5eaEeCNA+MBdP86MTVtk=",
+        "lastModified": 1787516662,
+        "narHash": "sha256-lkYEADkKdMFNo34MrI+Ch3he21yJkBoSA6vminhPeGg=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "a6e8cedc000bda63e345957a15ceb84e4b105d1b",
+        "rev": "f22527d3d6fb142ab2a9866f126bfa56ede3ed83",
         "type": "github"
       },
       "original": {
@@ -2034,6 +2054,7 @@
       "inputs": {
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
+        "ang3lo-nur": "ang3lo-nur",
         "angr-management": "angr-management",
         "antigravity-nix": "antigravity-nix",
         "autodesk-fusion": "autodesk-fusion",
