@@ -43,17 +43,6 @@ final: prev: let
       version = "1.3.1";
       name = "python-registry-1.3.1";
     });
-    # HACK: Python 3.14 removed setuptools (and pkg_resources) from the standard library.
-    # wfuzz crashes with "ModuleNotFoundError: No module named 'pkg_resources'" without it.
-    wfuzz = pyPrev.wfuzz.overridePythonAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace $(find . -name file_func.py | head -n 1) \
-            --replace-fail "import pkg_resources" "import importlib.resources as pkg_resources" \
-            --replace-fail "pkg_resources.resource_filename(\"wfuzz\", FILTER_HELP_FILE)" "str(pkg_resources.files(\"wfuzz\").joinpath(FILTER_HELP_FILE))"
-        '';
-    });
   };
 in {
   customPythonOverrides = customOverrides;
@@ -62,17 +51,6 @@ in {
   customPython3Packages = prev.python3Packages.overrideScope customOverrides;
   customPython313 = prev.python313.override {packageOverrides = customOverrides;};
   customPython313Packages = final.customPython313.pkgs;
-
-  # HACK: Python 3.14 removed pkg_resources from setuptools.
-  # wfuzz crashes with "ModuleNotFoundError: No module named 'pkg_resources'" without it.
-  wfuzz = prev.wfuzz.overridePythonAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        sed -i 's/import pkg_resources/import importlib.resources as pkg_resources/g' src/wfuzz/helpers/file_func.py
-        sed -i 's/pkg_resources.resource_filename("wfuzz", FILTER_HELP_FILE)/str(pkg_resources.files("wfuzz").joinpath(FILTER_HELP_FILE))/g' src/wfuzz/helpers/file_func.py
-      '';
-  });
 
   # HACK: sage-tests fails in unstable with a permission error creating .pytest_cache.
   # We bypass this by completely disabling tests for sage.
