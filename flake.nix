@@ -3,6 +3,10 @@
 
   inputs = {
     my-nur.url = "github:ang3lo-azevedo/nur-packages";
+    mpv-config = {
+      url = "github:ang3lo-azevedo/mpv";
+      flake = false;
+    };
 
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
@@ -153,10 +157,6 @@
     };
 
     # MPV config
-    mpv-config = {
-      url = "github:ang3lo-azevedo/mpv";
-      flake = false;
-    };
 
     # Trakt Scrobbler (TODO: fix)
     trakt-scrobbler-src = {
