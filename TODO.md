@@ -23,7 +23,7 @@
 
 
 ## General Stuff
-- [x] Add ctf-dl
+- [ ] Add ctf-dl
 - [ ] Make nix config open on second screen
 - [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
