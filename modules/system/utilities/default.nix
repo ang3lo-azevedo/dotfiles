@@ -18,6 +18,7 @@
     pcsclite
     pcsc-tools
     btop
+    ntfs3g
   ];
 
   services.gvfs.enable = true;
