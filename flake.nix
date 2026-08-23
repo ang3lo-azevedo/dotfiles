@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mpv = {
+    mpv-config = {
       url = "github:ang3lo-azevedo/mpv";
       flake = false;
     };
@@ -336,7 +336,7 @@
     zen-browser,
     nix-vscode-extensions,
     spicetify-nix,
-    mpv,
+    mpv-config,
     trakt-scrobbler-src,
     chaotic,
     pre-commit-hooks,
@@ -350,10 +350,10 @@
           if builtins.pathExists ./pkgs/ang3lo-nur/flake.nix
           then builtins.getFlake "git+file://${toString ./.}/pkgs/ang3lo-nur"
           else originalInputs.ang3lo-nur;
-        mpv =
+        mpv-config =
           if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
           then ./. + "/home/ang3lo/.config/mpv"
-          else originalInputs.mpv;
+          else originalInputs.mpv-config;
       };
 
     inherit (nixpkgs) lib;
@@ -415,7 +415,7 @@
                 zen-browser
                 nix-vscode-extensions
                 spicetify-nix
-                mpv
+                mpv-config
                 trakt-scrobbler-src
                 ;
             };
@@ -555,7 +555,7 @@
           zen-browser
           nix-vscode-extensions
           spicetify-nix
-          mpv
+          mpv-config
           trakt-scrobbler-src
           ;
       };
