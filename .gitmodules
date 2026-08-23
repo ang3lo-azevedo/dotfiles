@@ -4,3 +4,9 @@
 [submodule "private"]
 	path = private
 	url = git@github.com:ang3lo-azevedo/nix-config-private.git
+[submodule "mpv-config"]
+	path = mpv-config
+	url = https://github.com/ang3lo-azevedo/mpv.git
+[submodule "nur-packages"]
+	path = nur-packages
+	url = https://github.com/ang3lo-azevedo/nur-packages.git
