@@ -4,15 +4,10 @@
   ...
 }: let
   pwndbg = inputs.pwndbg.packages.${pkgs.unstable.stdenv.hostPlatform.system}.default;
-  # reverser_ai.nix sets PYTHONPATH to python3.12 site-packages; unset so Python 3.14 in pwndbg-env finds the right _sysconfigdata
-  pwndbgWrapped = pkgs.unstable.writeShellScriptBin "pwndbg" ''
-    unset PYTHONPATH
-    exec ${pwndbg}/bin/pwndbg "$@"
-  '';
 in {
-  home.packages = [pwndbgWrapped];
+  home.packages = [pwndbg];
 
   home.shellAliases = {
-    gdb = "${pwndbgWrapped}/bin/pwndbg";
+    gdb = "${pwndbg}/bin/pwndbg";
   };
 }

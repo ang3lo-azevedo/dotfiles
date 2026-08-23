@@ -46,7 +46,7 @@ in {
               wrapProgram "$out/bin/binaryninja" \
                 --set-default PYTHON ${pkgs.python312}/bin/python3 \
                 --prefix PATH : ${pkgs.python312}/bin \
-                --prefix PYTHONPATH : ${config.home.sessionVariables.PYTHONPATH}
+                --prefix PYTHONPATH : ${config.home.sessionVariables.BINJA_PYTHONPATH or ""}
             fi
 
             # Fix the icon path in the existing desktop entry

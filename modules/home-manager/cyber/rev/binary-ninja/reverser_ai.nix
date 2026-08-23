@@ -25,7 +25,7 @@ in {
       export PYTHONPATH="${python312WithReverserAI}/${pkgs.python312.sitePackages}:$PYTHONPATH"
     '';
 
-    # Expose the plugin dependencies to the rest of the Home Manager config
-    sessionVariables.PYTHONPATH = "${python312WithReverserAI}/${pkgs.python312.sitePackages}";
+    # Expose the plugin dependencies to the rest of the Home Manager config (using a custom variable to avoid global pollution)
+    sessionVariables.BINJA_PYTHONPATH = "${python312WithReverserAI}/${pkgs.python312.sitePackages}";
   };
 }
