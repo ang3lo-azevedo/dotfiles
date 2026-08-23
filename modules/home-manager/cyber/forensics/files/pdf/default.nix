@@ -1,6 +1,6 @@
 {
   imports = [
-    ./poppler.nix
     ./pdfcrack.nix
+    ./poppler.nix
   ];
 }

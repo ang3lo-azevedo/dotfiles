@@ -34,7 +34,7 @@
     };
 
     # Add kernel parameter to force Xen to probe all devices
-    kernelParams = ["xe.force_probe=*"];
+    kernelParams = ["xe.force_probe=*" "quiet" "loglevel=3"];
   };
 
   # Enable graphics drivers for Intel integrated GPU

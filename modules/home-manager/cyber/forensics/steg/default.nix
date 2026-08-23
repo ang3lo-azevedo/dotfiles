@@ -1,10 +1,10 @@
 {
   imports = [
-    ./sstv.nix
     ./binwalk.nix
-    ./zsteg.nix
-    ./steghide.nix
-    # ./unblob.nix
     ./sonic-visualiser.nix
+    ./sstv.nix
+    ./steghide.nix
+    ./unblob.nix
+    ./zsteg.nix
   ];
 }

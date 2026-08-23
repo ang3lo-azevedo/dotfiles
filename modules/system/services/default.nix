@@ -6,6 +6,7 @@
     ./nordvpn.nix
     ./mullvad.nix
     ./xdg-portal.nix
+    ./logind.nix
     #./suwayomi.nix
     # ./docker-compose.nix
     # ./stacks

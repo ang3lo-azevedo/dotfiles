@@ -1,6 +1,6 @@
 {pkgs, ...}: let
-  idaRun = /home/ang3lo/nix-config/private/ida-pro/ida94b1/ida-pro_94_x64linux.run;
-  setupDir = /home/ang3lo/nix-config/private/ida-pro/ida94b1/setup;
+  idaRun = /. + "/home/ang3lo/nix-config/private/ida-pro/ida94b1/ida-pro_94_x64linux.run";
+  setupDir = "/home/ang3lo/nix-config/private/ida-pro/ida94b1/setup";
   setupExists = builtins.pathExists setupDir;
   idaExists = builtins.pathExists idaRun;
 in {

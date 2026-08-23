@@ -97,6 +97,7 @@ in {
         executable = true;
         text = ''
           #!/bin/sh
+          export PATH="$PATH:/run/current-system/sw/bin:/home/ang3lo/.nix-profile/bin:/etc/profiles/per-user/ang3lo/bin"
           multiple="$1"
           directory="$2"
           save="$3"

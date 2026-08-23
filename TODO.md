@@ -23,10 +23,12 @@
 
 
 ## General Stuff
+- [ ] Fix yazi
+- [ ] See binja and ida not showing at startup
+- [ ] Fix login screen still showing some errors
+- [ ] See to connect 3 headphones
+- [ ] Create nur
 - [ ] Fix Zen taking too much time
-- [ ] Fix error messages login screen
-- [x] Improve superfile
-  - [x] Make pdfs open on zen
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness

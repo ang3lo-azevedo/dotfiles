@@ -1,4 +1,8 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   # Dynamically pull the secret path if Home Manager is running as a NixOS module,
   # otherwise fallback to the default Agenix path for standalone Home Manager.
   keyfile =
@@ -16,6 +20,7 @@ in {
     cat = "bat";
     code = "$EDITOR";
     btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
+    chainsaw-hunt = "chainsaw hunt --mapping ${pkgs.chainsaw-rules}/share/chainsaw/mappings/sigma-event-logs-all.yml --sigma ${pkgs.chainsaw-rules}/share/chainsaw/sigma/rules";
 
     # NixOS related aliases
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";

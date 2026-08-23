@@ -1,7 +1,8 @@
 {
   imports = [
     ./bettercap.nix
+    ./networkminer.nix
     ./nmap.nix
-    ./impacket.nix
+    ./so-crates.nix
   ];
 }

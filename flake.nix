@@ -480,38 +480,15 @@
                 });
                 */
               })
-              (_: prev: {
-                glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
-                xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
-                nordvpn = prev.callPackage (inputs.self + "/pkgs/nordvpn/default.nix") {};
-                so-crates = prev.callPackage (inputs.self + "/pkgs/so-crates/default.nix") {};
-                angr-management = prev.callPackage (inputs.self + "/pkgs/angr-management/default.nix") {
-                  src = inputs.angr-management;
-                };
-                archi = prev.callPackage (inputs.self + "/pkgs/archi/default.nix") {
+              (_: prev:
+                {
+                  glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
+                  xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
+                }
+                // import ./pkgs {
+                  pkgs = prev;
                   inherit inputs;
-                };
-                autodesk-fusion = prev.callPackage (inputs.self + "/pkgs/autodesk-fusion/default.nix") {
-                  wine = prev.wineWow64Packages.full;
-                  src = inputs.autodesk-fusion;
-                };
-                trakt-scrobbler = prev.callPackage (inputs.self + "/pkgs/trakt-scrobbler/default.nix") {};
-                cursor-id-modifier = prev.callPackage (inputs.self + "/pkgs/cursor-id-modifier/default.nix") {};
-                stremio-enhanced = prev.callPackage (inputs.self + "/pkgs/stremio-enhanced/default.nix") {};
-                ctfd-parser = prev.callPackage (inputs.self + "/pkgs/ctfd-parser/default.nix") {};
-                ese-database-view = prev.callPackage (inputs.self + "/pkgs/ese-database-view/default.nix") {};
-                ffmpeg-encoder-plugin-resolve = prev.callPackage (inputs.self + "/pkgs/ffmpeg-encoder-plugin-resolve/default.nix") {};
-                libesedb = prev.callPackage (inputs.self + "/pkgs/libesedb/default.nix") {};
-                libfsntfs = prev.callPackage (inputs.self + "/pkgs/libfsntfs/default.nix") {};
-                sidr = prev.callPackage (inputs.self + "/pkgs/sidr/default.nix") {};
-                monkeylauncher = prev.callPackage (inputs.self + "/pkgs/monkeylauncher/default.nix") {};
-                linoffice = prev.callPackage (inputs.self + "/pkgs/linoffice/default.nix") {};
-                betterbird = prev.callPackage (inputs.self + "/pkgs/betterbird/default.nix") {};
-                proton-cachyos-linuwux = prev.callPackage (inputs.self + "/pkgs/proton-linuwux/default.nix") {};
-                steamidra = prev.callPackage (inputs.self + "/pkgs/steamidra/default.nix") {};
-                hayabusa = prev.callPackage (inputs.self + "/pkgs/hayabusa/default.nix") {};
-                analyzeMFT = prev.callPackage (inputs.self + "/pkgs/analyzeMFT/default.nix") {};
-              })
+                })
             ];
           };
         }
@@ -566,51 +543,20 @@
     };
 
     # Expose the local packages so flakes can reference them
-    packages.x86_64-linux = {
-      angr-management = import ./pkgs/angr-management/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        inherit (nixpkgs) lib;
-        src = inputs.angr-management;
+    packages.x86_64-linux = import ./pkgs {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "electron-39.8.10"
+          ];
+        };
+        overlays = [
+          (import ./overlays/python-packages.nix)
+        ];
       };
-
-      archi = import ./pkgs/archi/default.nix {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        inherit inputs;
-      };
-
-      registry-spy = import ./pkgs/registry-spy/default.nix {
-        inherit (nixpkgs) lib;
-        fetchFromGitHub = nixpkgs.legacyPackages.x86_64-linux.fetchFromGitHub;
-        python3Packages = nixpkgs.legacyPackages.x86_64-linux.python3Packages;
-      };
-
-      rem = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/rem/default.nix {};
-      dnspy = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/dnspy/default.nix {};
-      ctfd-parser = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ctfd-parser/default.nix {};
-      ese-database-view = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ese-database-view/default.nix {};
-      libesedb = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libesedb/default.nix {};
-      libfsntfs = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/libfsntfs/default.nix {};
-      sidr = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/sidr/default.nix {};
-      scrollmpris = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/scrollmpris/default.nix {};
-      monkeylauncher = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/monkeylauncher/default.nix {};
-      nuvio = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nuvio/default.nix {};
-      onlinefix-linux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/onlinefix-linux/default.nix {};
-      autodesk-fusion = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/autodesk-fusion/default.nix {
-        wine = nixpkgs.legacyPackages.x86_64-linux.wineWow64Packages.full;
-        src = inputs.autodesk-fusion;
-      };
-      nordvpn = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/nordvpn/default.nix {};
-      so-crates = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/so-crates/default.nix {};
-      linoffice = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/linoffice/default.nix {};
-      ist-fenix-auto-enroller = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/ist-fenix-auto-enroller/default.nix {
-        src = inputs.ist-fenix-auto-enroller;
-      };
-      harbor = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/harbor/default.nix {};
-      proton-cachyos-linuwux = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/proton-linuwux/default.nix {};
-      steamidra = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/steamidra/default.nix {};
-      hayabusa = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/hayabusa/default.nix {};
-      betterbird = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/betterbird/default.nix {};
-      analyzeMFT = nixpkgs.legacyPackages.x86_64-linux.callPackage ./pkgs/analyzeMFT/default.nix {};
+      inherit inputs;
     };
 
     # Pre-commit checks

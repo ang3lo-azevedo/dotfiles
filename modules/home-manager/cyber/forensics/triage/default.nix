@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./so-crates.nix
+  ];
+}

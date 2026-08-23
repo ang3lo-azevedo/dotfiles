@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs.unstable; [
-    ropper
+  home.packages = with pkgs; [
+    python3Packages.ropper
   ];
 }
