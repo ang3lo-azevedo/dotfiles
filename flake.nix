@@ -501,10 +501,12 @@
                   glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
                   xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
                 }
-                // import ./pkgs {
+                // (import ./pkgs {
                   pkgs = prev;
                   inherit inputs;
-                })
+                  system = prev.stdenv.hostPlatform.system;
+                }))
+              chaotic.overlays.default
             ];
           };
         }
