@@ -1,12 +1,12 @@
 {
   pkgs,
   lib,
-  mpv,
+  mpv-config,
   ...
 }: let
-  # Filter out .vscode directory from mpv source
+  # Filter out .vscode directory from mpv-config source
   filteredMpvConfig = lib.cleanSourceWith {
-    src = mpv;
+    src = mpv-config;
     filter = path: _: let
       name = baseNameOf (toString path);
     in
