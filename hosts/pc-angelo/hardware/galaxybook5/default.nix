@@ -33,8 +33,9 @@
       supportedFilesystems = ["btrfs" "ntfs3" "ntfs"];
     };
 
-    # Add kernel parameter to force Xen to probe all devices
-    kernelParams = ["xe.force_probe=*" "quiet" "loglevel=3"];
+    # Add kernel parameter to force Xen to probe all devices, and silence ACPI errors
+    kernelParams = ["xe.force_probe=*" "quiet" "loglevel=3" "systemd.show_status=auto" "rd.udev.log_level=3"];
+    consoleLogLevel = 0;
   };
 
   # Enable graphics drivers for Intel integrated GPU
