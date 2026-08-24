@@ -6,6 +6,7 @@
     ./code-editors
     ./adb.nix
     ./latex.nix
+    ./typst.nix
     ./game-dev
   ];
 
