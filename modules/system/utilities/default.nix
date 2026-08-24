@@ -19,6 +19,7 @@
     pcsc-tools
     btop
     ntfs3g
+    typst
   ];
 
   services.gvfs.enable = true;
