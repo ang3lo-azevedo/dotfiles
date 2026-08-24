@@ -180,6 +180,9 @@
     # TODO Tree
     "gruntfuggly.todo-tree"
 
+    # Typst (Tinymist)
+    "myriad-dreamin.tinymist"
+
     # Vim
     #"vscodevim.vim"
 
