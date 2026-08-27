@@ -11,15 +11,18 @@
   openvsx = pkgs.nix-vscode-extensions.open-vsx;
 
   # Map extension IDs to nix-vscode-extensions packages
-  # Extension IDs are in format "publisher.name", checking marketplace first then openvsx
+  # Extension IDs are in format "publisher.name", checking nixpkgs first, then marketplace, then openvsx
   extensionIdToPackage = extId: let
     parts = pkgs.lib.splitString "." extId;
     publisher = builtins.head parts;
     name = pkgs.lib.concatStringsSep "." (builtins.tail parts);
 
+    inPkgs = (pkgs.vscode-extensions ? ${publisher}) && (pkgs.vscode-extensions.${publisher} ? ${name});
     inMarketplace = (marketplace ? ${publisher}) && (marketplace.${publisher} ? ${name});
   in
-    if inMarketplace
+    if inPkgs
+    then pkgs.vscode-extensions.${publisher}.${name}
+    else if inMarketplace
     then marketplace.${publisher}.${name}
     else openvsx.${publisher}.${name};
 in {
@@ -66,7 +69,7 @@ in {
             extName=$(basename "$extLink")
             # Only process the non-versioned symlink (no trailing -x.y.z)
             # i.e. the one whose name matches publisher.name without a version suffix
-            if [[ ! "$extName" =~ ^[^.]+\.[^-]+-[0-9] ]]; then
+            if [[ ! "$extName" =~ -[0-9]+\.[0-9]+\.[0-9]+(-.*)?$ ]]; then
               extId=$(${pkgs.jq}/bin/jq -r '.publisher + "." + .name | ascii_downcase' "$extPath/package.json" 2>/dev/null) || continue
               extVersion=$(${pkgs.jq}/bin/jq -r '.version' "$extPath/package.json" 2>/dev/null || echo "1.0.0")
               versionedName="''${extId}-''${extVersion}"

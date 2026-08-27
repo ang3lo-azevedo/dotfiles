@@ -18,6 +18,19 @@
     initrd = {
       # Bootloader kernel modules
       availableKernelModules = [
+        "vmd"
+        "xhci_pci"
+        "thunderbolt"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+        "i8042"
+        "atkbd"
+        "intel_lpss_pci"
+        "i2c_designware_core"
+        "i2c_designware_platform"
+        "i2c_hid_acpi"
         "virtio_pci"
         "virtio_blk"
         "virtio_scsi"
@@ -34,7 +47,7 @@
     };
 
     # Add kernel parameter to force Xen to probe all devices, and silence ACPI errors
-    kernelParams = ["xe.force_probe=*" "quiet" "loglevel=3" "systemd.show_status=auto" "rd.udev.log_level=3" "acpi_osi=!Windows" "acpi_osi=Linux" "acpi=noirq"];
+    kernelParams = ["xe.force_probe=*" "quiet" "loglevel=3" "systemd.show_status=auto" "rd.udev.log_level=3"];
     consoleLogLevel = 0;
   };
 

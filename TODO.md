@@ -23,13 +23,11 @@
 
 
 ## General Stuff
-- [ ] Add ctf-dl
 - [ ] Make nix config open on second screen
 - [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness
-- [x] fix https://github.com/ZzEdovec/onlinefix-linux
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
@@ -75,6 +73,8 @@
 
 ## Other Stuff
 
+- [x] Fix screenshare frozen (eg discord)
+- [ ] Fix loss of antigravity account and ida/ghidra when restarting pc
 - [ ] Add so-crates
 - [ ] Fix when laptop is closed bluetooth and wifi are stopped
 - [ ] See best AI local module to have
@@ -95,3 +95,4 @@
 - [ ] Add LaTeX
 - [ ] Improve overlays
 - [ ] Make some choices be true of false options
+- [ ] Add hyprfm https://github.com/soyeb-jim285/hyprfm

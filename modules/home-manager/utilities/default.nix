@@ -11,6 +11,8 @@
     ]);
 
   imports = [
+    ./sqlitebrowser.nix
+    ./hyprfm.nix
     ./keyring
     ./zsh
     ./ghostty.nix

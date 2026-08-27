@@ -11,19 +11,19 @@
         "gtk"
       ];
 
-      # Niri screen sharing needs xdg-desktop-portal-wlr, which implements the
+      # Niri screen sharing needs xdg-desktop-portal-gnome, which implements the
       # PipeWire-based ScreenCast/Screenshot portals that xdg-desktop-portal-gtk lacks.
       # mkForce overrides the common.default fallback set above.
       niri = {
         default = lib.mkForce [
-          "wlr"
+          "gnome"
           "gtk"
         ];
         "org.freedesktop.impl.portal.ScreenCast" = [
-          "wlr"
+          "gnome"
         ];
         "org.freedesktop.impl.portal.Screenshot" = [
-          "wlr"
+          "gnome"
         ];
         "org.freedesktop.impl.portal.FileChooser" = [
           "termfilechooser"
@@ -35,7 +35,7 @@
     };
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gnome
       xdg-desktop-portal-termfilechooser
     ];
   };

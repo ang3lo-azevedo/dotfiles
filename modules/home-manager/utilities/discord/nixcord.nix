@@ -17,6 +17,8 @@
       equicord.enable = true;
       commandLineArgs = [
         "--disable-gpu"
+        "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer"
+        "--ozone-platform-hint=auto"
       ];
     };
     config = {
