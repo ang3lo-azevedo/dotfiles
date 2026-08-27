@@ -1,10 +1,14 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   force = true; # Needed for nix to overwrite search settings on rebuild
-  default = "SearXNG";
+  default = config.my.browsers.search.name;
   engines = {
-    "SearXNG" = {
-      urls = [{template = "https://searxng.pi.at.eu.org/search?q={searchTerms}";}];
-      icon = "https://searxng.pi.at.eu.org/favicon.ico";
+    "${config.my.browsers.search.name}" = {
+      urls = [{template = config.my.browsers.search.url;}];
+      icon = config.my.browsers.search.icon;
       updateInterval = 24 * 60 * 60 * 1000; # every day
       definedAliases = ["@sx"];
     };

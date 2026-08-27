@@ -2,13 +2,13 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }: let
   profileName = "ang3lo";
 in {
   imports = [
     inputs.zen-browser.homeModules.beta
-    ./extensions
     ./mods
     ./routing.nix
     ./searxng-cookies.nix
@@ -34,10 +34,11 @@ in {
     profiles.${profileName} =
       {
         extensions.force = true;
+        extensions.packages = builtins.filter (p: p != null) (builtins.map (v: v.firefoxPackage) (builtins.attrValues config.my.browsers.extensions));
         # Imported as plain attrsets, not modules: settings.nix returns an attrset of
         # about:config prefs, search.nix returns the search engine configuration.
         settings = import ./settings.nix;
-        search = import ./search.nix {inherit pkgs;};
+        search = import ./search.nix {inherit pkgs config;};
 
         # Force all Zen UI animations to be very fast
         userChrome = ''

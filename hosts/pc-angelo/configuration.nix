@@ -165,4 +165,18 @@ in {
       };
     };
   };
+
+  environment.etc."chromium/policies/managed/helium.json".text = builtins.toJSON {
+    "BrowserSignin" = 0;
+    "PasswordManagerEnabled" = false;
+    "SyncDisabled" = true;
+    "SpellcheckEnabled" = true;
+    "SpellcheckLanguage" = ["pt-PT" "en-US"];
+
+    "DefaultSearchProviderEnabled" = true;
+    "DefaultSearchProviderSearchURL" = config.home-manager.users.ang3lo.my.browsers.search.url;
+    "DefaultSearchProviderName" = config.home-manager.users.ang3lo.my.browsers.search.name;
+
+    "ExtensionInstallForcelist" = builtins.map (id: "${id};https://clients2.google.com/service/update2/crx") (builtins.filter (id: id != null) (builtins.map (v: v.chromeId) (builtins.attrValues config.home-manager.users.ang3lo.my.browsers.extensions)));
+  };
 }

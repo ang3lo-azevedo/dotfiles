@@ -457,7 +457,10 @@
 
   settingsFile = pkgs.writeText "libredirect-storage.js" (builtins.toJSON settings);
 in {
-  programs.zen-browser.profiles.${profileName}.extensions.packages = [pkgs.firefoxAddons.libredirect];
+  my.browsers.extensions.libredirect = {
+    firefoxPackage = pkgs.firefoxAddons.libredirect;
+    chromeId = "gohknamcnjomneleofgngojmgknhiodp";
+  };
 
   # Seeds storage.js on first install; does not overwrite if already present
   # so runtime changes in the extension UI survive home-manager switch.

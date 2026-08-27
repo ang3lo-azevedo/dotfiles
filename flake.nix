@@ -118,6 +118,12 @@
       };
     };
 
+    # Input for Helium Browser
+    helium-browser = {
+      url = "github:oxcl/nix-flake-helium-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Berberman's flakes (for apple-emoji)
     berberman = {
       url = "github:berberman/flakes";
@@ -334,6 +340,7 @@
     nix-cachyos-kernel,
     proxmox-nixos,
     zen-browser,
+    helium-browser,
     nix-vscode-extensions,
     spicetify-nix,
     mpv-config,
@@ -413,6 +420,7 @@
               inherit
                 inputs
                 zen-browser
+                helium-browser
                 nix-vscode-extensions
                 spicetify-nix
                 mpv-config
@@ -472,6 +480,16 @@
                 });
                 vtk = prev.vtk.overrideAttrs (old: {
                   env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
+                });
+                # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
+                niri = prev.niri.overrideAttrs (old: {
+                  postInstall =
+                    (old.postInstall or "")
+                    + ''
+                      if [ -f $out/bin/niri-session ]; then
+                        sed -i 's/systemctl --user import-environment$/systemctl --user import-environment 2>\/dev\/null/g' $out/bin/niri-session
+                      fi
+                    '';
                 });
                 # The block below contains a custom override for Niri that pulls from the main branch
                 # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
@@ -553,6 +571,7 @@
         inherit
           inputs
           zen-browser
+          helium-browser
           nix-vscode-extensions
           spicetify-nix
           mpv-config
