@@ -12,6 +12,8 @@
     ./gimp.nix
     ./kdenlive.nix
     ./audacity.nix
+    ./spotube.nix
+    ./spicetify.nix
     #./inform7.nix
   ];
 }

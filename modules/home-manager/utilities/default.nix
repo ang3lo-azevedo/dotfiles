@@ -8,6 +8,7 @@
       jq
       nvfetcher
       pre-commit
+      bitwarden-desktop
     ]);
 
   imports = [
@@ -18,7 +19,6 @@
     ./ghostty.nix
     ./popsicle.nix
     ./discord
-    ./spicetify.nix
     #./pear-desktop.nix
     ./wlr-randr.nix
     ./wlr-layout-ui.nix
@@ -53,5 +53,6 @@
     ./downloads.nix
     ./auteticacaogovpt.nix
     ./btop-override.nix
+    ./ssh.nix
   ];
 }

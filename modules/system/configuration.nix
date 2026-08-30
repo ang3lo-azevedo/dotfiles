@@ -24,6 +24,9 @@
 
   services.openssh.enable = true;
 
+  # Enable SSD TRIM (Critical for maintaining NVMe/SSD performance and lifespan)
+  services.fstrim.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.doCheckByDefault = false;

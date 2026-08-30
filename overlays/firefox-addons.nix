@@ -20,7 +20,7 @@ _: prev: let
     };
 in {
   firefoxAddons =
-    prev.firefoxAddons
+    (prev.firefoxAddons or {})
     // {
       wappalyzer = mkXpi {
         guid = "wappalyzer@crunchlabz.com";

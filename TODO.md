@@ -17,7 +17,7 @@
 # Ideas
 ## Waybar Stuff
 
-- [ ] Make if possible to click the privacy icons to disable camera and micrphone
+- [ ] Make if possible to click the privacy icons to disable camera and microphone
 - [ ] See about brigtness control on both monitors
 - [x] Add nightlight slider to swaync
 
@@ -65,14 +65,17 @@
 
 ## Server Stuff
 
-- [ ] Add firefly III 
-- [ ] Add SimpleLogin
-- [ ] Configure server
-- [ ] Set up self-hosted GitHub Actions runner on server-angelo to replace GitHub-hosted runners for CI builds (eliminates minute limits, disk space issues, and dependency on third-party CI services)
+- [ ] Setup base NixOS VM: Get `hardware-configuration.nix` from the VM (`nixos-generate-config --show-hardware-config`) and replace the stub in `hosts/proxmox-vm/hardware-configuration.nix`
+- [ ] Add Docker & Nextcloud fixes
+- [ ] Add NAS Storage & secrets
+- [ ] Transition to K3s Stuff
 
 
 ## Other Stuff
 
+- [ ] Fix antigravity losing google login
+- [ ] Fix zen extensions like bitwarden and dark reader taking to much time to open
+- [ ] Fix shutdown system not working ctrl alt del menu
 - [x] Fix screenshare frozen (eg discord)
 - [ ] Fix loss of antigravity account and ida/ghidra when restarting pc
 - [ ] Add so-crates

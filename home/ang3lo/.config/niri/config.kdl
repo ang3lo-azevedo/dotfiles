@@ -12,7 +12,7 @@ environment {
     EXPLORER "${TERMINAL} -e yazi"
     SYSTEM_MONITOR "${TERMINAL} --class=app.btop -e btop"
     MUSIC_PLAYER "spotify"
-    DISCORD "discord"
+    DISCORD "equibop"
     CHAT_APP "flare"
     YOUTUBE_PLAYER "Grayjay"
 
@@ -441,8 +441,8 @@ workspace "social" {
 
 // Group Discord and Spotify together in the social workspace.
 window-rule {
-    match app-id="(?i)(discord|spotify|vesktop|equicord)"
-    match title="(?i)(discord|spotify|vesktop|equicord)"
+    match app-id="(?i)(discord|spotify|vesktop|equicord|equibop)"
+    match title="(?i)(discord|spotify|vesktop|equicord|equibop)"
     open-on-workspace "social"
 }
 
