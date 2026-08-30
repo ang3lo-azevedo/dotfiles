@@ -28,5 +28,5 @@
   # Silence the evaluation warning caused by `binaryninja` injecting its overlay into HM.
   # Since useGlobalPkgs is true, this overlay is ignored by HM anyway, and it's already
   # applied globally in flake.nix. Forcing it to empty prevents the warning.
-  nixpkgs.overlays = inputs.nixpkgs.lib.mkForce [];
+  # nixpkgs.overlays = inputs.nixpkgs.lib.mkForce [];
 }

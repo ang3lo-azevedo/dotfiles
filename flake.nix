@@ -144,7 +144,7 @@
 
     # Input for Nixcord (Discord clients configs for NixOS/Home Manager)
     nixcord = {
-      url = "github:FlameFlag/nixcord";
+      url = "github:4evy/nixcord";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -338,7 +338,6 @@
     stylix,
     lanzaboote,
     nix-cachyos-kernel,
-    proxmox-nixos,
     zen-browser,
     helium-browser,
     nix-vscode-extensions,
@@ -370,8 +369,9 @@
       system,
       modules,
       specialArgs,
+      nixpkgsObj ? nixpkgs,
     }:
-      nixpkgs.lib.nixosSystem {
+      nixpkgsObj.lib.nixosSystem {
         inherit system modules specialArgs;
       };
 
@@ -544,29 +544,33 @@
       ];
     };
 
-    # Reusable server-angelo configuration
-    server-angelo-config = mkHostConfig {
-      stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
-      hostname = "server-angelo";
-      modules = [
-        proxmox-nixos.nixosModules.proxmox-ve
-        {
-          nixpkgs.overlays = [
-            proxmox-nixos.overlays.x86_64-linux
-          ];
-        }
-      ];
-    };
+    # Helper to generate stable server configs
+    mkServerConfig = hostname:
+      (mkHostConfig {
+        stdenv = nixpkgs-stable.legacyPackages.x86_64-linux.stdenv;
+        inherit hostname;
+      })
+      // {nixpkgsObj = nixpkgs-stable;};
   in {
-    # NixOS configuration for pc-angelo
-    nixosConfigurations.pc-angelo = mkNixosSystem pc-angelo-config;
+    nixosConfigurations = {
+      # NixOS configuration for pc-angelo
+      pc-angelo = mkNixosSystem pc-angelo-config;
 
-    # NixOS configuration for server-angelo
-    nixosConfigurations.server-angelo = mkNixosSystem server-angelo-config;
+      # NixOS configurations for homelab servers (using stable LTS)
+      proxmox-vm = mkNixosSystem (mkServerConfig "proxmox-vm");
+      toshiba-laptop = mkNixosSystem (mkServerConfig "toshiba-laptop");
+    };
 
     # Standalone Home Manager configuration
     homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+        overlays = [
+          inputs.firefox-addons.overlays.default
+          (import ./overlays/firefox-addons.nix)
+        ];
+      };
       extraSpecialArgs = {
         inherit
           inputs

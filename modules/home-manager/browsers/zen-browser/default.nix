@@ -31,6 +31,7 @@ in {
 
   programs.zen-browser = {
     enable = true;
+    nativeMessagingHosts = [pkgs.bitwarden-desktop];
     profiles.${profileName} =
       {
         extensions.force = true;

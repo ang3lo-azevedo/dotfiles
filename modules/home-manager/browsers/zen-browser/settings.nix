@@ -55,10 +55,16 @@
   # 0 = ask each time (prompt), 1 = allow always, 2 = block always
   "permissions.default.camera" = 0;
   "permissions.default.microphone" = 0;
+  "permissions.default.desktop-notification" = 2;
+  "permissions.default.geo" = 2;
 
   # ===========================================================================
   # Privacy & Security
   # ===========================================================================
+
+  # Auto-reject GDPR cookie banners
+  "cookiebanners.service.mode" = 1;
+  "cookiebanners.service.mode.privateBrowsing" = 1;
 
   # Prevent websites from moving or resizing the browser window via JS
   "dom.disable_window_move_resize" = true;
@@ -109,48 +115,48 @@
   "browser.safebrowsing.downloads.remote.enabled" = false;
 
   # ---------------------------------------------------------------------------
-  # Network: DoH, ECH, prefetch
+  # Network: dnscrypt, ECH, prefetch
   # ---------------------------------------------------------------------------
 
   # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
   # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
   #"network.dns.disableIPv6" = true;
   # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
-  # Requires HTTPS DNS records to deliver the ECH config.
-  #"network.dns.echconfig.enabled" = false;
+  # Requires HTTPS DNS records to deliver the ECH config. (Crucial for privacy)
+  "network.dns.echconfig.enabled" = true;
   # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
   # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
-  #"network.dns.use_https_rr_as_altsvc" = false;
+  "network.dns.use_https_rr_as_altsvc" = true;
   # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
   # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
   # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
-  # Mode 0 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
-  # "network.trr.mode" = 0;
-
-  # ALTERNATIVE SOLUTION (Browser DoH with strict timeout):
-  # If you prefer Zen to handle its own DNS instead of dnscrypt-proxy, you can
-  # enable browser DoH and set a strict timeout. If a broken domain drops the ECH
-  # (TYPE65) request, Zen will timeout the DoH request in 1.5s instead of hanging.
-  #"network.trr.mode" = 2;
-  #"network.trr.uri" = "https://dns.quad9.net/dns-query";
-  #"network.trr.request-timeout" = 1500;
+  # Mode 0/5 lets dnscrypt-proxy handle all DNS including HTTPS records, with caching.
+  # Mode 5 explicitly disables browser DoH (preventing it from bypassing dnscrypt-proxy).
+  "network.trr.mode" = 5;
 
   # Hardware Acceleration settings for smoother scrolling and rendering
   "gfx.webrender.all" = true;
   "media.ffmpeg.vaapi.enabled" = true;
   # Fix for extension popups and UI rendering very slowly on Wayland when fractional scaling is used (e.g. 150% in Niri)
-  "widget.wayland.fractional-scale.enabled" = false;
-  # Fetches full page resources before the user navigates: real content leak to third-party servers.
+  # NOTE: Disabling this breaks canvas sub-pixel rendering, which makes the xterm.js cursor invisible!
+  "widget.wayland.fractional-scale.enabled" = true;
+
+  # Better-Zen: Network Speed Tweaks
+  "network.http.max-connections" = 1800;
+  "network.http.max-persistent-connections-per-server" = 10;
+  "network.http.pacing.requests.enabled" = false;
+  # Fetches full page resources before the user navigates (disable for privacy)
   "network.prefetch-next" = false;
-  # DNS-only prefetch: queries go to Quad9 over DoH regardless, so disabling adds no extra protection.
-  # "network.dns.disablePrefetch" = true;
-  # "network.dns.disablePrefetchFromHTTPS" = true;
-  # Pre-resolves DNS only for hostnames already visible on the current page: no new exposure.
-  # "network.predictor.enabled" = false;
-  # Opens TCP connections to domains on the current page: server sees a SYN, not what was clicked.
-  # "network.http.speculative-parallel-limit" = 0;
-  # "browser.places.speculativeConnect.enabled" = false;
-  "browser.urlbar.speculativeConnect.enabled" = false;
+  # DNS-only prefetch (disable for privacy, stops the browser from resolving every link on a page)
+  "network.dns.disablePrefetch" = true;
+  "network.dns.disablePrefetchFromHTTPS" = true;
+  # Pre-resolves DNS based on past behavior (disable for privacy)
+  "network.predictor.enabled" = false;
+  "network.predictor.enable-prefetch" = false;
+  # Opens TCP connections to domains on the current page when hovering
+  "network.http.speculative-parallel-limit" = 6;
+  "browser.places.speculativeConnect.enabled" = true;
+  "browser.urlbar.speculativeConnect.enabled" = true;
   # GIO protocol handlers (gvfs mounts, smb://, sftp://) can be abused to trigger
   # outbound connections; clearing the list removes the attack surface on Linux.
   # Downside: clicking smb:// or sftp:// links in web pages silently does nothing.
@@ -211,7 +217,8 @@
   "dom.security.https_only_mode" = true;
   # Don't send a background HTTP request when upgrading to HTTPS, it would reveal
   # the site visit to network observers even if the HTTPS connection succeeds.
-  "dom.security.https_only_mode_send_http_background_request" = false;
+  # (Re-enabled: disabling this can cause up to 1.5s delay when clicking HTTP links)
+  "dom.security.https_only_mode_send_http_background_request" = true;
   # Without background check, HTTP-only sites wait 3500ms before error page; cut it to 1500ms.
   "dom.security.https_only_mode.upgrade_timeout" = 1500;
   # Replay requires an active attacker + non-idempotent endpoint hit within the same session window.
@@ -258,17 +265,20 @@
   # screen size, CPU, device memory, timezone, UA, and color scheme.
   # Replaces the legacy privacy.resistFingerprinting (supports per-target overrides).
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
-  "privacy.fingerprintingProtection" = true;
+  # NOTE: Timer spoofing in this protection reduces JS timer precision, causing severe click/interaction lag.
+  # We re-enable it but use -TimerResolution in the overrides below to prevent the lag.
+  "privacy.fingerprintingProtection" = false;
   # Explicitly disable the legacy RFP (it can linger in prefs.js from old configs and
   # overrides everything above, including per-target overrides and content-override).
   # "privacy.resistFingerprinting" = false;
   # Use +AllTargets to spoof WebGL, Fonts, UserAgent, etc.
   # -CSSPrefersColorScheme: prevents Dark Mode from breaking.
   # -JSDateTimeUTC: prevents chat apps (WhatsApp Web, etc) and calendars from showing wrong times.
-  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC";
+  # -TimerResolution: prevents severe UI and click lag by allowing normal JS timer precision.
+  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-TimerResolution";
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
-  "layout.css.prefers-color-scheme.content-override" = 2;
+  "layout.css.prefers-color-scheme.content-override" = 3;
 
   # ---------------------------------------------------------------------------
   # Containers

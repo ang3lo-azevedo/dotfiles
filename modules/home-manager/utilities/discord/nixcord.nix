@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];
@@ -13,6 +17,7 @@
       };
     };
     discord = {
+      enable = false;
       vencord.enable = false;
       equicord.enable = true;
       commandLineArgs = [
@@ -20,6 +25,31 @@
         "--enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer"
         "--ozone-platform-hint=auto"
       ];
+    };
+    equibop = {
+      enable = true;
+      settings = {
+        discordBranch = "stable";
+        tray = true;
+        minimizeToTray = true;
+        arRPC = true;
+        trayColor = "";
+        trayMainOverride = false;
+        splashColor = "rgb(219, 220, 223)";
+        hardwareVideoAcceleration = true;
+        customTitleBar = false;
+        staticTitle = false;
+        enableMenu = false;
+        enableSplashScreen = false;
+        splashProgress = true;
+        disableMinSize = true;
+        badgeOnlyForMentions = true;
+        openLinksWithElectron = true;
+      };
+    };
+    dorion = {
+      enable = true;
+      clientMods = ["Shelter" "Equicord"];
     };
     config = {
       autoUpdate = true;
@@ -66,5 +96,9 @@
         noMiddleClickPaste.enable = true;
       };
     };
+  };
+
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/discord" = ["${config.home.sessionVariables.DISCORD}.desktop"];
   };
 }
