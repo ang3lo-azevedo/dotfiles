@@ -1,11 +1,25 @@
 {
   inputs,
   config,
+  lib,
+  pkgs,
   ...
 }: {
   imports = [
     inputs.nixcord.homeModules.nixcord
   ];
+
+  # Dorion panics if its config file is read-only.
+  # This activation script replaces the Nixcord-generated symlink with a writable copy.
+  home.activation.fixDorionConfig = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    if [ -L "$HOME/.config/dorion/config.json" ]; then
+      real_file=$(readlink -f "$HOME/.config/dorion/config.json")
+      rm "$HOME/.config/dorion/config.json"
+      cp "$real_file" "$HOME/.config/dorion/config.json"
+      chmod 644 "$HOME/.config/dorion/config.json"
+    fi
+  '';
+
   programs.nixcord = {
     enable = true;
     userPlugins = {
@@ -49,6 +63,7 @@
     };
     dorion = {
       enable = true;
+      package = pkgs.vorion;
       clientMods = ["Shelter" "Equicord"];
     };
     config = {

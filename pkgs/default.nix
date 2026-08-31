@@ -16,7 +16,10 @@
   };
 
   ist-fenix-auto-enroller = pkgs.callPackage ./ist-fenix-auto-enroller/default.nix {
-    src = inputs.ist-fenix-auto-enroller;
+    src =
+      if builtins.pathExists /home/ang3lo/Documents/projects/ist-fenix-auto-enroller
+      then /home/ang3lo/Documents/projects/ist-fenix-auto-enroller
+      else inputs.ist-fenix-auto-enroller;
   };
 }
 // (

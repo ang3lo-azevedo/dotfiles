@@ -76,10 +76,10 @@ in {
       waybar-autostart = {
         Unit = {
           Description = "Start Waybar on all connected outputs";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
+          After = ["niri-session.target"];
+          PartOf = ["niri-session.target"];
         };
-        Install.WantedBy = ["graphical-session.target"];
+        Install.WantedBy = ["niri-session.target"];
         Service = {
           Type = "oneshot";
           ExecStart = "${waybarAutostart}";
@@ -92,8 +92,8 @@ in {
       "waybar-output@" = {
         Unit = {
           Description = "Waybar for output %i";
-          PartOf = ["graphical-session.target"];
-          After = ["graphical-session.target"];
+          PartOf = ["niri-session.target"];
+          After = ["niri-session.target"];
         };
         Service = {
           ExecStart = "${scripts}/start-waybar-output.sh %i";
@@ -107,8 +107,8 @@ in {
       "waybar-trigger@" = {
         Unit = {
           Description = "Waybar trigger bar for output %i";
-          PartOf = ["graphical-session.target"];
-          After = ["graphical-session.target"];
+          PartOf = ["niri-session.target"];
+          After = ["niri-session.target"];
         };
         Service = {
           ExecStart = "${scripts}/start-waybar-trigger.sh %i";
@@ -122,10 +122,10 @@ in {
       waybar-hotplug = {
         Unit = {
           Description = "Start/stop Waybar when outputs are connected or disconnected";
-          After = ["graphical-session.target" "waybar-autostart.service"];
-          PartOf = ["graphical-session.target"];
+          After = ["niri-session.target" "waybar-autostart.service"];
+          PartOf = ["niri-session.target"];
         };
-        Install.WantedBy = ["graphical-session.target"];
+        Install.WantedBy = ["niri-session.target"];
         Service = {
           ExecStart = "${waybarHotplug}";
           Restart = "on-failure";

@@ -1,22 +1,24 @@
 {
   pkgs,
   config,
-  lib ? pkgs.lib,
   ...
 }: let
-  binjaZip = /. + "/home/ang3lo/nix-config/private/binary-ninja/binaryninja_linux_5.3.9434_personal.zip";
+  sourceData = builtins.fromJSON (builtins.readFile (/. + "/home/ang3lo/nix-config/private/binary-ninja/source.json"));
+  binjaZip = pkgs.fetchurl {
+    inherit (sourceData) url;
+    sha256 = sourceData.hash;
+  };
   setupDir = "/home/ang3lo/nix-config/private/binary-ninja/setup";
   setupExists = builtins.pathExists setupDir;
-  binjaExists = builtins.pathExists binjaZip;
 in {
-  home.file.".binaryninja/settings.json" = lib.mkIf binjaExists {
+  home.file.".binaryninja/settings.json" = {
     text = builtins.toJSON {
       "python.binaryOverride" = "${pkgs.python312}/bin/python3.12";
       "python.interpreter" = "${pkgs.python312}/lib/libpython3.12.so";
     };
   };
 
-  home.packages = lib.mkIf binjaExists [
+  home.packages = [
     ((pkgs.binary-ninja-personal-wayland.override {
         overrideSource = binjaZip;
         python3 = pkgs.python312;

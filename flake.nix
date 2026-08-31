@@ -569,6 +569,14 @@
         overlays = [
           inputs.firefox-addons.overlays.default
           (import ./overlays/firefox-addons.nix)
+          (
+            _: prev:
+              import ./pkgs {
+                pkgs = prev;
+                inherit inputs;
+                system = prev.stdenv.hostPlatform.system;
+              }
+          )
         ];
       };
       extraSpecialArgs = {

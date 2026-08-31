@@ -15,7 +15,7 @@ PLAYERCTL_PID=$!
 trap 'kill $PLAYERCTL_PID 2>/dev/null' EXIT
 
 # Run ScrollMPRIS and filter output
-ScrollMPRIS --no-icon --scroll wrapping | while read -r line; do
+ScrollMPRIS --scroll marquee | while read -r line; do
 	if [ -f "$DISMISS_FILE" ]; then
 		# Explicitly dismissed
 		echo '{"text": "", "tooltip": "Dismissed."}'
