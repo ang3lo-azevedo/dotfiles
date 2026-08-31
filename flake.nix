@@ -470,6 +470,14 @@
               inputs.ida-pro-overlay.overlays.default
               inputs.binaryninja.overlays.default
               inputs.dmatools.overlays.default
+              (
+                _: prev:
+                  import ./pkgs {
+                    pkgs = prev;
+                    inherit inputs;
+                    system = prev.stdenv.hostPlatform.system;
+                  }
+              )
               (_: _: {
                 xr = inputs.nixpkgs-xr.packages."x86_64-linux";
               })
