@@ -16,6 +16,13 @@
         identityFile = "~/.ssh/muskyboi";
       };
 
+      "github-th3m1ghtyduck" = {
+        host = "github-th3m1ghtyduck";
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/th3m1ghtyduck";
+      };
+
       "kitkat.serverhive.in" = {
         port = 5156;
         user = "nos4a2";
