@@ -21,6 +21,8 @@
       then /home/ang3lo/Documents/projects/ist-fenix-auto-enroller
       else inputs.ist-fenix-auto-enroller;
   };
+
+  vorion = pkgs.callPackage ./ang3lo-nur/pkgs/vorion {};
 }
 // (
   if inputs ? ang3lo-nur
