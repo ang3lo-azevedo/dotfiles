@@ -24,6 +24,6 @@
 }
 // (
   if inputs ? ang3lo-nur
-  then builtins.removeAttrs inputs.ang3lo-nur.legacyPackages.${pkgs.stdenv.hostPlatform.system} ["lib" "nixosModules" "overlays"]
+  then builtins.removeAttrs (import "${inputs.ang3lo-nur}/default.nix" {inherit pkgs;}) ["lib" "nixosModules" "overlays"]
   else {}
 )
