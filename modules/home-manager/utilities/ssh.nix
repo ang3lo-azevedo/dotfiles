@@ -2,64 +2,65 @@
   programs.ssh = {
     enable = true;
 
-    # Disable the default config values to suppress the default values deprecation warning
-    enableDefaultConfig = false;
-
-    settings = {
+    matchBlocks = {
       "gitlab.rnl.tecnico.ulisboa.pt" = {
-        Host = "gitlab.rnl.tecnico.ulisboa.pt";
-        User = "git";
-        IdentityFile = "~/.ssh/gitlab_ist";
+        host = "gitlab.rnl.tecnico.ulisboa.pt";
+        user = "git";
+        identityFile = "~/.ssh/gitlab_ist";
       };
 
       "github-muskyboi" = {
-        Host = "github-muskyboi";
-        HostName = "github.com";
-        User = "git";
-        IdentityFile = "~/.ssh/muskyboi";
+        host = "github-muskyboi";
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/muskyboi";
       };
 
       "kitkat.serverhive.in" = {
-        Port = 5156;
-        User = "nos4a2";
-        IdentitiesOnly = "yes";
-        IdentityFile = "~/.ssh/id_ed25519";
+        port = 5156;
+        user = "nos4a2";
+        identitiesOnly = true;
+        identityFile = "~/.ssh/id_ed25519";
       };
 
       "sigma.ist.utl.pt" = {
-        Host = "sigma.ist.utl.pt sigma.tecnico.ulisboa.pt sigma02.ist.utl.pt";
-        IdentitiesOnly = "yes";
-        PubkeyAuthentication = "no";
-        PreferredAuthentications = "password";
+        host = "sigma.ist.utl.pt sigma.tecnico.ulisboa.pt sigma02.ist.utl.pt";
+        identitiesOnly = true;
+        extraOptions = {
+          PubkeyAuthentication = "no";
+          PreferredAuthentications = "password";
+        };
       };
 
       "eu.nixbuild.net" = {
-        IdentityFile = "~/.ssh/my-nixbuild-key";
-        PubkeyAcceptedKeyTypes = "ssh-ed25519";
-        ServerAliveInterval = 60;
-        StrictHostKeyChecking = "accept-new";
+        identityFile = "~/.ssh/my-nixbuild-key";
+        extraOptions = {
+          PubkeyAcceptedKeyTypes = "ssh-ed25519";
+          ServerAliveInterval = "60";
+          StrictHostKeyChecking = "accept-new";
+        };
       };
 
       "gitlab-syssec.dpss.inesc-id.pt" = {
-        Host = "gitlab-syssec.dpss.inesc-id.pt 146.193.41.153";
-        User = "git";
-        IdentityFile = "~/.ssh/dpss-inesc";
+        host = "gitlab-syssec.dpss.inesc-id.pt 146.193.41.153";
+        user = "git";
+        identityFile = "~/.ssh/dpss-inesc";
       };
 
       "github.com" = {
-        User = "git";
-        IdentityFile = "~/.ssh/key";
-        IdentitiesOnly = "yes";
+        user = "git";
+        identityFile = "~/.ssh/key";
+        identitiesOnly = true;
       };
 
       "homelab" = {
-        Host = "10.42.0.10 192.168.7.*";
-        IdentitiesOnly = "yes";
-        IdentityFile = "~/.ssh/id_ed25519";
+        host = "10.42.0.10 192.168.7.*";
+        identitiesOnly = true;
+        identityFile = "~/.ssh/id_ed25519";
       };
 
       "*" = {
-        IdentitiesOnly = "yes";
+        identitiesOnly = true;
       };
     };
   };
