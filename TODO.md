@@ -23,7 +23,10 @@
 
 
 ## General Stuff
+- [ ] Create a different nur on a github alternative with the other packages (ida, binja)
+- [ ] Create a crosswatch/floppy mpv scrobbler
 - [ ] Make nix config open on second screen
+- [ ] Fiz sending images taking a long time Zen
 - [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
@@ -69,7 +72,11 @@
 - [ ] Add Docker & Nextcloud fixes
 - [ ] Add NAS Storage & secrets
 - [ ] Transition to K3s Stuff
-
+- [ ] Add proxmox backups
+- [ ] Add a nix cache
+- [ ] Add firefly III
+- [ ] Add SimpleLogin
+- [ ] See of adding theme.park
 
 ## Other Stuff
 

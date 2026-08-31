@@ -11,6 +11,12 @@
             --replace-fail 'REMOTE_ISF_URL = None' \
             'REMOTE_ISF_URL = "https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/master/banners/banners.json"'
         '';
+      postFixup =
+        (old.postFixup or "")
+        + ''
+          mv $out/bin/vol $out/bin/volatility
+          ln -s $out/bin/volatility $out/bin/vol3
+        '';
     }))
   ];
 }

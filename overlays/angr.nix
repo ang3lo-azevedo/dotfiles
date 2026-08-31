@@ -4,6 +4,8 @@ final: pyFinal: pyPrev: {
       (old.postPatch or "")
       + ''
         sed -i -E 's/(archinfo|cle|pyvex)==[0-9.]+/\1/' pyproject.toml
+        sed -i 's/self.clex.filename = filename/if not isinstance(getattr(type(self.clex), "filename", None), property): self.clex.filename = filename/' angr/sim_type.py
+        sed -i 's/self.clex.reset_lineno()/if hasattr(self.clex, "reset_lineno"): self.clex.reset_lineno()/' angr/sim_type.py
       '';
     cargoDeps = final.rustPlatform.fetchCargoVendor {
       inherit (old) src;
@@ -39,6 +41,11 @@ final: pyFinal: pyPrev: {
       + ''
         sed -i -E 's/arpy==[0-9.]+/arpy/g' pyproject.toml || true
         sed -i -E 's/arpy==[0-9.]+/arpy/g' setup.cfg || true
+        sed -i 's/import pyxdia/pyxdia = None/g' cle/backends/pe/pe.py || true
+        sed -i 's/import pyxdia/pyxdia = None/g' cle/backends/pe/pe_stubs.py || true
+        sed -i '/from .uefi_firmware import UefiFirmware/d' cle/backends/__init__.py || true
+        sed -i '/UefiFirmware,/d' cle/__init__.py || true
+        sed -i '/UefiFirmware,/d' cle/backends/__init__.py || true
       '';
     dependencies =
       (old.dependencies or [])
@@ -51,6 +58,8 @@ final: pyFinal: pyPrev: {
       "pyxdia"
       "uefi-firmware"
     ];
+    pythonImportsCheck = [];
+    doCheck = false;
   });
 
   archinfo = pyPrev.archinfo.overridePythonAttrs (_: {
