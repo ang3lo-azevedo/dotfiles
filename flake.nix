@@ -7,6 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    th3m1ghtyduck-nur = {
+      url = "git+file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     mpv-config = {
       url = "github:ang3lo-azevedo/mpv";
       flake = false;
@@ -174,12 +179,6 @@
       flake = false;
     };
 
-    # angr-management source from GitHub releases (used as `src` for local package)
-    angr-management = {
-      url = "github:angr/angr-management";
-      flake = false;
-    };
-
     # PhotoGIMP assets and config
     photogimp = {
       url = "github:Diolinux/PhotoGIMP/3.0";
@@ -252,10 +251,6 @@
     };
 
     # IST Fénix Auto Enroller
-    ist-fenix-auto-enroller = {
-      url = "github:ang3lo-azevedo/ist-fenix-auto-enroller";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Pre-commit hooks for Nix
     pre-commit-hooks = {
@@ -270,10 +265,6 @@
     };
 
     # cryinkfly's Autodesk Fusion 360 on Linux installer
-    autodesk-fusion = {
-      url = "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/main.tar.gz";
-      flake = false;
-    };
 
     # SteaMidra - Steam game setup and management tool
     steamidra = {
@@ -356,6 +347,10 @@
           if builtins.pathExists ./pkgs/ang3lo-nur/flake.nix
           then builtins.getFlake "path:${toString ./.}/pkgs/ang3lo-nur"
           else originalInputs.ang3lo-nur;
+        th3m1ghtyduck-nur =
+          if builtins.pathExists ./pkgs/th3m1ghtyduck-nur/flake.nix
+          then builtins.getFlake "path:${toString ./.}/pkgs/th3m1ghtyduck-nur"
+          else originalInputs.th3m1ghtyduck-nur;
         mpv-config =
           if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
           then ./. + "/home/ang3lo/.config/mpv"

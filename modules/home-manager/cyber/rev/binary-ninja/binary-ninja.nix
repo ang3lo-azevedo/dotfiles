@@ -2,15 +2,7 @@
   pkgs,
   config,
   ...
-}: let
-  sourceData = builtins.fromJSON (builtins.readFile (/. + "/home/ang3lo/nix-config/private/binary-ninja/source.json"));
-  binjaZip = pkgs.fetchurl {
-    inherit (sourceData) url;
-    sha256 = sourceData.hash;
-  };
-  setupDir = "/home/ang3lo/nix-config/private/binary-ninja/setup";
-  setupExists = builtins.pathExists setupDir;
-in {
+}: {
   home.file.".binaryninja/settings.json" = {
     text = builtins.toJSON {
       "python.binaryOverride" = "${pkgs.python312}/bin/python3.12";
@@ -19,43 +11,6 @@ in {
   };
 
   home.packages = [
-    ((pkgs.binary-ninja-personal-wayland.override {
-        overrideSource = binjaZip;
-        python3 = pkgs.python312;
-      }).overrideAttrs (old: {
-        # Use Python 3.12 for Sidekick plugin compatibility (requires 3.10-3.12)
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.python312 pkgs.python312Packages.pycryptodome pkgs.makeWrapper];
-
-        autoPatchelfIgnoreMissingDeps =
-          (old.autoPatchelfIgnoreMissingDeps or [])
-          ++ [
-            "libQt6WaylandEglClientHwIntegration.so.6"
-          ];
-
-        postInstall =
-          (old.postInstall or "")
-          + (
-            if setupExists
-            then (import setupDir).postInstall
-            else ""
-          );
-
-        postFixup =
-          (old.postFixup or "")
-          + ''
-            # Wrap the main binary to use Python 3.12 at runtime
-            if [ -f "$out/bin/binaryninja" ]; then
-              wrapProgram "$out/bin/binaryninja" \
-                --set-default PYTHON ${pkgs.python312}/bin/python3 \
-                --prefix PATH : ${pkgs.python312}/bin \
-                --prefix PYTHONPATH : ${config.home.sessionVariables.BINJA_PYTHONPATH or ""}
-            fi
-
-            # Fix the icon path in the existing desktop entry
-            if [ -f "$out/share/applications/Binary Ninja.desktop" ]; then
-              sed -i 's|^Icon=.*|Icon='"$out"'/share/pixmaps/binaryninja.png|' "$out/share/applications/Binary Ninja.desktop"
-            fi
-          '';
-      }))
+    pkgs.binary-ninja
   ];
 }

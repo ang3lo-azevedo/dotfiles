@@ -1,3 +1,0 @@
-[angr-management]
-src.github = "angr/angr-management"
-fetch.url = "https://github.com/angr/angr-management/releases/download/$ver/angr-management-$ver-x86_64.AppImage"

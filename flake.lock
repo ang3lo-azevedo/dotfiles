@@ -73,22 +73,6 @@
         "type": "github"
       }
     },
-    "angr-management": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1787599304,
-        "narHash": "sha256-UjS7W5x0xwrmDWiFtpHHlZ0lWGsrdGbm65pxV0vWhcg=",
-        "owner": "angr",
-        "repo": "angr-management",
-        "rev": "aab96b51c95f6a4842ed912061fc46dfb8b22626",
-        "type": "github"
-      },
-      "original": {
-        "owner": "angr",
-        "repo": "angr-management",
-        "type": "github"
-      }
-    },
     "antigravity-nix": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -108,20 +92,6 @@
         "owner": "jacopone",
         "repo": "antigravity-nix",
         "type": "github"
-      }
-    },
-    "autodesk-fusion": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1781935856,
-        "narHash": "sha256-k3ECZzYHV5gJq4qDR9YcYMoUGK4YW94iVGp62K5KbSM=",
-        "rev": "53b02038548f01a6e0a1fa2def0a9b545f1561c1",
-        "type": "tarball",
-        "url": "https://codeberg.org/api/v1/repos/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/53b02038548f01a6e0a1fa2def0a9b545f1561c1.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://codeberg.org/cryinkfly/Autodesk-Fusion-360-on-Linux/archive/main.tar.gz"
       }
     },
     "base16": {
@@ -509,6 +479,22 @@
       }
     },
     "flake-compat_12": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_13": {
       "flake": false,
       "locked": {
         "lastModified": 1767039857,
@@ -1152,26 +1138,6 @@
         "type": "github"
       }
     },
-    "ist-fenix-auto-enroller": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1788167408,
-        "narHash": "sha256-SWb9WZhKwGEFyOd/0dfPZSL/U27ZNFgLq0sc+NEzOrI=",
-        "owner": "ang3lo-azevedo",
-        "repo": "ist-fenix-auto-enroller",
-        "rev": "e252163e1e8ce1f6eec634eb99b35e16cadb0876",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ang3lo-azevedo",
-        "repo": "ist-fenix-auto-enroller",
-        "type": "github"
-      }
-    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane_2",
@@ -1287,7 +1253,7 @@
     },
     "nix-cachyos-kernel_2": {
       "inputs": {
-        "flake-compat": "flake-compat_11",
+        "flake-compat": "flake-compat_12",
         "flake-parts": [
           "xddxdd-nur",
           "flake-parts"
@@ -1951,7 +1917,7 @@
     },
     "pre-commit-hooks-nix": {
       "inputs": {
-        "flake-compat": "flake-compat_12",
+        "flake-compat": "flake-compat_13",
         "nixpkgs": [
           "xddxdd-nur",
           "nixpkgs"
@@ -1975,6 +1941,28 @@
       "inputs": {
         "flake-compat": "flake-compat_9",
         "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787424939,
+        "narHash": "sha256-O2tBn84NNuHrnqNVxx/XqsXwfYvS1YwBh+7CBnbCYsk=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "809414f0cdadf82cf11b06c2b29ba9b3168b3297",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
+    "pre-commit-hooks_3": {
+      "inputs": {
+        "flake-compat": "flake-compat_11",
+        "nixpkgs": [
+          "th3m1ghtyduck-nur",
           "nixpkgs"
         ]
       },
@@ -2091,9 +2079,7 @@
         "affinity-nix": "affinity-nix",
         "agenix": "agenix",
         "ang3lo-nur": "ang3lo-nur",
-        "angr-management": "angr-management",
         "antigravity-nix": "antigravity-nix",
-        "autodesk-fusion": "autodesk-fusion",
         "berberman": "berberman",
         "binaryninja": "binaryninja",
         "chaotic": "chaotic",
@@ -2106,7 +2092,6 @@
         "home-manager": "home-manager_3",
         "ida-pro-overlay": "ida-pro-overlay",
         "impermanence": "impermanence",
-        "ist-fenix-auto-enroller": "ist-fenix-auto-enroller",
         "lanzaboote": "lanzaboote",
         "libfprint-src": "libfprint-src",
         "mpv-config": "mpv-config",
@@ -2131,6 +2116,7 @@
         "steamidra": "steamidra",
         "stremio-enhanced": "stremio-enhanced",
         "stylix": "stylix",
+        "th3m1ghtyduck-nur": "th3m1ghtyduck-nur",
         "trakt-scrobbler-src": "trakt-scrobbler-src",
         "xddxdd-nur": "xddxdd-nur",
         "zen-browser": "zen-browser"
@@ -2447,6 +2433,27 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "th3m1ghtyduck-nur": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": "pre-commit-hooks_3"
+      },
+      "locked": {
+        "lastModified": 1788207781,
+        "narHash": "sha256-V2abVH9KZPifVR2IwlUp9SDcgW47qzctLecryVePcBU=",
+        "ref": "refs/heads/main",
+        "rev": "34e78a1e156674d70bad116639b56367e6d92eef",
+        "revCount": 11,
+        "type": "git",
+        "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       }
     },
     "tinted-kitty": {

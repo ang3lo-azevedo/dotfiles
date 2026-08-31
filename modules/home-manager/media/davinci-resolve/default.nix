@@ -1,35 +1,11 @@
-{pkgs, ...}: let
-  cfgDir = /home/ang3lo/nix-config/private/davinci-resolve/config;
+{ pkgs, ... }:
+let
+  cfgDir = /. + "/home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur/pkgs/davinci-resolve-personal/config";
   hasCfg = builtins.pathExists cfgDir;
-
-  davinci =
-    if hasCfg
-    then
-      pkgs.davinci-resolve-studio.davinci.overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.perl];
-        installPhase = (old.installPhase or "") + (import cfgDir).setup;
-      })
-    else pkgs.davinci-resolve-studio.davinci;
-
-  resolved = let
-    wrapper = pkgs.writeShellScriptBin "davinci-resolve-studio" ''
-      export QT_QPA_PLATFORM=xcb
-      exec ${pkgs.davinci-resolve-studio}/bin/davinci-resolve-studio ${davinci}/bin/resolve "$@"
-    '';
-  in
-    pkgs.symlinkJoin {
-      name = "davinci-resolve-studio";
-      paths = [pkgs.davinci-resolve-studio];
-      postBuild = ''
-        rm -f $out/bin/davinci-resolve-studio
-        ln -s ${wrapper}/bin/davinci-resolve-studio $out/bin/davinci-resolve-studio
-      '';
-    };
 in {
-  home.packages = [resolved];
+  home.packages = [
+    pkgs.davinci-resolve-personal
+  ];
 
-  home.file =
-    if hasCfg
-    then (import cfgDir).homeFiles
-    else {};
+  home.file = if hasCfg then (import cfgDir).homeFiles else {};
 }
