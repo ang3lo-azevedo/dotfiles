@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  sources = pkgs.callPackage "${inputs.ang3lo-nur}/pkgs/_sources/generated.nix" {};
+  sources = pkgs.callPackage "${inputs.ang3lo-nur}/_sources/generated.nix" {};
   ida-chat-plugin = sources.ida-chat-plugin.src;
 in {
   home.packages = with pkgs; [

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   home.file.".binaryninja/settings.json" = {
     text = builtins.toJSON {
       "python.binaryOverride" = "${pkgs.python312}/bin/python3.12";

@@ -5,7 +5,6 @@
     "modules-left": [
         "custom/privacy-mic",
         "custom/privacy-screenshare",
-        "mpris",
         "custom/waybar-scrolling-mpris"
     ],
     "modules-center": [
@@ -75,6 +74,10 @@
         "exec-if": "playerctl status 2>/dev/null | grep -qE 'Playing|Paused'",
         "restart-interval": 1,
         "escape": true,
+        "on-click": "playerctl play-pause",
+        "on-click-middle": "playerctl next",
+        "on-click-backward": "playerctl previous",
+        "on-click-forward": "playerctl next",
         "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show",
         "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss",
         "reverse-scrolling": true,

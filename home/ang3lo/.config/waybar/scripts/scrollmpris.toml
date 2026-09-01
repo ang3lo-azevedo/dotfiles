@@ -1,0 +1,12 @@
+[icons.status]
+playing = "󰏤"
+paused = "▶"
+stopped = "⏹"
+
+[icons.players]
+spotify = "󰓇"
+firefox = "󰈹"
+vlc = "󰕼"
+mpv = ""
+kdeconnect = ""
+"404" = "󰎆"

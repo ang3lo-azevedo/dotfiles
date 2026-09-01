@@ -10,3 +10,6 @@
 [submodule "nur-packages"]
 	path = pkgs/ang3lo-nur
 	url = https://github.com/ang3lo-azevedo/nur-packages.git
+[submodule "pkgs/th3m1ghtyduck-nur"]
+	path = pkgs/th3m1ghtyduck-nur
+	url = git@github-th3m1ghtyduck:th3m1ghtyduck/nur-packages.git
