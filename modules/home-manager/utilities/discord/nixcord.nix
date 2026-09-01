@@ -64,30 +64,33 @@
     dorion = {
       enable = true;
       package = pkgs.vorion;
-      clientMods = ["Shelter" "Equicord"];
+      clientMods = [
+        "Shelter"
+        "Equicord"
+      ];
     };
     config = {
       autoUpdate = true;
       plugins = {
         fakeNitro.enable = true;
         noNitroUpsell.enable = true;
-        questify = {
-          enable = true;
-          allowChangingDangerousSettings = true;
-          autoCompleteQuestsSimultaneously = true;
-          autoCompleteQuestTypes = {
-            PLAY_ON_DESKTOP = true;
-            PLAY_ON_XBOX = true;
-            PLAY_ON_PLAYSTATION = true;
-            PLAY_ACTIVITY = true;
-            WATCH_VIDEO = true;
-            WATCH_VIDEO_ON_MOBILE = true;
-            ACHIEVEMENT_IN_ACTIVITY = true;
-          };
-          completeVideoQuestsQuicker = true;
-          makeMobileVideoQuestsDesktopCompatible = true;
-          resumeInterruptedQuests = true;
-        };
+        # questify = {
+        #   enable = true;
+        #   allowChangingDangerousSettings = true;
+        #   autoCompleteQuestsSimultaneously = true;
+        #   autoCompleteQuestTypes = {
+        #     PLAY_ON_DESKTOP = true;
+        #     PLAY_ON_XBOX = true;
+        #     PLAY_ON_PLAYSTATION = true;
+        #     PLAY_ACTIVITY = true;
+        #     WATCH_VIDEO = true;
+        #     WATCH_VIDEO_ON_MOBILE = true;
+        #     ACHIEVEMENT_IN_ACTIVITY = true;
+        #   };
+        #   completeVideoQuestsQuicker = true;
+        #   makeMobileVideoQuestsDesktopCompatible = true;
+        #   resumeInterruptedQuests = true;
+        # };
         #spotifyActivityToggle.enable = true;
         spotifyCrack = {
           enable = true;

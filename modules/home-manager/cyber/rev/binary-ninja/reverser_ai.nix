@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  sources = pkgs.callPackage "${inputs.ang3lo-nur}/pkgs/_sources/generated.nix" {};
+  sources = pkgs.callPackage "${inputs.ang3lo-nur}/_sources/generated.nix" {};
   reverser_ai = sources.reverser_ai.src;
 
   # Python 3.12 environment with reverser_ai dependencies from ./requirements.txt

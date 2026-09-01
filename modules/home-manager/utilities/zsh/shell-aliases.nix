@@ -1,15 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
-  # Dynamically pull the secret path if Home Manager is running as a NixOS module,
-  # otherwise fallback to the default Agenix path for standalone Home Manager.
-  keyfile =
-    if config ? osConfig
-    then config.osConfig.age.secrets.nvchecker_keyfile.path
-    else "/run/agenix/nvchecker_keyfile";
-in {
+{pkgs, ...}: {
   programs.zsh.shellAliases = {
     # Tool related alises
     "7z" = "7zz";
@@ -27,9 +16,8 @@ in {
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' -L --keep-going";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo'";
-    nvfetcher = "nvfetcher -c ~/nix-config/pkgs/nvfetcher.toml -o ~/nix-config/pkgs/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\") && if [ -d ~/nur-packages ]; then nvfetcher -c ~/nur-packages/nvfetcher.toml -o ~/nur-packages/_sources $([ -f ${keyfile} ] && echo \"-k ${keyfile}\"); fi";
-    update = "(cd ~/nix-config && nvfetcher && nix flake update --accept-flake-config)";
-    upgrade = "sudo -v && git -C ~/nix-config pull && nvfetcher && rebuild";
+    update = "(cd ~/nix-config && git submodule update --remote pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && nix flake update ang3lo-nur th3m1ghtyduck-nur --accept-flake-config && nix flake update --accept-flake-config)";
+    upgrade = "sudo -v && git -C ~/nix-config pull && git -C ~/nix-config submodule update --remote pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && (cd ~/nix-config && nix flake update ang3lo-nur th3m1ghtyduck-nur --accept-flake-config) && rebuild";
     u = "upgrade";
     rb = "rebuild";
 

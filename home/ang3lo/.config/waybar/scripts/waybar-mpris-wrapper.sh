@@ -15,7 +15,7 @@ PLAYERCTL_PID=$!
 trap 'kill $PLAYERCTL_PID 2>/dev/null' EXIT
 
 # Run ScrollMPRIS and filter output
-ScrollMPRIS --scroll marquee | while read -r line; do
+ScrollMPRIS --config ~/.config/waybar/scripts/scrollmpris.toml --format '{player_icon} {status_icon} [scroll:20]{title} - {artist}[/scroll]' | while read -r line; do
 	if [ -f "$DISMISS_FILE" ]; then
 		# Explicitly dismissed
 		echo '{"text": "", "tooltip": "Dismissed."}'
