@@ -1,7 +1,5 @@
 {pkgs, ...}: {
   home.packages = [
-    pkgs.davinci-resolve-personal
+    pkgs.davinci-resolve-studio
   ];
-
-  home.file = pkgs.davinci-resolve-personal.homeFiles or {};
 }
