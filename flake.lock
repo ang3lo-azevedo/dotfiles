@@ -2521,11 +2521,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1788269791,
-        "narHash": "sha256-LcE/q/feir73Q31m+Ux7nzXzW/EUvt/Eqs5iUIQGr28=",
+        "lastModified": 1788309812,
+        "narHash": "sha256-pQhINdVdUtHLzlvDLC04sg79H7aFsa6jEeVZMhuPPV4=",
         "ref": "refs/heads/main",
-        "rev": "8d9a6b6104928222ff462a4aee183c98f38a234f",
-        "revCount": 3,
+        "rev": "257f32f823fc205a99dc5aad49c8054f9e6a0062",
+        "revCount": 4,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       },
