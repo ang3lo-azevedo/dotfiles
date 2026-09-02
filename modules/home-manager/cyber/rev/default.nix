@@ -1,7 +1,7 @@
 {
   imports = [
     ./android
-    ./binary-ninja
+    ./binaryninja
     ./decompiler
     ./framework
     ./ida-pro

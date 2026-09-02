@@ -1,0 +1,521 @@
+[cplayer] Command line options: '--config-dir=/home/ang3lo/nix-config/home/ang3lo/.config/mpv' '--no-config' '--load-scripts=no' '--script=/home/ang3lo/nix-config/home/ang3lo/.config/mpv/scripts/scripts-manager/mpv_manager/main.lua' '--idle=yes' '--msg-level=all=trace'
+[cplayer] mpv v0.41.0 Copyright © 2000-2025 mpv/MPlayer/mplayer2 projects
+[cplayer]  built on Jan  1 1980 00:00:00
+[cplayer] libplacebo version: v7.360.1
+[cplayer] FFmpeg version: 9.0.1
+[cplayer] FFmpeg library versions:
+[cplayer]    libavcodec      63.1.101
+[cplayer]    libavdevice     63.1.101
+[cplayer]    libavfilter     12.1.101
+[cplayer]    libavformat     63.1.101
+[cplayer]    libavutil       61.1.101
+[cplayer]    libswresample   7.1.101
+[cplayer]    libswscale      10.1.101
+[cplayer] Configuration: <omitted>
+[cplayer] List of enabled features: alsa build-date caca cplugins cuda-hwaccel cuda-interop dmabuf-interop-gl dmabuf-wayland drm dvbin dvdnav egl egl-drm egl-wayland egl-x11 ffmpeg ffnvcodec gbm gl glibc-thread-name glob glob-posix gpl iconv javascript lcms2 libarchive libass libavdevice libbluray libdl libplacebo linux-fstatfs lua memfd-create memrchr openal pipewire posix posix-shm ppoll pthread-condattr-setclock pulse rubberband rubberband-3 uchardet vaapi vaapi-drm vaapi-wayland vaapi-x11 vapoursynth vdpau vector vk-khr-display vt.h vulkan wayland wayland-protocols-1-32 wayland-protocols-1-38 wayland-protocols-1-39 wayland-protocols-1-41 wayland-protocols-1-44 wayland-protocols-1-47 x11 x11-clipboard zimg zimg-st428 zlib
+[global] home path: '' -> '-'
+[global] user path: '~~home/' -> ''
+[global] user path: '~~old_home/' -> ''
+[cplayer] Setting option 'config-dir' = '/home/ang3lo/nix-config/home/ang3lo/.config/mpv' (flags = 8)
+[cplayer] Setting option 'config' = 'no' (flags = 8)
+[cplayer] Setting option 'load-scripts' = 'no' (flags = 8)
+[cplayer] Setting option 'scripts-append' = '/home/ang3lo/nix-config/home/ang3lo/.config/mpv/scripts/scripts-manager/mpv_manager/main.lua' (flags = 8)
+[cplayer] Setting option 'idle' = 'yes' (flags = 8)
+[cplayer] Setting option 'msg-level' = 'all=trace' (flags = 8)
+[input] add: section='default' key='MBTN_LEFT' builtin cmd='ignore' location='<builtin>:1'
+[input] add: section='default' key='MBTN_LEFT_DBL' builtin cmd='cycle fullscreen' location='<builtin>:1'
+[input] add: section='default' key='MBTN_RIGHT' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='MBTN_BACK' builtin cmd='playlist-prev' location='<builtin>:1'
+[input] add: section='default' key='MBTN_FORWARD' builtin cmd='playlist-next' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+MBTN_LEFT' builtin cmd='script-binding positioning/drag-to-pan' location='<builtin>:1'
+[input] add: section='default' key='WHEEL_UP' builtin cmd='add volume 2' location='<builtin>:1'
+[input] add: section='default' key='WHEEL_DOWN' builtin cmd='add volume -2' location='<builtin>:1'
+[input] add: section='default' key='WHEEL_LEFT' builtin cmd='seek -10' location='<builtin>:1'
+[input] add: section='default' key='WHEEL_RIGHT' builtin cmd='seek 10' location='<builtin>:1'
+[input] add: section='default' key='RIGHT' builtin cmd='seek  5' location='<builtin>:1'
+[input] add: section='default' key='LEFT' builtin cmd='seek -5' location='<builtin>:1'
+[input] add: section='default' key='UP' builtin cmd='seek  60' location='<builtin>:1'
+[input] add: section='default' key='DOWN' builtin cmd='seek -60' location='<builtin>:1'
+[input] add: section='default' key='Shift+RIGHT' builtin cmd='no-osd seek  1 exact' location='<builtin>:1'
+[input] add: section='default' key='Shift+LEFT' builtin cmd='no-osd seek -1 exact' location='<builtin>:1'
+[input] add: section='default' key='Shift+UP' builtin cmd='no-osd seek  5 exact' location='<builtin>:1'
+[input] add: section='default' key='Shift+DOWN' builtin cmd='no-osd seek -5 exact' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+LEFT' builtin cmd='no-osd sub-seek -1' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+RIGHT' builtin cmd='no-osd sub-seek  1' location='<builtin>:1'
+[input] add: section='default' key='Shift+Ctrl+LEFT' builtin cmd='sub-step -1' location='<builtin>:1'
+[input] add: section='default' key='Shift+Ctrl+RIGHT' builtin cmd='sub-step 1' location='<builtin>:1'
+[input] add: section='default' key='Alt+LEFT' builtin cmd='add video-pan-x  0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+RIGHT' builtin cmd='add video-pan-x -0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+UP' builtin cmd='add video-pan-y  0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+DOWN' builtin cmd='add video-pan-y -0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt++' builtin cmd='add video-zoom   0.1' location='<builtin>:1'
+[input] add: section='default' key='ZOOMIN' builtin cmd='add video-zoom   0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+-' builtin cmd='add video-zoom  -0.1' location='<builtin>:1'
+[input] add: section='default' key='ZOOMOUT' builtin cmd='add video-zoom  -0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+KP_ADD' builtin cmd='add video-zoom  0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+KP_SUBTRACT' builtin cmd='add video-zoom -0.1' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+WHEEL_UP' builtin cmd='script-binding positioning/cursor-centric-zoom  0.1' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+WHEEL_DOWN' builtin cmd='script-binding positioning/cursor-centric-zoom -0.1' location='<builtin>:1'
+[input] add: section='default' key='Alt+BS' builtin cmd='set video-zoom 0; no-osd set panscan 0; no-osd set video-pan-x 0; no-osd set video-pan-y 0; no-osd set video-align-x 0; no-osd set video-align-y 0' location='<builtin>:1'
+[input] add: section='default' key='HOME' builtin cmd='seek 0 absolute' location='<builtin>:1'
+[input] add: section='default' key='PGUP' builtin cmd='add chapter 1' location='<builtin>:1'
+[input] add: section='default' key='PGDWN' builtin cmd='add chapter -1' location='<builtin>:1'
+[input] add: section='default' key='Shift+PGUP' builtin cmd='seek 600' location='<builtin>:1'
+[input] add: section='default' key='Shift+PGDWN' builtin cmd='seek -600' location='<builtin>:1'
+[input] add: section='default' key='[' builtin cmd='multiply speed 1/1.1' location='<builtin>:1'
+[input] add: section='default' key=']' builtin cmd='multiply speed 1.1' location='<builtin>:1'
+[input] add: section='default' key='{' builtin cmd='multiply speed 0.5' location='<builtin>:1'
+[input] add: section='default' key='}' builtin cmd='multiply speed 2.0' location='<builtin>:1'
+[input] add: section='default' key='BS' builtin cmd='set speed 1.0' location='<builtin>:1'
+[input] add: section='default' key='Shift+BS' builtin cmd='revert-seek' location='<builtin>:1'
+[input] add: section='default' key='Shift+Ctrl+BS' builtin cmd='revert-seek mark' location='<builtin>:1'
+[input] add: section='default' key='q' builtin cmd='quit' location='<builtin>:1'
+[input] add: section='default' key='Q' builtin cmd='quit-watch-later' location='<builtin>:1'
+[input] add: section='encode' key='q' builtin cmd='quit 4' location='<builtin>:1'
+[input] add: section='default' key='ESC' builtin cmd='set fullscreen no' location='<builtin>:1'
+[input] add: section='encode' key='ESC' builtin cmd='quit 4' location='<builtin>:1'
+[input] add: section='default' key='p' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='.' builtin cmd='frame-step' location='<builtin>:1'
+[input] add: section='default' key=',' builtin cmd='frame-back-step' location='<builtin>:1'
+[input] add: section='default' key='SPACE' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='>' builtin cmd='playlist-next' location='<builtin>:1'
+[input] add: section='default' key='ENTER' builtin cmd='playlist-next' location='<builtin>:1'
+[input] add: section='default' key='<' builtin cmd='playlist-prev' location='<builtin>:1'
+[input] add: section='default' key='Shift+HOME' builtin cmd='no-osd set playlist-pos 0' location='<builtin>:1'
+[input] add: section='default' key='Shift+END' builtin cmd='no-osd set playlist-pos-1 ${playlist-count}' location='<builtin>:1'
+[input] add: section='default' key='O' builtin cmd='no-osd cycle-values osd-level 3 1' location='<builtin>:1'
+[input] add: section='default' key='o' builtin cmd='show-progress' location='<builtin>:1'
+[input] add: section='default' key='P' builtin cmd='show-progress' location='<builtin>:1'
+[input] add: section='default' key='i' builtin cmd='script-binding stats/display-stats' location='<builtin>:1'
+[input] add: section='default' key='I' builtin cmd='script-binding stats/display-stats-toggle' location='<builtin>:1'
+[input] add: section='default' key='?' builtin cmd='script-binding stats/display-page-4-toggle' location='<builtin>:1'
+[input] add: section='default' key='`' builtin cmd='script-binding commands/open' location='<builtin>:1'
+[input] add: section='default' key='z' builtin cmd='add sub-delay -0.1' location='<builtin>:1'
+[input] add: section='default' key='Z' builtin cmd='add sub-delay +0.1' location='<builtin>:1'
+[input] add: section='default' key='x' builtin cmd='add sub-delay +0.1' location='<builtin>:1'
+[input] add: section='default' key='Ctrl++' builtin cmd='add audio-delay  0.100' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+-' builtin cmd='add audio-delay -0.100' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_ADD' builtin cmd='add audio-delay  0.100' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_SUBTRACT' builtin cmd='add audio-delay -0.100' location='<builtin>:1'
+[input] add: section='default' key='G' builtin cmd='add sub-scale +0.1' location='<builtin>:1'
+[input] add: section='default' key='F' builtin cmd='add sub-scale -0.1' location='<builtin>:1'
+[input] add: section='default' key='9' builtin cmd='add volume -2' location='<builtin>:1'
+[input] add: section='default' key='/' builtin cmd='add volume -2' location='<builtin>:1'
+[input] add: section='default' key='KP_DIVIDE' builtin cmd='add volume -2' location='<builtin>:1'
+[input] add: section='default' key='0' builtin cmd='add volume 2' location='<builtin>:1'
+[input] add: section='default' key='*' builtin cmd='add volume 2' location='<builtin>:1'
+[input] add: section='default' key='KP_MULTIPLY' builtin cmd='add volume 2' location='<builtin>:1'
+[input] add: section='default' key='m' builtin cmd='cycle mute' location='<builtin>:1'
+[input] add: section='default' key='1' builtin cmd='add contrast -1' location='<builtin>:1'
+[input] add: section='default' key='2' builtin cmd='add contrast 1' location='<builtin>:1'
+[input] add: section='default' key='3' builtin cmd='add brightness -1' location='<builtin>:1'
+[input] add: section='default' key='4' builtin cmd='add brightness 1' location='<builtin>:1'
+[input] add: section='default' key='5' builtin cmd='add gamma -1' location='<builtin>:1'
+[input] add: section='default' key='6' builtin cmd='add gamma 1' location='<builtin>:1'
+[input] add: section='default' key='7' builtin cmd='add saturation -1' location='<builtin>:1'
+[input] add: section='default' key='8' builtin cmd='add saturation 1' location='<builtin>:1'
+[input] add: section='default' key='Alt+0' builtin cmd='set window-scale 0.5' location='<builtin>:1'
+[input] add: section='default' key='Alt+1' builtin cmd='set window-scale 1.0' location='<builtin>:1'
+[input] add: section='default' key='Alt+2' builtin cmd='set window-scale 2.0' location='<builtin>:1'
+[input] add: section='default' key='b' builtin cmd='cycle deband' location='<builtin>:1'
+[input] add: section='default' key='d' builtin cmd='cycle deinterlace' location='<builtin>:1'
+[input] add: section='default' key='r' builtin cmd='add sub-pos -1' location='<builtin>:1'
+[input] add: section='default' key='R' builtin cmd='add sub-pos +1' location='<builtin>:1'
+[input] add: section='default' key='t' builtin cmd='add sub-pos +1' location='<builtin>:1'
+[input] add: section='default' key='v' builtin cmd='cycle sub-visibility' location='<builtin>:1'
+[input] add: section='default' key='Alt+v' builtin cmd='cycle secondary-sub-visibility' location='<builtin>:1'
+[input] add: section='default' key='V' builtin cmd='cycle sub-ass-use-video-data' location='<builtin>:1'
+[input] add: section='default' key='u' builtin cmd='cycle-values sub-ass-override "force" "scale"' location='<builtin>:1'
+[input] add: section='default' key='j' builtin cmd='cycle sub' location='<builtin>:1'
+[input] add: section='default' key='J' builtin cmd='cycle sub down' location='<builtin>:1'
+[input] add: section='default' key='SHARP' builtin cmd='cycle audio' location='<builtin>:1'
+[input] add: section='default' key='_' builtin cmd='cycle video' location='<builtin>:1'
+[input] add: section='default' key='T' builtin cmd='cycle ontop' location='<builtin>:1'
+[input] add: section='default' key='f' builtin cmd='cycle fullscreen' location='<builtin>:1'
+[input] add: section='default' key='s' builtin cmd='screenshot' location='<builtin>:1'
+[input] add: section='default' key='S' builtin cmd='screenshot video' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+s' builtin cmd='screenshot window' location='<builtin>:1'
+[input] add: section='default' key='Alt+s' builtin cmd='screenshot each-frame' location='<builtin>:1'
+[input] add: section='default' key='w' builtin cmd='add panscan -0.1' location='<builtin>:1'
+[input] add: section='default' key='W' builtin cmd='add panscan +0.1' location='<builtin>:1'
+[input] add: section='default' key='e' builtin cmd='add panscan +0.1' location='<builtin>:1'
+[input] add: section='default' key='A' builtin cmd='cycle-values video-aspect-override "16:9" "4:3" "2.35:1" "no"' location='<builtin>:1'
+[input] add: section='default' key='POWER' builtin cmd='quit' location='<builtin>:1'
+[input] add: section='default' key='PLAY' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='PAUSE' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='PLAYPAUSE' builtin cmd='cycle pause' location='<builtin>:1'
+[input] add: section='default' key='PLAYONLY' builtin cmd='set pause no' location='<builtin>:1'
+[input] add: section='default' key='PAUSEONLY' builtin cmd='set pause yes' location='<builtin>:1'
+[input] add: section='default' key='STOP' builtin cmd='quit' location='<builtin>:1'
+[input] add: section='default' key='FORWARD' builtin cmd='seek 60' location='<builtin>:1'
+[input] add: section='default' key='REWIND' builtin cmd='seek -60' location='<builtin>:1'
+[input] add: section='default' key='NEXT' builtin cmd='playlist-next' location='<builtin>:1'
+[input] add: section='default' key='PREV' builtin cmd='playlist-prev' location='<builtin>:1'
+[input] add: section='default' key='VOLUME_UP' builtin cmd='add volume 2' location='<builtin>:1'
+[input] add: section='default' key='VOLUME_DOWN' builtin cmd='add volume -2' location='<builtin>:1'
+[input] add: section='default' key='MUTE' builtin cmd='cycle mute' location='<builtin>:1'
+[input] add: section='default' key='CLOSE_WIN' builtin cmd='quit' location='<builtin>:1'
+[input] add: section='encode' key='CLOSE_WIN' builtin cmd='quit 4' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+w' builtin cmd='quit' location='<builtin>:1'
+[input] add: section='default' key='E' builtin cmd='cycle edition' location='<builtin>:1'
+[input] add: section='default' key='l' builtin cmd='ab-loop' location='<builtin>:1'
+[input] add: section='default' key='L' builtin cmd='cycle-values loop-file "inf" "no"' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+c' builtin cmd='quit 4' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+v' builtin cmd='loadfile ${clipboard/text} append-play; show-text '+ ${clipboard/text}'' location='<builtin>:1'
+[input] add: section='default' key='DEL' builtin cmd='script-binding osc/visibility' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+h' builtin cmd='cycle-values hwdec "no" "auto"' location='<builtin>:1'
+[input] add: section='default' key='F8' builtin cmd='show-text ${playlist}' location='<builtin>:1'
+[input] add: section='default' key='F9' builtin cmd='show-text ${track-list}' location='<builtin>:1'
+[input] add: section='default' key='g' builtin cmd='ignore' location='<builtin>:1'
+[input] add: section='default' key='g-p' builtin cmd='script-binding select/select-playlist' location='<builtin>:1'
+[input] add: section='default' key='g-s' builtin cmd='script-binding select/select-sid' location='<builtin>:1'
+[input] add: section='default' key='g-S' builtin cmd='script-binding select/select-secondary-sid' location='<builtin>:1'
+[input] add: section='default' key='g-a' builtin cmd='script-binding select/select-aid' location='<builtin>:1'
+[input] add: section='default' key='g-v' builtin cmd='script-binding select/select-vid' location='<builtin>:1'
+[input] add: section='default' key='g-t' builtin cmd='script-binding select/select-track' location='<builtin>:1'
+[input] add: section='default' key='g-c' builtin cmd='script-binding select/select-chapter' location='<builtin>:1'
+[input] add: section='default' key='g-e' builtin cmd='script-binding select/select-edition' location='<builtin>:1'
+[input] add: section='default' key='g-l' builtin cmd='script-binding select/select-subtitle-line' location='<builtin>:1'
+[input] add: section='default' key='g-d' builtin cmd='script-binding select/select-audio-device' location='<builtin>:1'
+[input] add: section='default' key='g-h' builtin cmd='script-binding select/select-watch-history' location='<builtin>:1'
+[input] add: section='default' key='g-w' builtin cmd='script-binding select/select-watch-later' location='<builtin>:1'
+[input] add: section='default' key='g-b' builtin cmd='script-binding select/select-binding' location='<builtin>:1'
+[input] add: section='default' key='g-r' builtin cmd='script-binding select/show-properties' location='<builtin>:1'
+[input] add: section='default' key='g-m' builtin cmd='script-binding select/menu' location='<builtin>:1'
+[input] add: section='default' key='MENU' builtin cmd='script-binding select/menu' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+p' builtin cmd='script-binding select/menu' location='<builtin>:1'
+[input] add: section='default' key='Alt+KP1' builtin cmd='add video-rotate -1' location='<builtin>:1'
+[input] add: section='default' key='Alt+KP5' builtin cmd='set video-rotate  0' location='<builtin>:1'
+[input] add: section='default' key='Alt+KP3' builtin cmd='add video-rotate  1' location='<builtin>:1'
+[input] add: section='default' key='KP1' builtin cmd='add video-zoom    -0.01' location='<builtin>:1'
+[input] add: section='default' key='KP2' builtin cmd='add video-scale-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='KP4' builtin cmd='add video-scale-x -0.01' location='<builtin>:1'
+[input] add: section='default' key='KP5' builtin cmd='set video-scale-x  1.00; set video-scale-y 1; set video-zoom 0' location='<builtin>:1'
+[input] add: section='default' key='KP6' builtin cmd='add video-scale-x  0.01' location='<builtin>:1'
+[input] add: section='default' key='KP8' builtin cmd='add video-scale-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='KP9' builtin cmd='add video-zoom     0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP1' builtin cmd='add video-pan-x -0.01; add video-pan-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP2' builtin cmd='add video-pan-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP3' builtin cmd='add video-pan-x  0.01; add video-pan-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP4' builtin cmd='add video-pan-x -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP5' builtin cmd='set video-pan-x  0.00; set video-pan-y  0.00' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP6' builtin cmd='add video-pan-x  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP7' builtin cmd='add video-pan-x -0.01; add video-pan-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP8' builtin cmd='add video-pan-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP9' builtin cmd='add video-pan-x  0.01; add video-pan-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_END' builtin cmd='add video-align-x -0.01; add video-align-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_DOWN' builtin cmd='add video-align-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_PGDWN' builtin cmd='add video-align-x  0.01; add video-align-y  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_LEFT' builtin cmd='add video-align-x -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_BEGIN' builtin cmd='set video-align-x  0.00; set video-align-y  0.00' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_RIGHT' builtin cmd='add video-align-x  0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_HOME' builtin cmd='add video-align-x -0.01; add video-align-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_UP' builtin cmd='add video-align-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='Ctrl+KP_PGUP' builtin cmd='add video-align-x  0.01; add video-align-y -0.01' location='<builtin>:1'
+[input] add: section='default' key='!' builtin cmd='add chapter -1' location='<builtin>:1'
+[input] add: section='default' key='@' builtin cmd='add chapter 1' location='<builtin>:1'
+[osc] Loading lua script @osc.lua...
+[ytdl_hook] Loading lua script @ytdl_hook.lua...
+[stats] Loading lua script @stats.lua...
+[osc] loading mp.defaults
+[console] Loading lua script @console.lua...
+[auto_profiles] Loading lua script @auto_profiles.lua...
+[select] Loading lua script @select.lua...
+[positioning] Loading lua script @positioning.lua...
+[ytdl_hook] loading mp.defaults
+[stats] loading mp.defaults
+[console] loading mp.defaults
+[select] loading mp.defaults
+[auto_profiles] loading mp.defaults
+[osc] loading @osc.lua
+[stats] loading @stats.lua
+[ytdl_hook] loading @ytdl_hook.lua
+[select] loading @select.lua
+[console] loading @console.lua
+[auto_profiles] loading @auto_profiles.lua
+[commands] Loading lua script @commands.lua...
+[context_menu] Loading lua script @context_menu.lua...
+[commands] loading mp.defaults
+[positioning] loading mp.defaults
+[context_menu] loading mp.defaults
+[positioning] loading @positioning.lua
+[clipboard/wayland] Registered interface ext_data_control_manager_v1 at version 1
+[clipboard/wayland] Registered interface wl_seat at version 8
+[commands] loading @commands.lua
+[positioning] reading options for positioning
+[positioning] script-opts/positioning.conf not found.
+[positioning] lua-settings/positioning.conf not found.
+[clipboard] Initialized wayland clipboard backend.
+[main] Loading lua script /home/ang3lo/nix-config/home/ang3lo/.config/mpv/scripts/scripts-manager/mpv_manager/main.lua...
+[cplayer] Waiting for scripts...
+[context_menu] loading @context_menu.lua
+[cplayer] Run command: define-section, flags=64, args=[name="input_positioning", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_positioning", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_positioning'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_positioning", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_positioning", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_positioning'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[ytdl_hook] reading options for ytdl_hook
+[ytdl_hook] script-opts/ytdl_hook.conf not found.
+[ytdl_hook] lua-settings/ytdl_hook.conf not found.
+[commands] reading options for commands
+[commands] script-opts/commands.conf not found.
+[commands] lua-settings/commands.conf not found.
+[cplayer] Run command: define-section, flags=64, args=[name="input_commands", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_commands", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_commands'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_commands", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_commands", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_commands'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[main] loading mp.defaults
+[context_menu] reading options for context_menu
+[context_menu] script-opts/context_menu.conf not found.
+[context_menu] lua-settings/context_menu.conf not found.
+[console] reading options for console
+[console] script-opts/console.conf not found.
+[console] lua-settings/console.conf not found.
+[stats] reading options for stats
+[stats] script-opts/stats.conf not found.
+[stats] lua-settings/stats.conf not found.
+[select] reading options for select
+[select] script-opts/select.conf not found.
+[select] lua-settings/select.conf not found.
+[clipboard/wayland] Read 96 bytes from the data offer fd
+[clipboard/wayland] Read 1 bytes from the data offer fd
+[cplayer] Run command: define-section, flags=64, args=[name="input_stats", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_stats", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_stats'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[cplayer] Run command: define-section, flags=64, args=[name="showhide", contents="mouse_move script-binding osc/__keybinding1\nmouse_leave script-binding osc/__keybinding2\n", flags="force"]
+[input] add: section='showhide' key='MOUSE_MOVE' cmd='script-binding osc/__keybinding1' location='<api>:1'
+[input] add: section='showhide' key='MOUSE_LEAVE' cmd='script-binding osc/__keybinding2' location='<api>:2'
+[cplayer] Run command: define-section, flags=64, args=[name="showhide_wc", contents="mouse_move script-binding osc/__keybinding3\nmouse_leave script-binding osc/__keybinding4\n", flags="force"]
+[input] add: section='showhide_wc' key='MOUSE_MOVE' cmd='script-binding osc/__keybinding3' location='<api>:1'
+[main] loading file /home/ang3lo/nix-config/home/ang3lo/.config/mpv/scripts/scripts-manager/mpv_manager/main.lua
+[input] add: section='showhide_wc' key='MOUSE_LEAVE' cmd='script-binding osc/__keybinding4' location='<api>:2'
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_stats", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_stats", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_stats'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[cplayer] Run command: enable-section, flags=64, args=[name="showhide", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'showhide'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_console", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_console", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_console'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[main] Starting background update of all scripts...
+[cplayer] Run command: define-section, flags=64, args=[name="input_select", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="showhide_wc", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'showhide_wc'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[cplayer] Run command: expand-path, flags=64, args=[text="~~/scripts/scripts-manager/mpv_manager/manager.json"]
+[global] user path: '~~/scripts/scripts-manager/mpv_manager/manager.json' -> 'scripts/scripts-manager/mpv_manager/manager.json'
+[cplayer] Run command: enable-section, flags=64, args=[name="input_select", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_select'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_console", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_console", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_console'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_select", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_select", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_select'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[input]  input_forced_select 12
+[cplayer] Run command: expand-path, flags=64, args=[text="~~/scripts/scripts-manager/mpv_manager/installed.json"]
+[global] user path: '~~/scripts/scripts-manager/mpv_manager/installed.json' -> 'scripts/scripts-manager/mpv_manager/installed.json'
+[cplayer] Run command: define-section, flags=64, args=[name="input", contents="mbtn_left script-binding osc/__keybinding5\nmbtn_mid script-binding osc/__keybinding6\nmbtn_right script-binding osc/__keybinding7\nshift+mbtn_left script-binding osc/__keybinding8\nwheel_up script-binding osc/__keybinding9\nwheel_down script-binding osc/__keybinding10\nmbtn_left_dbl ignore\nshift+mbtn_left_dbl ignore\nmbtn_right_dbl ignore\n", flags="force"]
+[input] add: section='input' key='MBTN_LEFT' cmd='script-binding osc/__keybinding5' location='<api>:1'
+[input] add: section='input' key='MBTN_MID' cmd='script-binding osc/__keybinding6' location='<api>:2'
+[input] add: section='input' key='MBTN_RIGHT' cmd='script-binding osc/__keybinding7' location='<api>:3'
+[input] add: section='input' key='Shift+MBTN_LEFT' cmd='script-binding osc/__keybinding8' location='<api>:4'
+[input] add: section='input' key='WHEEL_UP' cmd='script-binding osc/__keybinding9' location='<api>:5'
+[input] add: section='input' key='WHEEL_DOWN' cmd='script-binding osc/__keybinding10' location='<api>:6'
+[input] add: section='input' key='MBTN_LEFT_DBL' cmd='ignore' location='<api>:7'
+[input] add: section='input' key='Shift+MBTN_LEFT_DBL' cmd='ignore' location='<api>:8'
+[input] add: section='input' key='MBTN_RIGHT_DBL' cmd='ignore' location='<api>:9'
+[cplayer] Run command: expand-path, flags=64, args=[text="~~/"]
+[global] user path: '~~/' -> ''
+[main] Background update complete!
+[cplayer] Run command: enable-section, flags=64, args=[name="input", flags=""]
+[input] enable section 'input'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[input]  input_forced_select 12
+[input]  input 0
+[cplayer] Run command: define-section, flags=64, args=[name="window-controls", contents="mbtn_left script-binding osc/__keybinding11\n", flags="force"]
+[input] add: section='window-controls' key='MBTN_LEFT' cmd='script-binding osc/__keybinding11' location='<api>:1'
+[cplayer] Run command: enable-section, flags=64, args=[name="window-controls", flags=""]
+[input] enable section 'window-controls'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[input]  input_forced_select 12
+[input]  input 0
+[input]  window-controls 0
+[auto_profiles] Destroying client handle...
+[osc] reading options for osc
+[osc] script-opts/osc.conf not found.
+[osc] lua-settings/osc.conf not found.
+[osc] hide_osc
+[cplayer] Set property: user-data/osc/visibility="auto" -> 1
+[cplayer] Run command: disable-section, flags=64, args=[name="input"]
+[cplayer] Run command: disable-section, flags=64, args=[name="window-controls"]
+[cplayer] Set property: user-data/osc/margins={"r":0,"b":0,"l":0,"t":0} -> 1
+[cplayer] Done loading scripts.
+[cplayer] Set property: user-data/osc/margins={"r":0,"b":0,"l":0,"t":0} -> 1
+[osc] idle message
+[cplayer] Run command: define-section, flags=64, args=[name="input_osc", contents="", flags="default"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_osc", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_osc'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[input]  input_forced_select 12
+[input]  input_osc 12
+[cplayer] Run command: define-section, flags=64, args=[name="input_forced_osc", contents="", flags="force"]
+[cplayer] Run command: enable-section, flags=64, args=[name="input_forced_osc", flags="allow-hide-cursor+allow-vo-dragging"]
+[input] enable section 'input_forced_osc'
+[input] active section stack:
+[input]  default 12
+[input]  input_positioning 12
+[input]  input_forced_positioning 12
+[input]  input_commands 12
+[input]  input_forced_commands 12
+[input]  input_stats 12
+[input]  input_forced_stats 12
+[input]  showhide 12
+[input]  input_console 12
+[input]  showhide_wc 12
+[input]  input_select 12
+[input]  input_forced_console 12
+[input]  input_forced_select 12
+[input]  input_osc 12
+[input]  input_forced_osc 12
+[cplayer] Run command: quit, flags=73, args=[code="4"]
+Exiting... (Quit)

@@ -7,6 +7,6 @@
   };
 
   home.packages = [
-    pkgs.binary-ninja
+    pkgs.binaryninja-personal
   ];
 }

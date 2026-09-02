@@ -1,16 +1,17 @@
 {
   pkgs ? import <nixpkgs> {},
   inputs ? {},
+  system ? pkgs.stdenv.hostPlatform.system,
   ...
 }:
 {}
 // (
   if inputs ? ang3lo-nur
-  then builtins.removeAttrs (import "${inputs.ang3lo-nur}/default.nix" {inherit pkgs;}) ["lib" "nixosModules" "overlays"]
+  then inputs.ang3lo-nur.packages.${system} or {}
   else {}
 )
 // (
   if inputs ? th3m1ghtyduck-nur
-  then builtins.removeAttrs (import "${inputs.th3m1ghtyduck-nur}/default.nix" {inherit pkgs;}) ["lib" "nixosModules" "overlays"]
+  then inputs.th3m1ghtyduck-nur.packages.${system} or {}
   else {}
 )

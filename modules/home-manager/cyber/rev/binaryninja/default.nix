@@ -1,6 +1,6 @@
 {
   imports = [
-    ./binary-ninja.nix
+    ./binaryninja.nix
     ./reverser_ai.nix
   ];
 }
