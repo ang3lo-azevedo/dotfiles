@@ -9,15 +9,19 @@
     inputs.nixcord.homeModules.nixcord
   ];
 
-  # Dorion panics if its config file is read-only.
-  # This activation script replaces the Nixcord-generated symlink with a writable copy.
-  home.activation.fixDorionConfig = lib.hm.dag.entryAfter ["linkGeneration"] ''
-    if [ -L "$HOME/.config/dorion/config.json" ]; then
-      real_file=$(readlink -f "$HOME/.config/dorion/config.json")
-      rm "$HOME/.config/dorion/config.json"
-      cp "$real_file" "$HOME/.config/dorion/config.json"
-      chmod 644 "$HOME/.config/dorion/config.json"
-    fi
+  # These programs panic if their config files are read-only.
+  # This activation script replaces the Nixcord-generated symlinks with writable copies.
+  home.activation.fixConfigFiles = lib.hm.dag.entryAfter ["linkGeneration"] ''
+    for config_file in \
+      "$HOME/.config/dorion/config.json" \
+      "$HOME/.config/equibop/settings.json"; do
+      if [ -L "$config_file" ]; then
+        real_file=$(readlink -f "$config_file")
+        rm "$config_file"
+        cp "$real_file" "$config_file"
+        chmod 644 "$config_file"
+      fi
+    done
   '';
 
   programs.nixcord = {

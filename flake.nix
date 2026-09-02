@@ -2,21 +2,6 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    ang3lo-nur = {
-      url = "github:ang3lo-azevedo/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    th3m1ghtyduck-nur = {
-      url = "git+file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    mpv-config = {
-      url = "github:ang3lo-azevedo/mpv";
-      flake = false;
-    };
-
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -30,12 +15,27 @@
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
-    # nixpkgs master
-    /*
-       nixpkgs-master = {
-      url = "github:nixos/nixpkgs";
+    # Using local submodules for development so local unpushed changes are evaluated.
+    ang3lo-nur = {
+      # Remote repository (use this if not developing locally)
+      # url = "github:ang3lo-azevedo/nur-packages";
+      url = "git+file:///home/ang3lo/nix-config/pkgs/ang3lo-nur";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-    */
+
+    # Using local submodules for development so local unpushed changes are evaluated.
+    th3m1ghtyduck-nur = {
+      # Remote repository (use this if not developing locally)
+      # url = "github:th3m1ghtyduck/nur-packages";
+      url = "git+file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # MPV config
+    mpv-config = {
+      url = "github:ang3lo-azevedo/mpv";
+      flake = false;
+    };
 
     # nixpkgs-xr
     nixpkgs-xr = {
@@ -45,6 +45,7 @@
     # dmatools (MemProcFS packaging)
     dmatools = {
       url = "github:tie-infra/dmatools";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for Disko (disk partitioning tool)
@@ -171,14 +172,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # MPV config
-
-    # Trakt Scrobbler (TODO: fix)
-    trakt-scrobbler-src = {
-      url = "github:iamkroot/trakt-scrobbler";
-      flake = false;
-    };
-
     # PhotoGIMP assets and config
     photogimp = {
       url = "github:Diolinux/PhotoGIMP/3.0";
@@ -191,28 +184,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # For IDA Pro
-    ida-pro-overlay = {
-      url = "github:msanft/ida-pro-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # For Binary Ninja
-    binaryninja = {
-      url = "github:jchv/nix-binary-ninja";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # For QRookie
     glaumar_repo = {
       url = "github:glaumar/nur";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Stremio Enhanced - Enhanced Stremio desktop client with plugins and themes
-    stremio-enhanced = {
-      url = "github:REVENGE977/stremio-enhanced";
-      flake = false;
     };
 
     # Custom package set with Playtorrio v2
@@ -250,8 +225,6 @@
       flake = false;
     };
 
-    # IST Fénix Auto Enroller
-
     # Pre-commit hooks for Nix
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -262,14 +235,6 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # cryinkfly's Autodesk Fusion 360 on Linux installer
-
-    # SteaMidra - Steam game setup and management tool
-    steamidra = {
-      url = "github:Midrags/SFF";
-      flake = false;
     };
   };
 
@@ -298,9 +263,6 @@
 
       # Cache for nix-gaming packages (wine, lutris, etc.)
       "https://nix-gaming.cachix.org"
-
-      # Cache for nix-gaming-edge (FIXME: Re-enable when it is fixed)
-      #"https://nix-cache.tokidoki.dev/tokidoki"
     ];
     extra-trusted-public-keys = [
       "ang3lo.cachix.org-1:RckESjXE0fJr+FTfC4akKPi3+EBgpyPQLmZU23N4y3E="
@@ -309,7 +271,6 @@
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "tokidoki:MD4VWt3kK8Fmz3jkiGoNRJIW31/QAm7l1Dcgz2Xa4hk="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported
@@ -334,7 +295,6 @@
     nix-vscode-extensions,
     spicetify-nix,
     mpv-config,
-    trakt-scrobbler-src,
     chaotic,
     pre-commit-hooks,
     ...
@@ -343,17 +303,13 @@
     inputs =
       originalInputs
       // {
-        ang3lo-nur =
-          if builtins.pathExists ./pkgs/ang3lo-nur/flake.nix
-          then builtins.getFlake "path:${toString ./.}/pkgs/ang3lo-nur"
-          else originalInputs.ang3lo-nur;
-        th3m1ghtyduck-nur =
-          if builtins.pathExists ./pkgs/th3m1ghtyduck-nur/flake.nix
-          then builtins.getFlake "path:${toString ./.}/pkgs/th3m1ghtyduck-nur"
-          else originalInputs.th3m1ghtyduck-nur;
         mpv-config =
           if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
-          then ./. + "/home/ang3lo/.config/mpv"
+          then
+            builtins.path {
+              path = ./home/ang3lo/.config/mpv;
+              name = "mpv-config";
+            }
           else originalInputs.mpv-config;
       };
 
@@ -419,7 +375,6 @@
                 nix-vscode-extensions
                 spicetify-nix
                 mpv-config
-                trakt-scrobbler-src
                 ;
             };
           };
@@ -463,8 +418,6 @@
               (import ./overlays/firefox-addons.nix)
               inputs.nix-vscode-extensions.overlays.default
               inputs.antigravity-nix.overlays.default
-              inputs.ida-pro-overlay.overlays.default
-              inputs.binaryninja.overlays.default
               inputs.dmatools.overlays.default
               (
                 _: prev:
@@ -480,10 +433,18 @@
               (_: prev: {
                 # HACK: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
                 pdal = prev.pdal.overrideAttrs (old: {
-                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
+                  env =
+                    (old.env or {})
+                    // {
+                      NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
+                    };
                 });
                 vtk = prev.vtk.overrideAttrs (old: {
-                  env = (old.env or {}) // {NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";};
+                  env =
+                    (old.env or {})
+                    // {
+                      NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
+                    };
                 });
                 # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
                 niri = prev.niri.overrideAttrs (old: {
@@ -522,16 +483,18 @@
                 });
                 */
               })
-              (_: prev:
-                {
-                  glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
-                  xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
-                }
-                // (import ./pkgs {
-                  pkgs = prev;
-                  inherit inputs;
-                  system = prev.stdenv.hostPlatform.system;
-                }))
+              (
+                _: prev:
+                  {
+                    glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
+                    xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
+                  }
+                  // (import ./pkgs {
+                    pkgs = prev;
+                    inherit inputs;
+                    system = prev.stdenv.hostPlatform.system;
+                  })
+              )
               chaotic.overlays.default
             ];
           };
@@ -554,7 +517,9 @@
         stdenv = nixpkgs-stable.legacyPackages.x86_64-linux.stdenv;
         inherit hostname;
       })
-      // {nixpkgsObj = nixpkgs-stable;};
+      // {
+        nixpkgsObj = nixpkgs-stable;
+      };
   in {
     nixosConfigurations = {
       # NixOS configuration for pc-angelo
@@ -591,7 +556,6 @@
           nix-vscode-extensions
           spicetify-nix
           mpv-config
-          trakt-scrobbler-src
           ;
       };
       modules = [
