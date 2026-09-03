@@ -1184,11 +1184,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1787516662,
-        "narHash": "sha256-lkYEADkKdMFNo34MrI+Ch3he21yJkBoSA6vminhPeGg=",
+        "lastModified": 1788373590,
+        "narHash": "sha256-FLdjwf/iiEqqO/jAo6a2nmBGtUSLv6RVu6riB4t3/n4=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "f22527d3d6fb142ab2a9866f126bfa56ede3ed83",
+        "rev": "b83becea7852b5eb9810a0598112c2b44f0b077d",
         "type": "github"
       },
       "original": {
@@ -2397,11 +2397,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1788373602,
-        "narHash": "sha256-b4LE2XZCLEgUBoMZF+6XbHATM8Sh5qg+U3rGMLC1HdI=",
+        "lastModified": 1788374684,
+        "narHash": "sha256-E6FCzXAABAna8n5azBz+uSwM7Fw8qtUDzR7qUilci+E=",
         "ref": "refs/heads/main",
-        "rev": "35e5b309bb0ab420e6c8aba44ea1a4c29d877c3d",
-        "revCount": 16,
+        "rev": "36a8a8decdfe6a983ef0ef9ce2db590f7853f1b2",
+        "revCount": 17,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       },

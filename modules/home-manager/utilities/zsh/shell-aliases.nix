@@ -16,8 +16,8 @@
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' -L --keep-going";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo'";
-    update = "(cd ~/nix-config && git submodule update --remote pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && nix flake update ang3lo-nur th3m1ghtyduck-nur --accept-flake-config && nix flake update --accept-flake-config)";
-    upgrade = "sudo -v && git -C ~/nix-config pull && git -C ~/nix-config submodule update --remote pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && (cd ~/nix-config && nix flake update ang3lo-nur th3m1ghtyduck-nur --accept-flake-config) && rebuild";
+    update = "(cd ~/nix-config && git submodule update --remote home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur --accept-flake-config && nix flake update --accept-flake-config)";
+    upgrade = "sudo -v && git -C ~/nix-config pull && git -C ~/nix-config submodule update --remote home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur && (cd ~/nix-config && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur --accept-flake-config) && rebuild";
     u = "upgrade";
     rb = "rebuild";
 

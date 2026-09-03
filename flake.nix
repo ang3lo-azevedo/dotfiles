@@ -304,10 +304,10 @@
       originalInputs
       // {
         mpv-config =
-          if builtins.pathExists ./home/ang3lo/.config/mpv/mpv.conf
+          if builtins.pathExists /home/ang3lo/nix-config/home/ang3lo/.config/mpv/mpv.conf
           then
             builtins.path {
-              path = ./home/ang3lo/.config/mpv;
+              path = /home/ang3lo/nix-config/home/ang3lo/.config/mpv;
               name = "mpv-config";
             }
           else originalInputs.mpv-config;
