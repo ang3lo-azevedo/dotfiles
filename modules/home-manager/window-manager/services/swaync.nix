@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/${path}";
 in {
   services.swaync.enable = true;
   stylix.targets.swaync.enable = false;
@@ -15,8 +15,8 @@ in {
   systemd.user.paths.swaync-config = {
     Unit.Description = "Watch SwayNC configuration for changes";
     Path.PathModified = [
-      "/home/ang3lo/nix-config/home/ang3lo/.config/swaync/config.json"
-      "/home/ang3lo/nix-config/home/ang3lo/.config/swaync/style.css"
+      "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/swaync/config.json"
+      "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/swaync/style.css"
     ];
     Path.Unit = "swaync-reload.service";
     Install.WantedBy = ["swaync.service"];

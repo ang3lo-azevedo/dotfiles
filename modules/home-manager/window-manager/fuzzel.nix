@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/${path}";
 in {
   programs.fuzzel.enable = true;
   # Disable stylix theming so the hand-crafted fuzzel.ini colors are not overwritten

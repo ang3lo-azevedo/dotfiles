@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "/home/ang3lo/nix-config/home/ang3lo/.config/${path}";
+  mkSymlink = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/${path}";
   scripts = "/home/ang3lo/.config/waybar/scripts";
 
   # Runs once at session start: enumerates all connected outputs and starts
@@ -76,10 +76,10 @@ in {
       waybar-autostart = {
         Unit = {
           Description = "Start Waybar on all connected outputs";
-          After = ["niri-session.target"];
-          PartOf = ["niri-session.target"];
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
         };
-        Install.WantedBy = ["niri-session.target"];
+        Install.WantedBy = ["graphical-session.target"];
         Service = {
           Type = "oneshot";
           ExecStart = "${waybarAutostart}";
@@ -92,8 +92,8 @@ in {
       "waybar-output@" = {
         Unit = {
           Description = "Waybar for output %i";
-          PartOf = ["niri-session.target"];
-          After = ["niri-session.target"];
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
         };
         Service = {
           ExecStart = "${scripts}/start-waybar-output.sh %i";
@@ -107,8 +107,8 @@ in {
       "waybar-trigger@" = {
         Unit = {
           Description = "Waybar trigger bar for output %i";
-          PartOf = ["niri-session.target"];
-          After = ["niri-session.target"];
+          PartOf = ["graphical-session.target"];
+          After = ["graphical-session.target"];
         };
         Service = {
           ExecStart = "${scripts}/start-waybar-trigger.sh %i";
@@ -122,10 +122,10 @@ in {
       waybar-hotplug = {
         Unit = {
           Description = "Start/stop Waybar when outputs are connected or disconnected";
-          After = ["niri-session.target" "waybar-autostart.service"];
-          PartOf = ["niri-session.target"];
+          After = ["graphical-session.target" "waybar-autostart.service"];
+          PartOf = ["graphical-session.target"];
         };
-        Install.WantedBy = ["niri-session.target"];
+        Install.WantedBy = ["graphical-session.target"];
         Service = {
           ExecStart = "${waybarHotplug}";
           Restart = "on-failure";
@@ -146,8 +146,8 @@ in {
     paths.waybar-config = {
       Unit.Description = "Watch Waybar configuration for changes";
       Path.PathModified = [
-        "/home/ang3lo/nix-config/home/ang3lo/.config/waybar/config.jsonc"
-        "/home/ang3lo/nix-config/home/ang3lo/.config/waybar/style.css"
+        "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/waybar/config.jsonc"
+        "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/waybar/style.css"
       ];
       Path.Unit = "waybar-reload.service";
       Install.WantedBy = ["waybar-autostart.service"];

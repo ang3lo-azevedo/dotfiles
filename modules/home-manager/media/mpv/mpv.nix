@@ -1,7 +1,6 @@
 {
   pkgs,
-  lib,
-  mpv-config,
+  config,
   ...
 }: let
   mpvWithVapourSynth = pkgs.mpv.override {
@@ -81,14 +80,7 @@
   };
   */
 
-  # Filter out .vscode directory from mpv-config source
-  filteredMpvConfig = lib.cleanSourceWith {
-    src = mpv-config;
-    filter = path: _: let
-      name = baseNameOf (toString path);
-    in
-      name != ".vscode" && name != ".git" && name != ".gitignore";
-  };
+  mpvConfig = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv";
 in {
   home.packages = [
     mpvWithVapourSynth
@@ -104,10 +96,8 @@ in {
   ];
 
   # MPV player configuration from external git repository
-  # Exclude .vscode directory as it's not part of mpv config
   xdg.configFile."mpv" = {
-    source = filteredMpvConfig;
-    recursive = true;
+    source = mpvConfig;
   };
 
   # Register mpv-handler for custom protocols
