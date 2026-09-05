@@ -60,11 +60,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1788425151,
-        "narHash": "sha256-wqqSp7DQfxnwc+NyHaH9ToAiIdyidtQjD3zy/7NioKA=",
+        "lastModified": 1788603888,
+        "narHash": "sha256-EaBj1QvS94WI/6PE8YQTxYoMjgHdTUI8GUXsTom3r84=",
         "ref": "refs/heads/main",
-        "rev": "edaa199a91a3639a6863407cddeb01771848401d",
-        "revCount": 12,
+        "rev": "7c9e0f045c2d784bb620153584b61a501a625dcb",
+        "revCount": 14,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1184,11 +1184,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1788562122,
-        "narHash": "sha256-LyfCIFdBnd7tn7oQFXl5qPsJffeUhiod9v8ssMIKYKY=",
+        "lastModified": 1788603260,
+        "narHash": "sha256-qFKxe9Xc5Bjwx/h8+qH/ZbAGOmoH00rbIJEv2TEBNxI=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "f013db59d353ad4867d00c65776e619addf20b30",
+        "rev": "5f6eb278eedd03b4ab756b86b9c93425ed511ce2",
         "type": "github"
       },
       "original": {
@@ -2397,11 +2397,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1788374684,
-        "narHash": "sha256-E6FCzXAABAna8n5azBz+uSwM7Fw8qtUDzR7qUilci+E=",
+        "lastModified": 1788603853,
+        "narHash": "sha256-nvAOt2tSsBybODh/25XZ9Jzh8kARv6V61o1PvYuZ7B4=",
         "ref": "refs/heads/main",
-        "rev": "36a8a8decdfe6a983ef0ef9ce2db590f7853f1b2",
-        "revCount": 17,
+        "rev": "6471316f2b42bab3990a3952f3f6019de0657fe4",
+        "revCount": 20,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       },
