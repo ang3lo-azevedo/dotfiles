@@ -355,9 +355,6 @@ layout {
 // Update DBus environment for Wayland and current desktop
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
 
-// Polkit authentication agent
-spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1" "&"
-
 //spawn-at-startup "syshud"
 // Background
 spawn-at-startup "swaybg" "-c" "#000000"
@@ -376,6 +373,9 @@ spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
 // Night light
 spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
+
+// Auto-expand new windows
+spawn-at-startup "~/.config/niri/scripts/auto-expand.sh"
 
 // Auto-start applications - restore previous session or start default apps
 // Handled by nirinit plugin

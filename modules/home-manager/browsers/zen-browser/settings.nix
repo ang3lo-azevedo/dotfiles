@@ -268,7 +268,7 @@
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
   # NOTE: Timer spoofing in this protection reduces JS timer precision, causing severe click/interaction lag.
   # We re-enable it but use -TimerResolution in the overrides below to prevent the lag.
-  "privacy.fingerprintingProtection" = false;
+  "privacy.fingerprintingProtection" = true;
   # Explicitly disable the legacy RFP (it can linger in prefs.js from old configs and
   # overrides everything above, including per-target overrides and content-override).
   # "privacy.resistFingerprinting" = false;
