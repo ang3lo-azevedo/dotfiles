@@ -14,7 +14,7 @@
   home.activation.fixConfigFiles = lib.hm.dag.entryAfter ["linkGeneration"] ''
     for config_file in \
       "$HOME/.config/dorion/config.json" \
-      "$HOME/.config/equibop/settings.json"; do
+      "$HOME/.config/equibop/settings/settings.json"; do
       if [ -L "$config_file" ]; then
         real_file=$(readlink -f "$config_file")
         rm "$config_file"

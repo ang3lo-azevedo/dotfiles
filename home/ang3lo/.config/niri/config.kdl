@@ -498,6 +498,11 @@ window-rule {
     // block-out-from "screencast"
 }
 
+// Prevent newly opened windows from stealing focus
+window-rule {
+    open-focused false
+}
+
 // Enable rounded corners for all windows.
 window-rule {
     geometry-corner-radius 15
