@@ -60,11 +60,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1788683473,
-        "narHash": "sha256-sA4qFQO9elKlz/RcaENkBC16uJ9x4PI6miwcH0n0ELg=",
+        "lastModified": 1788772118,
+        "narHash": "sha256-BkScy0UKaqLjAMlwxYqGO0Z0jSfaZLZHVLu3tOcI1m0=",
         "ref": "refs/heads/main",
-        "rev": "8abec643843e31139157af43949f5434fedad000",
-        "revCount": 15,
+        "rev": "f593caa504c9d5b6ab7ccf3ada446b0aacbe4944",
+        "revCount": 16,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -914,6 +914,26 @@
         "type": "github"
       }
     },
+    "gaze": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788746954,
+        "narHash": "sha256-STPEyeMM+ZtvnKDDEm+F14yYlBS+qTQqMaA3mjdMyjA=",
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "rev": "279214689a8d49fed47e123f619e5ac1f0da30b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1184,11 +1204,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1788667625,
-        "narHash": "sha256-EHaMQ6YLMRH+nwKOCSLIWq/ywfuhHGkp5D5ohcWiBNk=",
+        "lastModified": 1788812376,
+        "narHash": "sha256-h8jEU2FkjQNc7AgtvUdUHmVOTpGFYGZhnyKqvY+Sqvg=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "7318f0ab3cf10b378e76577fbd5be7ef26b355d7",
+        "rev": "a9030c07c408cb6922597ebcf4e43ec2334b66e5",
         "type": "github"
       },
       "original": {
@@ -2075,6 +2095,7 @@
         "disko": "disko",
         "dmatools": "dmatools",
         "firefox-addons": "firefox-addons",
+        "gaze": "gaze",
         "glaumar_repo": "glaumar_repo",
         "helium-browser": "helium-browser",
         "home-manager": "home-manager_3",
@@ -2397,11 +2418,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1788603853,
-        "narHash": "sha256-nvAOt2tSsBybODh/25XZ9Jzh8kARv6V61o1PvYuZ7B4=",
+        "lastModified": 1788712387,
+        "narHash": "sha256-jIgs0BIafBVkzpp86GIu7gN4rjtEyC4nFOJyr/StlBw=",
         "ref": "refs/heads/main",
-        "rev": "6471316f2b42bab3990a3952f3f6019de0657fe4",
-        "revCount": 20,
+        "rev": "9f220072eb8ec3b109f17a98e37511096163f0bd",
+        "revCount": 22,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       },
