@@ -10,10 +10,8 @@
     // {
       # Override color theme for Antigravity
       "workbench.colorTheme" = "Perfect Dark Theme";
-      # Stop chat from opening automatically on startup
-      "gemini.chat.openOnStartup" = false;
-      "antigravity.chat.openOnStartup" = false;
-      "chat.welcome.enabled" = false;
+      # Keep the Agent panel closed when the IDE reloads.
+      "antigravity.agent.openOnReload" = false;
     };
 
   settingsJson = builtins.toJSON antigravitySettings;

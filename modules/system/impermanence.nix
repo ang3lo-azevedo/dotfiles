@@ -57,6 +57,10 @@
       "/var/lib/iwd"
       # fingerprint enrollment data for fprintd
       "/var/lib/fprint"
+      # Gaze face enrollments, downloaded models, and mutable configuration
+      "/var/lib/gaze"
+      "/var/cache/gaze"
+      "/etc/gaze"
       # sbctl stores the secure boot signing keys here
       "/var/lib/sbctl"
       "/etc/ssh"

@@ -77,6 +77,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Gaze facial authentication
+    gaze = {
+      url = "github:GunduLabs/gaze";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Impermanence
     impermanence = {
       url = "github:nix-community/impermanence";
