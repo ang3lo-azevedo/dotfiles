@@ -77,9 +77,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Gaze facial authentication
-    gaze = {
-      url = "github:GunduLabs/gaze";
+    # Irlume facial authentication
+    irlume = {
+      url = "github:archledger/irlume";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
