@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./python
+    ./java
     ./android
     ./git.nix
     ./code-editors

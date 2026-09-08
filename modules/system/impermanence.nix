@@ -57,9 +57,10 @@
       "/var/lib/iwd"
       # fingerprint enrollment data for fprintd
       "/var/lib/fprint"
-      # Irlume face enrollments, TPM-sealed keys, and configuration
-      "/var/lib/irlume"
-      "/etc/irlume"
+      # Gaze face enrollments, downloaded models, and configuration
+      "/var/lib/gaze"
+      "/var/cache/gaze"
+      "/etc/gaze"
       # sbctl stores the secure boot signing keys here
       "/var/lib/sbctl"
       "/etc/ssh"

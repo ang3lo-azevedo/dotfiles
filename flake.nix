@@ -77,9 +77,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Irlume facial authentication
-    irlume = {
-      url = "github:archledger/irlume";
+    # Gaze facial authentication
+    gaze = {
+      url = "github:GunduLabs/gaze";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -104,9 +104,11 @@
       flake = false;
     };
 
-    # Samsung Galaxy Book Linux fixes repository (use nixos/ modules directly)
+    # Samsung Galaxy Book Linux fixes repository
+    # Using the local submodule for development so local unpushed changes are evaluated.
+    # Remote: github:ang3lo-azevedo/samsung-galaxy-book-linux-fixes
     samsung-galaxy-book-linux-fixes = {
-      url = "github:ang3lo-azevedo/samsung-galaxy-book-linux-fixes";
+      url = "git+file:///home/ang3lo/nix-config/pkgs/samsung-galaxy-book-linux-fixes";
       flake = false;
     };
 

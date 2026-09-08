@@ -81,6 +81,10 @@
   */
 
   mpvConfig = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv";
+
+  # Icon font for hayase-osc. Lives in the mpv config repo; exposing it
+  # through the user fonts dir lets fontconfig resolve it for libass.
+  lucideFont = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv/fonts/Lucide.ttf";
 in {
   home.packages = [
     mpvWithVapourSynth
@@ -95,17 +99,23 @@ in {
     pkgs.socat
   ];
 
-  # MPV player configuration from external git repository
-  xdg.configFile."mpv" = {
-    source = mpvConfig;
-  };
+  xdg = {
+    # MPV player configuration from external git repository
+    configFile."mpv" = {
+      source = mpvConfig;
+    };
 
-  # Register mpv-handler for custom protocols
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "x-scheme-handler/mpv-handler" = ["mpv-handler.desktop"];
-      "x-scheme-handler/mpv-handler-debug" = ["mpv-handler-debug.desktop"];
+    dataFile."fonts/truetype/lucide/Lucide.ttf" = {
+      source = lucideFont;
+    };
+
+    # Register mpv-handler for custom protocols
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/mpv-handler" = ["mpv-handler.desktop"];
+        "x-scheme-handler/mpv-handler-debug" = ["mpv-handler-debug.desktop"];
+      };
     };
   };
 }
