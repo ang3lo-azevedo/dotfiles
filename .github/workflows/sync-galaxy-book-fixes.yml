@@ -1,0 +1,22 @@
+# Keeps the Samsung Galaxy Book fixes fork in sync with its upstream.
+# Lives in dotfiles (not the fork) on purpose: a workflow commit in the fork
+# would diverge its main branch and break fast-forward syncing forever.
+name: sync-galaxy-book-fixes
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Sync fork with upstream
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          gh repo sync ang3lo-azevedo/samsung-galaxy-book-linux-fixes \
+            --source Andycodeman/samsung-galaxy-book-linux-fixes \
+            --branch main
