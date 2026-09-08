@@ -13,3 +13,6 @@
 [submodule "pkgs/th3m1ghtyduck-nur"]
 	path = pkgs/th3m1ghtyduck-nur
 	url = git@github-th3m1ghtyduck:th3m1ghtyduck/nur-packages.git
+[submodule "pkgs/samsung-galaxy-book-linux-fixes"]
+	path = pkgs/samsung-galaxy-book-linux-fixes
+	url = git@github.com:ang3lo-azevedo/samsung-galaxy-book-linux-fixes.git

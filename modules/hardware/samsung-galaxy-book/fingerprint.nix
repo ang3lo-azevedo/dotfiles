@@ -46,7 +46,7 @@
       libfprint = prev.libfprint.overrideAttrs (old: {
         src = inputs.libfprint-src;
 
-        # Nixpkgs patches target the upstream source tree; they don't apply to this
+        # Nixpkgs patches target the upstream source tree and don't apply to this
         # fork and cause patchPhase to fail.
         patches = [];
 
@@ -63,7 +63,7 @@
         doCheck = false;
         doInstallCheck = false;
 
-        # This fork dropped the meson "tests" option; passing it causes an
+        # This fork dropped the meson "tests" option. Passing it causes an
         # "Unknown options" build error, so strip it from what nixpkgs sets.
         mesonFlags = lib.remove "-Dtests=false" old.mesonFlags;
       });
