@@ -5,7 +5,7 @@
     ./egpu-brightness.nix
     ./egpu-disconnect.nix
     ./fingerprint.nix
-    ./gaze.nix
+    ./irlume.nix
     ./fn-keys
     ./webcam.nix
     ./usbc-video-fix.nix

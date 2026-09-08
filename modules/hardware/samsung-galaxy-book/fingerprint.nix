@@ -1,17 +1,42 @@
 {
   inputs,
   lib,
+  pkgs,
   ...
 }: {
   services.fprintd.enable = true;
 
-  # Enable fingerprint authentication for system services
-  security.pam.services = {
-    login.fprintAuth = true;
-    sudo.fprintAuth = true;
-    swaylock.fprintAuth = true;
-    greetd.fprintAuth = true;
-    polkit.fprintAuth = true;
+  environment.systemPackages = [pkgs.tpm-keyring-unlock];
+
+  users.users.ang3lo.extraGroups = ["tss"];
+
+  security = {
+    tpm2.enable = true;
+
+    pam.services = {
+      # Enable fingerprint authentication for system services
+      sudo.fprintAuth = true;
+      swaylock.fprintAuth = true;
+      greetd.fprintAuth = true;
+      polkit.fprintAuth = true;
+
+      # fprintd only returns success/failure. This optional module supplies
+      # the TPM-unsealed keyring password to pam_gnome_keyring so fingerprint
+      # login auto-unlocks the keyring, without deciding authentication itself.
+      login = {
+        fprintAuth = true;
+        enableGnomeKeyring = true;
+        rules.auth = {
+          fprintd.control = lib.mkForce "[success=1 default=ignore]";
+          tpm_keyring_authtok = {
+            control = "optional";
+            modulePath = "${pkgs.tpm-keyring-unlock}/lib/security/pam_tpm_keyring_authtok.so";
+            # Nixpkgs places pam_gnome_keyring at 12200 in this stack.
+            order = 12199;
+          };
+        };
+      };
+    };
   };
 
   # HACK: remove this overlay once joshuagrisham/libfprint egismoc-sdcp is merged
