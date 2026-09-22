@@ -1,6 +1,7 @@
 {...}: {
   imports = [
     # ./vscode
+    ./vscodium
     ./antigravity
     ./intellij-idea.nix
     ./opencode.nix

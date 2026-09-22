@@ -180,6 +180,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Fast native WhatsApp client
+    zapfast = {
+      url = "github:crmne/zapfast";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # PhotoGIMP assets and config
     photogimp = {
       url = "github:Diolinux/PhotoGIMP/3.0";
@@ -303,7 +309,6 @@
     nix-vscode-extensions,
     spicetify-nix,
     mpv-config,
-    chaotic,
     pre-commit-hooks,
     ...
   } @ originalInputs: let
@@ -362,6 +367,127 @@
         ++ modules;
     };
 
+    # Shared with the standalone homeConfiguration for the same reason as
+    # sharedOverlays below: packages pulled in by the home modules need the
+    # allowBroken and permittedInsecurePackages exemptions to evaluate at all.
+    sharedNixpkgsConfig = {
+      allowUnfree = true;
+      allowBroken = true;
+      permittedInsecurePackages = [
+        "electron-39.8.10"
+        "ventoy-1.1.17"
+      ];
+    };
+
+    # One overlay set feeds both the NixOS package set (consumed by
+    # home-manager through useGlobalPkgs) and the standalone homeConfiguration.
+    # These lists used to be maintained separately and drifted, which left the
+    # standalone activation missing unstable, the vscode marketplace and others.
+    sharedOverlays = [
+      nix-cachyos-kernel.overlays.pinned
+      (_: prev: {
+        unstable = import nixpkgs-unstable {
+          system = prev.stdenv.hostPlatform.system;
+          config = {
+            allowUnfree = true;
+            allowBroken = true;
+            permittedInsecurePackages = prev.config.permittedInsecurePackages or [];
+          };
+          overlays = [
+            (import ./overlays/python-packages.nix)
+          ];
+        };
+        stable = import nixpkgs-stable {
+          system = prev.stdenv.hostPlatform.system;
+          config = {
+            allowUnfree = true;
+          };
+        };
+      })
+      (import ./overlays/python-packages.nix)
+      inputs.firefox-addons.overlays.default
+      (import ./overlays/firefox-addons.nix)
+      inputs.nix-vscode-extensions.overlays.default
+      inputs.antigravity-nix.overlays.default
+      inputs.dmatools.overlays.default
+      (
+        _: prev:
+          import ./pkgs {
+            pkgs = prev;
+            inherit inputs;
+            system = prev.stdenv.hostPlatform.system;
+          }
+      )
+      (_: _: {
+        xr = inputs.nixpkgs-xr.packages."x86_64-linux";
+      })
+      (_: prev: {
+        # HACK: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
+        pdal = prev.pdal.overrideAttrs (old: {
+          env =
+            (old.env or {})
+            // {
+              NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
+            };
+        });
+        vtk = prev.vtk.overrideAttrs (old: {
+          env =
+            (old.env or {})
+            // {
+              NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
+            };
+        });
+        # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
+        niri = prev.niri.overrideAttrs (old: {
+          postInstall =
+            (old.postInstall or "")
+            + ''
+              if [ -f $out/bin/niri-session ]; then
+                sed -i 's/systemctl --user import-environment$/systemctl --user import-environment 2>\/dev\/null/g' $out/bin/niri-session
+              fi
+            '';
+        });
+        # The block below contains a custom override for Niri that pulls from the main branch
+        # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
+        # the system uses the default, stable `niri` package from Nixpkgs instead.
+        /*
+        # HACK: drop this override once PR #2797 lands in a niri release and
+        # nixpkgs packages that release.
+        # Track niri main with PR #2797 (pointer/tablet input events) applied
+        # until it lands in a stable release.
+        niri = prev.niri.overrideAttrs (_: {
+          src = inputs.niri-main;
+          version = "26.4.0-pr2797";
+          patches = [
+            (prev.fetchpatch {
+              url = "https://github.com/niri-wm/niri/pull/2797.patch";
+              hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
+            })
+          ];
+          cargoDeps = prev.rustPlatform.fetchCargoVendor {
+            pname = "niri-main-pr2797";
+            version = "26.4.0-pr2797";
+            src = inputs.niri-main;
+            hash = "sha256-aNovCzrTtmqTO33YtZap47npdN73zXC1bap5q5dZvZk=";
+          };
+          doInstallCheck = false;
+        });
+        */
+      })
+      (
+        _: prev:
+          {
+            glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
+            xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
+          }
+          // (import ./pkgs {
+            pkgs = prev;
+            inherit inputs;
+            system = prev.stdenv.hostPlatform.system;
+          })
+      )
+    ];
+
     # Configuration for pc-angelo
     pc-angelo-config = mkHostConfig {
       stdenv = nixpkgs.legacyPackages.x86_64-linux.stdenv;
@@ -392,119 +518,8 @@
           # Alternatively: use the exact kernel versions as defined in this repo.
           # Guarantees you have binary cache.
           nixpkgs = {
-            config = {
-              allowUnfree = true;
-              allowBroken = true;
-              permittedInsecurePackages = [
-                "electron-39.8.10"
-                "ventoy-1.1.17"
-              ];
-            };
-            overlays = [
-              nix-cachyos-kernel.overlays.pinned
-              (_: prev: {
-                unstable = import nixpkgs-unstable {
-                  system = prev.stdenv.hostPlatform.system;
-                  config = {
-                    allowUnfree = true;
-                    allowBroken = true;
-                    permittedInsecurePackages = prev.config.permittedInsecurePackages or [];
-                  };
-                  overlays = [
-                    (import ./overlays/python-packages.nix)
-                  ];
-                };
-                stable = import nixpkgs-stable {
-                  system = prev.stdenv.hostPlatform.system;
-                  config = {
-                    allowUnfree = true;
-                  };
-                };
-              })
-              (import ./overlays/python-packages.nix)
-              inputs.firefox-addons.overlays.default
-              (import ./overlays/firefox-addons.nix)
-              inputs.nix-vscode-extensions.overlays.default
-              inputs.antigravity-nix.overlays.default
-              inputs.dmatools.overlays.default
-              (
-                _: prev:
-                  import ./pkgs {
-                    pkgs = prev;
-                    inherit inputs;
-                    system = prev.stdenv.hostPlatform.system;
-                  }
-              )
-              (_: _: {
-                xr = inputs.nixpkgs-xr.packages."x86_64-linux";
-              })
-              (_: prev: {
-                # HACK: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
-                pdal = prev.pdal.overrideAttrs (old: {
-                  env =
-                    (old.env or {})
-                    // {
-                      NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
-                    };
-                });
-                vtk = prev.vtk.overrideAttrs (old: {
-                  env =
-                    (old.env or {})
-                    // {
-                      NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
-                    };
-                });
-                # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
-                niri = prev.niri.overrideAttrs (old: {
-                  postInstall =
-                    (old.postInstall or "")
-                    + ''
-                      if [ -f $out/bin/niri-session ]; then
-                        sed -i 's/systemctl --user import-environment$/systemctl --user import-environment 2>\/dev\/null/g' $out/bin/niri-session
-                      fi
-                    '';
-                });
-                # The block below contains a custom override for Niri that pulls from the main branch
-                # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
-                # the system uses the default, stable `niri` package from Nixpkgs instead.
-                /*
-                # HACK: drop this override once PR #2797 lands in a niri release and
-                # nixpkgs packages that release.
-                # Track niri main with PR #2797 (pointer/tablet input events) applied
-                # until it lands in a stable release.
-                niri = prev.niri.overrideAttrs (_: {
-                  src = inputs.niri-main;
-                  version = "26.4.0-pr2797";
-                  patches = [
-                    (prev.fetchpatch {
-                      url = "https://github.com/niri-wm/niri/pull/2797.patch";
-                      hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
-                    })
-                  ];
-                  cargoDeps = prev.rustPlatform.fetchCargoVendor {
-                    pname = "niri-main-pr2797";
-                    version = "26.4.0-pr2797";
-                    src = inputs.niri-main;
-                    hash = "sha256-aNovCzrTtmqTO33YtZap47npdN73zXC1bap5q5dZvZk=";
-                  };
-                  doInstallCheck = false;
-                });
-                */
-              })
-              (
-                _: prev:
-                  {
-                    glaumar_repo = inputs.glaumar_repo.packages."x86_64-linux";
-                    xddxdd = inputs.xddxdd-nur.packages."x86_64-linux";
-                  }
-                  // (import ./pkgs {
-                    pkgs = prev;
-                    inherit inputs;
-                    system = prev.stdenv.hostPlatform.system;
-                  })
-              )
-              chaotic.overlays.default
-            ];
+            config = sharedNixpkgsConfig;
+            overlays = sharedOverlays;
           };
         }
 
@@ -513,9 +528,6 @@
 
         # Lanzaboote for Secure Boot
         lanzaboote.nixosModules.lanzaboote
-
-        # Chaotic Nyx (provides miscellaneous bleeding-edge packages)
-        chaotic.nixosModules.default
       ];
     };
 
@@ -542,19 +554,8 @@
     homeConfigurations."ang3lo" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs {
         system = "x86_64-linux";
-        config.allowUnfree = true;
-        overlays = [
-          inputs.firefox-addons.overlays.default
-          (import ./overlays/firefox-addons.nix)
-          (
-            _: prev:
-              import ./pkgs {
-                pkgs = prev;
-                inherit inputs;
-                system = prev.stdenv.hostPlatform.system;
-              }
-          )
-        ];
+        config = sharedNixpkgsConfig;
+        overlays = sharedOverlays;
       };
       extraSpecialArgs = {
         inherit

@@ -54,7 +54,13 @@
         trayColor = "";
         trayMainOverride = false;
         splashColor = "rgb(219, 220, 223)";
-        hardwareVideoAcceleration = true;
+        # Equibop turns this into AcceleratedVideoEncoder plus, on Linux,
+        # AcceleratedVideoDecodeLinuxZeroCopyGL. The VA-API encoder pads a
+        # stream whose height is not a multiple of 16 (1080 becomes 1088) and
+        # the unfilled rows arrive as the green bar along the bottom of shared
+        # screens and camera streams. Software encoding costs CPU during calls
+        # but produces a clean frame.
+        hardwareVideoAcceleration = false;
         customTitleBar = false;
         staticTitle = false;
         enableMenu = false;

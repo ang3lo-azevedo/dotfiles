@@ -22,12 +22,15 @@
 - [x] Add nightlight slider to swaync
 
 
-## General Stuff
-- [ ] Create a different nur on a github alternative with the other packages (ida, binja)
+## General Stuff 
+- [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
+- [ ] Fix the sharescreen pipwire green bar and webcam discord share pipewire green bar too
+- [ ] See the top part of programs not being able to click problem
+- [ ] Add windows prefetch and analyze mft tool
+- [ ] Fix Zen taking too much time
 - [ ] Create a crosswatch/floppy mpv scrobbler
 - [ ] Make nix config open on second screen
 - [ ] Fiz sending images taking a long time Zen
-- [ ] Fix Zen taking too much time
 - [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness

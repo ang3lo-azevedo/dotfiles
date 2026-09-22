@@ -267,7 +267,11 @@
             "notification": "\uf0f3<span foreground='red'><sup></sup></span>",
             "none": "\uf0f3",
             "dnd-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
-            "dnd-none": "\uf1f6"
+            "dnd-none": "\uf1f6",
+            "inhibited-notification": "\uf0f3<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "\uf0f3",
+            "dnd-inhibited-notification": "\uf1f6<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": "\uf1f6"
         },
         "return-type": "json",
         "exec-if": "which swaync-client",

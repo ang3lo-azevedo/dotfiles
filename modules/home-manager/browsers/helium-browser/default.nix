@@ -8,7 +8,7 @@
 
     flags = [
       "--ozone-platform-hint=auto"
-      "--enable-features=TouchpadOverscrollHistoryNavigation"
+      "--enable-features=TouchpadOverscrollHistoryNavigation,WebRTCPipeWireCapturer"
     ];
   };
 }

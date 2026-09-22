@@ -98,6 +98,7 @@ cat <<'EOF'
 | `binaryninja` | Binary Ninja packaging |
 | `proxmox-nixos` | Proxmox VE NixOS modules and overlay |
 | `dmatools` | MemProcFS / DMA tooling |
+| `zapfast` | Fast native WhatsApp client |
 | `pre-commit-hooks` | Nix-managed pre-commit hooks |
 | `xddxdd-nur` | bambu-studio-bin and other NUR packages |
 | `nixpkgs-xr` | OpenXR / VR packages for NixOS |
@@ -218,7 +219,9 @@ fi
 h2 "Overlays"
 echo ""
 cat <<'MARKDOWN'
-Nixpkgs overlays live in `overlays/` and are applied per-host in `flake.nix`.
+Nixpkgs overlays live in `overlays/` and are applied through the shared
+`sharedOverlays` list in `flake.nix`, which feeds both the NixOS package set and
+the standalone Home Manager configuration.
 MARKDOWN
 echo ""
 

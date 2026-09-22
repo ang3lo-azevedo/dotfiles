@@ -29,6 +29,9 @@
   "zen.tabs.vertical.right-side" = true;
   "zen.view.compact.enable-at-startup" = true;
   "zen.urlbar.behavior" = "float";
+  # Force XDG Desktop Portal for file picker and mime handler (fixes 20s delays)
+  "widget.use-xdg-desktop-portal.file-picker" = 1;
+  "widget.use-xdg-desktop-portal.mime-handler" = 1;
   # Without this, extensions need to be enabled manually after first install
   "extensions.autoDisableScopes" = 0;
   "pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
@@ -51,7 +54,7 @@
   "media.navigator.enabled" = true;
   "media.peerconnection.enabled" = true;
   # Route camera capture through PipeWire instead of direct V4L2, required on Wayland
-  "media.webrtc.camera.allow-pipewire" = true;
+  "media.webrtc.camera.allow-pipewire" = false;
   # 0 = ask each time (prompt), 1 = allow always, 2 = block always
   "permissions.default.camera" = 0;
   "permissions.default.microphone" = 0;
@@ -142,7 +145,11 @@
   "widget.wayland.fractional-scale.enabled" = true;
 
   # Better-Zen: Network Speed Tweaks
-  "network.http.http3.enable" = false;
+  # HTTP/3 stays on despite the tweak lists that turn it off. Cloudflare, Google
+  # and Fastly all serve QUIC, and falling back to TCP costs an extra round trip
+  # on every new origin, which is the bulk of the wait on a cold page load.
+  # Turn this off only on a network that throttles or blocks UDP 443.
+  "network.http.http3.enable" = true;
   "network.http.max-connections" = 1800;
   "network.http.max-persistent-connections-per-server" = 10;
   "network.http.pacing.requests.enabled" = false;
@@ -268,7 +275,7 @@
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
   # NOTE: Timer spoofing in this protection reduces JS timer precision, causing severe click/interaction lag.
   # We re-enable it but use -TimerResolution in the overrides below to prevent the lag.
-  "privacy.fingerprintingProtection" = true;
+  #"privacy.fingerprintingProtection" = true;
   # Explicitly disable the legacy RFP (it can linger in prefs.js from old configs and
   # overrides everything above, including per-target overrides and content-override).
   # "privacy.resistFingerprinting" = false;
