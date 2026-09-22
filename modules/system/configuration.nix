@@ -40,10 +40,13 @@
       "root"
       "ang3lo"
     ];
-    # Use all cores for builds and allow multiple jobs in parallel.
-    # max-jobs = "auto" allows local building for small things, but heavy builds will still be sent to remote builders (nixbuild).
-    max-jobs = "auto";
-    cores = 0;
+    # The nixbuild.net remote builders referenced below are currently disabled
+    # (see modules/system/nixbuild), so every heavy build runs on this machine.
+    # "auto" jobs times unlimited cores oversubscribes the 8 cores against a
+    # desktop session that already holds ~22GB, which drove the kernel OOM
+    # killer and heavy swap thrashing. Cap total workers at roughly core count.
+    max-jobs = 2;
+    cores = 4;
     # Fetch substitutions in parallel while building.
     http-connections = 128;
     # cache.nixos.org often has HTTP/2 framing issues causing retries.

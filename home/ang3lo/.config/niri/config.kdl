@@ -92,7 +92,7 @@ input {
     }
 
     touch {
-        off
+
 
 
         map-to-output "eDP-1"
@@ -344,7 +344,11 @@ layout {
     struts {
         left -10
         right -10
-        top -10
+        // A negative top strut pulls windows up into the area reserved by the
+        // waybar layer-shell panel. The panel sits on the "top" layer and takes
+        // the pointer there, so the first rows of a window stop responding to
+        // clicks. Keep this at 0 so the window area starts below the bar.
+        top 0
         bottom -10
     }
 }

@@ -6,6 +6,8 @@
     ./helium-browser
   ];
   home.packages = with pkgs; [
-    ungoogled-chromium
+    (ungoogled-chromium.override {
+      commandLineArgs = "--enable-features=WebRTCPipeWireCapturer";
+    })
   ];
 }

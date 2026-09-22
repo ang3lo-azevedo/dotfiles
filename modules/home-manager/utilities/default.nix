@@ -45,7 +45,8 @@
     #./autodesk-fusion.nix
 
     ./flare-signal.nix
-    ./zapzap.nix
+    #./zapzap.nix
+    ./zapfast.nix
     ./betterbird.nix
     ./restic-browser.nix
     ./ventoy.nix

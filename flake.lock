@@ -61,11 +61,11 @@
         "tpm-keyring-unlock": "tpm-keyring-unlock"
       },
       "locked": {
-        "lastModified": 1788818463,
-        "narHash": "sha256-AUJgL9HAGjjm/VrhdTHSbeLKdXWea09ryZDDUAAZQoQ=",
+        "lastModified": 1790113028,
+        "narHash": "sha256-nb8int7TYgfzPPGJq5xb+PjGll+ZytZPYlaqTuddfW0=",
         "ref": "refs/heads/main",
-        "rev": "3401d2bf0c7b42d9a49d510b8ee31dc2a1d48078",
-        "revCount": 18,
+        "rev": "294f0090d2112517fa211847e76159ebbc3bd5e2",
+        "revCount": 30,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1205,11 +1205,11 @@
     "mpv-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1788897326,
-        "narHash": "sha256-I6X6B8wNbYzdosZJhMRFNKQt3u5/9Xm4+XYIbGEr8Fw=",
+        "lastModified": 1789273340,
+        "narHash": "sha256-RSNlaTQUFQJ1oG+xl/XvgMwDsTVvYDuHgbKexor7tR8=",
         "owner": "ang3lo-azevedo",
         "repo": "mpv",
-        "rev": "35c1f7b29ebd6ad2335464a79cd75705d8eaafc1",
+        "rev": "22d5777650a750d5e418c8f7ffd343eefec99e87",
         "type": "github"
       },
       "original": {
@@ -2125,6 +2125,7 @@
         "stylix": "stylix",
         "th3m1ghtyduck-nur": "th3m1ghtyduck-nur",
         "xddxdd-nur": "xddxdd-nur",
+        "zapfast": "zapfast",
         "zen-browser": "zen-browser"
       }
     },
@@ -2166,14 +2167,35 @@
         "type": "github"
       }
     },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "zapfast",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789977098,
+        "narHash": "sha256-fKY4BedarKx4aR0+UOHk65hhDW8pxFytFkaUi0VYDYk=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "2776e42828203ec89511699c8dcdedec69ab98e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1788865743,
-        "narHash": "sha256-eu0pTvSoRMG0XNnidWBJRwvD5k3VKuGUxjA1zoGle84=",
+        "lastModified": 1790109444,
+        "narHash": "sha256-Gq3R7pvnE+boyf8+229guvHi7t9bfnI0EKy9FEpI/Xg=",
         "ref": "refs/heads/main",
-        "rev": "aa46e6efb5642b06621356744be3fc11ea360d13",
-        "revCount": 343,
+        "rev": "ee60d416639f1306f69d76a042bff206839d5435",
+        "revCount": 346,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/samsung-galaxy-book-linux-fixes"
       },
@@ -2681,6 +2703,27 @@
       "original": {
         "owner": "xddxdd",
         "repo": "nur-packages",
+        "type": "github"
+      }
+    },
+    "zapfast": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1790098092,
+        "narHash": "sha256-fH7YpLJeuGWuReBBsq4QfTuYQOB1Oajhl+gE/y6FLd0=",
+        "owner": "crmne",
+        "repo": "zapfast",
+        "rev": "ebd9a7a34f1237c48a590ca49450e8758d085a77",
+        "type": "github"
+      },
+      "original": {
+        "owner": "crmne",
+        "repo": "zapfast",
         "type": "github"
       }
     },

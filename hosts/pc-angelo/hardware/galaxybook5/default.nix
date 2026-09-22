@@ -11,6 +11,7 @@
     "${inputs.self}/modules/hardware/amdgpu.nix"
     "${inputs.self}/modules/hardware/intelgpu.nix"
     "${inputs.self}/modules/hardware/thunderbolt.nix"
+    "${inputs.self}/modules/hardware/fwupd.nix"
     "${inputs.self}/modules/hardware/samsung-galaxy-book"
   ];
 
