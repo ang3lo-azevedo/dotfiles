@@ -27,6 +27,7 @@
   # Zen Browser
   "zen.workspaces.continue-where-left-off" = true;
   "zen.tabs.vertical.right-side" = true;
+  "media.webrtc.camera.allow-pipewire" = true;
   "zen.view.compact.enable-at-startup" = true;
   "zen.urlbar.behavior" = "float";
   # Force XDG Desktop Portal for file picker and mime handler (fixes 20s delays)
