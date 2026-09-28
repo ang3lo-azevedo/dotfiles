@@ -72,7 +72,7 @@
       };
     };
     dorion = {
-      enable = true;
+      #enable = true;
       package = pkgs.vorion;
       clientMods = [
         "Shelter"
@@ -116,7 +116,6 @@
         messageLoggerEnhanced.enable = true;
         channelTabs.enable = true;
         showHiddenChannels.enable = true;
-        summaries.enable = true;
         splitLargeMessages = {
           enable = true;
         };

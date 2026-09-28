@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   # Import shared extension IDs
   sharedExtensions = import ../shared-extensions.nix;
-  marketplace = pkgs.vscode-marketplace;
+  marketplace = pkgs.nix-vscode-extensions.vscode-marketplace;
 
   # Map extension IDs to nix-vscode-extensions packages
   extensionIdToPackage = extId: let
@@ -12,6 +12,6 @@
   in
     builtins.getAttr name publisherAttr;
 in {
-  programs.vscode.profiles.default.extensions =
+  programs.vscodium.profiles.default.extensions =
     map extensionIdToPackage sharedExtensions.extensionIds;
 }

@@ -23,8 +23,13 @@
 
 
 ## General Stuff 
+- [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
+- [ ] Add this https://github.com/AprilNEA/OpenLogi
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
-- [ ] Fix the sharescreen pipwire green bar and webcam discord share pipewire green bar too
+- [ ] Check flare stuck loading
+- [ ] Check Zen sometimes taking a long time to load links
+- [ ] Fix webcam colors still wrong
+- [ ] Fix the sharescreen pipewire green bar and webcam discord share pipewire green bar too
 - [ ] See the top part of programs not being able to click problem
 - [ ] Add windows prefetch and analyze mft tool
 - [ ] Fix Zen taking too much time

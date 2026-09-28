@@ -92,6 +92,7 @@ input {
     }
 
     touch {
+        off
 
 
 
@@ -380,8 +381,14 @@ spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // Night light
 spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 
-// Auto-expand new windows
-spawn-at-startup "~/.config/niri/scripts/auto-expand.sh"
+// Auto-expand new windows: disabled. expand-column-to-available-width falls
+// back to toggle_full_width() (100% of the working area) whenever the
+// previously active column isn't fully on screen next to the new one, per
+// niri's own source (src/layout/scrolling.rs, expand_column_to_available_width).
+// Running that on every window open, unconditionally, is what was forcing a
+// newly opened window to fullscreen instead of sharing the screen with the
+// window already there.
+// spawn-at-startup "~/.config/niri/scripts/auto-expand.sh"
 
 // Auto-start applications - restore previous session or start default apps
 // Handled by nirinit plugin
@@ -468,7 +475,11 @@ window-rule {
     default-column-width { proportion 0.45; }
 }
 
-window-rule {
+// Disabled: forced every Zen window, including a deliberately opened second
+// one, to open at 100% width, so a new window could never sit side by side
+// with one already open. Use Mod+F (maximize-column) per window instead when
+// a single Zen window filling the screen is actually wanted.
+/-window-rule {
     match app-id="(?i)^zen"
     open-maximized true
 }
