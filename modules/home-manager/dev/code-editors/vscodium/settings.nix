@@ -16,7 +16,7 @@
   settingsFile = pkgs.writeText "vscodium-settings.json" settingsJson;
 in {
   # Disable profile's automatic settings management
-  programs.vscode.profiles.default.userSettings = lib.mkForce {};
+  programs.vscodium.profiles.default.userSettings = lib.mkForce {};
 
   # Create writable settings file via activation script
   home.activation.vscodiumSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''

@@ -218,17 +218,20 @@
   # TLS / HTTPS / certificates
   # ---------------------------------------------------------------------------
 
-  # Reject plain HTTP connections; show an error page instead of silently downgrading.
-  # Downside: router admin UIs (http://192.168.1.1), local dev servers
-  # (http://localhost:3000), and captive portal redirect pages all require clicking
-  # through the error page.
-  "dom.security.https_only_mode" = true;
+  # HTTPS-First instead of HTTPS-Only. Only mode puts an error page in front of every
+  # plain-HTTP site and waits for a click, including services that can never offer
+  # HTTPS: a Grafana on :3000 never finished loading until the exception was granted,
+  # while Chromium opened it instantly. HTTPS-First still upgrades normal sites (a
+  # plain http://example.com is fetched as https), falls back to HTTP when HTTPS is
+  # unavailable, and leaves non-default ports alone, so :3000 services load directly.
+  # Downside: a network attacker who blocks HTTPS can force a silent downgrade on
+  # port 80 sites, which Only mode would have stopped with a warning page.
+  "dom.security.https_only_mode" = false;
+  "dom.security.https_first" = true;
   # Don't send a background HTTP request when upgrading to HTTPS, it would reveal
   # the site visit to network observers even if the HTTPS connection succeeds.
   # (Re-enabled: disabling this can cause up to 1.5s delay when clicking HTTP links)
   "dom.security.https_only_mode_send_http_background_request" = true;
-  # Without background check, HTTP-only sites wait 3500ms before error page; cut it to 1500ms.
-  "dom.security.https_only_mode.upgrade_timeout" = 1500;
   # Replay requires an active attacker + non-idempotent endpoint hit within the same session window.
   # "security.tls.enable_0rtt_data" = false;
   # Require RFC 5746 safe TLS renegotiation; drop connections that don't support it.
@@ -274,7 +277,13 @@
   # Replaces the legacy privacy.resistFingerprinting (supports per-target overrides).
   # Downside: same as RFP (UTC timestamps, rounded window sizes, UA quirks, canvas noise).
   # NOTE: Timer spoofing in this protection reduces JS timer precision, causing severe click/interaction lag.
-  # We re-enable it but use -TimerResolution in the overrides below to prevent the lag.
+  # We re-enable it but exclude ReduceTimerPrecision in the overrides below to prevent the lag.
+  # Left commented out because it is redundant, not because it is off: "strict" below
+  # (browser.contentblocking.category) makes Firefox's own startup logic
+  # (browser/components/protections/ContentBlockingPrefs.sys.mjs, registered under
+  # browser-first-window-ready) force this same pref back to true on every launch,
+  # unconditionally, regardless of what this line says. The .overrides pref below
+  # is untouched by that logic and is the only thing actually controlling it here.
   #"privacy.fingerprintingProtection" = true;
   # Explicitly disable the legacy RFP (it can linger in prefs.js from old configs and
   # overrides everything above, including per-target overrides and content-override).
@@ -282,8 +291,19 @@
   # Use +AllTargets to spoof WebGL, Fonts, UserAgent, etc.
   # -CSSPrefersColorScheme: prevents Dark Mode from breaking.
   # -JSDateTimeUTC: prevents chat apps (WhatsApp Web, etc) and calendars from showing wrong times.
-  # -TimerResolution: prevents severe UI and click lag by allowing normal JS timer precision.
-  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-TimerResolution";
+  # -ReduceTimerPrecision: prevents severe UI and click lag by allowing normal JS timer precision.
+  # This target name previously read "-TimerResolution", which does not exist in
+  # toolkit/components/resistfingerprinting/RFPTargets.inc: the override parser
+  # (nsRFPService::TextToRFPTarget) does an exact, unaliased string match against
+  # that file's ITEM_VALUE names and silently drops (just a debug-log warning, no
+  # user-visible error) anything that doesn't match, via
+  # `if (mappedValue.isNothing()) { ...; continue; }` in CreateOverridesFromText.
+  # So this exclusion was never actually applied: ReduceTimerPrecision (item 35)
+  # stayed set from +AllTargets the whole time, and every page has been paying
+  # the coarsened-timer cost this line was meant to avoid, most noticeably as
+  # sluggishness on JS-heavy pages like search results, which is what made
+  # Chromium (no such throttling by default) feel faster on the same click.
+  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-ReduceTimerPrecision";
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
   "layout.css.prefers-color-scheme.content-override" = 3;

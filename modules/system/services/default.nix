@@ -5,6 +5,7 @@
     ./backups.nix
     ./nordvpn.nix
     ./mullvad.nix
+    ./openlogi.nix
     ./xdg-portal.nix
     ./logind.nix
     #./suwayomi.nix

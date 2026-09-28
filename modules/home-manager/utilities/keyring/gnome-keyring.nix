@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   home.packages = [
-    pkgs.gcr
+    # nixpkgs removed the unqualified `gcr` attribute (hard throw, not an alias);
+    # gcr_4 is the current major version, matching the rest of this GNOME-keyring stack.
+    pkgs.gcr_4
     pkgs.dconf
     pkgs.seahorse
   ];

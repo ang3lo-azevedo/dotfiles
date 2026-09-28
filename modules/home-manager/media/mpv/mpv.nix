@@ -82,9 +82,10 @@
 
   mpvConfig = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv";
 
-  # Icon font for hayase-osc. Lives in the mpv config repo; exposing it
-  # through the user fonts dir lets fontconfig resolve it for libass.
-  lucideFont = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv/fonts/Lucide.ttf";
+  # Fonts for the mpv UI. Living in the mpv config repo; exposing them
+  # through the user fonts dir lets fontconfig resolve them for libass.
+  fluentFont = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv/fonts/fluent-system-icons.ttf";
+  netflixFont = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/home/ang3lo/.config/mpv/fonts/NetflixSans-Medium.otf";
 in {
   home.packages = [
     mpvWithVapourSynth
@@ -105,9 +106,8 @@ in {
       source = mpvConfig;
     };
 
-    dataFile."fonts/truetype/lucide/Lucide.ttf" = {
-      source = lucideFont;
-    };
+    dataFile."fonts/truetype/mpv/fluent-system-icons.ttf".source = fluentFont;
+    dataFile."fonts/truetype/mpv/NetflixSans-Medium.otf".source = netflixFont;
 
     # Register mpv-handler for custom protocols
     mimeApps = {

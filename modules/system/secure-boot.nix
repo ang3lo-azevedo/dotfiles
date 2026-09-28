@@ -23,6 +23,8 @@
         # These three cover the full pre-OS trust chain without tying to kernel (PCR 9).
         pcrs = [0 4 7];
       };
+      # systemd-pcrlock enforces a hard cap of 4 stored generations under Measured Boot.
+      configurationLimit = 4;
     };
     loader.systemd-boot = {
       # lanzaboote conflicts with systemd-boot; mkForce overrides the default true.

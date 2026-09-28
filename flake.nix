@@ -83,6 +83,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # OpenLogi: local-first Logitech Options+ alternative (DPI, buttons, SmartShift)
+    openlogi = {
+      url = "github:AprilNEA/OpenLogi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Impermanence
     impermanence = {
       url = "github:nix-community/impermanence";
@@ -495,11 +501,23 @@
       modules = [
         # Home Manager
         home-manager.nixosModules.home-manager
-        {
+        ({pkgs, ...}: {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "hm-backup";
+            # A fixed suffix aborts the entire activation when a backup from an
+            # earlier run is still sitting there, which silently leaves every
+            # managed file unwritten. backupCommand takes precedence over the
+            # extension and is assumed to always succeed, so stamping the time
+            # onto each backup keeps the old copies and can never collide.
+            # Home Manager exports the extension above as HOME_MANAGER_BACKUP_EXT.
+            backupCommand = pkgs.writeShellScript "hm-backup-timestamped" ''
+              target="$1"
+              ext="''${HOME_MANAGER_BACKUP_EXT:-hm-backup}"
+              ${pkgs.coreutils}/bin/mv -f "$target" \
+                "$target.$ext-$(${pkgs.coreutils}/bin/date +%Y%m%d%H%M%S)"
+            '';
             users.ang3lo = import ./home/ang3lo/home.nix;
             extraSpecialArgs = {
               inherit
@@ -512,7 +530,7 @@
                 ;
             };
           };
-        }
+        })
 
         {
           # Alternatively: use the exact kernel versions as defined in this repo.
