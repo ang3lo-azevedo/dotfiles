@@ -5,20 +5,12 @@
   pkgs,
   ...
 }: let
-  # HACK: the switch knob is hardcoded white, which vanishes on the white accent track
-  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace src/ui/widgets.rs --replace-fail \
-          'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(Color32::WHITE),' \
-          'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(palette.on_accent),'
-      '';
-  });
+  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast;
   colors = config.lib.stylix.colors.withHashtag;
 
   # Bubbles, links, and read receipts are derived by ZapFast from surface and accent
-  # dim must differ from surface_active or row metadata vanishes on the selected chat
+  # Selection sits on base02 per base16, keeping dim text (base03) readable on the selected chat.
+  # Accent can't be pure white: the on-state switch knob is hardcoded white and would vanish
   themeFile = pkgs.writeText "zapfast-stylix.json" (builtins.toJSON {
     base =
       if config.stylix.polarity == "light"
@@ -28,14 +20,14 @@
       window = colors.base00;
       panel = colors.base01;
       surface = colors.base02;
-      surface_hover = colors.base03;
-      surface_active = colors.base03;
+      surface_hover = colors.base02;
+      surface_active = colors.base02;
       outline = colors.base03;
       text = colors.base05;
-      secondary = colors.base05;
-      dim = colors.base04;
-      accent = colors.base07;
-      accent_hover = colors.base06;
+      secondary = colors.base04;
+      dim = colors.base03;
+      accent = colors.base04;
+      accent_hover = colors.base05;
       on_accent = colors.base00;
       danger = colors.base08;
       warning = colors.base0A;

@@ -59,11 +59,11 @@
         "tpm-keyring-unlock": "tpm-keyring-unlock"
       },
       "locked": {
-        "lastModified": 1790719964,
-        "narHash": "sha256-b09oIejN0s2qN43mrkkfNmkR5wxMvUnMqbhvVowZmCE=",
+        "lastModified": 1790723780,
+        "narHash": "sha256-J6lP81Udg6EqJBkdi41eawbaQAldXYgyXh5Jw+JTHBU=",
         "ref": "refs/heads/main",
-        "rev": "1f1c11b2958f9e04754c3e5c67c0a07491cc375e",
-        "revCount": 40,
+        "rev": "1cbadea7ec746527b00266be58c41d215b45a902",
+        "revCount": 41,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1132,11 +1132,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1790618618,
-        "narHash": "sha256-gQ7f//i11rRCQp2o5yZBKbwNBSm4hPTFQ7fXB1mIfAg=",
+        "lastModified": 1790724136,
+        "narHash": "sha256-i8OHczpz6AWsVbbEYiqRQZbAvuG0aw10Ws7fVdj45Vk=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "39367cd07a19945644cb4f0c07cf506d2e090fab",
+        "rev": "663642398525f1d46163553d32853325b6b6de08",
         "type": "github"
       },
       "original": {
@@ -2740,11 +2740,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1790700859,
-        "narHash": "sha256-4BWTOf6RplqdnXV54xCqyJjlRXRw0Qt/PHmp/jbP3rY=",
+        "lastModified": 1790722851,
+        "narHash": "sha256-NPB8ZEyDvqyUZYKTyrACgNXntF9wGQcxCDlAn2kZrZg=",
         "owner": "crmne",
         "repo": "zapfast",
-        "rev": "99adc7e06f1a2f4a0790dd2fe2fd4b136a6edb77",
+        "rev": "4ba8b117e3ba8cee79438975d0d47f5070dc1ac8",
         "type": "github"
       },
       "original": {

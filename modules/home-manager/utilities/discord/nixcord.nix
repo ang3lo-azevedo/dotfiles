@@ -28,10 +28,34 @@
     enable = true;
     userPlugins = {
       fakeVoiceOptions = ./plugins/fakeVoiceOptions;
+      declarativeBookmarks = ./plugins/declarativeBookmarks;
     };
     extraConfig = {
       plugins = {
         fakeVoiceOptions.enable = true;
+        declarativeBookmarks = {
+          enable = true;
+          bookmarks = builtins.toJSON {
+            "286528030854217739" = let
+              bookmark = guildId: channelId: name: {inherit guildId channelId name;};
+            in [
+              (bookmark "@me" "__quests__" "Quests")
+              (bookmark "1529888082998988921" "1529888083439255766" "#general")
+              (bookmark "829696536136777759" "1529927918040387654" "#important-info")
+              {
+                name = "CTFs";
+                iconColor = "#ffc800";
+                bookmarks = [
+                  (bookmark "687810004002275510" "766773662833442897" "#general")
+                  (bookmark "829696536136777759" "829696536656216086" "#general")
+                ];
+              }
+              (bookmark "1482290323580387510" "1482290324347949068" "#geral")
+              (bookmark "687810004002275510" "1155999542970421290" "#random")
+              (bookmark "1526591904731369543" "1526591904731369546" "#general")
+            ];
+          };
+        };
       };
     };
     discord = {
@@ -80,7 +104,7 @@
         splashProgress = true;
         disableMinSize = true;
         badgeOnlyForMentions = true;
-        openLinksWithElectron = true;
+        openLinksWithElectron = false;
       };
     };
     dorion = {

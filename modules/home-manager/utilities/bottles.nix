@@ -1,12 +1,12 @@
 {pkgs, ...}: let
-  # Office 365 support (bottlesdevs/programs#500) needs at least this commit, newer than the 67.4 release
+  # Office 365 installer (bottlesdevs/programs#500) needs success_codes/skip_if_files_exist support, newer than the 67.4 release
   bottles-unwrapped = pkgs.bottles-unwrapped.overrideAttrs (_: {
-    version = "67.4-unstable-2026-09-20";
+    version = "67.4-unstable-2026-09-29";
     src = pkgs.fetchFromGitHub {
       owner = "bottlesdevs";
       repo = "bottles";
-      rev = "5cbb5be22795fc877cab063dc2e7066618f8a5d4";
-      hash = "sha256-Oc7HXfgTro4K7FfFsLvSjK+oBFxlTFKeMB1J1htY4uU=";
+      rev = "44651052435c57fd4d0acb682d6490edadbcd52d";
+      hash = "sha256-8mqBlyo0l4Iv/3YD2QOlfpBJhGPNRch3h8w4yW5M2yM=";
     };
   });
 

@@ -24,7 +24,7 @@ in {
       "tidy-tabs"
       "tidy-downloads"
       #"blended-addressbar"
-      "zen-command-palette"
+      #"zen-command-palette"
       "reopen-closed-tabs-menu"
       "workspace-toast"
       "renderjs"
