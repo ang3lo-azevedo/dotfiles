@@ -91,15 +91,20 @@
         "Equicord"
       ];
     };
-    # The Stylix theme maps Discord's blurple to base0B (green) and its brand
-    # accent to base0F (magenta), so pull both back to the blue accent.
+    # The Stylix theme maps Discord's blurple to base0B (green), its brand
+    # accent to base0F (magenta) and the rest of the brand slots to base0D, so
+    # pull all of them to white.
     quickCss = ''
       :root, .visual-refresh, .theme-dark, .theme-light {
-        --blurple-50: var(--base0D) !important;
-        --brand-500: var(--base0D) !important;
+        --blurple-50: var(--base07) !important;
+        --brand-260: var(--base07) !important;
+        --brand-360: var(--base07) !important;
+        --brand-500: var(--base07) !important;
+        --button-filled-brand-background: var(--base07) !important;
+        --control-brand-foreground-new: var(--base07) !important;
       }
       .visual-refresh path[fill^="rgba(88, 101, 242, 1)"] {
-        fill: var(--base0D) !important;
+        fill: var(--base07) !important;
       }
     '';
     config = {
