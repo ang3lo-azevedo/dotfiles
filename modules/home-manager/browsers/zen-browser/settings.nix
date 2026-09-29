@@ -49,6 +49,13 @@
   "browser.search.separatePrivateDefault" = false;
   "browser.search.suggest.enabled" = true;
   "browser.search.suggest.enabled.private" = true;
+  # Zen defaults this to false, but URL bar recent searches are read from form history
+  "browser.formfill.enable" = true;
+  # Zen puts engine suggestions above history, so they crowd out visited sites
+  "browser.urlbar.showSearchSuggestionsFirst" = false;
+  # Without the ":" prefix the command palette fuzzy-matches ordinary typing and
+  # its heuristic result replaces history and search suggestions
+  "zen-command-palette.prefix-required" = true;
 
   # Camera / microphone
   "media.navigator.enabled" = true;

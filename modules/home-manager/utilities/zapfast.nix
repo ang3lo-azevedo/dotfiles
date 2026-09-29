@@ -5,7 +5,16 @@
   pkgs,
   ...
 }: let
-  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast;
+  # HACK: the switch knob is hardcoded white, which vanishes on the white accent track
+  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace src/ui/widgets.rs --replace-fail \
+          'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(Color32::WHITE),' \
+          'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(palette.on_accent),'
+      '';
+  });
   colors = config.lib.stylix.colors.withHashtag;
 
   # Bubbles, links, and read receipts are derived by ZapFast from surface and accent
