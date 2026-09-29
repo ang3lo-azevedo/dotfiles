@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs.unstable; [
-    burpsuite
+  home.packages = with pkgs; [
+    burpsuite-pro
   ];
 }

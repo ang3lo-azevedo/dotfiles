@@ -46,6 +46,18 @@
     };
     equibop = {
       enable = true;
+      # Electron's V4L2 enumeration skips the camera relay (a loopback that
+      # advertises both capture and output), so reach it through PipeWire.
+      # Chromium keeps only the last --enable-features, which would drop the
+      # WaylandWindowDecorations the upstream wrapper passes, so repeat it.
+      package = pkgs.equibop.overrideAttrs (old: {
+        postFixup =
+          (old.postFixup or "")
+          + ''
+            wrapProgram $out/bin/equibop \
+              --add-flags "--enable-features=WaylandWindowDecorations,WebRtcPipeWireCamera"
+          '';
+      });
       settings = {
         discordBranch = "stable";
         tray = true;
@@ -79,8 +91,20 @@
         "Equicord"
       ];
     };
+    # The Stylix theme maps Discord's blurple to base0B (green) and its brand
+    # accent to base0F (magenta), so pull both back to the blue accent.
+    quickCss = ''
+      :root, .visual-refresh, .theme-dark, .theme-light {
+        --blurple-50: var(--base0D) !important;
+        --brand-500: var(--base0D) !important;
+      }
+      .visual-refresh path[fill^="rgba(88, 101, 242, 1)"] {
+        fill: var(--base0D) !important;
+      }
+    '';
     config = {
       autoUpdate = true;
+      useQuickCss = true;
       plugins = {
         fakeNitro.enable = true;
         noNitroUpsell.enable = true;

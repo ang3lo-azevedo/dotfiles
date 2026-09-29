@@ -14,7 +14,6 @@ in {
     targets = {
       zen-browser.colors.enable = true;
       vscode.colors.enable = false;
-      nixcord.colors.enable = false;
 
       gtk.extraCss = ''
         /* Force all GTK animations to be very fast */
