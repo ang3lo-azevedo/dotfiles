@@ -45,9 +45,22 @@
 
 ## Memory Forensics ([memory/](./memory/))
 
+See the [memory forensics guide](./memory/README.md) for symbols, the vol-rs fallback, and BitLocker key recovery.
+
+### [vol-analyze](./memory/volatility-toolkit.nix)
+**What it is:** Automated triage that runs ~30 Volatility plugins, dumps files, extracts IOC strings, and scans for BitLocker keys.
+**When to use:** First pass on any RAM dump, before digging in by hand.
+**How to run:** `vol-analyze memory.raw --dump-files --extract-strings`
+
 ### [Volatility 2 & 3](./memory/)
 **What it is:** The industry-standard memory forensics frameworks.
 **When to use:** You have a raw RAM dump (`.raw`, `.mem`) and need to extract running processes, network connections, loaded DLLs, or injected malware. Volatility 3 is faster and uses symbol tables; Volatility 2 is better for older plugins.
+**How to run:** `volatility`/`vol3` for Volatility 3, `vol2` for Volatility 2.
+
+### [vol-rs](./memory/vol-rs.nix)
+**What it is:** Volatility 3 ported to Rust, with the same output and much faster.
+**When to use:** Quick repeated plugin runs. Needs the kernel symbols installed locally (see the guide) and cannot load Python plugins.
+**How to run:** `vol -f memory.raw windows.pslist.PsList` (full plugin names required)
 
 ### [MemProcFS](./memory/memprocfs.nix)
 **What it is:** Maps physical memory dumps to a virtual file system.
@@ -70,6 +83,11 @@
 ### [TestDisk](./files/testdisk.nix)
 **What it is:** Data recovery utility.
 **When to use:** A partition table is corrupted, a partition was accidentally deleted, or you need to carve/undelete files.
+
+### [Dislocker](./files/dislocker.nix)
+**What it is:** BitLocker volume decryptor for Linux.
+**When to use:** A Windows disk image or partition is BitLocker-encrypted and you have the recovery key, user password, or a `.bek` file.
+**How to run:** `dislocker -V /dev/sdX1 -p<recovery-key> -- /mnt/dislocker` then `mount -o loop,ro /mnt/dislocker/dislocker-file /mnt/win`
 
 ### [analyzeMFT](./files/analyzeMFT.nix)
 **What it is:** Tool to parse the NTFS Master File Table.

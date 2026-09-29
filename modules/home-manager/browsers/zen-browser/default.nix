@@ -38,7 +38,12 @@ in {
         extensions.packages = builtins.filter (p: p != null) (builtins.map (v: v.firefoxPackage) (builtins.attrValues config.my.browsers.extensions));
         # Imported as plain attrsets, not modules: settings.nix returns an attrset of
         # about:config prefs, search.nix returns the search engine configuration.
-        settings = import ./settings.nix;
+        settings =
+          import ./settings.nix
+          // lib.optionalAttrs (config.my.browsers.insecureOriginsAsSecure != []) {
+            # Firefox matches bare hostnames here, so drop the scheme and port
+            "dom.securecontext.allowlist" = lib.concatMapStringsSep "," (o: builtins.elemAt (builtins.match "([a-z]+://)?([^:/]+).*" o) 1) config.my.browsers.insecureOriginsAsSecure;
+          };
         search = import ./search.nix {inherit pkgs config;};
 
         # Force all Zen UI animations to be very fast

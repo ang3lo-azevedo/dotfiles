@@ -59,11 +59,11 @@
         "tpm-keyring-unlock": "tpm-keyring-unlock"
       },
       "locked": {
-        "lastModified": 1790717141,
-        "narHash": "sha256-Lb37sBCMQpm+dg5LRXV+4wccqo5X/BL4SpAURlXj6Nc=",
+        "lastModified": 1790719964,
+        "narHash": "sha256-b09oIejN0s2qN43mrkkfNmkR5wxMvUnMqbhvVowZmCE=",
         "ref": "refs/heads/main",
-        "rev": "adbba46d56191936e236c5791b3c87804cc1dc6a",
-        "revCount": 39,
+        "rev": "1f1c11b2958f9e04754c3e5c67c0a07491cc375e",
+        "revCount": 40,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1357,11 +1357,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1790718822,
-        "narHash": "sha256-DpFQ/Cllo+JmKD71d6vPHTJV9jeQidCUHePNIrzRbvA=",
+        "lastModified": 1790720239,
+        "narHash": "sha256-kb9vGFOSa/2GtXjkOGJeuomuiqWZEQTLl2Yfrbbt+tY=",
         "owner": "4evy",
         "repo": "nixcord",
-        "rev": "3295ff2ec6bfeb9ccb632b85b845c27c531406be",
+        "rev": "d978b4065ac15db9e00f4bded413cee6fba312b7",
         "type": "github"
       },
       "original": {

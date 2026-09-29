@@ -177,6 +177,10 @@ in {
     "DefaultSearchProviderSearchURL" = config.home-manager.users.ang3lo.my.browsers.search.url;
     "DefaultSearchProviderName" = config.home-manager.users.ang3lo.my.browsers.search.name;
 
+    # Policy instead of --unsafely-treat-insecure-origin-as-secure: flags are baked
+    # into the Helium derivation, so changing them forces a local rebuild
+    "OverrideSecurityRestrictionsOnInsecureOrigin" = config.home-manager.users.ang3lo.my.browsers.insecureOriginsAsSecure;
+
     "ExtensionInstallForcelist" = builtins.map (id: "${id};https://clients2.google.com/service/update2/crx") (builtins.filter (id: id != null) (builtins.map (v: v.chromeId) (builtins.attrValues config.home-manager.users.ang3lo.my.browsers.extensions)));
   };
 }

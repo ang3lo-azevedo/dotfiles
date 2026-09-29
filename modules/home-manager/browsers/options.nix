@@ -20,6 +20,12 @@ in {
       default = {};
       description = "Shared browser extensions.";
     };
+    insecureOriginsAsSecure = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      example = ["http://192.168.1.10:8080"];
+      description = "HTTP origins granted secure-context APIs (camera, clipboard, service workers, ...).";
+    };
     search = {
       name = mkOption {
         type = types.str;
