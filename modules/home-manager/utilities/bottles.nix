@@ -15,8 +15,8 @@
     removeWarningPopup = true;
   };
 in {
-  # proxy.usebottles.com is down and the fallback source is pinned to a components commit
-  # that predates the experimental soda runners, so track upstream main instead
+  # proxy.usebottles.com is down and the fallback sources are pinned to commits that predate
+  # the experimental soda runners, the Microsoft 365 installers and their office-runtime/selawik deps
   home.packages = [
     (pkgs.symlinkJoin {
       name = "bottles-${bottles.version}";
@@ -25,7 +25,9 @@ in {
       postBuild = ''
         for bin in bottles bottles-cli; do
           wrapProgram $out/bin/$bin \
-            --set-default PERSONAL_COMPONENTS https://raw.githubusercontent.com/bottlesdevs/components/main/
+            --set-default PERSONAL_COMPONENTS https://raw.githubusercontent.com/bottlesdevs/components/main/ \
+            --set-default PERSONAL_DEPENDENCIES https://raw.githubusercontent.com/bottlesdevs/dependencies/main/ \
+            --set-default PERSONAL_INSTALLERS https://raw.githubusercontent.com/bottlesdevs/programs/main/
         done
       '';
     })

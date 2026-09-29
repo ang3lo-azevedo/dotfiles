@@ -9,6 +9,7 @@
   colors = config.lib.stylix.colors.withHashtag;
 
   # Bubbles, links, and read receipts are derived by ZapFast from surface and accent
+  # dim must differ from surface_active or row metadata vanishes on the selected chat
   themeFile = pkgs.writeText "zapfast-stylix.json" (builtins.toJSON {
     base =
       if config.stylix.polarity == "light"
@@ -22,10 +23,10 @@
       surface_active = colors.base03;
       outline = colors.base03;
       text = colors.base05;
-      secondary = colors.base04;
-      dim = colors.base03;
-      accent = colors.base0D;
-      accent_hover = "${colors.base0D}d9";
+      secondary = colors.base05;
+      dim = colors.base04;
+      accent = colors.base07;
+      accent_hover = colors.base06;
       on_accent = colors.base00;
       danger = colors.base08;
       warning = colors.base0A;
