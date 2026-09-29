@@ -166,7 +166,9 @@ output "eDP-1" {
     variable-refresh-rate
 }
 
-output "DP-3" {
+// Matched by make/model: the eGPU's connector name changes with card
+// enumeration order (DP-3, DP-4, ...).
+output "Microstep MSI G27C4 E2 Unknown" {
     // Uncomment this line to disable this output.
     // off
 
@@ -445,19 +447,10 @@ animations {
     // }
 }
 
-// Create a dedicated workspace for social/media apps.
-// This workspace will prefer opening on the laptop screen (eDP-1) when available.
-// When only one screen is active, Niri will dynamically append this workspace 
-// to the bottom of the workspace list.
-workspace "social" {
-    open-on-output "eDP-1"
-}
-
-// Group Discord and Spotify together in the social workspace.
+// Group Discord, Spotify, and Zapfast together on the laptop screen.
 window-rule {
-    match app-id="(?i)(discord|spotify|vesktop|equicord|equibop)"
-    match title="(?i)(discord|spotify|vesktop|equicord|equibop)"
-    open-on-workspace "social"
+    match app-id=r#"(?i)(discord|spotify|vesktop|equicord|equibop|zapfast)"#
+    open-on-output "eDP-1"
 }
 
 // Open nix-config on the right side (laptop screen)

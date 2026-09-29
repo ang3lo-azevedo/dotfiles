@@ -35,6 +35,7 @@
     ./kdeconnect.nix
     ./openvpn.nix
     #./linoffice.nix
+    ./bottles.nix
 
     #./affinity.nix
 

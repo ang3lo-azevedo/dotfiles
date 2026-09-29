@@ -1,14 +1,22 @@
 {
+  config,
   inputs,
   lib,
   ...
 }: {
   imports = [inputs.gaze.nixosModules.default];
 
-  services.gaze.enable = true;
+  services.gaze = {
+    enable = true;
 
-  # sudo stays fingerprint-only: exclude it from gaze's default PAM wiring.
-  services.gaze.pam.defaultServices = ["polkit-1"];
+    # "primary" picks the first color node, which is a raw IPU7 node here. The
+    # relay only runs inside a user session, so at the boot greeter this falls
+    # through to fingerprint.
+    settings.cameras.rgb = "/dev/video${toString config.hardware.samsungGalaxyBook.webcamFixBook5.loopbackVideoNr}";
+
+    # sudo stays fingerprint-only: exclude it from gaze's default PAM wiring.
+    pam.defaultServices = ["polkit-1"];
+  };
 
   security.pam.services = {
     # gaze sits right before fprintd in the "login" auth stack (its order is

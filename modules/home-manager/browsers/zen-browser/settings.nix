@@ -27,7 +27,6 @@
   # Zen Browser
   "zen.workspaces.continue-where-left-off" = true;
   "zen.tabs.vertical.right-side" = true;
-  "media.webrtc.camera.allow-pipewire" = true;
   "zen.view.compact.enable-at-startup" = true;
   "zen.urlbar.behavior" = "float";
   # Force XDG Desktop Portal for file picker and mime handler (fixes 20s delays)
@@ -54,8 +53,9 @@
   # Camera / microphone
   "media.navigator.enabled" = true;
   "media.peerconnection.enabled" = true;
-  # Route camera capture through PipeWire instead of direct V4L2, required on Wayland
-  "media.webrtc.camera.allow-pipewire" = false;
+  # PipeWire only exposes the camera relay and USB webcams; direct V4L2 also
+  # scans the raw IPU7 nodes and misses the FHD webcam.
+  "media.webrtc.camera.allow-pipewire" = true;
   # 0 = ask each time (prompt), 1 = allow always, 2 = block always
   "permissions.default.camera" = 0;
   "permissions.default.microphone" = 0;

@@ -23,8 +23,9 @@
 
 
 ## General Stuff 
+- [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
-- [ ] Add this https://github.com/AprilNEA/OpenLogi
+- [ ] Fix this https://github.com/AprilNEA/OpenLogi
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
 - [ ] Check flare stuck loading
 - [ ] Check Zen sometimes taking a long time to load links
