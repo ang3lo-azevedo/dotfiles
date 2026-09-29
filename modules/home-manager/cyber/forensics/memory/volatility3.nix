@@ -1,24 +1,29 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Match the Python package set of pkgs.unstable.volatility3 so both land in one environment
+  plugins = pkgs.volatility3-plugins.override {inherit (pkgs.unstable) python3Packages;};
+in {
   home.packages = [
     # Community Linux ISF server for auto-downloading kernel symbols from memory dump banners.
     # https://github.com/leludo84/vol3-linux-profiles/#symbols-file-automatic-download-in-volatility3
     # https://github.com/Abyss-W4tcher/volatility3-symbols#fetching-symbols-automatically
-    (pkgs.unstable.volatility3.overrideAttrs (old: {
-      postPatch =
-        (old.postPatch or "")
-        + ''
-          substituteInPlace volatility3/framework/constants/__init__.py \
-            --replace-fail 'REMOTE_ISF_URL = None' \
-            'REMOTE_ISF_URL = "https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/master/banners/banners.json"'
-        '';
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
-      postFixup =
-        (old.postFixup or "")
-        + ''
-          mv $out/bin/vol $out/bin/volatility
-          wrapProgram $out/bin/volatility --add-flags "-p ${pkgs.volatility3-bitlocker.pluginDir}"
-          ln -s $out/bin/volatility $out/bin/vol3
-        '';
-    }))
+    ((pkgs.unstable.volatility3.overridePythonAttrs (old: {
+        dependencies = old.dependencies ++ plugins.pythonDependencies;
+      })).overrideAttrs (old: {
+        postPatch =
+          (old.postPatch or "")
+          + ''
+            substituteInPlace volatility3/framework/constants/__init__.py \
+              --replace-fail 'REMOTE_ISF_URL = None' \
+              'REMOTE_ISF_URL = "https://raw.githubusercontent.com/Abyss-W4tcher/volatility3-symbols/master/banners/banners.json"'
+          '';
+        nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.makeWrapper];
+        postFixup =
+          (old.postFixup or "")
+          + ''
+            mv $out/bin/vol $out/bin/volatility
+            wrapProgram $out/bin/volatility --add-flags "-p ${plugins.pluginDir}"
+            ln -s $out/bin/volatility $out/bin/vol3
+          '';
+      }))
   ];
 }

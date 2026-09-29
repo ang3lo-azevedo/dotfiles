@@ -45,10 +45,10 @@
 
 ## Memory Forensics ([memory/](./memory/))
 
-See the [memory forensics guide](./memory/README.md) for symbols, the vol-rs fallback, and BitLocker key recovery.
+See the [memory forensics guide](./memory/README.md) for symbols, the vol-rs fallback, BitLocker key recovery, and LSASS credential extraction.
 
 ### [vol-analyze](./memory/volatility-toolkit.nix)
-**What it is:** Automated triage that runs ~30 Volatility plugins, dumps files, extracts IOC strings, and scans for BitLocker keys.
+**What it is:** Automated triage that runs ~30 Volatility plugins, dumps files, extracts IOC strings, scans for BitLocker keys, and pulls credentials from LSASS with pypykatz.
 **When to use:** First pass on any RAM dump, before digging in by hand.
 **How to run:** `vol-analyze memory.raw --dump-files --extract-strings`
 
