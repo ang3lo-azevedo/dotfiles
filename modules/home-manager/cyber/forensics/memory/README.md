@@ -6,16 +6,19 @@ Tools for analyzing RAM dumps (`.raw`, `.mem`, `.vmem`, `.dmp`, `.lime`).
 
 | Command | Tool | Defined in |
 |---|---|---|
-| `vol-analyze` | Automated triage, runs ~30 plugins plus BitLocker and LSASS credential scans | [volatility-toolkit.nix](./volatility-toolkit.nix) |
-| `vol`, `vol-rs` | [vol-rs](https://github.com/daffainfo/vol-rs), Volatility 3 ported to Rust | [vol-rs.nix](./vol-rs.nix) |
+| `vol-analyze` | Automated triage, runs 49 Windows / 31 Linux plugins plus BitLocker and LSASS credential scans | [volatility-toolkit.nix](./volatility-toolkit.nix) |
+| `vol` | vol-rs, falling back to Volatility 3 when it fails (the same shim `vol-analyze` uses, see [How it runs plugins](#how-it-runs-plugins)) | [volatility-toolkit.nix](./volatility-toolkit.nix) |
+| `vol-rs` | [vol-rs](https://github.com/daffainfo/vol-rs), Volatility 3 ported to Rust, with no fallback | [vol-rs.nix](./vol-rs.nix) |
 | `volatility`, `vol3` | Volatility 3, with [third-party plugins](#third-party-plugins) and Linux symbol auto-download | [volatility3.nix](./volatility3.nix) |
 | `volshell` | Volatility 3 interactive shell | [volatility3.nix](./volatility3.nix) |
 | `vol2`, `volatility2` | Volatility 2, for plugins never ported to 3 | [volatility2.nix](./volatility2.nix) |
+| `avml` | Captures a running Linux machine's memory (see [Capturing memory](#capturing-memory-linux)) | [avml.nix](./avml.nix) |
+| `dwarf2json` | Builds Linux symbols for kernels the online index lacks (see [Missing Linux symbols](#missing-linux-symbols)) | [dwarf2json.nix](./dwarf2json.nix) |
 | `memprocfs` | Mounts a dump as a file system | [memprocfs.nix](./memprocfs.nix) |
 | `bulk_extractor` | Carves emails, URLs, IPs without parsing OS structures | [bulk_extractor.nix](./bulk_extractor.nix) |
 | `evolve` | Web UI for Volatility | [evolve.nix](./evolve.nix) |
 
-Plain `vol` is **vol-rs**, not Volatility 3. Use `volatility` or `vol3` for the Python version.
+Use `vol` by default. It accepts short plugin names (`vol -f dump windows.pslist`), runs vol-rs when it can, and otherwise runs Volatility 3, including for plugins vol-rs is known to get wrong. Its output only appears once the plugin finishes, so a failed vol-rs attempt never mixes with the retry. Use `vol-rs` or `volatility`/`vol3` to run one tool directly.
 
 ## vol-analyze
 
@@ -23,6 +26,7 @@ Plain `vol` is **vol-rs**, not Volatility 3. Use `volatility` or `vol3` for the 
 vol-analyze memory.raw                                   # auto-detect OS
 vol-analyze memory.raw --os windows --dump-files --extract-strings
 vol-analyze memory.raw --os windows --no-bitlocker --no-credentials -o case-001/
+vol-analyze memory.raw --os windows --deep --timeline      # slow, most thorough
 ```
 
 | Flag | Effect |
@@ -35,46 +39,109 @@ vol-analyze memory.raw --os windows --no-bitlocker --no-credentials -o case-001/
 | `--extract-strings` | Categorize IPs, URLs, emails, domains, paths |
 | `--no-bitlocker` | Skip the BitLocker key scan (Windows) |
 | `--no-credentials` | Skip the pypykatz LSASS credential scan (Windows) |
-| `--json` | Also write a JSON summary |
+| `--deep` | Also run `windows.ptemalfind`, `windows.imgmalfind` and `windows.mftscan` (MFT records and alternate data streams) (Windows, slow) |
+| `--timeline` | Also run `timeliner.Timeliner` under Volatility 3: a super-timeline across all plugins that support it, in `timeliner.txt`, plus a bodyfile in `timeline/volatility.body`. Turn it into a CSV with `mactime -b timeline/volatility.body -d > timeline.csv` (slow, about 2 minutes on a 1 GB dump) |
+| `--json` | Also write `analysis_summary.json`: per-plugin status and line counts, plus `bitlocker` (`status`: `found`/`none`/`error`/`skipped`, `candidates`) and `credentials` (`status`: `found`/`none`/`not_resident`/`error`/`skipped`, `entries`) |
 
-Output: one `<plugin>.txt` and `<plugin>.err` per plugin, plus `analysis_summary.txt`. An `.err` file that is not empty means the plugin failed or warned.
+Besides the upstream lists, it also runs these on Windows:
+
+| Plugins | Why |
+|---|---|
+| `cmdscan`, `consoles` | Commands typed in cmd.exe windows |
+| `registry.cachedump` | Domain cached credentials (DCC2), which `hashdump`/`lsadump` do not cover |
+| `malware.psxview` | Processes hidden from some process lists but not others |
+| `malware.ldrmodules` | DLLs unlinked from the loader lists, which `dlllist` misses |
+| `malware.hollowprocesses`, `malware.processghosting`, `malware.suspicious_threads` | Injection techniques `malfind` does not catch |
+| `malware.svcdiff` | Services hidden from the service list |
+| `etwpatch`, `malware.unhooked_system_calls` | ETW patching and unhooked `ntdll` calls, both used to blind EDR |
+| `malware.skeleton_key_check` | Skeleton Key backdoor in LSASS (Active Directory) |
+| `malware.drivermodule`, `unloadedmodules`, `driverirp` | Hidden drivers, recently unloaded drivers and IRP hooks |
+| `shimcachemem`, `registry.amcache`, `registry.scheduled_tasks` | Evidence of execution and persistence |
+| `truecrypt` | Cached TrueCrypt passphrases |
+
+If `pslist` finds `KeePass.exe`, it also runs `windows.keepass.KeePass --pid <pid>` for each one and writes `keepass_<pid>.txt`. KeePassXC is a different program and not affected.
+
+And these on Linux:
+
+| Plugins | Why |
+|---|---|
+| `psscan`, `ptrace` | Hidden processes, and processes being traced or injected into |
+| `ip.Addr`, `ip.Link` | Network interfaces and addresses |
+| `malware.hidden_modules`, `malware.modxview` | Kernel modules hidden from `lsmod` |
+| `malware.netfilter` | Netfilter hooks, used by backdoors that wait for "magic" packets |
+| `ebpf`, `tracing.ftrace`, `tracing.tracepoints` | eBPF programs and ftrace/tracepoint hooks, where current Linux rootkits hide. `ebpf` fails with `Unsupported kernel` on kernels older than 3.18, which have no eBPF |
+
+On macOS it also runs `mac.dmesg`, `mac.timers` and `mac.vfsevents`.
+
+Several upstream entries were renamed to their current names (`windows.malfind` → `windows.malware.malfind`, `windows.hashdump` → `windows.registry.hashdump`, `linux.check_*` → `linux.malware.check_*`, and so on). Volatility 3 2.28 marks the old names as deprecated with a removal date that has passed. The output files follow the new names, e.g. `malware_malfind.txt`.
+
+Output, all in the output directory:
+- `<plugin>.txt` and `<plugin>.err` per plugin. An `.err` file that is not empty means the plugin failed or warned.
+- `analysis_summary.txt`, plus `analysis_summary.json` with `--json`.
+- `bitlocker.txt` and `bitlocker/*.fvek` (Windows), `pypykatz.txt` (Windows), `keepass_<pid>.txt` (Windows, when KeePass was running).
+- `timeliner.txt` and `timeline/volatility.body` with `--timeline`.
 
 ### How it runs plugins
 
-The upstream script expects Volatility 3. Here it is pointed at a shim ([vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh)) that:
+The upstream script expects Volatility 3. Here it is pointed at a shim ([vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh)), which is also installed as `vol`. It:
 
 1. Expands short plugin names (`windows.pslist`) to the full names vol-rs requires (`windows.pslist.PsList`).
 2. Runs the plugin with **vol-rs** first, because it is much faster.
-3. If vol-rs fails, reruns the same command with **Volatility 3** and prints `[vol-rs failed, retrying with Volatility 3] <error>` to the `.err` file. It uses your `volatility` if installed, otherwise a bundled copy.
-4. Sends `windows.bitlocker*` and `windows.pypykatz*` straight to Volatility 3, since vol-rs cannot load Python plugins.
+3. If vol-rs fails, reruns the same command with **Volatility 3** and prints `[vol-rs failed, retrying with Volatility 3] <error>` to stderr (the plugin's `.err` file in `vol-analyze`). It uses your `volatility` if installed, otherwise a bundled copy.
+4. Sends plugins vol-rs does not have (BitLocker, pypykatz, the `--deep` plugins) straight to Volatility 3, since vol-rs cannot load Python plugins.
+5. Also sends `windows.cmdscan`, `windows.consoles`, every `linux.*` and `mac.*` plugin, and `timeliner` straight to Volatility 3. In each case vol-rs returns wrong or incomplete results but exits successfully, so step 3 would never catch it (see [Known limitations](#known-limitations)). Linux runs therefore take longer: about 78 s instead of 13 s on a 512 MB dump.
 
 So a plugin only fails if **both** tools fail on it.
 
 ## Symbols
 
-Windows plugins need a symbol file (ISF) for the exact kernel build in the dump.
+Plugins need a symbol file (ISF) for the exact kernel build in the dump.
 
 **Volatility 3** downloads them automatically:
 - **Windows:** from the Microsoft symbol server, cached in `~/.local/share/volatility3/symbols`.
 - **Linux:** from the [Abyss-W4tcher/volatility3-symbols](https://github.com/Abyss-W4tcher/volatility3-symbols) banner index. [volatility3.nix](./volatility3.nix) patches `REMOTE_ISF_URL` for this.
 
-**vol-rs does not download kernel symbols.** For a new Windows build it logs
+**vol-rs does not download kernel symbols**, but it reads the ones Volatility 3 has downloaded: the [vol-rs package](../../../../../pkgs/ang3lo-nur/pkgs/vol-rs/default.nix) adds `~/.local/share/volatility3/symbols` to `VOLRS_SYMBOL_PATH`, and both use the same `windows/<pdb>/<GUID>-<AGE>.json.xz` layout. So the first `vol-analyze` or `vol` run on a new Windows build fetches the symbols with Volatility 3 once (about 40 s for a Windows 10 kernel), and every plugin after that runs on vol-rs. Tested from an empty home directory: 54 s in total, 46 of 49 plugins answered by vol-rs.
 
-```
-This kernel is described by windows/ntkrnlmp.pdb/<GUID>-<AGE>, which is not installed
-```
+`vol-analyze` fetches the symbols with one serial run before starting plugins in parallel. Volatility 3 writes a downloaded symbol file in place while the download runs, so parallel plugins would otherwise read a half-written file or find the symbol cache locked. In the same test without that step, 4 plugins failed and 12 downloaded the same files at once. For the same reason, OS auto-detection gives each probe 300 s (`VOL_DETECT_TIMEOUT`) instead of upstream's 60 s: the first probe may be downloading symbols, and killing it leaves a corrupt file (see below).
 
-and `vol-analyze` falls back to Volatility 3. To let vol-rs handle that build itself, generate the ISF once:
+**Corrupt symbol files.** For the same reason, a download that is interrupted (Ctrl-C, a timeout, a dropped connection) leaves a truncated `.json.xz` behind. Every later run on that build then fails with `EOFError: Compressed file ended before the end-of-stream marker was reached`. Find and delete them; Volatility 3 downloads them again on the next run:
 
 ```bash
-python -m volatility3.framework.symbols.windows.pdbconv \
-  -p ntkrnlmp.pdb -g <GUID><AGE> \
-  -o ~/.local/share/vol-rs/symbols/windows/ntkrnlmp.pdb/<GUID>-<AGE>.json.xz
+find ~/.local/share/volatility3/symbols -name '*.xz' -exec sh -c 'xz -t "$1" 2>/dev/null || echo "$1"' _ {} \;
 ```
 
-Note `-g` takes GUID and age joined, while the file name separates them with `-`. Run it with the Python from the `volatility3` package so the module is importable.
+The generic ISFs vol-rs does not ship (netscan, registry, services, callbacks, mbr) come from the Volatility 3 source tree, which the vol-rs package also adds to `VOLRS_SYMBOL_PATH`.
 
-The generic ISFs vol-rs does not ship (netscan, registry, services, callbacks, mbr) come from the Volatility 3 source tree. The [vol-rs package](../../../../../pkgs/ang3lo-nur/pkgs/vol-rs/default.nix) adds them to `VOLRS_SYMBOL_PATH`.
+### Missing Linux symbols
+
+The online index only covers common distribution kernels (about 11,000, none of them CachyOS). For any other kernel, Volatility 3 fails with `Unsatisfied requirement` on the kernel symbol table, and you have to build the symbols yourself with `dwarf2json` from a `vmlinux` that still has its debug info:
+
+```bash
+dwarf2json linux --elf /path/to/vmlinux | xz > kernel.json.xz
+mkdir -p ~/.local/share/volatility3/symbols/linux
+mv kernel.json.xz ~/.local/share/volatility3/symbols/linux/
+```
+
+The file name does not matter: Volatility 3 matches it to a dump by the kernel banner stored inside. Where to get the `vmlinux`:
+- **This machine:** NixOS keeps it in the kernel's `dev` output, e.g. `nix eval --raw .#nixosConfigurations.pc-angelo.config.boot.kernelPackages.kernel.dev` then `<path>/vmlinux`. The CachyOS kernel is built with `CONFIG_DEBUG_INFO`, so it works: tested on 7.2.8-cachyos-lto, 54 s, a 3.4 MB file whose banner matches `/proc/version` exactly.
+- **Distribution kernels:** the debug package, e.g. `linux-image-<version>-dbg` on Debian/Ubuntu or `kernel-debuginfo` on Fedora/RHEL.
+
+A `vmlinux` without debug info (most `/boot/vmlinuz` files) does not work.
+
+## Capturing memory (Linux)
+
+`avml` dumps a running Linux machine's RAM to a file Volatility can read, without a kernel module (unlike LiME). It needs root:
+
+```bash
+sudo avml acquire memory.lime
+sudo avml acquire --compress memory.lime.compressed    # smaller, but convert it before analysis:
+avml convert memory.lime.compressed memory.lime
+```
+
+Volatility cannot read the compressed format directly. The dump is as large as the machine's RAM, and it contains everything in memory, passwords and keys included, so treat it like the machine itself. For this machine, [build its symbols](#missing-linux-symbols) first, since its kernel is not in the online index.
+
+For Windows machines, capture on the machine itself with a Windows tool (WinPmem, DumpIt, FTK Imager) and copy the dump over.
 
 ## BitLocker
 
@@ -116,7 +183,7 @@ For a partitioned image, point `-V` at the BitLocker partition (for example via 
 
 [skelsec/pypykatz-volatility3](https://github.com/skelsec/pypykatz-volatility3) runs [pypykatz](https://github.com/skelsec/pypykatz) (Mimikatz in Python) against the LSASS process in the dump. It recovers NT/LM hashes, Kerberos tickets, DPAPI master keys and, on older systems or with WDigest enabled, plaintext passwords.
 
-It is a separate source from `windows.hashdump`/`windows.lsadump`, which read the SAM and SECURITY registry hives. When those come back empty, LSASS may still have the credentials of users who were logged on.
+It is a separate source from `windows.registry.hashdump`/`windows.registry.lsadump`, which read the SAM and SECURITY registry hives. When those come back empty, LSASS may still have the credentials of users who were logged on.
 
 `vol-analyze` runs it automatically on Windows dumps and writes `pypykatz.txt`. To run it by hand:
 
@@ -137,7 +204,7 @@ The plugin needs the `pypykatz` Python library installed in Volatility 3's own e
 
 ## Third-party plugins
 
-All of these are merged into one plugin folder by the [volatility3-plugins](../../../../../pkgs/ang3lo-nur/pkgs/volatility3-plugins/) package, which `volatility`/`vol3` and the toolkit's bundled Volatility 3 both load. They run only under Volatility 3; vol-rs cannot load Python plugins.
+All of these are merged into one plugin folder by the [volatility3-plugins](../../../../../pkgs/ang3lo-nur/pkgs/volatility3-plugins/) package, which `volatility`/`vol3` and the toolkit's bundled Volatility 3 both load. They run only under Volatility 3, since vol-rs cannot load Python plugins; `vol` sends them there automatically.
 
 | Plugin | What it finds | Source |
 |---|---|---|
@@ -157,13 +224,13 @@ All of these are merged into one plugin folder by the [volatility3-plugins](../.
 | `windows.apisearch.ApiSearch` | Pointers to API functions in process memory | f-block |
 | `windows.simple_pteenum.SimplePteEnumerator`, `windows.swap_enum.SwapEnumerator`, `windows.pte_resolve.PteResolve` | Raw PTE, pagefile and address-translation helpers | f-block |
 
-The forensicxlab, kevthehermit and fox-it plugins were written for Volatility 3 1.x and no longer run on 2.x unchanged. Each package carries a small patch that raises the core plugin versions they require and updates the changed `pslist`/`filescan`/`yarascan` calls. The f-block package replaces an import from the Python 2 `future` library. A Volatility 3 upgrade that changes those APIs again will break them the same way: the plugin reports `Unsatisfied requirement ... dependency ... unmet`, and the fix belongs in that package's patch.
+The forensicxlab, kevthehermit and fox-it plugins were written for Volatility 3 1.x and no longer run on 2.x unchanged. Each package carries a small patch that raises the core plugin versions they require and updates the changed `pslist`/`filescan`/`yarascan` calls. The f-block package replaces an import from the Python 2 `future` library and two APIs that Volatility 3 2.28 deprecates (`PluginRequirement`, `interfaces.renderers.Disassembly`), which otherwise print a warning on every `volatility` run. A Volatility 3 upgrade that changes those APIs again will break them the same way: the plugin reports `Unsatisfied requirement ... dependency ... unmet`, and the fix belongs in that package's patch.
 
 ## Package layout
 
 | Piece | Location |
 |---|---|
-| Toolkit package, shim, BitLocker and credentials step patches | [pkgs/ang3lo-nur/pkgs/volatility-toolkit/](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/) |
+| Toolkit package, shim (`vol`), and patches to the upstream script | [pkgs/ang3lo-nur/pkgs/volatility-toolkit/](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/) |
 | vol-rs package | [pkgs/ang3lo-nur/pkgs/vol-rs/](../../../../../pkgs/ang3lo-nur/pkgs/vol-rs/) |
 | BitLocker plugin package | [pkgs/ang3lo-nur/pkgs/volatility3-bitlocker/](../../../../../pkgs/ang3lo-nur/pkgs/volatility3-bitlocker/) |
 | pypykatz plugin package | [pkgs/ang3lo-nur/pkgs/volatility3-pypykatz/](../../../../../pkgs/ang3lo-nur/pkgs/volatility3-pypykatz/) |
@@ -171,12 +238,30 @@ The forensicxlab, kevthehermit and fox-it plugins were written for Volatility 3 
 | Combined plugin folder | [pkgs/ang3lo-nur/pkgs/volatility3-plugins/](../../../../../pkgs/ang3lo-nur/pkgs/volatility3-plugins/) |
 | Source pins | `pkgs/ang3lo-nur/nvfetcher.toml` |
 
-Upstream script fixes applied in the toolkit package:
+Patches to the upstream script, in the order applied:
+
+| Patch | Adds |
+|---|---|
+| `bitlocker-scan.patch` | BitLocker FVEK scan, `--no-bitlocker` |
+| `credentials-scan.patch` | pypykatz LSASS scan, `--no-credentials` |
+| `extra-plugins.patch` | The extra Windows and Linux plugins, the deprecated-name renames, `--deep`, `--timeline` |
+| `completions.patch` | The new flags in the bash and zsh completions |
+| `json-report.patch` | `bitlocker` and `credentials` in the `--json` report |
+| `timeline-keepass.patch` | The KeePass step, the timeline step with bodyfile, the macOS plugins |
+| `symbol-fetch.patch` | The serial symbol fetch, the 300 s detection timeout |
+
+Plus fixes in `postPatch`:
 - `(( i++ ))` aborting under `set -e` when `i=0`
 - Color codes printed as literal `\033[...]` text
+- Help text naming the script `.vol-analyze-wrapped` (the `wrapProgram` wrapper) instead of `vol-analyze`
 
 ## Known limitations
 
-- **vol-rs:** no Python plugins (`-p` is accepted but ignored), and no kernel symbol download. Both are covered by the fallback.
-- **Deprecated plugin names:** Volatility 3 2.28 warns that `windows.hashdump` and `windows.lsadump` (used by the upstream script) are deprecated and will be removed in a later release. vol-rs still has them, so only the Volatility 3 fallback for those two would break.
-- **Missing credentials:** `hashdump`/`lsadump` often return nothing because the needed registry pages were not resident in RAM. `pypykatz.txt` is the fallback, but it has the same limitation for the `lsasrv.dll` pages (see [Credentials](#credentials-pypykatz)).
+- **vol-rs:** no Python plugins (`-p` is accepted but ignored), and no kernel symbol download (it reuses Volatility 3's, see [Symbols](#symbols)). Both are covered by the fallback. The fallback only triggers when vol-rs *fails*: a vol-rs plugin that returns wrong results with exit code 0 goes unnoticed. Known cases, all routed to Volatility 3 by the shim. They are vol-rs bugs, marked `FIXME(vol-rs)` in [vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh) with what to report upstream; drop each rule once vol-rs matches Volatility 3:
+  - **Windows:** `cmdscan`/`consoles` return junk rows. Every other Windows plugin `vol-analyze` runs was compared against Volatility 3 on a Windows 10 dump and returned the same results (for `malfind` and `mbrscan` Volatility 3 prints more lines, but the same hits).
+  - **Linux:** compared on Volatility's `linux-sample-1.bin` test image (Debian, kernel 3.2). vol-rs returned nothing for `bash`, `proc.Maps`, `mountinfo` and `elfs` (Volatility 3: 27, 13,990, 13 and 2,419 rows), reported every module as missing from the scan in `modxview`, and dropped process creation times, IPv6 addresses and interface flags. So all Linux plugins go to Volatility 3.
+  - **timeliner:** vol-rs's timeline had about half the rows of Volatility 3's, with different counts per source plugin.
+  - **macOS:** not compared, since no macOS dump was available. It goes to Volatility 3 as a precaution.
+
+  If a plugin's output looks odd, compare it with `volatility -f <dump> <plugin>`.
+- **Missing credentials:** `registry.hashdump`/`registry.lsadump` often return nothing because the needed registry pages were not resident in RAM. `pypykatz.txt` is the fallback, but it has the same limitation for the `lsasrv.dll` pages (see [Credentials](#credentials-pypykatz)).

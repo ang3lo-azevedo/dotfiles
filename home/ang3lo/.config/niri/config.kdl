@@ -393,7 +393,8 @@ spawn-at-startup "~/.config/waybar/scripts/wlsunset.sh"
 // spawn-at-startup "~/.config/niri/scripts/auto-expand.sh"
 
 // Auto-start applications - restore previous session or start default apps
-// Handled by nirinit plugin
+// Handled by nirinit plugin, except the laptop screen apps below
+spawn-at-startup "~/.config/niri/scripts/right-screen.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -447,26 +448,58 @@ animations {
     // }
 }
 
-// Group Discord, Spotify, and Zapfast together on the laptop screen.
-window-rule {
-    match app-id=r#"(?i)(discord|spotify|vesktop|equicord|equibop|zapfast)"#
+// Fixed laptop screen layout, built at login by scripts/right-screen.sh.
+// Named workspaces stay on their output across monitor hotplug, unlike the
+// numbered ones nirinit restores by index.
+workspace "monitor" {
+    open-on-output "eDP-1"
+}
+workspace "nix-config" {
+    open-on-output "eDP-1"
+}
+workspace "social" {
     open-on-output "eDP-1"
 }
 
-// Open nix-config on the right side (laptop screen)
 window-rule {
-    match title="(?i)nix-config"
+    match app-id=r#"^app\.btop$"#
+    open-on-workspace "monitor"
+    default-column-width { proportion 1.0; }
+}
+
+// Only the nix-config window: other Antigravity windows belong on DP-3.
+window-rule {
+    match app-id=r#"^antigravity-ide$"# title=r#"^nix-config - "#
+    open-on-workspace "nix-config"
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id=r#"^app\.nix-config-term$"#
+    open-on-workspace "nix-config"
+    default-column-width { fixed 800; }
+}
+
+window-rule {
+    match app-id=r#"(?i)^equibop$"#
+    open-on-workspace "social"
+    default-column-width { fixed 1534; }
+}
+
+window-rule {
+    match app-id=r#"(?i)^zapfast$"#
+    open-on-workspace "social"
+    default-column-width { fixed 1407; }
+}
+
+window-rule {
+    match app-id=r#"(?i)(discord|spotify|vesktop|equicord)"#
     open-on-output "eDP-1"
 }
 
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-// Automatically open btop in fullscreen
-window-rule {
-    match app-id="(?i)btop"
-    default-column-width { proportion 0.45; }
-}
 
 // Disabled: forced every Zen window, including a deliberately opened second
 // one, to open at 100% width, so a new window could never sit side by side

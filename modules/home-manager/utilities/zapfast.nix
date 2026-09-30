@@ -8,7 +8,8 @@
   zapfast = inputs.zapfast.packages.x86_64-linux.zapfast;
   colors = config.lib.stylix.colors.withHashtag;
 
-  # Bubbles, links, and read receipts are derived by ZapFast from surface and accent
+  # Links and read receipts are derived by ZapFast from accent. Bubbles are set explicitly:
+  # derived ones blend toward the gray accent and read as gray on the black chat
   # Selection sits on base02 per base16, keeping dim text (base03) readable on the selected chat.
   # Accent can't be pure white: the on-state switch knob is hardcoded white and would vanish
   themeFile = pkgs.writeText "zapfast-stylix.json" (builtins.toJSON {
@@ -32,6 +33,8 @@
       danger = colors.base08;
       warning = colors.base0A;
       chat = colors.base00;
+      bubble_in = colors.base01;
+      bubble_out = colors.base02;
     };
   });
 in {

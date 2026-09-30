@@ -15,10 +15,13 @@
         "Code" = "code";
         "Spotify" = "spotify";
       };
-      # Apps to ignore when restoring:
-      # ignore = [
-      #   "org.wezfurlong.wezterm"
-      # ];
+      # Launched in a fixed layout by niri's right-screen.sh instead
+      skip.apps = [
+        "app.btop"
+        "app.nix-config-term"
+        "equibop"
+        "zapfast"
+      ];
     };
   };
 

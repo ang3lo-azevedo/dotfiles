@@ -45,22 +45,32 @@
 
 ## Memory Forensics ([memory/](./memory/))
 
-See the [memory forensics guide](./memory/README.md) for symbols, the vol-rs fallback, BitLocker key recovery, and LSASS credential extraction.
+See the [memory forensics guide](./memory/README.md) for capturing memory, symbols, the vol-rs fallback, BitLocker key recovery, and LSASS credential extraction.
 
 ### [vol-analyze](./memory/volatility-toolkit.nix)
-**What it is:** Automated triage that runs ~30 Volatility plugins, dumps files, extracts IOC strings, scans for BitLocker keys, and pulls credentials from LSASS with pypykatz.
+**What it is:** Automated triage that runs 49 Volatility plugins on Windows dumps (31 on Linux), dumps files, extracts IOC strings, scans for BitLocker keys, and pulls credentials from LSASS with pypykatz.
 **When to use:** First pass on any RAM dump, before digging in by hand.
 **How to run:** `vol-analyze memory.raw --dump-files --extract-strings`
 
 ### [Volatility 2 & 3](./memory/)
 **What it is:** The industry-standard memory forensics frameworks.
 **When to use:** You have a raw RAM dump (`.raw`, `.mem`) and need to extract running processes, network connections, loaded DLLs, or injected malware. Volatility 3 is faster and uses symbol tables; Volatility 2 is better for older plugins.
-**How to run:** `volatility`/`vol3` for Volatility 3, `vol2` for Volatility 2.
+**How to run:** `vol` (vol-rs with Volatility 3 fallback), `volatility`/`vol3` for Volatility 3 only, `vol2` for Volatility 2.
 
 ### [vol-rs](./memory/vol-rs.nix)
 **What it is:** Volatility 3 ported to Rust, with the same output and much faster.
-**When to use:** Quick repeated plugin runs. Needs the kernel symbols installed locally (see the guide) and cannot load Python plugins.
-**How to run:** `vol -f memory.raw windows.pslist.PsList` (full plugin names required)
+**When to use:** Quick repeated plugin runs on Windows dumps. Its Linux results are unreliable, and it cannot load Python plugins or download symbols (it reuses Volatility 3's), so use it through `vol`, which falls back to Volatility 3 in those cases (see the guide).
+**How to run:** `vol -f memory.raw windows.pslist`, or `vol-rs -f memory.raw windows.pslist.PsList` for vol-rs alone (full plugin names required)
+
+### [avml](./memory/avml.nix)
+**What it is:** Linux memory acquisition tool from Microsoft, no kernel module needed.
+**When to use:** You need to capture the RAM of a running Linux machine for analysis.
+**How to run:** `sudo avml acquire memory.lime`
+
+### [dwarf2json](./memory/dwarf2json.nix)
+**What it is:** Volatility's tool for building symbol files from a kernel with debug info.
+**When to use:** Volatility 3 cannot analyze a Linux dump because its kernel is not in the online symbol index, e.g. custom kernels like CachyOS.
+**How to run:** `dwarf2json linux --elf vmlinux | xz > kernel.json.xz` (see the [guide](./memory/README.md#missing-linux-symbols))
 
 ### [MemProcFS](./memory/memprocfs.nix)
 **What it is:** Maps physical memory dumps to a virtual file system.
