@@ -4,10 +4,6 @@ This module contains tools for analyzing, scanning, and exploiting web applicati
 
 ## Triage & Scanning
 
-### [Burp Suite](./scanning/burpsuite.nix)
-**What it is:** Web vulnerability scanner and interception proxy.
-**When to use:** You need to intercept, modify, or replay HTTP/HTTPS requests between your browser and a target web application.
-
 ### [Caido](./scanning/caido.nix)
 **What it is:** A lightweight web security auditing toolkit.
 **When to use:** You want a faster, Rust-based alternative to Burp Suite for HTTP interception and proxying.
