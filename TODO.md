@@ -23,6 +23,8 @@
 
 
 ## General Stuff 
+- [ ] Fix discord theme white color
+- [ ] add indicative to waybar of how many vertical and horizontal windows are present on niri
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
 - [ ] Fix this https://github.com/AprilNEA/OpenLogi
