@@ -6,6 +6,7 @@
     ./nordvpn.nix
     ./mullvad.nix
     ./openlogi.nix
+    ./cpak.nix
     ./xdg-portal.nix
     ./logind.nix
     #./suwayomi.nix

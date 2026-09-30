@@ -5,17 +5,33 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# Extract package names from a .nix file's home.packages or environment.systemPackages blocks.
+# Extract package names from `with pkgs; [ ... ]` lists, including other package
+# sets such as `with pkgs.unstable; [`. The lists usually span several lines and
+# may hold override expressions, so walk the brackets instead of using a regex:
+# anything nested in (), [] or {} is an expression, not a package name.
 extract_packages() {
-	local file="$1"
-	{
-		grep -oP '(?<=with pkgs; \[)[^\]]*' "$file" 2>/dev/null |
-			tr ' ' '\n' |
-			grep -v '^\s*$' |
-			grep -v '^#' |
-			sed 's/^[[:space:]]*//' |
-			sort -u
-	} || true
+	python3 - "$1" <<'PY' 2>/dev/null || true
+import re, sys
+
+src = re.sub(r"#.*", "", open(sys.argv[1]).read())
+keywords = {"if", "then", "else", "with", "or", "let", "in", "inherit", "rec", "assert"}
+names = set()
+for m in re.finditer(r"with pkgs(?:\.[\w-]+)?;\s*\[", src):
+    body, nest = [], 0
+    for c in src[m.end():]:
+        if c in "([{":
+            nest += 1
+        elif c in ")]}":
+            if not nest:
+                break
+            nest -= 1
+        elif not nest:
+            body.append(c)
+    for tok in "".join(body).split():
+        if re.fullmatch(r"[A-Za-z_][\w.+-]*", tok) and tok not in keywords:
+            names.add(tok)
+print("\n".join(sorted(names)))
+PY
 }
 
 # Extract enabled services/programs from a .nix file.
@@ -37,8 +53,8 @@ render_module_dir() {
 	local title="$2"
 	local pkgs enables
 
-	pkgs=$(find "$dir" -name "*.nix" -exec grep -hoP '(?<=with pkgs; \[)[^\]]*' {} \; 2>/dev/null |
-		tr ' ' '\n' | grep -v '^\s*$' | grep -v '^#' | sed 's/^[[:space:]]*//' | sort -u || true)
+	pkgs=$(find "$dir" -name "*.nix" -print0 |
+		while IFS= read -r -d '' f; do extract_packages "$f"; done | sort -u)
 
 	enables=$(find "$dir" -name "*.nix" \
 		-exec grep -hoP '(services|programs)\.\K[a-zA-Z0-9_-]+(?=\.enable\s*=\s*true)' {} \; 2>/dev/null |
@@ -100,6 +116,7 @@ cat <<'EOF'
 | `dmatools` | MemProcFS / DMA tooling |
 | `zapfast` | Fast native WhatsApp client |
 | `openlogi` | Local-first Logitech Options+ alternative (DPI, buttons, SmartShift) |
+| `cpak` | Rootless per-app sandbox runtime, used for the upstream Bottles build |
 | `pre-commit-hooks` | Nix-managed pre-commit hooks |
 | `xddxdd-nur` | bambu-studio-bin and other NUR packages |
 | `nixpkgs-xr` | OpenXR / VR packages for NixOS |

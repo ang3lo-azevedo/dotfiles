@@ -89,6 +89,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # cpak: rootless per-app sandboxes, used for the upstream Bottles build
+    cpak = {
+      url = "github:Containerpak/cpak/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Input for Impermanence
     impermanence = {
       url = "github:nix-community/impermanence";

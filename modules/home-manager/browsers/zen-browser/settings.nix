@@ -24,7 +24,7 @@
   "spellchecker.dictionary" = "pt-PT";
   "layout.spellcheckDefault" = 1;
 
-  # Zen Browser
+  # Zen Browsercommand
   "zen.workspaces.continue-where-left-off" = true;
   "zen.tabs.vertical.right-side" = true;
   "zen.view.compact.enable-at-startup" = true;
