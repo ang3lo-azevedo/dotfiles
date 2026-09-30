@@ -59,11 +59,11 @@
         "tpm-keyring-unlock": "tpm-keyring-unlock"
       },
       "locked": {
-        "lastModified": 1790764003,
-        "narHash": "sha256-mHZFwdG0HxmvJVQtBD8mr/0x4QOgJL1AcbYs3B0AxSo=",
+        "lastModified": 1790767948,
+        "narHash": "sha256-hMepWw6twdsIT0w+npG+NIEhMKd93uoyL5KHrdPqBB0=",
         "ref": "refs/heads/main",
-        "rev": "21ea85f49aff777acd6b2c95c924522c4d1c5182",
-        "revCount": 42,
+        "rev": "4e70ccecc9b64942e51ef9b57c2b7d675b3d5683",
+        "revCount": 43,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },

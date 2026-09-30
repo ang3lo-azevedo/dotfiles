@@ -19,7 +19,7 @@
       else "dark";
     colors = {
       window = colors.base00;
-      panel = colors.base01;
+      panel = colors.base00;
       surface = colors.base02;
       surface_hover = colors.base02;
       surface_active = colors.base02;
