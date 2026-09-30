@@ -5,13 +5,23 @@
   pkgs,
   ...
 }: let
-  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast;
+  # The on-state switch knob is hardcoded white, which vanishes on the white
+  # accent, so draw it in on_accent like every other shape on the accent
+  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace src/ui/widgets.rs \
+          --replace-fail \
+            'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(Color32::WHITE)' \
+            'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(palette.on_accent)'
+      '';
+  });
   colors = config.lib.stylix.colors.withHashtag;
 
   # Links and read receipts are derived by ZapFast from accent. Bubbles are set explicitly:
-  # derived ones blend toward the gray accent and read as gray on the black chat
+  # derived ones blend toward the accent and wash out on the black chat
   # Selection sits on base02 per base16, keeping dim text (base03) readable on the selected chat.
-  # Accent can't be pure white: the on-state switch knob is hardcoded white and would vanish
   themeFile = pkgs.writeText "zapfast-stylix.json" (builtins.toJSON {
     base =
       if config.stylix.polarity == "light"
@@ -27,7 +37,7 @@
       text = colors.base05;
       secondary = colors.base04;
       dim = colors.base03;
-      accent = colors.base04;
+      accent = colors.base07;
       accent_hover = colors.base05;
       on_accent = colors.base00;
       danger = colors.base08;
