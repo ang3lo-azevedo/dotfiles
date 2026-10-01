@@ -23,9 +23,11 @@
     color: @foreground-inactive;
 }
 
+/* The center block only stays centered while both side blocks fit beside it:
+   too wide and a full tray pushes the clock off to the left. */
 #custom-fill-left,
 #custom-fill-right {
-    min-width: 400px;
+    min-width: 200px;
 }
 
 #custom-privacy-mic,
