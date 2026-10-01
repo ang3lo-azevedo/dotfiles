@@ -14,6 +14,7 @@
     ],
     "modules-right": [
         "tray",
+        "custom/niri-layout",
         "custom/wlsunset",
         "wireplumber",
         "bluetooth",
@@ -228,6 +229,14 @@
         "exec": "~/.config/waybar/scripts/auto-cpufreq.sh",
         "interval": 5,
         "on-click": "~/.config/waybar/scripts/auto-cpufreq-toggle.sh",
+        "on-scroll-up": "swaync-client -cp",
+        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
+        "reverse-scrolling": true,
+        "reverse-mouse-scrolling": false
+    },
+    "custom/niri-layout": {
+        "exec": "~/.config/waybar/scripts/niri-layout.sh EXTERNAL_OUTPUT",
+        "return-type": "json",
         "on-scroll-up": "swaync-client -cp",
         "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
