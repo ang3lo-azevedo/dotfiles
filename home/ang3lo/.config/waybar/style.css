@@ -35,6 +35,17 @@
     padding-left: 1em
 }
 
+/* Nerd Font icons are drawn wider than their one-cell advance, so an icon at
+   the end of a label is clipped at the widget edge without this. */
+#custom-privacy-mic,
+#custom-privacy-screenshare {
+    padding-right: 0.35em
+}
+
+#custom-niri-layout {
+    padding-right: 1em
+}
+
 #custom-privacy-mic.muted {
     color: @foreground-inactive;
 }
