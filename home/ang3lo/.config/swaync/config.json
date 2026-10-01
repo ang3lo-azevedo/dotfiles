@@ -32,6 +32,7 @@
     "slider#brightness",
     "menubar#brightness",
     "slider#nightlight",
+    "menubar#nightlight",
     "backlight#KB",
     "volume",
     "mpris",
@@ -71,6 +72,19 @@
             "type": "toggle",
             "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
             "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
+          }
+        ]
+      }
+    },
+    "menubar#nightlight": {
+      "buttons#auto": {
+        "position": "right",
+        "actions": [
+          {
+            "label": "󰥔",
+            "type": "toggle",
+            "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
+            "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
           }
         ]
       }
