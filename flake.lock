@@ -299,11 +299,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790805780,
-        "narHash": "sha256-/mCbWoe/S7HA6mNDRJwpcktle+JAEw0XcVQM3L02Dhs=",
+        "lastModified": 1790877707,
+        "narHash": "sha256-UMYk57puyf00WZutrqpe83YVNAjEbc0S9XlLGPxguic=",
         "owner": "Rishabh5321",
         "repo": "custom-packages-flake",
-        "rev": "e8ffed322c0ba80ff2efeb65959a6a4a3239b0a6",
+        "rev": "d8aa788ed5df02a6bc391d521cc7d4ffd24cc046",
         "type": "github"
       },
       "original": {
@@ -1378,11 +1378,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1790870807,
-        "narHash": "sha256-zozHTTsu4RwVgCdim1gNd/BY8cIjzzY/kOzH5/LT9bA=",
+        "lastModified": 1790877785,
+        "narHash": "sha256-oJbjDxLjI6qMgxDWw0L710Pyuqq+pPkflOM/rmRy2w8=",
         "owner": "4evy",
         "repo": "nixcord",
-        "rev": "f607118d87e6a1ba10864d5f953e73657b49f91a",
+        "rev": "4badac042a3f0281508657c367b43e4ce1e2718d",
         "type": "github"
       },
       "original": {
@@ -2222,11 +2222,11 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1790857386,
-        "narHash": "sha256-6R95bCKoFGVluZ37VzOQx5RKKDWr74Vse/+3hDnc0IE=",
+        "lastModified": 1790877469,
+        "narHash": "sha256-g8Qe5yry85jZo0GzKQ65JxlB4DzqmCJlallBa5fnXV8=",
         "ref": "refs/heads/main",
-        "rev": "8b9dd2f9cd3d0e1fb10a557bf179d261ae113cd4",
-        "revCount": 380,
+        "rev": "52482832c579455ba49909022d7f4eec53de480d",
+        "revCount": 381,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/samsung-galaxy-book-linux-fixes"
       },
@@ -2298,11 +2298,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1790451534,
-        "narHash": "sha256-5J4zQ0mmCsd2SS+sOKdzXrngofQdtube3VoHSENz4zE=",
+        "lastModified": 1790880877,
+        "narHash": "sha256-j42XqSKOAtuqtfHiElyHre2YS/h3Y3q1DjFnKODN1/k=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "fb28acd59e2ac1984ec84fa496599d6b4bf3e690",
+        "rev": "7c065d1ed05381fceb2403b963c5ad150f32fe39",
         "type": "github"
       },
       "original": {
@@ -2763,11 +2763,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1790808516,
-        "narHash": "sha256-W1eheAdVq3d6bJ6h1vLlnWmMTeODXWcZe2OXc6P1jiQ=",
+        "lastModified": 1790873358,
+        "narHash": "sha256-4PzWk23m3G/APva3sH4kxrzeKUz0ACOZIOqum6B/jM4=",
         "owner": "crmne",
         "repo": "zapfast",
-        "rev": "c895bbd05d2ffadb6e7bf6e6bddd0048cbf3ebb6",
+        "rev": "d28686e7df7dadb3350abfc97b6ab1ac72921412",
         "type": "github"
       },
       "original": {

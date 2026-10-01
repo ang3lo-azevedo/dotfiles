@@ -24,5 +24,10 @@
     # LinUwUx-patched CachyOS Proton (syscall/CPUID spoofing, anti-cheat compat)
     proton-linuwux
     proton-ge-bin
+    steamtinkerlaunch
   ];
+
+  # The compat tool entry above only covers launching through Steam; the
+  # package itself provides the `steamtinkerlaunch` CLI and settings GUI.
+  environment.systemPackages = [pkgs.steamtinkerlaunch];
 }

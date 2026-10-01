@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   # services.avahi = {
   #   enable = true;
   #   publish = {
@@ -14,9 +10,11 @@
   services.wivrn = {
     enable = true;
     openFirewall = true;
-    # nixpkgs-xr tracks upstream WiVRn more closely than nixpkgs; the version
-    # in nixpkgs often lags by several releases and may not pair with recent headset firmware.
-    package = inputs.nixpkgs-xr.packages.${pkgs.stdenv.hostPlatform.system}.wivrn;
+    # Tagged release from nixpkgs, not nixpkgs-xr: nixpkgs-xr builds WiVRn's
+    # master branch, whose network protocol changes between releases, and the
+    # headset app (a release build) then refuses to connect with "incompatible
+    # server version". Server and headset app must be the same release.
+    package = pkgs.wivrn;
 
     # Run WiVRn as a systemd service on startup
     autoStart = true;
