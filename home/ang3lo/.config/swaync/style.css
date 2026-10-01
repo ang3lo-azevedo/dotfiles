@@ -207,11 +207,11 @@
   min-width: 150px;
 }
 
-/* Tick at the default night light strength: 60 is nightTemp (3500K) in wlsunset.nix */
+/* Tick at the default night light strength: 80 is nightTemp (2500K) in wlsunset.nix */
 .widget-slider.nightlight scale {
   background-image: linear-gradient(#eeeeee, #eeeeee);
   background-size: 2px 9px;
-  background-position: 60% center;
+  background-position: 80% center;
   background-repeat: no-repeat;
 }
 
@@ -266,18 +266,22 @@
   background: #1a1a1a;
 }
 
-/* Brightness mode toggle (all screens / this screen): a menubar of its own,
-   pulled up into the right end of the brightness slider row */
-.widget-slider.brightness {
+/* Toggle buttons beside the brightness slider (all screens / this screen) and the
+   night light slider (follow the sun / always on): each is a menubar of its own,
+   pulled up into the right end of its slider row */
+.widget-slider.brightness,
+.widget-slider.nightlight {
   margin-right: 50px;
 }
 
-.widget-menubar.brightness {
+.widget-menubar.brightness,
+.widget-menubar.nightlight {
   margin: -37px 8px 3px 444px;
   padding: 0;
 }
 
-.widget-menubar.brightness button:checked {
+.widget-menubar.brightness button:checked,
+.widget-menubar.nightlight button:checked {
   background: #eeeeee;
   color: #000000;
 }

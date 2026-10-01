@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Usage: wlsunset-set-temp.sh <0-100>: night light strength, 0 turns it off
 level="${1%.*}"
-# Detent around the default strength: 60 is nightTemp (3500K) in wlsunset.nix,
+# Detent around the default strength: 80 is nightTemp (2500K) in wlsunset.nix,
 # and the tick drawn on the slider in swaync/style.css
-if [ "$level" -ge 57 ] && [ "$level" -le 63 ]; then
-	level=60
+if [ "$level" -ge 77 ] && [ "$level" -le 83 ]; then
+	level=80
 fi
 runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 pending="$runtime/wlsunset-pending-level"
