@@ -68,10 +68,10 @@
     },
     "slider#nightlight": {
       "label": "",
-      "min": 1500,
-      "max": 6500,
-      "min_limit": 1500,
-      "max_limit": 6500,
+      "min": 0,
+      "max": 100,
+      "min_limit": 0,
+      "max_limit": 100,
       "cmd_setter": "~/.config/waybar/scripts/wlsunset-set-temp.sh $value",
       "cmd_getter": "~/.config/waybar/scripts/wlsunset-get-temp.sh"
     },
