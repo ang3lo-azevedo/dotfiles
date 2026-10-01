@@ -8,10 +8,6 @@ PATH="/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH"
 
 OUTPUT="$1"
 
-# waybar-toggle.sh signals the whole service cgroup with SIGUSR1 to show/hide
-# the bar: only waybar should react, this script must survive it.
-trap '' USR1
-
 render() {
 	jq -c -n --arg output "$OUTPUT" \
 		--argjson workspaces "$(niri msg -j workspaces)" \

@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Brightness of one output: the given one, or the one the swaync control center is open on.
-# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT]
+# With the "all" mode on, set without an OUTPUT applies to every connected output.
+# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle]
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+ALL_MODE="$RUNTIME/monitor-brightness-all"
 
 cc_output() {
 	local out
@@ -29,6 +31,26 @@ ddc_bus() {
 	return 1
 }
 
+set_output() {
+	local bus state target applied=""
+	case "$1" in
+	eDP*) brightnessctl -c backlight -q set "$2%" ;;
+	*)
+		bus=$(ddc_bus "$1") || return 1
+		state="$RUNTIME/monitor-brightness-$1"
+		echo "$2" >"$state"
+		# DDC writes are far slower than slider drag events: a single worker
+		# keeps applying the latest requested value, the other calls just record it
+		exec 9>"$state.lock"
+		flock -n 9 || return 0
+		while target=$(cat "$state") && [ "$target" != "$applied" ]; do
+			ddcutil --bus "$bus" --noverify setvcp 10 "$target"
+			applied="$target"
+		done
+		;;
+	esac
+}
+
 case "$1" in
 get)
 	OUTPUT="${2:-$(cc_output)}"
@@ -38,27 +60,31 @@ get)
 	esac
 	;;
 set)
-	OUTPUT="${3:-$(cc_output)}"
-	case "$OUTPUT" in
-	eDP*) brightnessctl -c backlight -q set "$2%" ;;
-	*)
-		BUS=$(ddc_bus "$OUTPUT") || exit 1
-		STATE="$RUNTIME/monitor-brightness-$OUTPUT"
-		echo "$2" >"$STATE"
-		# DDC writes are far slower than slider drag events: a single worker
-		# keeps applying the latest requested value, the other calls just record it
-		exec 9>"$STATE.lock"
-		flock -n 9 || exit 0
-		applied=""
-		while target=$(cat "$STATE") && [ "$target" != "$applied" ]; do
-			ddcutil --bus "$BUS" --noverify setvcp 10 "$target"
-			applied="$target"
+	if [ -n "$3" ]; then
+		set_output "$3" "$2"
+	elif [ -e "$ALL_MODE" ]; then
+		# Each output in its own subshell: they must not share the lock descriptor
+		for output in $(niri msg --json outputs | jq -r 'keys[]'); do
+			(set_output "$output" "$2") &
 		done
-		;;
-	esac
+		wait
+	else
+		set_output "$(cc_output)" "$2"
+	fi
+	;;
+mode)
+	if [ "$2" = toggle ]; then
+		# swaync passes the new state of its toggle button, anything else just flips
+		case "${SWAYNC_TOGGLE_STATE:-$([ -e "$ALL_MODE" ] && echo false || echo true)}" in
+		true) touch "$ALL_MODE" ;;
+		*) rm -f "$ALL_MODE" ;;
+		esac
+	else
+		[ -e "$ALL_MODE" ] && echo true || echo false
+	fi
 	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT]" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle]" >&2
 	exit 1
 	;;
 esac
