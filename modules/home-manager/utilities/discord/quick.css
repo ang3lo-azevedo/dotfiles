@@ -1,0 +1,222 @@
+/*
+ * Loaded after the Stylix theme. That theme maps Discord's blurple to base0B
+ * (green), its brand accent to base0F (magenta) and the remaining brand slots
+ * to base0D, so all of them are pulled to white here. Discord draws white
+ * text, icons and toggle knobs on top of the accent, so those flip to black.
+ */
+:root, .visual-refresh, .theme-dark, .theme-light {
+  --blurple-50: var(--base07) !important;
+  --blurple-60: var(--base06) !important;
+  --blurple-65: var(--base05) !important;
+  --brand-260: var(--base07) !important;
+  --brand-360: var(--base07) !important;
+  --brand-400: var(--base07) !important;
+  --brand-460: var(--base07) !important;
+  --brand-500: var(--base07) !important;
+  --brand-600: var(--base05) !important;
+  --button-filled-brand-background: var(--base07) !important;
+  --control-brand-foreground-new: var(--base07) !important;
+
+  --control-primary-text-default: var(--base00) !important;
+  --control-primary-text-hover: var(--base00) !important;
+  --control-primary-text-active: var(--base00) !important;
+  --control-primary-icon-default: var(--base00) !important;
+  --control-primary-icon-hover: var(--base00) !important;
+  --control-primary-icon-active: var(--base00) !important;
+  --badge-text-brand: var(--base00) !important;
+  --checkbox-icon-active: var(--base00) !important;
+  --radio-thumb-background-active: var(--base00) !important;
+  --switch-thumb-background-selected-default: var(--base00) !important;
+}
+.visual-refresh path[fill^="rgba(88, 101, 242, 1)"] {
+  fill: var(--base07) !important;
+}
+
+/*
+ * Every component Discord paints with an accent background. Generated from
+ * Discord's stylesheets: the hashed class names go stale when Discord renames
+ * them, at which point the affected entry simply stops matching.
+ */
+:is(
+  .activeButton_c15210,
+  .activeButton_c15210:hover,
+  .active_a19535,
+  .active_dcb619,
+  .activityUpdatedBadge__44107,
+  .addTags__3f6df,
+  .backNotice__84419,
+  .badge__4cd01,
+  .badge__7ed4d,
+  .badge__7edcd,
+  .badge__94439,
+  .badge_e3f69f,
+  .blurpleTreatment__148e9,
+  .botTagOP__82f07,
+  .botTagRegular__82f07,
+  .brand_c2b88c,
+  .calendarPicker_d27f17 .react-datepicker__day--selected,
+  .calendarPicker_d27f17 .react-datepicker__day.react-datepicker__day--keyboard-selected,
+  .calendarPicker_d27f17 .react-datepicker__day.react-datepicker__day--selected:hover,
+  .calendarPicker_d27f17 .react-datepicker__day:hover,
+  .checkIcon__270d7,
+  .checkboxCircle_d9161f,
+  .checkboxSelected_f4f0eb,
+  .checkbox__09aca.checked__09aca,
+  .checkbox_d9161f.selected_d9161f,
+  .circleIconButton__5bc7e.selected__5bc7e,
+  .circleIconButton__5bc7e:hover:not(.disabled__5bc7e),
+  .clydeIconContainer__53d6e,
+  .countContainer__5808f,
+  .countContainer_f369db,
+  .defaultIcon_f44397,
+  .discordIcon__1ad33,
+  .editWelcomeButton_d2b0e4,
+  .executedCommand_c19a55 .appLauncherOnboardingCommandName_c19a55:hover,
+  .footerButtonPrimary__892b9,
+  .footerButtonPrimary__892b9:active,
+  .footerButtonPrimary__892b9:hover,
+  .giftCardIcon__43963,
+  .guildIcon__4591d,
+  .iconBadgeStyleUnread__9293f,
+  .iconCircle__183e8,
+  .iconContainer__09ccc.checked__09ccc,
+  .labelChecked__0d242,
+  .lookOutlined__201d5.colorBrand__201d5:hover,
+  .memberCount__270d7,
+  .modeSelected__2ea32 .acronym__2ea32,
+  .modeSelected__2ea32:hover .acronym__2ea32,
+  .multiSelectCheckbox_a16aea.checked_a16aea,
+  .newBadge__29021,
+  .newBadge_edf232,
+  .newMembersNotice_acdcc0,
+  .newMembersNotice_acdcc0:active,
+  .noIcon__0a95c,
+  .notice__30f28,
+  .notice_c5cd6a,
+  .notice_c9e42f,
+  .pill__4c084,
+  .pinIcon__08166,
+  .playCircleWrapper_aae012,
+  .playing_a8e786 .playButtonContainer_a8e786:active,
+  .primary__75098,
+  .primary__75098:active,
+  .primary__75098:hover,
+  .primary_a22cb0,
+  .primary_a22cb0:active,
+  .primary_a22cb0:hover,
+  .publishButton_c01f07,
+  .roleCheckmark_e59759,
+  .selectedBrand_f975d3,
+  .selectedBrand_f975d3.focused_f975d3,
+  .selectedBrand_f975d3:hover,
+  .selectorButtonSelected__0907c,
+  .sendButtonContainer__36c1b:hover .subIcon__36c1b,
+  .stepWrapperComplete_a99139 .stepIconWrapper_a99139,
+  .subIcon__36c1b,
+  .tag__3e32a,
+  .tag_c6d624,
+  .tag_fe5e5d,
+  .themeToggled__11877,
+  .tierCloseHint_a36dee,
+  .tooltipBrand_c36707,
+  .trailingBadge__354ec,
+  .wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8,
+  .wrapper__6e9f8:hover .childWrapper__6e9f8
+) {
+  color: var(--base00) !important;
+}
+:is(
+  .activeButton_c15210,
+  .activeButton_c15210:hover,
+  .active_a19535,
+  .active_dcb619,
+  .activityUpdatedBadge__44107,
+  .addTags__3f6df,
+  .backNotice__84419,
+  .badge__4cd01,
+  .badge__7ed4d,
+  .badge__7edcd,
+  .badge__94439,
+  .badge_e3f69f,
+  .blurpleTreatment__148e9,
+  .botTagOP__82f07,
+  .botTagRegular__82f07,
+  .brand_c2b88c,
+  .calendarPicker_d27f17 .react-datepicker__day--selected,
+  .calendarPicker_d27f17 .react-datepicker__day.react-datepicker__day--keyboard-selected,
+  .calendarPicker_d27f17 .react-datepicker__day.react-datepicker__day--selected:hover,
+  .calendarPicker_d27f17 .react-datepicker__day:hover,
+  .checkIcon__270d7,
+  .checkboxCircle_d9161f,
+  .checkboxSelected_f4f0eb,
+  .checkbox__09aca.checked__09aca,
+  .checkbox_d9161f.selected_d9161f,
+  .circleIconButton__5bc7e.selected__5bc7e,
+  .circleIconButton__5bc7e:hover:not(.disabled__5bc7e),
+  .clydeIconContainer__53d6e,
+  .countContainer__5808f,
+  .countContainer_f369db,
+  .defaultIcon_f44397,
+  .discordIcon__1ad33,
+  .editWelcomeButton_d2b0e4,
+  .executedCommand_c19a55 .appLauncherOnboardingCommandName_c19a55:hover,
+  .footerButtonPrimary__892b9,
+  .footerButtonPrimary__892b9:active,
+  .footerButtonPrimary__892b9:hover,
+  .giftCardIcon__43963,
+  .guildIcon__4591d,
+  .iconBadgeStyleUnread__9293f,
+  .iconCircle__183e8,
+  .iconContainer__09ccc.checked__09ccc,
+  .labelChecked__0d242,
+  .lookOutlined__201d5.colorBrand__201d5:hover,
+  .memberCount__270d7,
+  .modeSelected__2ea32 .acronym__2ea32,
+  .modeSelected__2ea32:hover .acronym__2ea32,
+  .multiSelectCheckbox_a16aea.checked_a16aea,
+  .newBadge__29021,
+  .newBadge_edf232,
+  .newMembersNotice_acdcc0,
+  .newMembersNotice_acdcc0:active,
+  .noIcon__0a95c,
+  .notice__30f28,
+  .notice_c5cd6a,
+  .notice_c9e42f,
+  .pill__4c084,
+  .pinIcon__08166,
+  .playCircleWrapper_aae012,
+  .playing_a8e786 .playButtonContainer_a8e786:active,
+  .primary__75098,
+  .primary__75098:active,
+  .primary__75098:hover,
+  .primary_a22cb0,
+  .primary_a22cb0:active,
+  .primary_a22cb0:hover,
+  .publishButton_c01f07,
+  .roleCheckmark_e59759,
+  .selectedBrand_f975d3,
+  .selectedBrand_f975d3.focused_f975d3,
+  .selectedBrand_f975d3:hover,
+  .selectorButtonSelected__0907c,
+  .sendButtonContainer__36c1b:hover .subIcon__36c1b,
+  .stepWrapperComplete_a99139 .stepIconWrapper_a99139,
+  .subIcon__36c1b,
+  .tag__3e32a,
+  .tag_c6d624,
+  .tag_fe5e5d,
+  .themeToggled__11877,
+  .tierCloseHint_a36dee,
+  .tooltipBrand_c36707,
+  .trailingBadge__354ec,
+  .wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8,
+  .wrapper__6e9f8:hover .childWrapper__6e9f8
+) svg {
+  color: var(--base00) !important;
+}
+
+/* The Home logo ignores the inherited text color */
+.wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8 :is(svg, path),
+.wrapper__6e9f8:hover .childWrapper__6e9f8 :is(svg, path) {
+  color: var(--base00) !important;
+  fill: var(--base00) !important;
+}

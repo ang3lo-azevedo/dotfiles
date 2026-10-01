@@ -115,69 +115,7 @@
         "Equicord"
       ];
     };
-    # The Stylix theme maps Discord's blurple to base0B (green), its brand
-    # accent to base0F (magenta) and the rest of the brand slots to base0D, so
-    # pull all of them to white. Discord draws white text, icons and toggle
-    # knobs on top of the accent, so those flip to black to stay readable.
-    quickCss = ''
-      :root, .visual-refresh, .theme-dark, .theme-light {
-        --blurple-50: var(--base07) !important;
-        --blurple-60: var(--base06) !important;
-        --blurple-65: var(--base05) !important;
-        --brand-260: var(--base07) !important;
-        --brand-360: var(--base07) !important;
-        --brand-500: var(--base07) !important;
-        --button-filled-brand-background: var(--base07) !important;
-        --control-brand-foreground-new: var(--base07) !important;
-
-        --control-primary-text-default: var(--base00) !important;
-        --control-primary-text-hover: var(--base00) !important;
-        --control-primary-text-active: var(--base00) !important;
-        --control-primary-icon-default: var(--base00) !important;
-        --control-primary-icon-hover: var(--base00) !important;
-        --control-primary-icon-active: var(--base00) !important;
-        --badge-text-brand: var(--base00) !important;
-        --checkbox-icon-active: var(--base00) !important;
-        --radio-thumb-background-active: var(--base00) !important;
-        --switch-thumb-background-selected-default: var(--base00) !important;
-      }
-      .visual-refresh path[fill^="rgba(88, 101, 242, 1)"] {
-        fill: var(--base07) !important;
-      }
-
-      /* Components that hardcode white text on a brand background */
-      .active_a19535,
-      .activeButton_c15210,
-      .botTagRegular__82f07,
-      .calendarPicker_d27f17 .react-datepicker__day--selected,
-      .calendarPicker_d27f17 .react-datepicker__day--keyboard-selected,
-      .calendarPicker_d27f17 .react-datepicker__day:hover,
-      .circleIconButton__5bc7e.selected__5bc7e,
-      .discordIcon__1ad33,
-      .executedCommand_c19a55 .appLauncherOnboardingCommandName_c19a55:hover,
-      .giftCardIcon__43963,
-      .guildIcon__4591d,
-      .modeSelected__2ea32 .acronym__2ea32,
-      .newBadge_edf232,
-      .newMessagesBar__0f481,
-      .newTopicsBarContainer__0f481,
-      .noIcon__0a95c,
-      .pill__4c084,
-      .roleCheckmark_e59759,
-      .selectedBrand_f975d3,
-      .tierCloseHint_a36dee,
-      .tierTrialIndicator__3efc4,
-      .tooltipBrand_c36707,
-      .wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8,
-      .wrapper__6e9f8:hover .childWrapper__6e9f8 {
-        color: var(--base00) !important;
-      }
-      .wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8 :is(svg, path),
-      .wrapper__6e9f8:hover .childWrapper__6e9f8 :is(svg, path) {
-        color: var(--base00) !important;
-        fill: var(--base00) !important;
-      }
-    '';
+    quickCss = builtins.readFile ./quick.css;
     config = {
       autoUpdate = true;
       useQuickCss = true;
