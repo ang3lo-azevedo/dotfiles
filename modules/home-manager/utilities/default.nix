@@ -48,6 +48,7 @@
     ./flare-signal.nix
     #./zapzap.nix
     ./zapfast.nix
+    ./ayugram.nix
     ./betterbird.nix
     ./restic-browser.nix
     ./ventoy.nix

@@ -23,14 +23,14 @@
 
 
 ## General Stuff 
+- [ ] Fix webcam colors still wrong
 - [ ] add indicative to waybar of how many vertical and horizontal windows are present on niri
+- [ ] See about adding this https://github.com/NixenBiksen/ctf-nix
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
 - [ ] Fix this https://github.com/AprilNEA/OpenLogi
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
 - [ ] Check flare stuck loading
-- [ ] Check Zen sometimes taking a long time to load links
-- [ ] Fix webcam colors still wrong
 - [ ] Fix the sharescreen pipewire green bar and webcam discord share pipewire green bar too
 - [ ] See the top part of programs not being able to click problem
 - [ ] Add windows prefetch and analyze mft tool
