@@ -29,7 +29,7 @@
   "script-fail-notify": true,
   "widgets": [
     "menubar#label",
-    "backlight",
+    "slider#brightness",
     "slider#nightlight",
     "backlight#KB",
     "volume",
@@ -52,8 +52,14 @@
       "show-per-app": true,
       "show-per-app-label": true
     },
-    "backlight": {
-      "label": "󰃞"
+    "slider#brightness": {
+      "label": "󰃞",
+      "min": 0,
+      "max": 100,
+      "min_limit": 0,
+      "max_limit": 100,
+      "cmd_setter": "~/.config/waybar/scripts/monitor-brightness.sh set $value",
+      "cmd_getter": "~/.config/waybar/scripts/monitor-brightness.sh get"
     },
     "backlight#KB": {
       "label": "",
@@ -64,8 +70,10 @@
       "label": "",
       "min": 1500,
       "max": 6500,
-      "cmd_setter": "wlsunset-set-temp $value",
-      "cmd_getter": "wlsunset-get-temp"
+      "min_limit": 1500,
+      "max_limit": 6500,
+      "cmd_setter": "~/.config/waybar/scripts/wlsunset-set-temp.sh $value",
+      "cmd_getter": "~/.config/waybar/scripts/wlsunset-get-temp.sh"
     },
     "menubar#label": {
       "buttons#touchscreen": {

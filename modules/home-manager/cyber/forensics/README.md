@@ -35,6 +35,11 @@
 **What it is:** Tools for parsing Extensible Storage Engine (ESE / EDB) databases (e.g., `libesedb`, `ese-database-view`, `sidr`).
 **When to use:** You need to extract data from Windows Search index, Active Directory `ntds.dit`, or Exchange databases.
 
+### [libscca](./windows/prefetch/libscca.nix)
+**What it is:** Library and CLI (`sccainfo`) for parsing Windows Prefetch (`.pf`) files, including the compressed Windows 10/11 format.
+**When to use:** You pulled `C:\Windows\Prefetch` from an image and need evidence of execution: run count, last run times, and the files and volumes a program touched.
+**How to run:** `sccainfo CMD.EXE-4A81B364.pf`
+
 ### [libfsntfs](./windows/libfsntfs.nix)
 **What it is:** Library and tools for parsing NTFS file systems.
 **When to use:** You are doing raw disk analysis on an NTFS image and need to parse the MFT (Master File Table) or other NTFS structures.
@@ -102,6 +107,7 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 ### [analyzeMFT](./files/analyzeMFT.nix)
 **What it is:** Tool to parse the NTFS Master File Table.
 **When to use:** You extracted `$MFT` from a Windows drive and need a timeline of file creation, modification, and deletion.
+**How to run:** `analyzemft -f '$MFT' -o mft.csv` (or `--json`, `--body` for mactime, `--l2t` for log2timeline)
 
 ### [ExifTool](./files/exiftool.nix)
 **What it is:** Metadata parser.

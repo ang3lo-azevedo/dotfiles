@@ -111,12 +111,11 @@
   border: none;
 }
 
-.widget-volume .widget-volume-label {
+.widget-volume > box > label {
   font-size: 14px;
   color: #eeeeee;
   margin-right: 8px;
-  min-width: 24px;
-  max-width: 24px;
+  min-width: 28px;
 }
 
 .widget-volume scale {
@@ -154,12 +153,11 @@
   border: none;
 }
 
-.widget-backlight .widget-backlight-label {
+.widget-backlight > label {
   font-size: 14px;
   color: #eeeeee;
   margin-right: 8px;
-  min-width: 24px;
-  max-width: 24px;
+  min-width: 28px;
 }
 
 .widget-backlight scale {
@@ -189,12 +187,11 @@
 }
 
 /* Nightlight Slider Widget */
-.widget-slider label {
+.widget-slider > label {
   font-size: 14px;
   color: #eeeeee;
   margin-right: 8px;
   min-width: 28px;
-  max-width: 28px;
 }
 
 .widget-slider {

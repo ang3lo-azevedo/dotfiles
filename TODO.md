@@ -24,28 +24,19 @@
 
 ## General Stuff 
 - [ ] Fix webcam colors still wrong
-- [ ] add indicative to waybar of how many vertical and horizontal windows are present on niri
 - [ ] See about adding this https://github.com/NixenBiksen/ctf-nix
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
-- [ ] Fix this https://github.com/AprilNEA/OpenLogi
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
-- [ ] Check flare stuck loading
 - [ ] Fix the sharescreen pipewire green bar and webcam discord share pipewire green bar too
-- [ ] See the top part of programs not being able to click problem
-- [ ] Add windows prefetch and analyze mft tool
-- [ ] Fix Zen taking too much time
 - [ ] Create a crosswatch/floppy mpv scrobbler
 - [ ] Make nix config open on second screen
-- [ ] Fiz sending images taking a long time Zen
-- [ ] Make fingerprint unlock keyring
 - [ ] Improve niri fingerswiping
 - [ ] Add mpv slide to inscrease brightness
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
 - [ ] Improve keybinds
-- [ ] Fix webcam
 - [ ] See about calendar notification times
 - [ ] Add Home Assistant Controls to the waybar
 - [ ] Setup a systemd user service to automatically mount a Rclone Crypt remote over Google Drive for seamless, Zero-Knowledge E2E encrypted local document storage
