@@ -30,9 +30,24 @@ if [ "$1" = mode ]; then
 	true) rm -f "$DISABLED" ;;
 	*) mkdir -p "$(dirname "$DISABLED")" && touch "$DISABLED" ;;
 	esac
-	systemctl --user try-restart wlsunset
-	# Apply or undo the dimming right away instead of waiting for the timer
-	exec "$0"
+	# A few quick clicks would otherwise trip systemd's start limit and leave wlsunset dead:
+	# only the last click restarts it, with the limit cleared
+	pending="$RUNTIME/night-ramp-pending"
+	stamp=$(date +%s%N)
+	echo "$stamp" >"$pending"
+	(
+		sleep 0.5
+		[ "$(cat "$pending")" = "$stamp" ] || exit 0
+		was_active=$(systemctl --user is-active wlsunset)
+		systemctl --user reset-failed wlsunset
+		# "failed" here means an earlier start-limit hit, not that the night light was switched off
+		if [ "$was_active" = active ] || [ "$was_active" = failed ]; then
+			systemctl --user restart wlsunset
+		fi
+		# Apply or undo the dimming right away instead of waiting for the timer
+		"$0"
+	) >/dev/null 2>&1 &
+	exit
 fi
 
 exec 9>"$RUNTIME/night-ramp.lock"
