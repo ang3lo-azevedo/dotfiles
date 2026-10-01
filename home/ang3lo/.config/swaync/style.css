@@ -207,6 +207,14 @@
   min-width: 150px;
 }
 
+/* Tick at the default night light strength: 60 is nightTemp (3500K) in wlsunset.nix */
+.widget-slider.nightlight scale {
+  background-image: linear-gradient(#eeeeee, #eeeeee);
+  background-size: 2px 9px;
+  background-position: 60% center;
+  background-repeat: no-repeat;
+}
+
 .widget-slider scale trough {
   border-radius: 2px;
   background: #2a2a2a;

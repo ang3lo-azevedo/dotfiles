@@ -15,7 +15,6 @@
     "modules-right": [
         "tray",
         "custom/niri-layout",
-        "custom/wlsunset",
         "wireplumber",
         "bluetooth",
         "network",
@@ -81,23 +80,6 @@
         "on-click-forward": "playerctl next",
         "on-scroll-up": "touch /tmp/waybar-mpris-dismiss && rm -f /tmp/waybar-mpris-show",
         "on-scroll-down": "touch /tmp/waybar-mpris-show && rm -f /tmp/waybar-mpris-dismiss",
-        "reverse-scrolling": true,
-        "reverse-mouse-scrolling": false
-    },
-    "custom/wlsunset": {
-        "interval": "once",
-        "exec": "if systemctl --user is-active --quiet wlsunset; then echo '{\"alt\": \"on\"}'; else echo '{\"alt\": \"off\"}'; fi",
-        "on-click": "if systemctl --user is-active --quiet wlsunset; then systemctl --user stop wlsunset; else systemctl --user start wlsunset; fi; pkill -RTMIN+1 waybar",
-        "signal": 1,
-        "return-type": "json",
-        "format": "{icon}",
-        "tooltip-format": "wlsunset: {alt}",
-        "format-icons": {
-            "off": "\uf185",
-            "on": "\uf186"
-        },
-        "on-scroll-up": "swaync-client -cp",
-        "on-scroll-down": "swaync-client --change-cc-monitor EXTERNAL_OUTPUT -op",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": false
     },
