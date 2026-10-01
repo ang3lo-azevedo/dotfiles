@@ -434,21 +434,6 @@
         xr = inputs.nixpkgs-xr.packages."x86_64-linux";
       })
       (_: prev: {
-        # HACK: remove once pdal/vtk fix GDAL 3.13 const API incompatibility (GetMetadata returns CSLConstList)
-        pdal = prev.pdal.overrideAttrs (old: {
-          env =
-            (old.env or {})
-            // {
-              NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
-            };
-        });
-        vtk = prev.vtk.overrideAttrs (old: {
-          env =
-            (old.env or {})
-            // {
-              NIX_CFLAGS_COMPILE = ((old.env or {}).NIX_CFLAGS_COMPILE or "") + " -fpermissive";
-            };
-        });
         # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
         niri = prev.niri.overrideAttrs (old: {
           postInstall =

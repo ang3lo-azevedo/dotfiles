@@ -11,6 +11,7 @@
     ./inkscape.nix
     ./gimp.nix
     ./kdenlive.nix
+    ./obs.nix
     ./audacity.nix
     ./spotube.nix
     ./spicetify.nix
