@@ -55,6 +55,7 @@
     ./calendar.nix
     ./downloads.nix
     ./auteticacaogovpt.nix
+    ./openlogi.nix
     ./btop-override.nix
     ./ssh.nix
   ];
