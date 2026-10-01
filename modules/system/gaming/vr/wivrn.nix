@@ -1,4 +1,17 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # HACK: remove once xrizer stops asserting that the action manifest path
+  # never changes. NomaiVR (Outer Wilds) sets it twice, from the game's
+  # StreamingAssets and then from its mod folder, and the assert aborts the game.
+  xrizer = pkgs.xrizer.overrideAttrs (old: {
+    postPatch =
+      (old.postPatch or "")
+      + ''
+        substituteInPlace src/input/action_manifest.rs \
+          --replace-fail 'assert_eq!(p, manifest_path);' \
+            'if p.as_path() != manifest_path { warn!("action manifest path changed from {} to {}", p.display(), manifest_path.display()); }'
+      '';
+  });
+in {
   # services.avahi = {
   #   enable = true;
   #   publish = {
@@ -14,7 +27,9 @@
     # master branch, whose network protocol changes between releases, and the
     # headset app (a release build) then refuses to connect with "incompatible
     # server version". Server and headset app must be the same release.
-    package = pkgs.wivrn;
+    # The override bakes the patched xrizer into WiVRn's default OpenVR compat
+    # search path, so no store path has to be pinned in WiVRn's config.json.
+    package = pkgs.wivrn.override {inherit xrizer;};
 
     # Run WiVRn as a systemd service on startup
     autoStart = true;

@@ -16,5 +16,7 @@ echo "$NOW" >"$LAST_RUN_FILE"
 DIFF=$((NOW - LAST_RUN))
 
 if [ "$DIFF" -gt 200 ]; then
-	systemctl --user kill -s SIGUSR1 --kill-who=all "waybar-output@${1}.service"
+	# Signal waybar alone: signalling the whole service cgroup also kills the
+	# modules' long-running exec children (swaync-client), freezing their output.
+	pkill -USR1 -f "^waybar -c /tmp/waybar-${1}\.jsonc "
 fi

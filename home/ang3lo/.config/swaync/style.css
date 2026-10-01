@@ -266,6 +266,22 @@
   background: #1a1a1a;
 }
 
+/* Brightness mode toggle (all screens / this screen): a menubar of its own,
+   pulled up into the right end of the brightness slider row */
+.widget-slider.brightness {
+  margin-right: 50px;
+}
+
+.widget-menubar.brightness {
+  margin: -37px 8px 3px 444px;
+  padding: 0;
+}
+
+.widget-menubar.brightness button:checked {
+  background: #eeeeee;
+  color: #000000;
+}
+
 /* Menubar Widget */
 .widget-menubar {
   background: transparent;

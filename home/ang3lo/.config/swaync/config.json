@@ -30,6 +30,7 @@
   "widgets": [
     "menubar#label",
     "slider#brightness",
+    "menubar#brightness",
     "slider#nightlight",
     "backlight#KB",
     "volume",
@@ -60,6 +61,19 @@
       "max_limit": 100,
       "cmd_setter": "~/.config/waybar/scripts/monitor-brightness.sh set $value",
       "cmd_getter": "~/.config/waybar/scripts/monitor-brightness.sh get"
+    },
+    "menubar#brightness": {
+      "buttons#mode": {
+        "position": "right",
+        "actions": [
+          {
+            "label": "󰍺",
+            "type": "toggle",
+            "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
+            "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
+          }
+        ]
+      }
     },
     "backlight#KB": {
       "label": "",
