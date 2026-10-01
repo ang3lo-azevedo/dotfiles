@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 # Brightness of one output: the given one, or the one the swaync control center is open on.
 # With the "all" mode on, set without an OUTPUT applies to every connected output.
-# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle]
+# "auto" is wluma, which lowers the brightness set here depending on the screen content and time of day.
+# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle] | auto [toggle]
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
+# Checked by the wluma unit (wluma.nix) so it also stays off across logins
+AUTO_OFF="${XDG_STATE_HOME:-$HOME/.local/state}/wluma-disabled"
 
 cc_output() {
 	local out
@@ -83,8 +86,27 @@ mode)
 		[ -e "$ALL_MODE" ] && echo true || echo false
 	fi
 	;;
+auto)
+	if [ "$2" = toggle ]; then
+		# swaync passes the new state of its toggle button, anything else just flips
+		case "${SWAYNC_TOGGLE_STATE:-$(systemctl --user is-active --quiet wluma && echo false || echo true)}" in
+		true)
+			rm -f "$AUTO_OFF"
+			# Quick clicks would otherwise trip systemd's start limit
+			systemctl --user reset-failed wluma
+			systemctl --user start wluma
+			;;
+		*)
+			mkdir -p "$(dirname "$AUTO_OFF")" && touch "$AUTO_OFF"
+			systemctl --user stop wluma
+			;;
+		esac
+	else
+		systemctl --user is-active --quiet wluma && echo true || echo false
+	fi
+	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle]" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle] | auto [toggle]" >&2
 	exit 1
 	;;
 esac

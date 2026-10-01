@@ -63,8 +63,9 @@ sunrise=$(minutes "${sunrise:-07:00}")
 now=$(minutes "${1:-$(date +%H:%M)}")
 
 target=0
-# Night light switched off means no night mode at all: screens go back to normal too
-if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset; then
+# Night light switched off means no night mode at all: screens go back to normal too.
+# wluma owns the brightness while it runs: dimming under it would be learned as a preference and drift.
+if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset && ! systemctl --user is-active --quiet wluma; then
 	if [ "$now" -ge "$sunset" ] || [ "$now" -lt "$sunrise" ]; then
 		target=$STEPS
 	elif [ "$now" -ge "$start" ]; then

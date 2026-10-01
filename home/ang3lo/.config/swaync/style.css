@@ -266,10 +266,13 @@
   background: #1a1a1a;
 }
 
-/* Toggle buttons beside the brightness slider (all screens / this screen) and the
-   night light slider (follow the sun / always on): each is a menubar of its own,
+/* Toggle buttons beside the brightness slider (automatic, all screens / this screen) and the
+   night light slider (follow the sun / always on): each row is a menubar of its own,
    pulled up into the right end of its slider row */
-.widget-slider.brightness,
+.widget-slider.brightness {
+  margin-right: 86px;
+}
+
 .widget-slider.nightlight {
   margin-right: 50px;
 }
@@ -278,6 +281,10 @@
 .widget-menubar.nightlight {
   margin: -37px 8px 3px 444px;
   padding: 0;
+}
+
+.widget-menubar.brightness {
+  margin-left: 408px;
 }
 
 .widget-menubar.brightness button:checked,
