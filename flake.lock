@@ -59,11 +59,11 @@
         "tpm-keyring-unlock": "tpm-keyring-unlock"
       },
       "locked": {
-        "lastModified": 1790845882,
-        "narHash": "sha256-1oVLe9loqT3yNbNhPG6gEyR83zI5rDNhx2/dCTijrgk=",
+        "lastModified": 1790851773,
+        "narHash": "sha256-Yw0mTFTRFmfskDxTLgiZVow7g4l3/l9u5JniHoUqpNg=",
         "ref": "refs/heads/main",
-        "rev": "d57c1e8315c59330e1b5683a9d11d65c1be51941",
-        "revCount": 45,
+        "rev": "899c81115a626556932a56fd396a4a2474877d63",
+        "revCount": 46,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1153,11 +1153,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1790724136,
-        "narHash": "sha256-i8OHczpz6AWsVbbEYiqRQZbAvuG0aw10Ws7fVdj45Vk=",
+        "lastModified": 1790853984,
+        "narHash": "sha256-v5+DBEGnMC6phAf+/Rt7EtxjIDzy+NMKdHJIFJGh5qc=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "663642398525f1d46163553d32853325b6b6de08",
+        "rev": "ba33415d747d8dedd2931af107521634f1f2e8a8",
         "type": "github"
       },
       "original": {
@@ -1378,11 +1378,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1790827994,
-        "narHash": "sha256-WrOFioPhBn+ksK50dBOujd+7YWwRGMVellN7VV6dQW0=",
+        "lastModified": 1790853817,
+        "narHash": "sha256-rSM4eJPO0WrBfdtIetGXwpXV+d4FraGyLo3lZhg1x4M=",
         "owner": "4evy",
         "repo": "nixcord",
-        "rev": "727448ed51079b988fb581e3028db11a9cf9074a",
+        "rev": "97659c26a9ec3525f632dc79a7f4e5257f577c9c",
         "type": "github"
       },
       "original": {
@@ -1589,11 +1589,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1790578696,
-        "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
+        "lastModified": 1790689126,
+        "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f",
+        "rev": "b4fd65b198c599cbe814fcb9f42d25d021595ec9",
         "type": "github"
       },
       "original": {
@@ -1673,11 +1673,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1790578696,
-        "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
+        "lastModified": 1790689126,
+        "narHash": "sha256-ilerN1WLSvF+HMjziC/Wv99J5y02maDH+6hZPwsORKg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f",
+        "rev": "b4fd65b198c599cbe814fcb9f42d25d021595ec9",
         "type": "github"
       },
       "original": {
@@ -1821,11 +1821,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1790847478,
-        "narHash": "sha256-M+C9hISgaAYU7FddaAE/2TLWoD4CkLd/v0UtRYsu0mc=",
+        "lastModified": 1790849722,
+        "narHash": "sha256-HY3ODuAJwYYiaKQcCE4Aa5nwYES2jfreObRmSrxdMeo=",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
-        "rev": "213799d77cea0989c3a0ef6783d963be24c206eb",
+        "rev": "ef164de65c639cdfa98b9bb08d1bc0ddf01b3dec",
         "type": "github"
       },
       "original": {
@@ -2221,11 +2221,11 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1790758791,
-        "narHash": "sha256-17Sso7H/HGBHwb7EpS/eikuQtshSf5vBS7/z0TSoqeo=",
+        "lastModified": 1790857386,
+        "narHash": "sha256-6R95bCKoFGVluZ37VzOQx5RKKDWr74Vse/+3hDnc0IE=",
         "ref": "refs/heads/main",
-        "rev": "3faba4bd62ae27252cb24e129aad0fa3690f941a",
-        "revCount": 374,
+        "rev": "8b9dd2f9cd3d0e1fb10a557bf179d261ae113cd4",
+        "revCount": 380,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/samsung-galaxy-book-linux-fixes"
       },
