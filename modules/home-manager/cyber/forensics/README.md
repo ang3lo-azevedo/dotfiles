@@ -86,13 +86,13 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 
 ## File & Disk Forensics ([files/](./files/))
 
+### [TestDisk](./files/testdisk.nix)
+**What it is:** Data recovery utility.
+**When to use:** You have a full raw disk image (`.dd`, `.E01`) or logical partition and need to analyze file systems, recover deleted files, search by keywords, or generate forensic case reports. It is also used when a partition table is corrupted, a partition was accidentally deleted, or you need to carve files.
+
 ### [Autopsy & Sleuthkit](./files/)
 **What it is:** The complete disk forensics platform.
 **When to use:** You have a full raw disk image (`.dd`, `.E01`) or logical partition and need to analyze file systems, recover deleted files, search by keywords, or generate forensic case reports.
-
-### [TestDisk](./files/testdisk.nix)
-**What it is:** Data recovery utility.
-**When to use:** A partition table is corrupted, a partition was accidentally deleted, or you need to carve/undelete files.
 
 ### [Dislocker](./files/dislocker.nix)
 **What it is:** BitLocker volume decryptor for Linux.
