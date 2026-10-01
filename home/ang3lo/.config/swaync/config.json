@@ -68,6 +68,12 @@
         "position": "right",
         "actions": [
           {
+            "label": "󰃡",
+            "type": "toggle",
+            "command": "~/.config/waybar/scripts/monitor-brightness.sh auto toggle",
+            "update-command": "~/.config/waybar/scripts/monitor-brightness.sh auto"
+          },
+          {
             "label": "󰍺",
             "type": "toggle",
             "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
