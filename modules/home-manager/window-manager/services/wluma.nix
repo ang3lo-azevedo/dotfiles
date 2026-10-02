@@ -26,9 +26,10 @@
 in {
   services.wluma = {
     enable = true;
-    # With a screen at 100%, the manual predictor can ask for one step past the maximum.
+    # With a screen at 100%, the manual predictor can ask for more than the maximum.
     # Unpatched, wluma retries that forever: it floods the journal (hundreds of lines a
-    # second) and burns CPU. Drop this once nixpkgs moves past 4.11.
+    # second) and burns CPU. The patch clamps the target to what the device accepts and
+    # stops retrying a value the device refused. Drop this once nixpkgs moves past 4.11.
     package = pkgs.wluma.overrideAttrs (old: {
       patches = (old.patches or []) ++ [./wluma-unreachable-target.patch];
     });
@@ -72,6 +73,14 @@ in {
       };
     };
   };
+
+  # Both MSI monitors answer DDC unreliably, so wluma gives up on direct access and polls
+  # them by running ddcutil about once a second. The startup checks are most of the cost
+  # of each run, and they are pointless when the bus is given explicitly.
+  xdg.configFile."ddcutil/ddcutilrc".text = ''
+    [global]
+    options: --skip-ddc-checks
+  '';
 
   # Created by the toggle in the swaync panel (monitor-brightness.sh) so that switching
   # automatic brightness off also holds across logins

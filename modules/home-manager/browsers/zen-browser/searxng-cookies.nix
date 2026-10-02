@@ -3,12 +3,18 @@
   lib,
   ...
 }: let
-  cols = "originAttributes, name, value, host, path, expiry, lastAccessed, creationTime, isSecure, isHttpOnly, sameSite, schemeMap";
+  cols = "originAttributes, name, value, host, path, expiry, lastAccessed, creationTime, updateTime, isSecure, isHttpOnly, sameSite, schemeMap";
   host = "searxng.pi.at.eu.org";
-  ts = "cast(strftime('%s', 'now') as integer) * 1000000";
-  expiry = "4070908800";
+  now = "cast(strftime('%s', 'now') as integer)";
+  ts = "${now} * 1000000";
+  # Cookie DB schema 17 stores expiry in milliseconds (timestamps stay in
+  # microseconds). A value in seconds is read as a 1970 date, so the row is
+  # dropped as expired and takes the site-set cookie it replaced with it.
+  # 400 days is the browser's own lifetime cap for cookies.
+  expiry = "(${now} + 400 * 86400) * 1000";
 
-  ins = ctx: n: v: "INSERT OR REPLACE INTO moz_cookies (${cols}) VALUES ('${ctx}', '${n}', '${v}', '${host}', '/', ${expiry}, ${ts}, ${ts}, 0, 0, 0, 0);";
+  # sameSite=256 (unset) and schemeMap=2 (https) match what the site itself sets.
+  ins = ctx: n: v: "INSERT OR REPLACE INTO moz_cookies (${cols}) VALUES ('${ctx}', '${n}', '${v}', '${host}', '/', ${expiry}, ${ts}, ${ts}, ${ts}, 0, 0, 256, 2);";
 
   cookies = {
     autocomplete = "google";
@@ -18,9 +24,9 @@
     disabled_plugins = "";
     doi_resolver = "oadoi.org";
     enabled_engines = "";
-    enabled_plugins = "tor_check,oa_doi_rewrite";
+    enabled_plugins = "oa_doi_rewrite";
     favicon_resolver = "";
-    hotkeys = "default";
+    hotkeys = "vim";
     image_proxy = "0";
     language = "auto";
     locale = "en";
@@ -40,14 +46,17 @@
   # originAttributes="" is the default (no container); "^userContextId=N" is container N.
   contexts = ["" "^userContextId=1"];
 
-  sqlFile =
-    pkgs.writeText "searxng-cookies.sql" (lib.concatStringsSep "\n"
-      (lib.concatLists (map (ctx: lib.mapAttrsToList (ins ctx) cookies) contexts)));
+  # Single transaction: a locked database fails once instead of once per row,
+  # and never leaves a half-written set of preferences.
+  sqlFile = pkgs.writeText "searxng-cookies.sql" (lib.concatStringsSep "\n"
+    (["BEGIN IMMEDIATE;"]
+      ++ lib.concatLists (map (ctx: lib.mapAttrsToList (ins ctx) cookies) contexts)
+      ++ ["COMMIT;"]));
 
   applyScript = pkgs.writeShellScript "searxng-cookies-apply" ''
     profile="$HOME/.config/zen/ang3lo/cookies.sqlite"
     [ -f "$profile" ] || exit 0
-    if ! ${pkgs.sqlite}/bin/sqlite3 "$profile" < ${sqlFile} 2>&1; then
+    if ! ${pkgs.sqlite}/bin/sqlite3 -bail "$profile" < ${sqlFile} 2>&1; then
       echo "searxng-cookies: failed to write (browser may be open, will retry next login)" >&2
     fi
   '';

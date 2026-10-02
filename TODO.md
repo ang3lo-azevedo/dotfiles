@@ -23,15 +23,12 @@
 
 
 ## General Stuff 
-- [ ] Fix webcam colors still wrong
-- [ ] See about adding this https://github.com/NixenBiksen/ctf-nix
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
 - [ ] Create a crosswatch/floppy mpv scrobbler
 - [ ] Make nix config open on second screen
 - [ ] Improve niri fingerswiping
-- [ ] Add mpv slide to inscrease brightness
 - [ ] See to add auto comments and auto update of the wiki/README
 - [ ] Define searxng configs
 - [ ] Keep notification with current backup percentage
