@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Brightness of one output: the given one, or the one the swaync control center is open on.
-# With the "all" mode on, set without an OUTPUT applies to every connected output.
+# With the "all" mode on, set and step without an OUTPUT apply to every connected output.
+# "step" is for the brightness keys: without an OUTPUT and with the "all" mode off, it acts on the focused output.
 # "auto" is wluma, which lowers the brightness set here depending on the screen content and time of day.
-# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle] | auto [toggle]
+# Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
@@ -54,6 +55,23 @@ set_output() {
 	esac
 }
 
+step_output() {
+	local bus sign=+
+	[ "$2" = down ] && sign=-
+	case "$1" in
+	eDP*) brightnessctl -c backlight -q set "2%$sign" ;;
+	*)
+		bus=$(ddc_bus "$1") || return 1
+		# A held key repeats faster than DDC can write: presses that arrive during a write are dropped,
+		# queueing them would keep changing the brightness long after the key is released.
+		# Not the lock of set_output, which would drop a slider value while a key press is being applied
+		exec 9>"$RUNTIME/monitor-brightness-$1.step.lock"
+		flock -n 9 || return 0
+		ddcutil --bus "$bus" --noverify setvcp 10 "$sign" 5
+		;;
+	esac
+}
+
 case "$1" in
 get)
 	OUTPUT="${2:-$(cc_output)}"
@@ -73,6 +91,18 @@ set)
 		wait
 	else
 		set_output "$(cc_output)" "$2"
+	fi
+	;;
+step)
+	if [ -n "$3" ]; then
+		step_output "$3" "$2"
+	elif [ -e "$ALL_MODE" ]; then
+		for output in $(niri msg --json outputs | jq -r 'keys[]'); do
+			(step_output "$output" "$2") &
+		done
+		wait
+	else
+		step_output "$(niri msg --json focused-output | jq -r '.name')" "$2"
 	fi
 	;;
 mode)
@@ -106,7 +136,7 @@ auto)
 	fi
 	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | mode [toggle] | auto [toggle]" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]" >&2
 	exit 1
 	;;
 esac
