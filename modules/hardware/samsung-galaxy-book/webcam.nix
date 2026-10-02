@@ -24,6 +24,11 @@
     # The soft ISP's plain gamma curve leaves shadows lifted next to a UVC
     # webcam. videobalance pivots contrast on black, so the negative
     # brightness moves the pivot to mid-grey.
-    relayColorFilter = "videomedian filtersize=9 lum-only=false ! videobalance contrast=1.25 saturation=1.25 brightness=-0.11 ! videoconvert";
+    #
+    # Reds come out of the CCM leaning magenta and undersaturated: skin
+    # measured hue 4, saturation 0.18 against 17 and 0.30 on a UVC webcam in
+    # the same light, with a grey wall neutral on both. The hue and saturation
+    # values bring skin to 18 and 0.28.
+    relayColorFilter = "videomedian filtersize=9 lum-only=false ! videobalance contrast=1.25 saturation=1.9 hue=-0.06 brightness=-0.11 ! videoconvert";
   };
 }
