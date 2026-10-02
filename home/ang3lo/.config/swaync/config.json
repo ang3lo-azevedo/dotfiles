@@ -70,21 +70,18 @@
           {
             "label": "󰃡",
             "type": "toggle",
-            "tooltip": "Auto-Brightness (wluma)",
             "command": "~/.config/waybar/scripts/monitor-brightness.sh auto toggle",
             "update-command": "~/.config/waybar/scripts/monitor-brightness.sh auto"
           },
           {
             "label": "󰍺",
             "type": "toggle",
-            "tooltip": "All Monitors (DDC)",
             "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
             "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
           },
           {
             "label": "󰖔",
             "type": "toggle",
-            "tooltip": "Auto-Dim Brightness at Sunset",
             "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
             "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
           }
@@ -98,7 +95,6 @@
           {
             "label": "󰥔",
             "type": "toggle",
-            "tooltip": "Auto-Dim Colors (Night Light) at Sunset",
             "command": "~/.config/waybar/scripts/wlsunset-mode.sh toggle",
             "update-command": "~/.config/waybar/scripts/wlsunset-mode.sh status"
           }
