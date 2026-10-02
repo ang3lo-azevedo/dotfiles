@@ -1,0 +1,43 @@
+--- a/src/brightness/controller.rs
++++ b/src/brightness/controller.rs
+@@ -15,6 +15,9 @@
+     prediction_rx: Receiver<u64>,
+     current: Option<u64>,
+     target: Option<Target>,
++    // Value the device refused to move towards, typically one past its maximum.
++    // Retrying it every frame would spin and flood the log.
++    rejected: Option<u64>,
+ }
+ 
+ #[derive(Debug, PartialEq, Eq, Clone, Copy)]
+@@ -37,6 +40,7 @@
+             prediction_rx,
+             current: None,
+             target: None,
++            rejected: None,
+         }
+     }
+ 
+@@ -85,11 +89,13 @@
+             .await
+             .expect("Unable to send new brightness value set by user, channel is dead");
+         self.target = None;
++        self.rejected = None;
+     }
+ 
+     fn update_target(&mut self, desired: u64) {
+         match (&self.target, self.current) {
+             (Some(old_target), _) if old_target.desired == desired => (),
++            _ if self.rejected == Some(desired) => (),
+             (_, Some(current)) if desired == current => (),
+             (_, Some(current)) => {
+                 let max_transition_steps = TRANSITION_MAX_MS
+@@ -117,6 +123,8 @@
+                         Ok(set_value) => {
+                             if set_value == current {
+                                 log::warn!("Unable to change brightness from {current} to {new_value}, please report if you know how to reproduce this");
++                                self.rejected = Some(target.desired);
++                                self.target = None;
+                             }
+                             self.current = Some(set_value);
+                         }

@@ -20,6 +20,10 @@
     # In a dim room AGC runs the sensor at max analog gain and the image fills
     # with colour speckle; a 3x3 median on all planes costs ~11ms/frame at
     # 1080p on one core.
-    relayColorFilter = "videomedian filtersize=9 lum-only=false ! videoconvert";
+    #
+    # The soft ISP's plain gamma curve leaves shadows lifted next to a UVC
+    # webcam. videobalance pivots contrast on black, so the negative
+    # brightness moves the pivot to mid-grey.
+    relayColorFilter = "videomedian filtersize=9 lum-only=false ! videobalance contrast=1.25 saturation=1.25 brightness=-0.11 ! videoconvert";
   };
 }
