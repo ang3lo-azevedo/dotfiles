@@ -36,11 +36,12 @@
 
     [[ $latitude == -* ]] && lat="''${latitude#-}S" || lat="''${latitude}N"
     [[ $longitude == -* ]] && lon="''${longitude#-}W" || lon="''${longitude}E"
-    read -r sunrise sunset <<< "$(${pkgs.sunwait}/bin/sunwait list 1 civil "$lat" "$lon" | tr -d ',')"
+    read -r sunrise sunset <<< "$(${pkgs.sunwait}/bin/sunwait list 1 daylight "$lat" "$lon" | tr -d ',')"
     [[ $sunrise == ??:?? && $sunset == ??:?? ]] || { sunrise=07:00; sunset=19:00; }
 
-    # Start fading 30 minutes before civil sunset, instead of finishing exactly at sunset
-    ramp_start=$(date -d "$sunset 30 minutes ago" +%H:%M)
+    # Center the 90-minute ramp exactly on the actual sunset
+    # (starts 45 minutes before, ends 45 minutes after)
+    ramp_start=$(date -d "$sunset 45 minutes ago" +%H:%M)
     ramp_end=$(date -d "$ramp_start ${toString rampMinutes} minutes" +%H:%M)
     echo "$ramp_start $ramp_end $sunrise" > ${sunTimesFile}
 
