@@ -195,12 +195,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Fast native WhatsApp client
-    zapfast = {
-      url = "github:crmne/zapfast";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # PhotoGIMP assets and config
     photogimp = {
       url = "github:Diolinux/PhotoGIMP/3.0";

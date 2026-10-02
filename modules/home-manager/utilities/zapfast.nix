@@ -5,9 +5,10 @@
   pkgs,
   ...
 }: let
+  # Built in pkgs/ang3lo-nur from the latest release tag, which nvfetcher tracks there.
   # The on-state switch knob is hardcoded white, which vanishes on the white
   # accent, so draw it in on_accent like every other shape on the accent
-  zapfast = inputs.zapfast.packages.x86_64-linux.zapfast.overrideAttrs (old: {
+  zapfast = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.zapfast.overrideAttrs (old: {
     postPatch =
       (old.postPatch or "")
       + ''

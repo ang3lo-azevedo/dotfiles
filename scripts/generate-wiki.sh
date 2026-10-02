@@ -114,7 +114,6 @@ cat <<'EOF'
 | `binaryninja` | Binary Ninja packaging |
 | `proxmox-nixos` | Proxmox VE NixOS modules and overlay |
 | `dmatools` | MemProcFS / DMA tooling |
-| `zapfast` | Fast native WhatsApp client |
 | `openlogi` | Local-first Logitech Options+ alternative (DPI, buttons, SmartShift) |
 | `cpak` | Rootless per-app sandbox runtime, used for the upstream Bottles build |
 | `pre-commit-hooks` | Nix-managed pre-commit hooks |
