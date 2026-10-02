@@ -106,6 +106,14 @@ else
 	while read -r output value; do
 		base[$output]=$value
 	done < <(tail -n +2 "$STATE")
+
+	# Add any newly connected monitors that aren't in the state file
+	for output in $(niri msg --json outputs | jq -r 'keys[]'); do
+		if [ -z "${base[$output]:-}" ]; then
+			value=$("$SCRIPTS/monitor-brightness.sh" get "$output")
+			[ -n "$value" ] && base[$output]=$value
+		fi
+	done
 fi
 
 for output in "${!base[@]}"; do
