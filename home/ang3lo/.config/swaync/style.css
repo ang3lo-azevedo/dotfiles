@@ -270,7 +270,7 @@
    night light slider (follow the sun / always on): each row is a menubar of its own,
    pulled up into the right end of its slider row */
 .widget-slider.brightness {
-  margin-right: 86px;
+  margin-right: 122px;
 }
 
 .widget-slider.nightlight {
@@ -284,7 +284,7 @@
 }
 
 .widget-menubar.brightness {
-  margin-left: 408px;
+  margin-left: 372px;
 }
 
 .widget-menubar.brightness button:checked,
