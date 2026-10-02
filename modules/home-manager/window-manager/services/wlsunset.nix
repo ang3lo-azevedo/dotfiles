@@ -11,8 +11,8 @@
   # Created by night-ramp.sh when its toggle in the swaync panel is switched off
   rampDisabledFile = ''"''${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-disabled"'';
 
-  # Minutes before sunset over which the night light fades in and the screens dim
-  rampMinutes = 120;
+  # Minutes over which the night light fades in and the screens dim
+  rampMinutes = 90;
 
   # Read by night-ramp.sh so the brightness follows the same window
   sunTimesFile = ''"''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wlsunset-sun-times"'';
@@ -36,15 +36,15 @@
 
     [[ $latitude == -* ]] && lat="''${latitude#-}S" || lat="''${latitude}N"
     [[ $longitude == -* ]] && lon="''${longitude#-}W" || lon="''${longitude}E"
-    read -r sunrise sunset <<< "$(${pkgs.sunwait}/bin/sunwait list 1 daylight "$lat" "$lon" | tr -d ',')"
+    read -r sunrise sunset <<< "$(${pkgs.sunwait}/bin/sunwait list 1 civil "$lat" "$lon" | tr -d ',')"
     [[ $sunrise == ??:?? && $sunset == ??:?? ]] || { sunrise=07:00; sunset=19:00; }
 
-    # wlsunset only starts fading at the sunset time it is given: hand it an earlier one
-    # so the night temperature is fully reached at the real sunset
-    ramp_start=$(date -d "$sunset ${toString rampMinutes} minutes ago" +%H:%M)
-    echo "$ramp_start $sunset $sunrise" > ${sunTimesFile}
+    # Start fading 30 minutes before civil sunset, instead of finishing exactly at sunset
+    ramp_start=$(date -d "$sunset 30 minutes ago" +%H:%M)
+    ramp_end=$(date -d "$ramp_start ${toString rampMinutes} minutes" +%H:%M)
+    echo "$ramp_start $ramp_end $sunrise" > ${sunTimesFile}
 
-    echo "Starting wlsunset with lat=$latitude lon=$longitude: fading $ramp_start-$sunset, day again at $sunrise" >&2
+    echo "Starting wlsunset with lat=$latitude lon=$longitude: fading $ramp_start-$ramp_end, day again at $sunrise" >&2
     exec ${pkgs.wlsunset}/bin/wlsunset -S "$sunrise" -s "$ramp_start" -d ${toString (rampMinutes * 60)} -T ${dayTemp} -t $night
   '';
 in {
