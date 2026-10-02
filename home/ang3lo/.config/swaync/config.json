@@ -80,7 +80,7 @@
             "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
           },
           {
-            "label": "󰖔",
+            "label": "󰥔",
             "type": "toggle",
             "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
             "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
