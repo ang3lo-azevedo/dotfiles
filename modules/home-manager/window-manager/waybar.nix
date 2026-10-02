@@ -67,6 +67,7 @@ in {
     "waybar/config.jsonc" = lib.mkForce {source = mkSymlink "waybar/config.jsonc";};
     "waybar/style.css" = lib.mkForce {source = mkSymlink "waybar/style.css";};
     "waybar/scripts" = lib.mkForce {source = mkSymlink "waybar/scripts";};
+    "scripts" = lib.mkForce {source = mkSymlink "scripts";};
     "waybar/trigger.jsonc" = lib.mkForce {source = mkSymlink "waybar/trigger.jsonc";};
     "waybar/trigger.css" = lib.mkForce {source = mkSymlink "waybar/trigger.css";};
   };
