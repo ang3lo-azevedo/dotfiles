@@ -60,8 +60,8 @@
       "max": 100,
       "min_limit": 0,
       "max_limit": 100,
-      "cmd_setter": "~/.config/waybar/scripts/monitor-brightness.sh set $value",
-      "cmd_getter": "~/.config/waybar/scripts/monitor-brightness.sh get"
+      "cmd_setter": "~/.config/scripts/display/monitor-brightness.sh set $value",
+      "cmd_getter": "~/.config/scripts/display/monitor-brightness.sh get"
     },
     "menubar#brightness": {
       "buttons#mode": {
@@ -70,20 +70,20 @@
           {
             "label": "󰃡",
             "type": "toggle",
-            "command": "~/.config/waybar/scripts/monitor-brightness.sh auto toggle",
-            "update-command": "~/.config/waybar/scripts/monitor-brightness.sh auto"
+            "command": "~/.config/scripts/display/monitor-brightness.sh auto toggle",
+            "update-command": "~/.config/scripts/display/monitor-brightness.sh auto"
           },
           {
             "label": "󰍺",
             "type": "toggle",
-            "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
-            "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
+            "command": "~/.config/scripts/display/monitor-brightness.sh mode toggle",
+            "update-command": "~/.config/scripts/display/monitor-brightness.sh mode"
           },
           {
             "label": "󰥔",
             "type": "toggle",
-            "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
-            "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
+            "command": "~/.config/scripts/display/night-ramp.sh mode toggle",
+            "update-command": "~/.config/scripts/display/night-ramp.sh mode"
           }
         ]
       }
@@ -95,8 +95,8 @@
           {
             "label": "󰥔",
             "type": "toggle",
-            "command": "~/.config/waybar/scripts/wlsunset-mode.sh toggle",
-            "update-command": "~/.config/waybar/scripts/wlsunset-mode.sh status"
+            "command": "~/.config/scripts/display/wlsunset-mode.sh toggle",
+            "update-command": "~/.config/scripts/display/wlsunset-mode.sh status"
           }
         ]
       }
@@ -112,8 +112,8 @@
       "max": 100,
       "min_limit": 0,
       "max_limit": 100,
-      "cmd_setter": "~/.config/waybar/scripts/wlsunset-set-temp.sh $value",
-      "cmd_getter": "~/.config/waybar/scripts/wlsunset-get-temp.sh"
+      "cmd_setter": "~/.config/scripts/display/wlsunset-set-temp.sh $value",
+      "cmd_getter": "~/.config/scripts/display/wlsunset-get-temp.sh"
     },
     "menubar#label": {
       "buttons#touchscreen": {

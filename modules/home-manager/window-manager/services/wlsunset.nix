@@ -87,7 +87,7 @@ in {
         Unit.Description = "Dim the screens towards sunset and restore them at sunrise";
         Service = {
           Type = "oneshot";
-          ExecStart = "%h/.config/waybar/scripts/night-ramp.sh";
+          ExecStart = "%h/.config/scripts/display/night-ramp.sh";
         };
       };
     };

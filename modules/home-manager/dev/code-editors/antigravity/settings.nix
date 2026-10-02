@@ -12,6 +12,9 @@
       "workbench.colorTheme" = "Perfect Dark Theme";
       # Keep the Agent panel closed when the IDE reloads.
       "antigravity.agent.openOnReload" = false;
+      # Prevent the chat window from opening on startup
+      "antigravity.chat.openOnStartup" = false;
+      "antigravity.agent.openOnStartup" = false;
     };
 
   settingsJson = builtins.toJSON antigravitySettings;

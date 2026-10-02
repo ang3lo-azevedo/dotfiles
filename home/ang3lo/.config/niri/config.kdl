@@ -541,7 +541,7 @@ window-rule {
 window-rule {
     match app-id=r#"^antigravity-ide$"#
     block-out-from "screencast"
-    open-fullscreen true
+    open-maximized true
 }
 
 // Prevent newly opened windows from stealing focus
@@ -597,8 +597,8 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     // Brightness keys
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "~/.config/waybar/scripts/monitor-brightness.sh" "step" "up"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/waybar/scripts/monitor-brightness.sh" "step" "down"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "~/.config/scripts/display/monitor-brightness.sh" "step" "up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "~/.config/scripts/display/monitor-brightness.sh" "step" "down"; }
 
     // Touchpad toggle: Samsung EC sends Ctrl+Super+F21 for this key
     Mod+Ctrl+F21 allow-when-locked=true { spawn "~/.config/niri/scripts/touchpad-toggle.sh"; }
