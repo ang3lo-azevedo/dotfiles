@@ -1,4 +1,4 @@
-let
+{pkgs, ...}: let
   # Percentage taken off the brightness set by hand, from a black screen ("0") to a white one ("100"),
   # for each time-of-day name below. This works from the first start: nothing has to be learned.
   predictor.manual.thresholds = {
@@ -26,6 +26,12 @@ let
 in {
   services.wluma = {
     enable = true;
+    # With a screen at 100%, the manual predictor can ask for one step past the maximum.
+    # Unpatched, wluma retries that forever: it floods the journal (hundreds of lines a
+    # second) and burns CPU. Drop this once nixpkgs moves past 4.11.
+    package = pkgs.wluma.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [./wluma-unreachable-target.patch];
+    });
     settings = {
       # The laptop exposes no ambient light sensor, so the time of day stands in for it
       als.time.thresholds = {
