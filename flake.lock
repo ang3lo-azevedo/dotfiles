@@ -2156,11 +2156,11 @@
     "samsung-galaxy-book-linux-fixes": {
       "flake": false,
       "locked": {
-        "lastModified": 1790931269,
-        "narHash": "sha256-2itztD5RG49lWCeOJULiWhbSCSRai7XnF8+J3QR3Ffk=",
+        "lastModified": 1790939499,
+        "narHash": "sha256-cktqVRkGh99780NCrz+0gVjEhpcjAD6ropm/5ovS1K4=",
         "ref": "refs/heads/main",
-        "rev": "f404d8656697d4dd19d5226195cdc961650039e4",
-        "revCount": 382,
+        "rev": "3bc641d10f03e646f2ef3113737d5fc162275436",
+        "revCount": 383,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/samsung-galaxy-book-linux-fixes"
       },
