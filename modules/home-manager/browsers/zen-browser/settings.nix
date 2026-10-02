@@ -311,7 +311,10 @@
   # the coarsened-timer cost this line was meant to avoid, most noticeably as
   # sluggishness on JS-heavy pages like search results, which is what made
   # Chromium (no such throttling by default) feel faster on the same click.
-  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-ReduceTimerPrecision";
+  # -MediaDevices: with it set, enumerateDevices() reports one fake "Internal
+  # Camera" and "Internal Microphone" whatever is connected, so sites like
+  # Google Meet cannot offer a second webcam or microphone.
+  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-ReduceTimerPrecision,-MediaDevices";
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
   "layout.css.prefers-color-scheme.content-override" = 3;
