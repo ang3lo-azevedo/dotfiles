@@ -8,7 +8,7 @@ runtime="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 temp=$(cat "$runtime/wlsunset-night-temp" 2>/dev/null || echo 2500)
 level=$(((6500 - temp + 25) / 50))
 
-DISABLED="${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-disabled"
+DISABLED="${XDG_STATE_HOME:-$HOME/.local/state}/wlsunset-auto-disabled"
 # If disabled, wlsunset holds night temp all day.
 if [ -e "$DISABLED" ]; then
 	echo "$level"
