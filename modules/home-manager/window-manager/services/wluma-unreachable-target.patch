@@ -1,10 +1,26 @@
+--- a/src/brightness/backlight.rs
++++ b/src/brightness/backlight.rs
+@@ -130,8 +130,12 @@
+         }
+     }
+ 
++    pub fn clamp(&self, value: u64) -> u64 {
++        value.clamp(self.min_brightness, self.max_brightness)
++    }
++
+     pub async fn set(&mut self, value: u64) -> Result<u64> {
+-        let value = value.clamp(self.min_brightness, self.max_brightness);
++        let value = self.clamp(value);
+ 
+         if self.has_write_permission {
+             write(&mut self.file, value as f64).await?;
 --- a/src/brightness/controller.rs
 +++ b/src/brightness/controller.rs
 @@ -15,6 +15,9 @@
      prediction_rx: Receiver<u64>,
      current: Option<u64>,
      target: Option<Target>,
-+    // Value the device refused to move towards, typically one past its maximum.
++    // Value the device refused to move towards.
 +    // Retrying it every frame would spin and flood the log.
 +    rejected: Option<u64>,
  }
@@ -18,7 +34,7 @@
          }
      }
  
-@@ -85,11 +89,13 @@
+@@ -85,11 +89,16 @@
              .await
              .expect("Unable to send new brightness value set by user, channel is dead");
          self.target = None;
@@ -26,13 +42,16 @@
      }
  
      fn update_target(&mut self, desired: u64) {
++        // The manual predictor adds back the reduction in effect when the user last set the
++        // brightness, so on a darker screen it asks for more than the device can give.
++        let desired = self.brightness.clamp(desired);
          match (&self.target, self.current) {
              (Some(old_target), _) if old_target.desired == desired => (),
 +            _ if self.rejected == Some(desired) => (),
              (_, Some(current)) if desired == current => (),
              (_, Some(current)) => {
                  let max_transition_steps = TRANSITION_MAX_MS
-@@ -117,6 +123,8 @@
+@@ -117,6 +126,8 @@
                          Ok(set_value) => {
                              if set_value == current {
                                  log::warn!("Unable to change brightness from {current} to {new_value}, please report if you know how to reproduce this");
@@ -41,3 +60,39 @@
                              }
                              self.current = Some(set_value);
                          }
+--- a/src/brightness/ddcutil.rs
++++ b/src/brightness/ddcutil.rs
+@@ -85,9 +85,13 @@
+         }
+     }
+ 
++    pub fn clamp(&self, value: u64) -> u64 {
++        value.clamp(self.min_brightness, self.max_brightness)
++    }
++
+     pub async fn set(&mut self, value: u64) -> Result<u64> {
+         let _lock = DDC_MUTEX.lock().await;
+-        let value = value.clamp(self.min_brightness, self.max_brightness);
++        let value = self.clamp(value);
+         match self.set_locked(value) {
+             Ok(set_value) => Ok(set_value),
+             Err(err) if self.switch_to_cli_locked(&err)? => self.set_locked(value),
+--- a/src/brightness/mod.rs
++++ b/src/brightness/mod.rs
+@@ -43,6 +43,16 @@
+         }
+     }
+ 
++    pub fn clamp(&self, value: u64) -> u64 {
++        match self {
++            Brightness::DdcUtil(b) => b.clamp(value),
++            Brightness::Backlight(b) => b.clamp(value),
++
++            #[cfg(test)]
++            Brightness::Mock { .. } => value,
++        }
++    }
++
+     pub fn transition_step_ms(&self) -> u64 {
+         match self {
+             Brightness::DdcUtil(b) => b.transition_step_ms(),
