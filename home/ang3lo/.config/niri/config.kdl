@@ -541,6 +541,7 @@ window-rule {
 window-rule {
     match app-id=r#"^antigravity-ide$"#
     block-out-from "screencast"
+    open-fullscreen true
 }
 
 // Prevent newly opened windows from stealing focus
