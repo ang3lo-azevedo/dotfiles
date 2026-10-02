@@ -78,9 +78,9 @@ is_between() {
 }
 
 target=0
+AUTO_OFF="${XDG_STATE_HOME:-$HOME/.local/state}/wluma-disabled"
 # Night light switched off means no night mode at all: screens go back to normal too.
-# wluma owns the brightness while it runs: dimming under it would be learned as a preference and drift.
-if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset && ! systemctl --user is-active --quiet wluma; then
+if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset; then
 	duration=$(diff_minutes "$sunset" "$start")
 	[ "$duration" -eq 0 ] && duration=1
 
@@ -89,6 +89,18 @@ if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset && ! syst
 		target=$((progress * STEPS / duration))
 	elif is_between "$now" "$sunset" "$sunrise"; then
 		target=$STEPS
+	fi
+fi
+
+if [ "$target" -gt 0 ] && systemctl --user is-active --quiet wluma; then
+	# wluma owns the brightness while it runs: dimming under it would be learned as a preference and drift.
+	# So we automatically pause wluma at night.
+	systemctl --user stop wluma
+	touch "$RUNTIME/night-ramp-stopped-wluma"
+elif [ "$target" -eq 0 ] && [ -e "$RUNTIME/night-ramp-stopped-wluma" ]; then
+	rm -f "$RUNTIME/night-ramp-stopped-wluma"
+	if [ ! -e "$AUTO_OFF" ]; then
+		systemctl --user start wluma
 	fi
 fi
 
