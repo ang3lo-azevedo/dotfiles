@@ -62,14 +62,33 @@ sunset=$(minutes "${sunset:-19:00}")
 sunrise=$(minutes "${sunrise:-07:00}")
 now=$(minutes "${1:-$(date +%H:%M)}")
 
+diff_minutes() {
+	local diff=$(($1 - $2))
+	[ "$diff" -lt 0 ] && diff=$((diff + 1440))
+	echo "$diff"
+}
+
+is_between() {
+	local t=$1 a=$2 b=$3
+	if [ "$a" -le "$b" ]; then
+		[ "$t" -ge "$a" ] && [ "$t" -lt "$b" ]
+	else
+		[ "$t" -ge "$a" ] || [ "$t" -lt "$b" ]
+	fi
+}
+
 target=0
 # Night light switched off means no night mode at all: screens go back to normal too.
 # wluma owns the brightness while it runs: dimming under it would be learned as a preference and drift.
 if [ ! -e "$DISABLED" ] && systemctl --user is-active --quiet wlsunset && ! systemctl --user is-active --quiet wluma; then
-	if [ "$now" -ge "$sunset" ] || [ "$now" -lt "$sunrise" ]; then
+	duration=$(diff_minutes "$sunset" "$start")
+	[ "$duration" -eq 0 ] && duration=1
+
+	if is_between "$now" "$start" "$sunset"; then
+		progress=$(diff_minutes "$now" "$start")
+		target=$((progress * STEPS / duration))
+	elif is_between "$now" "$sunset" "$sunrise"; then
 		target=$STEPS
-	elif [ "$now" -ge "$start" ]; then
-		target=$(((now - start) * STEPS / (sunset - start)))
 	fi
 fi
 
