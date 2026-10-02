@@ -16,7 +16,7 @@
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' -L --keep-going";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo'";
-    update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && { v=$(jq -r '.openlogi.version // empty' pkgs/ang3lo-nur/_sources/generated.json); [ -z \"$v\" ] || sed -i -E \"s|(github:AprilNEA/OpenLogi/v)[0-9.]+|\\1$v|\" flake.nix; } && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
+    update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
     upgrade = "sudo -v && git -C ~/nix-config pull && update && rebuild";
     u = "upgrade";
     rb = "rebuild";

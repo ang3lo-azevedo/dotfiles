@@ -83,15 +83,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # OpenLogi: local-first Logitech Options+ alternative (DPI, buttons, SmartShift)
-    # Pinned to a release tag: main gets several commits a day and each one is
-    # a full local rebuild. The `update` alias rewrites the tag from the
-    # version nvfetcher tracks in pkgs/ang3lo-nur.
-    openlogi = {
-      url = "github:AprilNEA/OpenLogi/v0.8.10";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # cpak: rootless per-app sandboxes, used for the upstream Bottles build
     cpak = {
       url = "github:Containerpak/cpak/v2";
