@@ -8,8 +8,8 @@
 
   tempStateFile = ''"''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wlsunset-night-temp"'';
 
-  # Created by night-ramp.sh when its toggle in the swaync panel is switched off
-  rampDisabledFile = ''"''${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-disabled"'';
+  # Created by wlsunset-mode.sh when its toggle in the swaync panel is switched off
+  rampDisabledFile = ''"''${XDG_STATE_HOME:-$HOME/.local/state}/wlsunset-auto-disabled"'';
 
   # Minutes over which the night light fades in and the screens dim
   rampMinutes = 90;

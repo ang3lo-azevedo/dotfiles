@@ -78,6 +78,12 @@
             "type": "toggle",
             "command": "~/.config/waybar/scripts/monitor-brightness.sh mode toggle",
             "update-command": "~/.config/waybar/scripts/monitor-brightness.sh mode"
+          },
+          {
+            "label": "󰖔",
+            "type": "toggle",
+            "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
+            "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
           }
         ]
       }
@@ -89,8 +95,8 @@
           {
             "label": "󰥔",
             "type": "toggle",
-            "command": "~/.config/waybar/scripts/night-ramp.sh mode toggle",
-            "update-command": "~/.config/waybar/scripts/night-ramp.sh mode"
+            "command": "~/.config/waybar/scripts/wlsunset-mode.sh toggle",
+            "update-command": "~/.config/waybar/scripts/wlsunset-mode.sh status"
           }
         ]
       }

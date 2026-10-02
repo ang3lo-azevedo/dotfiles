@@ -38,12 +38,6 @@ if [ "$1" = mode ]; then
 	(
 		sleep 0.5
 		[ "$(cat "$pending")" = "$stamp" ] || exit 0
-		was_active=$(systemctl --user is-active wlsunset)
-		systemctl --user reset-failed wlsunset
-		# "failed" here means an earlier start-limit hit, not that the night light was switched off
-		if [ "$was_active" = active ] || [ "$was_active" = failed ]; then
-			systemctl --user restart wlsunset
-		fi
 		# Apply or undo the dimming right away instead of waiting for the timer
 		"$0"
 	) >/dev/null 2>&1 &
