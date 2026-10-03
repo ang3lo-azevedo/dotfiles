@@ -56,6 +56,18 @@
           "render"
           "input"
         ];
+        subUidRanges = [
+          {
+            startUid = 100000;
+            count = 65536;
+          }
+        ];
+        subGidRanges = [
+          {
+            startGid = 100000;
+            count = 65536;
+          }
+        ];
         hashedPasswordFile = config.age.secrets.user_password.path;
       };
       root = {

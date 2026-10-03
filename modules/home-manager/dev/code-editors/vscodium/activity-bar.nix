@@ -40,19 +40,37 @@
 
   # Pinned activity bar items are not a setting: they live in the state DB under
   # this key, so settings.json cannot express them.
-  writerPy = pkgs.writeText "vscodium-activity-bar-writer.py" ''
+  writerPy = pkgs.writeText "vscode-layout-writer.py" ''
     import json, shutil, sqlite3, sys, time
 
     KEY = "workbench.activity.pinnedViewlets2"
+    AUX_KEY = "workbench.auxiliaryBar.hidden"
     db, pinned_path = sys.argv[1], sys.argv[2]
 
     with open(pinned_path) as f:
         rank = {vid: i for i, vid in enumerate(json.load(f))}
 
     con = sqlite3.connect(db)
+
+    # 1. Enforce Auxiliary Bar is Hidden
+    aux_row = con.execute("SELECT value FROM ItemTable WHERE key = ?", (AUX_KEY,)).fetchone()
+    if aux_row is None or aux_row[0] != "true":
+        con.execute(
+            "INSERT INTO ItemTable (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (AUX_KEY, "true")
+        )
+        aux_updated = True
+    else:
+        aux_updated = False
+
+    # 2. Sync Pinned Viewlets
     row = con.execute("SELECT value FROM ItemTable WHERE key = ?", (KEY,)).fetchone()
     if row is None:
-        print("vscodium activity bar: no saved layout yet, nothing to sync")
+        if aux_updated:
+            con.commit()
+            print(f"layout sync: {db}: hid auxiliary bar")
+        else:
+            print(f"layout sync: {db}: no saved layout yet, nothing to sync")
         sys.exit(0)
 
     current = json.loads(row[0])
@@ -66,38 +84,40 @@
             entry["pinned"] = False
         updated.append(entry)
 
-    if updated == current:
-        print("vscodium activity bar: already in sync")
+    if updated == current and not aux_updated:
+        print(f"layout sync: {db}: already in sync")
         sys.exit(0)
 
-    backup = "%s.pre-activity-bar-sync-%s" % (db, time.strftime("%Y%m%d%H%M%S"))
+    backup = "%s.pre-layout-sync-%s" % (db, time.strftime("%Y%m%d%H%M%S"))
     shutil.copy2(db, backup)
     with con:
-        con.execute(
-            "UPDATE ItemTable SET value = ? WHERE key = ?",
-            (json.dumps(updated, separators=(",", ":")), KEY),
-        )
+        if updated != current:
+            con.execute(
+                "UPDATE ItemTable SET value = ? WHERE key = ?",
+                (json.dumps(updated, separators=(",", ":")), KEY),
+            )
     count = sum(1 for e in updated if e["pinned"])
-    print("vscodium activity bar: synced %d pinned items, previous state saved to %s" % (count, backup))
+    print(f"layout sync: {db}: synced {count} pinned items & auxiliary bar, backup saved to {backup}")
   '';
 
-  applyScript = pkgs.writeShellScript "vscodium-activity-bar-apply" ''
-    userDir="$HOME/.config/VSCodium"
-    db="$userDir/User/globalStorage/state.vscdb"
-    [ -f "$db" ] || exit 0
+  applyScript = pkgs.writeShellScript "vscode-layout-apply" ''
+    for userDir in "$HOME/.config/VSCodium" "$HOME/.antigravity-ide"; do
+      db="$userDir/User/globalStorage/state.vscdb"
+      [ -f "$db" ] || continue
 
-    # A running VSCodium rewrites its state on exit and would undo this, so only
-    # touch the DB when it is closed. code.lock holds the main process PID.
-    lock="$userDir/code.lock"
-    if [ -f "$lock" ]; then
-      pid=$(${pkgs.coreutils}/bin/tr -dc '0-9' < "$lock")
-      if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
-        echo "vscodium activity bar: skipped, VSCodium is running. Close it and rebuild to apply"
-        exit 0
+      # A running VSCode rewrites its state on exit and would undo this, so only
+      # touch the DB when it is closed. code.lock holds the main process PID.
+      lock="$userDir/code.lock"
+      if [ -f "$lock" ]; then
+        pid=$(${pkgs.coreutils}/bin/tr -dc '0-9' < "$lock")
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+          echo "layout sync: skipped, editor is running for $userDir. Close it and rebuild to apply"
+          continue
+        fi
       fi
-    fi
 
-    exec ${pkgs.python3}/bin/python3 ${writerPy} "$db" ${pinnedJson}
+      ${pkgs.python3}/bin/python3 ${writerPy} "$db" ${pinnedJson}
+    done
   '';
 in {
   home.activation.vscodiumActivityBar = lib.hm.dag.entryAfter ["writeBoundary"] ''
