@@ -13,11 +13,8 @@ if [ "$1" = toggle ]; then
 	(
 		sleep 0.5
 		[ "$(cat "$pending")" = "$stamp" ] || exit 0
-		was_active=$(systemctl --user is-active wlsunset)
 		systemctl --user reset-failed wlsunset
-		if [ "$was_active" = active ] || [ "$was_active" = failed ]; then
-			systemctl --user restart wlsunset
-		fi
+		systemctl --user restart wlsunset
 	) >/dev/null 2>&1 &
 	exit
 elif [ "$1" = status ]; then

@@ -16,11 +16,11 @@ echo "$level" >"$pending"
 	sleep 0.5
 	[ "$(cat "$pending")" = "$level" ] || exit 0
 	if [ "$level" -eq 0 ]; then
-		systemctl --user stop wlsunset
+		echo 6499 >"$runtime/wlsunset-night-temp"
 	else
 		# 6500 is dayTemp in wlsunset.nix: wlsunset refuses a night temperature that is not below it
 		echo $((6500 - level * 50)) >"$runtime/wlsunset-night-temp"
-		systemctl --user reset-failed wlsunset
-		systemctl --user restart wlsunset
 	fi
+	systemctl --user reset-failed wlsunset
+	systemctl --user restart wlsunset
 ) >/dev/null 2>&1 &

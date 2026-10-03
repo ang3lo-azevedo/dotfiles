@@ -123,7 +123,11 @@ else
 fi
 
 for output in "${!base[@]}"; do
-	range=$((base[$output] - END_BRIGHTNESS))
+	end_b=$END_BRIGHTNESS
+	if niri msg --json outputs | jq -e ".[\"$output\"].model == \"MSI MP165 E6\"" >/dev/null; then
+		end_b=1
+	fi
+	range=$((base[$output] - end_b))
 	[ "$range" -gt 0 ] || continue
 	# Empty when the screen has been unplugged since the ramp began
 	current=$("$SCRIPTS/monitor-brightness.sh" get "$output")
