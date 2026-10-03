@@ -67,7 +67,16 @@ in {
           {
             name = "MSI MP165 E6";
             capturer = "wayland";
-            inherit predictor;
+            predictor = {
+              manual.thresholds =
+                predictor.manual.thresholds
+                // {
+                  night = {
+                    "0" = 100;
+                    "100" = 100;
+                  };
+                };
+            };
           }
         ];
       };

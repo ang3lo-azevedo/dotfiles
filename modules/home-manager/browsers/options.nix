@@ -15,6 +15,21 @@ in {
             default = null;
             description = "The ID of the extension in the Chrome Web Store.";
           };
+          chromiumUrl = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = "Direct URL to a .crx or .zip file for custom extensions.";
+          };
+          chromiumHash = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = "The sha256 hash of the custom extension download.";
+          };
+          chromiumSubfolder = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = "Subfolder inside the zip where the manifest is located (e.g. uBlock0.chromium).";
+          };
         };
       });
       default = {};

@@ -166,21 +166,31 @@ in {
     };
   };
 
-  environment.etc."chromium/policies/managed/helium.json".text = builtins.toJSON {
-    "BrowserSignin" = 0;
-    "PasswordManagerEnabled" = false;
-    "SyncDisabled" = true;
-    "SpellcheckEnabled" = true;
-    "SpellcheckLanguage" = ["pt-PT" "en-US"];
+  # Force the symlinks to be created if NixOS setup-etc skips them
+  systemd.tmpfiles.rules = [
+    "L+ /etc/chromium - - - - /etc/static/chromium"
+    "L+ /etc/helium - - - - /etc/static/helium"
+    "d /etc/opt 0755 root root -"
+    "L+ /etc/opt/chrome - - - - /etc/static/opt/chrome"
+  ];
 
-    "DefaultSearchProviderEnabled" = true;
-    "DefaultSearchProviderSearchURL" = config.home-manager.users.ang3lo.my.browsers.search.url;
-    "DefaultSearchProviderName" = config.home-manager.users.ang3lo.my.browsers.search.name;
+  environment.etc = let
+    policyJson = builtins.toJSON {
+      "BrowserSignin" = 0;
+      "PasswordManagerEnabled" = false;
+      "SyncDisabled" = true;
+      "SpellcheckEnabled" = true;
+      "SpellcheckLanguage" = ["pt-PT" "en-US"];
 
-    # Policy instead of --unsafely-treat-insecure-origin-as-secure: flags are baked
-    # into the Helium derivation, so changing them forces a local rebuild
-    "OverrideSecurityRestrictionsOnInsecureOrigin" = config.home-manager.users.ang3lo.my.browsers.insecureOriginsAsSecure;
+      "DefaultSearchProviderEnabled" = true;
+      "DefaultSearchProviderSearchURL" = config.home-manager.users.ang3lo.my.browsers.search.url;
+      "DefaultSearchProviderName" = config.home-manager.users.ang3lo.my.browsers.search.name;
 
-    "ExtensionInstallForcelist" = builtins.map (id: "${id};https://clients2.google.com/service/update2/crx") (builtins.filter (id: id != null) (builtins.map (v: v.chromeId) (builtins.attrValues config.home-manager.users.ang3lo.my.browsers.extensions)));
+      "OverrideSecurityRestrictionsOnInsecureOrigin" = config.home-manager.users.ang3lo.my.browsers.insecureOriginsAsSecure;
+    };
+  in {
+    "chromium/policies/managed/helium.json".text = policyJson;
+    "helium/policies/managed/helium.json".text = policyJson;
+    "opt/chrome/policies/managed/helium.json".text = policyJson;
   };
 }

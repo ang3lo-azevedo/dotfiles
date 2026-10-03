@@ -31,6 +31,10 @@ export default definePlugin({
     settings,
 
     async start() {
+        // Prevent Linux primary selection paste AND Chromium's default external browser open
+        document.addEventListener("mousedown", this.onMiddleClick);
+        document.addEventListener("auxclick", this.onMiddleClick);
+
         let declared: Record<string, unknown[]>;
         try {
             declared = JSON.parse(settings.store.bookmarks);
@@ -39,5 +43,18 @@ export default definePlugin({
             return;
         }
         await DataStore.update("ChannelTabs_bookmarks", stored => ({ ...stored, ...declared }));
+    },
+
+    stop() {
+        document.removeEventListener("mousedown", this.onMiddleClick);
+        document.removeEventListener("auxclick", this.onMiddleClick);
+    },
+
+    onMiddleClick(e: MouseEvent) {
+        if (e.button === 1) {
+            // Unconditionally prevent Linux paste and external browser open
+            // across the entire Discord interface (servers, channels, bookmarks).
+            e.preventDefault();
+        }
     }
 });

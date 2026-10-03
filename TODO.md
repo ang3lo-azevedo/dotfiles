@@ -23,6 +23,8 @@
 
 
 ## General Stuff 
+- [ ] Sync all the browsers settings
+- [ ] Add rest of discord addons and make middle click open on a "new tab"
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
 - [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
