@@ -104,7 +104,6 @@
         splashProgress = true;
         disableMinSize = true;
         badgeOnlyForMentions = true;
-        openLinksWithElectron = false;
       };
     };
     dorion = {
@@ -153,12 +152,14 @@
         };
         messageLoggerEnhanced.enable = true;
         channelTabs.enable = true;
+        middleClickTweaks.enable = true;
         showHiddenChannels.enable = true;
-        splitLargeMessages = {
-          enable = true;
-        };
         previewMessage.enable = true;
-        noMiddleClickPaste.enable = true;
+        alwaysTrust.enable = true;
+        alwaysAnimate.enable = true;
+        addAttachments.enable = true;
+        reactionTimestamps.enable = true;
+        voiceMessagesInBackground.enable = true;
       };
     };
   };
