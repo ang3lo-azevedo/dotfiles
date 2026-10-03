@@ -11,7 +11,10 @@
   users.users.ang3lo.extraGroups = ["tss"];
 
   security = {
-    tpm2.enable = true;
+    tpm2 = {
+      enable = true;
+      tctiEnvironment.enable = true;
+    };
 
     pam.services = {
       # Enable fingerprint authentication for system services
