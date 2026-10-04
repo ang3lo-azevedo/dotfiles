@@ -54,10 +54,19 @@ in {
           }
         '';
 
-        # Force an empty userContent to completely override Stylix's web page theming.
-        # This keeps Stylix for the Zen Browser UI, but prevents it from forcing black
-        # backgrounds on websites.
-        userContent = pkgs.lib.mkForce "";
+        # Replace Stylix's userContent: keeps Stylix for the Zen Browser UI without
+        # restyling page content. Only the new tab page is themed, which otherwise
+        # falls back to Firefox's bluish default dark background.
+        userContent = pkgs.lib.mkForce ''
+          @-moz-document url("about:newtab"), url("about:home"), url("about:blank") {
+            :root {
+              background-color: ${config.lib.stylix.colors.withHashtag.base00} !important;
+              --newtab-background-color: ${config.lib.stylix.colors.withHashtag.base00} !important;
+              --newtab-background-color-secondary: ${config.lib.stylix.colors.withHashtag.base02} !important;
+              --newtab-text-primary-color: ${config.lib.stylix.colors.withHashtag.base05} !important;
+            }
+          }
+        '';
       }
       // import ./spaces {inherit (pkgs) lib;};
   };

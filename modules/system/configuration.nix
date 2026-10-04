@@ -40,8 +40,8 @@
       "root"
       "ang3lo"
     ];
-    # The nixbuild.net remote builders referenced below are currently disabled
-    # (see modules/system/nixbuild), so every heavy build runs on this machine.
+    # These cap local builds only: anything nixbuild.net (see
+    # modules/system/nixbuild) cannot take still runs on this machine.
     # "auto" jobs times unlimited cores oversubscribes the 8 cores against a
     # desktop session that already holds ~22GB, which drove the kernel OOM
     # killer and heavy swap thrashing. Cap total workers at roughly core count.

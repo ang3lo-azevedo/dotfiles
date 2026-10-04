@@ -14,7 +14,8 @@ END_BRIGHTNESS=15
 
 SCRIPTS=$(dirname "$(readlink -f "$0")")
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-# First line: steps applied so far. Then one "output brightness" line per screen, as it was when the ramp began.
+# One "steps brightness screen" line per dimmed screen: steps applied so far and its brightness when its ramp began.
+# Kept per screen so one plugged in after the ramp started is dimmed too.
 # Screens remember their brightness across a reboot, so this bookkeeping must survive one too
 STATE="${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-brightness"
 # Also read by wlsunset-auto (wlsunset.nix)
@@ -98,52 +99,35 @@ elif [ "$target" -eq 0 ] && [ -e "$RUNTIME/night-ramp-stopped-wluma" ]; then
 	fi
 fi
 
-applied=$(head -n 1 "$STATE" 2>/dev/null)
-applied=${applied:-0}
-[ "$target" -ne "$applied" ] || exit 0
+declare -A base applied
+while read -r steps value id; do
+	[ -n "$id" ] || continue
+	applied[$id]=$steps
+	base[$id]=$value
+done <"$STATE" 2>/dev/null
 
-declare -A base
-if [ "$applied" -eq 0 ]; then
-	for output in $(niri msg --json outputs | jq -r 'keys[]'); do
-		value=$("$SCRIPTS/monitor-brightness.sh" get "$output")
-		[ -n "$value" ] && base[$output]=$value
-	done
-else
-	while read -r output value; do
-		base[$output]=$value
-	done < <(tail -n +2 "$STATE")
-
-	# Add any newly connected monitors that aren't in the state file
-	for output in $(niri msg --json outputs | jq -r 'keys[]'); do
-		if [ -z "${base[$output]:-}" ]; then
-			value=$("$SCRIPTS/monitor-brightness.sh" get "$output")
-			[ -n "$value" ] && base[$output]=$value
-		fi
-	done
-fi
-
-for output in "${!base[@]}"; do
-	end_b=$END_BRIGHTNESS
-	if niri msg --json outputs | jq -e ".[\"$output\"].model == \"MSI MP165 E6\"" >/dev/null; then
-		end_b=1
-	fi
-	range=$((base[$output] - end_b))
-	[ "$range" -gt 0 ] || continue
-	# Empty when the screen has been unplugged since the ramp began
+# Screens are keyed by make, model and serial: connector names change when the dock or eGPU is replugged
+while IFS=$'\t' read -r output id; do
+	[ -n "${id// /}" ] || id=$output
+	steps=${applied[$id]:-0}
+	[ "$steps" -ne "$target" ] || continue
+	# Empty when the screen does not answer, it is retried on the next run
 	current=$("$SCRIPTS/monitor-brightness.sh" get "$output")
 	[ -n "$current" ] || continue
-	new=$((current - range * target / STEPS + range * applied / STEPS))
-	[ "$new" -gt 100 ] && new=100
-	[ "$new" -lt 1 ] && new=1
-	"$SCRIPTS/monitor-brightness.sh" set "$new" "$output"
-done
+	[ "$steps" -eq 0 ] && base[$id]=$current
+	end_b=$END_BRIGHTNESS
+	[[ $id == *"MSI MP165 E6"* ]] && end_b=1
+	range=$((base[$id] - end_b))
+	if [ "$range" -gt 0 ]; then
+		new=$((current - range * target / STEPS + range * steps / STEPS))
+		[ "$new" -gt 100 ] && new=100
+		[ "$new" -lt 1 ] && new=1
+		"$SCRIPTS/monitor-brightness.sh" set "$new" "$output"
+	fi
+	applied[$id]=$target
+done < <(niri msg --json outputs | jq -r 'to_entries[] | [.key, ([.value.make, .value.model, .value.serial] | map(select(. != null and . != "")) | join(" "))] | @tsv')
 
 mkdir -p "$(dirname "$STATE")"
-{
-	echo "$target"
-	if [ "$target" -gt 0 ]; then
-		for output in "${!base[@]}"; do
-			echo "$output ${base[$output]}"
-		done
-	fi
-} >"$STATE"
+for id in "${!applied[@]}"; do
+	[ "${applied[$id]}" -gt 0 ] && echo "${applied[$id]} ${base[$id]} $id"
+done >"$STATE"

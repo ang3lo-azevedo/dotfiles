@@ -7,5 +7,6 @@
     ./opencode.nix
     ./claude-code.nix
     ./cursor
+    ./zed.nix
   ];
 }
