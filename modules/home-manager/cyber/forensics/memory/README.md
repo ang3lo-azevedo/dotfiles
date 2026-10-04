@@ -85,11 +85,11 @@ Output, all in the output directory:
 
 The upstream script expects Volatility 3. Here it is pointed at a shim ([vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh)), which is also installed as `vol`. It:
 
-1. Expands short plugin names (`windows.pslist`) to the full names vol-rs requires (`windows.pslist.PsList`).
+1. Expands short plugin names (`windows.pslist`) to full ones (`windows.pslist.PsList`), which the rules below are matched against.
 2. Runs the plugin with **vol-rs** first, because it is much faster.
 3. If vol-rs fails, reruns the same command with **Volatility 3** and prints `[vol-rs failed, retrying with Volatility 3] <error>` to stderr (the plugin's `.err` file in `vol-analyze`). It uses your `volatility` if installed, otherwise a bundled copy.
 4. Sends plugins vol-rs does not have (BitLocker, pypykatz, the `--deep` plugins) straight to Volatility 3, since vol-rs cannot load Python plugins.
-5. Also sends `windows.cmdscan`, `windows.consoles`, every `linux.*` and `mac.*` plugin, and `timeliner` straight to Volatility 3. In each case vol-rs returns wrong or incomplete results but exits successfully, so step 3 would never catch it (see [Known limitations](#known-limitations)). Linux runs therefore take longer: about 78 s instead of 13 s on a 512 MB dump.
+5. Also sends `timeliner` and every `mac.*` plugin straight to Volatility 3. vol-rs's `timeliner` output differs from Volatility 3's but exits successfully, so step 3 would never catch it, and its macOS plugins are untested (see [Known limitations](#known-limitations)).
 
 So a plugin only fails if **both** tools fail on it.
 
@@ -101,9 +101,11 @@ Plugins need a symbol file (ISF) for the exact kernel build in the dump.
 - **Windows:** from the Microsoft symbol server, cached in `~/.local/share/volatility3/symbols`.
 - **Linux:** from the [Abyss-W4tcher/volatility3-symbols](https://github.com/Abyss-W4tcher/volatility3-symbols) banner index. [volatility3.nix](./volatility3.nix) patches `REMOTE_ISF_URL` for this.
 
-**vol-rs does not download kernel symbols**, but it reads the ones Volatility 3 has downloaded: the [vol-rs package](../../../../../pkgs/ang3lo-nur/pkgs/vol-rs/default.nix) adds `~/.local/share/volatility3/symbols` to `VOLRS_SYMBOL_PATH`, and both use the same `windows/<pdb>/<GUID>-<AGE>.json.xz` layout. So the first `vol-analyze` or `vol` run on a new Windows build fetches the symbols with Volatility 3 once (about 40 s for a Windows 10 kernel), and every plugin after that runs on vol-rs. Tested from an empty home directory: 54 s in total, 46 of 49 plugins answered by vol-rs.
+**vol-rs** downloads Windows symbols too: it fetches the kernel's PDB from the Microsoft symbol server and converts it, which takes about 4 s for a Windows 10 kernel (the PDB is kept in `~/.cache/volatility3/vol-rs`). It does not download Linux or macOS symbols.
 
-`vol-analyze` fetches the symbols with one serial run before starting plugins in parallel (also reported in volatility3#2042). Volatility 3 writes a downloaded symbol file in place while the download runs, so parallel plugins would otherwise read a half-written file or find the symbol cache locked. In the same test without that step, 4 plugins failed and 12 downloaded the same files at once. For the same reason, OS auto-detection gives each probe 300 s (`VOL_DETECT_TIMEOUT`) instead of upstream's 60 s: the first probe may be downloading symbols, and killing it breaks the cache (see below).
+Both tools share `~/.local/share/volatility3/symbols`: the [vol-rs package](../../../../../pkgs/ang3lo-nur/pkgs/vol-rs/default.nix) puts it in `VOLRS_SYMBOL_PATH`, so vol-rs writes the Windows symbols it builds there (as `windows/<pdb>/<GUID>-<AGE>.json`, the layout Volatility 3 uses) and reads what Volatility 3 downloaded. So a Windows build is fetched once, by whichever tool sees it first, and Linux symbols fetched by Volatility 3 (the first plugin falls back to it) are used by vol-rs from then on. Do not pass Volatility 3 an extra `-s` directory to share symbols: it then downloads the PDB again into that directory even when its own already has the file.
+
+`vol-analyze` fetches the symbols with one serial run before starting plugins in parallel (also reported in volatility3#2042). Volatility 3 writes a downloaded symbol file in place while the download runs, so parallel plugins would otherwise read a half-written file or find the symbol cache locked. In a test from an empty home directory without that step, 4 plugins failed and 12 downloaded the same files at once. For the same reason, OS auto-detection gives each probe 300 s (`VOL_DETECT_TIMEOUT`) instead of upstream's 60 s: the first probe may be downloading symbols, and killing it breaks the cache (see below).
 
 **Broken symbol cache** ([volatility3#2042](https://github.com/volatilityfoundation/volatility3/issues/2042)). If Volatility 3 is killed (SIGTERM, e.g. by `timeout`, or a crash) while downloading a PDB, the truncated PDB stays in `~/.cache/volatility3/data_*.cache`, and every later run on that Windows build fails with `Unsatisfied requirement ... symbol_table_name` and `Offset outside of the buffer boundaries`. Ctrl-C is handled and does not cause this. Fix it by running once with `--clear-cache`:
 
@@ -116,8 +118,6 @@ A symbol file that fails `xz -t` (`EOFError: Compressed file ended before the en
 ```bash
 find ~/.local/share/volatility3/symbols -name '*.xz' -exec sh -c 'xz -t "$1" 2>/dev/null || echo "$1"' _ {} \;
 ```
-
-The generic ISFs vol-rs does not ship (netscan, registry, services, callbacks, mbr) come from the Volatility 3 source tree, which the vol-rs package also adds to `VOLRS_SYMBOL_PATH`.
 
 ### Missing Linux symbols
 
@@ -263,12 +263,11 @@ Plus fixes in `postPatch`:
 
 ## Known limitations
 
-- **vol-rs:** no Python plugins (`-p` is accepted but ignored), and no kernel symbol download (it reuses Volatility 3's, see [Symbols](#symbols)). Both are covered by the fallback. The fallback only triggers when vol-rs *fails*: a vol-rs plugin that returns wrong results with exit code 0 goes unnoticed. Known cases, all routed to Volatility 3 by the shim. They are vol-rs bugs, reported upstream and marked `FIXME(vol-rs)` in [vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh); drop each rule once vol-rs matches Volatility 3:
-  - **Windows** ([vol-rs#5](https://github.com/daffainfo/vol-rs/issues/5)): `cmdscan`/`consoles` return junk rows. Every other Windows plugin `vol-analyze` runs was compared against Volatility 3 on a Windows 10 dump and returned the same results (for `malfind` and `mbrscan` Volatility 3 prints more lines, but the same hits).
-  - **Linux** ([vol-rs#6](https://github.com/daffainfo/vol-rs/issues/6)): compared on Volatility's `linux-sample-1.bin` test image (Debian, kernel 3.2). vol-rs returned nothing for `bash`, `proc.Maps`, `mountinfo` and `elfs` (Volatility 3: 27, 13,990, 13 and 2,419 rows), reported every module as missing from the scan in `modxview`, and dropped process creation times, IPv6 addresses and interface flags. So all Linux plugins go to Volatility 3.
-  - **timeliner** ([vol-rs#7](https://github.com/daffainfo/vol-rs/issues/7)): vol-rs drops about half of Volatility 3's timestamp rows, mostly MFT ones.
-  - **macOS:** not compared, since no macOS dump was available. It goes to Volatility 3 as a precaution.
-  - **Windows crash dumps** ([vol-rs#4](https://github.com/daffainfo/vol-rs/issues/4)): vol-rs does not find the kernel in Volatility's own Windows 10 test crash dump (`.dmp`). This one fails visibly, so the normal fallback handles it.
+- **vol-rs:** no Python plugins (`-p` is accepted but ignored), and no Linux or macOS symbol download (it reuses Volatility 3's, see [Symbols](#symbols)). Both are covered by the fallback. The fallback only triggers when vol-rs *fails*: a vol-rs plugin that returns different results with exit code 0 goes unnoticed. Known cases, routed to Volatility 3 by the shim:
+  - **timeliner** ([vol-rs#7](https://github.com/daffainfo/vol-rs/issues/7), marked `FIXME(vol-rs)` in [vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh)): with `--plugin-filter` both tools print the same rows, but an unfiltered run uses a different plugin order than Volatility 3 2.28.2. Volatility's timeliner prints the rows so far again after each plugin, so the order changes the totals: 87,235 rows from vol-rs against 137,769 on Volatility's Windows 10 test dump. Drop the rule once they match.
+  - **macOS:** not compared, since no macOS dump was available, and upstream has not run those plugins on a real capture either. It goes to Volatility 3 as a precaution.
+
+  Fixed in vol-rs 1.0.2 and checked against Volatility 3 on its own test images (`linux-sample-1.bin`, `win-10_19041-2025_03.dmp`): `windows.cmdscan`/`consoles` ([vol-rs#5](https://github.com/daffainfo/vol-rs/issues/5)), the Linux plugins ([vol-rs#6](https://github.com/daffainfo/vol-rs/issues/6)) and Windows crash dumps ([vol-rs#4](https://github.com/daffainfo/vol-rs/issues/4)) now give identical output.
 
   If a plugin's output looks odd, compare it with `volatility -f <dump> <plugin>`.
 - **Missing credentials:** `registry.hashdump`/`registry.lsadump` often return nothing because the needed registry pages were not resident in RAM. `pypykatz.txt` is the fallback, but it has the same limitation for the `lsasrv.dll` pages (see [Credentials](#credentials-pypykatz)).

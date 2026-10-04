@@ -13,6 +13,10 @@ if [ "$1" = toggle ]; then
 	(
 		sleep 0.5
 		[ "$(cat "$pending")" = "$stamp" ] || exit 0
+		temp=$(cat "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wlsunset-night-temp" 2>/dev/null || echo 2500)
+		if [ "$temp" -eq 6499 ]; then
+			echo 2500 >"${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wlsunset-night-temp"
+		fi
 		systemctl --user reset-failed wlsunset
 		systemctl --user restart wlsunset
 	) >/dev/null 2>&1 &
