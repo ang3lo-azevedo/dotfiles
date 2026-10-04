@@ -64,8 +64,8 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 
 ### [vol-rs](./memory/vol-rs.nix)
 **What it is:** Volatility 3 ported to Rust, with the same output and much faster.
-**When to use:** Quick repeated plugin runs on Windows dumps. Its Linux results are unreliable, and it cannot load Python plugins or download symbols (it reuses Volatility 3's), so use it through `vol`, which falls back to Volatility 3 in those cases (see the guide).
-**How to run:** `vol -f memory.raw windows.pslist`, or `vol-rs -f memory.raw windows.pslist.PsList` for vol-rs alone (full plugin names required)
+**When to use:** Quick repeated plugin runs on Windows and Linux dumps. It cannot load Python plugins or download Linux symbols (it reuses Volatility 3's), so use it through `vol`, which falls back to Volatility 3 in those cases (see the guide).
+**How to run:** `vol -f memory.raw windows.pslist`, or `vol-rs -f memory.raw windows.pslist` for vol-rs alone
 
 ### [avml](./memory/avml.nix)
 **What it is:** Linux memory acquisition tool from Microsoft, no kernel module needed.
