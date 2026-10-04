@@ -544,11 +544,6 @@ window-rule {
     open-maximized true
 }
 
-// Prevent newly opened windows from stealing focus
-window-rule {
-    open-focused false
-}
-
 // Enable rounded corners for all windows.
 window-rule {
     geometry-corner-radius 15

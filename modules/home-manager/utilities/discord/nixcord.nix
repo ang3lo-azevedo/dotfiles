@@ -29,10 +29,12 @@
     userPlugins = {
       fakeVoiceOptions = ./plugins/fakeVoiceOptions;
       declarativeBookmarks = ./plugins/declarativeBookmarks;
+      middleClickTabs = ./plugins/middleClickTabs;
     };
     extraConfig = {
       plugins = {
         fakeVoiceOptions.enable = true;
+        middleClickTabs.enable = true;
         declarativeBookmarks = {
           enable = true;
           bookmarks = builtins.toJSON {
