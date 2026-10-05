@@ -29,12 +29,10 @@
     userPlugins = {
       fakeVoiceOptions = ./plugins/fakeVoiceOptions;
       declarativeBookmarks = ./plugins/declarativeBookmarks;
-      middleClickTabs = ./plugins/middleClickTabs;
     };
     extraConfig = {
       plugins = {
         fakeVoiceOptions.enable = true;
-        middleClickTabs.enable = true;
         declarativeBookmarks = {
           enable = true;
           bookmarks = builtins.toJSON {
@@ -153,7 +151,15 @@
           useSpotifyUris = true;
         };
         messageLoggerEnhanced.enable = true;
-        channelTabs.enable = true;
+        channelTabs = {
+          enable = true;
+          bookmarksIndependentFromTabs = false;
+          createNewTabIfNotExists = true;
+          switchToExistingTab = true;
+          openNewTabsInCompactMode = true;
+          renderAllTabs = true;
+          showTabNumbers = true;
+        };
         middleClickTweaks.enable = true;
         showHiddenChannels.enable = true;
         previewMessage.enable = true;
