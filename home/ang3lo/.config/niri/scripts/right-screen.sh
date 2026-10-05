@@ -50,9 +50,9 @@ if [[ -n $portable && $(niri msg -j outputs | jq length) -ge 3 ]]; then
 	[[ -n $zap ]] && niri msg action set-window-width --id "$zap" 100%
 fi
 
-# nirinit reopens Antigravity and moves its windows around by index, so the
+# nirinit reopens the editor and moves its windows around by index, so the
 # nix-config window is only placed after that restore is over. Its title only
-# becomes "nix-config - ..." once the folder loads, too late for open-on-workspace.
+# becomes "nix-config ..." once the folder loads, too late for open-on-workspace.
 inv=$(systemctl --user show -p InvocationID --value nirinit.service)
 if [[ -n $inv ]]; then
 	for _ in {1..120}; do
@@ -61,21 +61,34 @@ if [[ -n $inv ]]; then
 	done
 fi
 
-ide=$(win_id antigravity-ide "nix-config - ")
+# Matched by title alone so the editor can change with $EDITOR
+ide_id() {
+	niri msg -j windows | jq -r \
+		'first(.[] | select(.app_id != "app.nix-config-term" and (.title // "" | test("^nix-config( |$)"))) | .id) // empty'
+}
+
+ide=$(ide_id)
 if [[ -z $ide ]]; then
-	niri msg action spawn -- antigravity-ide "$HOME/nix-config"
-	ide=$(wait_for antigravity-ide "nix-config - ")
+	# Split into words: EDITOR may carry arguments
+	read -ra ide_cmd <<<"$EDITOR"
+	niri msg action spawn -- "${ide_cmd[@]}" "$HOME/nix-config"
+	for _ in {1..240}; do
+		ide=$(ide_id)
+		[[ -n $ide ]] && break
+		sleep 0.25
+	done
 fi
 if [[ -n $ide ]]; then
 	niri msg action move-window-to-workspace --window-id "$ide" --focus false nix-config
 	niri msg action set-window-width --id "$ide" 100%
 fi
 
-# nirinit moves whichever Antigravity window it finds first, so other projects
+# nirinit moves whichever editor window it finds first, so other projects
 # can land here; they belong on the external monitor
 ws=$(niri msg -j workspaces | jq -r '.[] | select(.name == "nix-config") | .id')
 niri msg -j windows | jq -r --argjson ws "$ws" --arg ide "${ide:-}" \
-	'.[] | select(.workspace_id == $ws and .app_id == "antigravity-ide" and (.id | tostring) != $ide) | .id' |
+	'(first(.[] | select((.id | tostring) == $ide) | .app_id) // "") as $app
+	| .[] | select(.workspace_id == $ws and .app_id == $app and (.id | tostring) != $ide) | .id' |
 	while read -r id; do
 		niri msg action move-window-to-monitor --id "$id" DP-3
 	done
