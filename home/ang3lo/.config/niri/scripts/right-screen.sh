@@ -50,6 +50,9 @@ if [[ -n $portable && $(niri msg -j outputs | jq length) -ge 3 ]]; then
 	[[ -n $zap ]] && niri msg action set-window-width --id "$zap" 100%
 fi
 
+# Opened before the editor is placed so it ends up on its left
+launch app.nix-config-term ghostty --class=app.nix-config-term
+
 # nirinit reopens the editor and moves its windows around by index, so the
 # nix-config window is only placed after that restore is over. Its title only
 # becomes "nix-config ..." once the folder loads, too late for open-on-workspace.
@@ -92,5 +95,3 @@ niri msg -j windows | jq -r --argjson ws "$ws" --arg ide "${ide:-}" \
 	while read -r id; do
 		niri msg action move-window-to-monitor --id "$id" DP-3
 	done
-
-launch app.nix-config-term ghostty --class=app.nix-config-term
