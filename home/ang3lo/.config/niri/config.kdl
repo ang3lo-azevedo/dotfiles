@@ -544,6 +544,11 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match app-id=r#"(?i)^(vs)?codium$"#
+    open-maximized true
+}
+
 // Enable rounded corners for all windows.
 window-rule {
     geometry-corner-radius 15

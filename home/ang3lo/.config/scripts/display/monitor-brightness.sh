@@ -35,14 +35,25 @@ ddc_bus() {
 	return 1
 }
 
+# The MP165 draws its power from the USB cable and browns out at full brightness:
+# it drops the link within seconds at 100, 80 is the highest value known to hold
+max_brightness() {
+	case "$(niri msg --json outputs | jq -r --arg output "$1" '.[$output].model // empty')" in
+	"MSI MP165 E6") echo 80 ;;
+	*) echo 100 ;;
+	esac
+}
+
 set_output() {
-	local bus state target applied=""
+	local bus state target applied="" value=$2 max
 	case "$1" in
 	eDP*) brightnessctl -c backlight -q set "$2%" ;;
 	*)
 		bus=$(ddc_bus "$1") || return 1
+		max=$(max_brightness "$1")
+		[ "$value" -gt "$max" ] && value=$max
 		state="$RUNTIME/monitor-brightness-$1"
-		echo "$2" >"$state"
+		echo "$value" >"$state"
 		# DDC writes are far slower than slider drag events: a single worker
 		# keeps applying the latest requested value, the other calls just record it
 		exec 9>"$state.lock"
@@ -56,7 +67,7 @@ set_output() {
 }
 
 step_output() {
-	local bus sign=+
+	local bus sign=+ max current target
 	[ "$2" = down ] && sign=-
 	case "$1" in
 	eDP*) brightnessctl -c backlight -q set "2%$sign" ;;
@@ -67,7 +78,17 @@ step_output() {
 		# Not the lock of set_output, which would drop a slider value while a key press is being applied
 		exec 9>"$RUNTIME/monitor-brightness-$1.step.lock"
 		flock -n 9 || return 0
-		ddcutil --bus "$bus" --noverify setvcp 10 "$sign" 5
+		max=$(max_brightness "$1")
+		if [ "$sign" = + ] && [ "$max" -lt 100 ]; then
+			# A relative step cannot be capped, and reading first is too slow to do for every screen
+			current=$(ddcutil --bus "$bus" getvcp 10 --brief | awk '{print $4}')
+			[ -n "$current" ] || return 1
+			target=$((current + 5))
+			[ "$target" -gt "$max" ] && target=$max
+			ddcutil --bus "$bus" --noverify setvcp 10 "$target"
+		else
+			ddcutil --bus "$bus" --noverify setvcp 10 "$sign" 5
+		fi
 		;;
 	esac
 }

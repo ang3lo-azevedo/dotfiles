@@ -50,6 +50,10 @@ flock -n 9 || exit 0
 
 minutes() { echo $((10#${1%:*} * 60 + 10#${1#*:})); }
 
+# Through the journal rather than stderr: the run started by the toggle has no output
+# Read with: journalctl -t night-ramp
+log() { logger -t night-ramp -- "$*"; }
+
 # Written by wlsunset-auto (wlsunset.nix) every time wlsunset starts
 read -r start sunset sunrise <"$RUNTIME/wlsunset-sun-times" 2>/dev/null
 start=$(minutes "${start:-17:00}")
@@ -113,7 +117,10 @@ while IFS=$'\t' read -r output id; do
 	[ "$steps" -ne "$target" ] || continue
 	# Empty when the screen does not answer, it is retried on the next run
 	current=$("$SCRIPTS/monitor-brightness.sh" get "$output")
-	[ -n "$current" ] || continue
+	if [ -z "$current" ]; then
+		log "$output: no answer, step $steps to $target is retried on the next run"
+		continue
+	fi
 	[ "$steps" -eq 0 ] && base[$id]=$current
 	end_b=$END_BRIGHTNESS
 	[[ $id == *"MSI MP165 E6"* ]] && end_b=1
@@ -123,11 +130,15 @@ while IFS=$'\t' read -r output id; do
 		[ "$new" -gt 100 ] && new=100
 		[ "$new" -lt 1 ] && new=1
 		"$SCRIPTS/monitor-brightness.sh" set "$new" "$output"
+		log "$output: step $steps to $target, brightness $current to $new (started at ${base[$id]})"
+	else
+		log "$output: step $steps to $target, left alone (started at ${base[$id]}, not above $end_b)"
 	fi
 	applied[$id]=$target
 done < <(niri msg --json outputs | jq -r 'to_entries[] | [.key, ([.value.make, .value.model, .value.serial] | map(select(. != null and . != "")) | join(" "))] | @tsv')
 
 mkdir -p "$(dirname "$STATE")"
 for id in "${!applied[@]}"; do
-	[ "${applied[$id]}" -gt 0 ] && echo "${applied[$id]} ${base[$id]} $id"
+	# Not a bare "&&": a false test on the last screen would become the exit status
+	if [ "${applied[$id]}" -gt 0 ]; then echo "${applied[$id]} ${base[$id]} $id"; fi
 done >"$STATE"
