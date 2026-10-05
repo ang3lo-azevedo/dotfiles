@@ -490,8 +490,14 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"(?i)(discord|spotify|vesktop|equicord)"#
+    match app-id=r#"(?i)(discord|vesktop|equicord)"#
     open-on-output "eDP-1"
+}
+
+// Falls back to the focused output when the portable monitor is unplugged
+window-rule {
+    match app-id=r#"(?i)spotify"#
+    open-on-output "Microstep MSI MP165 E6 Unknown"
 }
 
 // Window rules let you adjust behavior for individual windows.
