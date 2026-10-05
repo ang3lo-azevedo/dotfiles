@@ -39,6 +39,18 @@ Triggered at local sunrise:
 2. The `wluma` daemon is restarted (if previously active) to resume ambient monitoring.
 3. `wlsunset` restores standard daylight color temperatures.
 
+## Screens That Lose Their Brightness
+
+The MSI G27C4 does not keep a brightness set over DDC: about two seconds after waking from a power-off it jumps back to the value from its own menu.
+
+- `monitor-brightness.sh` records the last brightness of every DDC screen, whether it came from the slider, the brightness keys or `night-ramp.sh`.
+- The screens are powered off through `monitor-brightness.sh off` (idle timeout in swayidle and `Mod+Shift+P`), which records the current values, then puts them back once the screens are on again.
+- swayidle does the same around a suspend with `save` and `restore`.
+
+## Screens Plugged In Late
+
+`wluma` only looks for screens when it starts, and at login it starts before the eGPU is up. `output-watch.sh` (the `output-watch` service) restarts it when a screen it has not seen appears. While `wluma` is off, the screen gets its recorded brightness back instead.
+
 ## SwayNC Controls
 
 Manual overrides are accessible via the SwayNC control center:

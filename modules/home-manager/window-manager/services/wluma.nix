@@ -93,5 +93,25 @@ in {
 
   # Created by the toggle in the swaync panel (monitor-brightness.sh) so that switching
   # automatic brightness off also holds across logins
-  systemd.user.services.wluma.Unit.ConditionPathExists = "!%S/wluma-disabled";
+  systemd.user.services.wluma = {
+    Unit.ConditionPathExists = "!%S/wluma-disabled";
+    # Notes the screens wluma can see, so output-watch.sh can tell which ones it missed
+    Service.ExecStartPre = "-%h/.config/scripts/display/output-watch.sh record";
+  };
+
+  # wluma never looks for screens again after starting, and at login it starts before the
+  # eGPU is up. The script is symlinked from the repo, so edits take effect without rebuilding.
+  systemd.user.services.output-watch = {
+    Unit = {
+      Description = "Restart wluma when a screen it missed is plugged in";
+      After = ["graphical-session.target"];
+      PartOf = ["graphical-session.target"];
+    };
+    Service = {
+      ExecStart = "%h/.config/scripts/display/output-watch.sh";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install.WantedBy = ["graphical-session.target"];
+  };
 }

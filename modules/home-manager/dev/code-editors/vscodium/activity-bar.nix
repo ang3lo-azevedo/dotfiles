@@ -17,6 +17,7 @@
     "workbench.view.extension.references-view"
     "workbench.view.extension.vs-ctf"
     "workbench.view.extension.securecoder-sidebar"
+    "workbench.view.extension.snyk"
     "workbench.view.extension.claude-sidebar"
     "workbench.view.extension.python"
     "workbench.view.extension.claude-sessions-sidebar"

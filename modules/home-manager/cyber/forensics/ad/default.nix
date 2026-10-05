@@ -11,8 +11,13 @@
     # separate decision, not a rename here.
     # ./bloodhound.nix
     ./certipy.nix
+    ./coercer.nix
     ./enum4linux-ng.nix
     ./evil-winrm.nix
+    ./kerbrute.nix
+    ./mitm6.nix
     ./netexec.nix
+    ./rusthound-ce.nix
+    ./smbmap.nix
   ];
 }

@@ -12,15 +12,9 @@
   programs.helium = {
     enable = true;
 
-    flags = let
-      loadExtensionsFlag = import ../chromium-extensions.nix {
-        inherit pkgs config lib;
-        excludeIds = ["cjpalhdlnbpafiamejdnhcphjbkeiagm"];
-      };
-    in [
-      "--ozone-platform-hint=auto"
-      "--enable-features=TouchpadOverscrollHistoryNavigation,WebRTCPipeWireCapturer"
-      loadExtensionsFlag
-    ];
+    flags = import ../chromium-flags.nix {
+      inherit pkgs config lib;
+      excludeIds = ["cjpalhdlnbpafiamejdnhcphjbkeiagm"];
+    };
   };
 }

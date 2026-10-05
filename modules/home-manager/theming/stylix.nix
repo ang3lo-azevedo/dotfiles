@@ -22,6 +22,16 @@ in {
           animation-duration: 0.1s !important;
         }
 
+        /* adw-gtk3's light variant hardcodes near-black text on GTK3 message dialog buttons */
+        messagedialog.csd.background button:not(.suggested-action):not(.destructive-action) {
+          color: @dialog_fg_color;
+        }
+
+        messagedialog.csd.background button:not(.suggested-action):not(.destructive-action):backdrop,
+        messagedialog.csd.background button:not(.suggested-action):not(.destructive-action):disabled {
+          color: alpha(@dialog_fg_color, 0.5);
+        }
+
         .hotkey-overlay {
           font-family: "JetBrainsMono Nerd Font";
           font-size: 14px;

@@ -3,7 +3,9 @@
 # With the "all" mode on, set and step without an OUTPUT apply to every connected output.
 # "step" is for the brightness keys: without an OUTPUT and with the "all" mode off, it acts on the focused output.
 # "auto" is wluma, which lowers the brightness set here depending on the screen content and time of day.
+# "off" powers the screens off and puts their brightness back when they wake: some forget it (see restore_output).
 # Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]
+#        monitor-brightness.sh save | restore [OUTPUT] | off
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
@@ -66,6 +68,54 @@ set_output() {
 	esac
 }
 
+# Read back once the keys are released: a read after every press would slow down a held key
+record_later() {
+	local state="$RUNTIME/monitor-brightness-$1" stamp current
+	stamp=$(date +%s%N)
+	echo "$stamp" >"$state.pending"
+	(
+		sleep 1
+		[ "$(cat "$state.pending")" = "$stamp" ] || exit 0
+		current=$(ddcutil --bus "$2" getvcp 10 --brief | awk '{print $4}')
+		[[ $current =~ ^[0-9]+$ ]] && echo "$current" >"$state"
+	) >/dev/null 2>&1 9>&- &
+}
+
+ddc_outputs() {
+	niri msg --json outputs | jq -r 'keys[] | select(startswith("eDP") | not)'
+}
+
+# Records what each screen is at now, for restore_output.
+# wluma and the screen's own buttons change the brightness behind this script's back
+save_outputs() {
+	local output bus current
+	for output in $(ddc_outputs); do
+		# A screen in standby may answer with anything
+		grep -qsx On /sys/class/drm/card*-"$output"/dpms || continue
+		bus=$(ddc_bus "$output") || continue
+		current=$(ddcutil --bus "$bus" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
+		[[ $current =~ ^[0-9]+$ ]] && echo "$current" >"$RUNTIME/monitor-brightness-$output"
+	done
+}
+
+# The G27C4 does not keep a brightness set over DDC: after a power-off or a replug
+# it comes back at the one from its own menu. Puts back the last one recorded here.
+restore_output() {
+	local bus saved current
+	saved=$(cat "$RUNTIME/monitor-brightness-$1" 2>/dev/null)
+	[ -n "$saved" ] || return 0
+	# It still reports the old value for a couple of seconds after waking, then jumps:
+	# keep looking for a while and put it back once
+	for _ in 1 2 3 4 5 6 7 8 9 10; do
+		bus=$(ddc_bus "$1") && current=$(ddcutil --bus "$bus" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
+		if [[ $current =~ ^[0-9]+$ ]] && [ "$current" != "$saved" ]; then
+			set_output "$1" "$saved"
+			return
+		fi
+		sleep 2
+	done
+}
+
 step_output() {
 	local bus sign=+ max current target
 	[ "$2" = down ] && sign=-
@@ -89,6 +139,7 @@ step_output() {
 		else
 			ddcutil --bus "$bus" --noverify setvcp 10 "$sign" 5
 		fi
+		record_later "$1" "$bus"
 		;;
 	esac
 }
@@ -150,14 +201,41 @@ auto)
 		*)
 			mkdir -p "$(dirname "$AUTO_OFF")" && touch "$AUTO_OFF"
 			systemctl --user stop wluma
+			save_outputs
 			;;
 		esac
 	else
 		systemctl --user is-active --quiet wluma && echo true || echo false
 	fi
 	;;
+save)
+	save_outputs
+	;;
+restore)
+	# Each output in its own subshell: they must not share the lock descriptor
+	for output in ${2:-$(ddc_outputs)}; do
+		(restore_output "$output") &
+	done
+	wait
+	;;
+off)
+	save_outputs
+	niri msg action power-off-monitors
+	# In the background: swayidle waits for its commands, and the screens may stay off for hours
+	(
+		exec 9>"$RUNTIME/monitor-brightness-off.lock"
+		flock -n 9 || exit 0
+		sleep 3
+		# Only the connected ones: a writeback connector always reads On
+		until for output in $(niri msg --json outputs | jq -r 'keys[]'); do
+			grep -qsx On /sys/class/drm/card*-"$output"/dpms && break
+		done; do sleep 1; done
+		exec 9>&-
+		"$0" restore
+	) >/dev/null 2>&1 &
+	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle] | save | restore [OUTPUT] | off" >&2
 	exit 1
 	;;
 esac
