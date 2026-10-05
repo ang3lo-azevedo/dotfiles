@@ -31,6 +31,11 @@
 **What it is:** A Python-based GUI tool for parsing offline Windows Registry hives.
 **When to use:** You have extracted `NTUSER.DAT`, `SYSTEM`, `SOFTWARE`, etc., and need to explore the registry keys offline.
 
+### [RegRipper](./windows/registry/regripper.nix)
+**What it is:** Plugin-based CLI that extracts and interprets known artifacts from offline Registry hives.
+**When to use:** You want quick answers from a hive (USB history, run keys, user activity, installed software) instead of browsing keys by hand.
+**How to run:** `regripper -r NTUSER.DAT -a` (all plugins that apply to the hive), or `-p <plugin>` for a single one
+
 ### [EDB Tools](./windows/edb/)
 **What it is:** Tools for parsing Extensible Storage Engine (ESE / EDB) databases (e.g., `libesedb`, `ese-database-view`, `sidr`).
 **When to use:** You need to extract data from Windows Search index, Active Directory `ntds.dit`, or Exchange databases.
@@ -117,6 +122,21 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 **What it is:** PDF analysis and cracking tools.
 **When to use:** You need to brute-force a password-protected PDF or extract images/text streams from malicious PDFs.
 
+### [Scalpel](./files/scalpel.nix)
+**What it is:** File carver that recovers files by their headers and footers.
+**When to use:** The file system is damaged or missing, or you want to carve specific file types out of a raw image or unallocated space.
+**How to run:** `scalpel -c scalpel.conf -o out/ image.dd` (uncomment the wanted file types in a copy of the config first)
+
+### [bkcrack](./files/bkcrack.nix)
+**What it is:** Known-plaintext attack on legacy ZipCrypto archives.
+**When to use:** A zip is encrypted with ZipCrypto (not AES) and you know at least 12 bytes of one of its files, e.g. a file header or a file you also have in clear.
+**How to run:** `bkcrack -C enc.zip -c file.png -p known.bin`
+
+### [pdfid & pdf-parser](./files/pdf/)
+**What it is:** Didier Stevens' PDF triage tools: `pdfid` counts suspicious keywords, `pdf-parser.py` walks the objects and streams.
+**When to use:** You have a suspicious PDF and want to see if it carries JavaScript, auto-open actions, or embedded files, then dump the offending object.
+**How to run:** `pdfid file.pdf`, then `pdf-parser.py --search javascript file.pdf`
+
 ## Steganography ([steg/](./steg/))
 
 ### [Steghide](./steg/steghide.nix)
@@ -126,6 +146,26 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 ### [Zsteg](./steg/zsteg.nix)
 **What it is:** Detects hidden data in PNG and BMP.
 **When to use:** You are doing a CTF challenge and need to check a lossless image (PNG/BMP) for LSB (Least Significant Bit) steganography or hidden payloads.
+
+### [Stegseek](./steg/stegseek.nix)
+**What it is:** Very fast steghide passphrase cracker.
+**When to use:** You suspect steghide was used but do not have the passphrase. It runs through rockyou in seconds.
+**How to run:** `stegseek image.jpg wordlist.txt`
+
+### [OutGuess](./steg/outguess.nix)
+**What it is:** Hides/extracts data in the redundant bits of JPEG images.
+**When to use:** Steghide finds nothing in a JPEG and the challenge hints at OutGuess.
+**How to run:** `outguess -r image.jpg out.txt` (add `-k <key>` if a key was used)
+
+### [Stegsolve](./steg/stegsolve.nix)
+**What it is:** GUI image analyzer that flips through bit planes, color channels, and frame combinations.
+**When to use:** You want to look for hidden content by eye: a message in one bit plane or the alpha channel, or the difference between two images.
+**How to run:** `stegsolve`
+
+### [pngcheck](./steg/pngcheck.nix)
+**What it is:** Verifies PNG integrity and lists its chunks.
+**When to use:** A PNG will not open or looks truncated, and you need to find the broken CRC, wrong dimensions, or extra data after `IEND`.
+**How to run:** `pngcheck -v image.png`
 
 ### [Binwalk & Unblob](./steg/binwalk.nix)
 **What it is:** Firmware extraction tools.

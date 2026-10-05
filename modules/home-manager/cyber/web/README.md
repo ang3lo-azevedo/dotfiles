@@ -16,6 +16,21 @@ This module contains tools for analyzing, scanning, and exploiting web applicati
 **What it is:** Fast and customizable vulnerability scanner based on simple YAML-based DSL.
 **When to use:** You want to send requests across multiple targets using templates that can detect CVEs, misconfigurations, and default credentials with zero false positives.
 
+### [WhatWeb](./scanning/whatweb.nix)
+**What it is:** Web technology fingerprinter.
+**When to use:** You want to identify the CMS, framework, server, and libraries a site runs before choosing an attack.
+**How to run:** `whatweb -a 3 https://target`
+
+### [wafw00f](./scanning/wafw00f.nix)
+**What it is:** Web application firewall detector.
+**When to use:** Requests are being blocked and you want to know which WAF is in front of the target.
+**How to run:** `wafw00f https://target`
+
+### [git-dumper](./scanning/git-dumper.nix)
+**What it is:** Reconstructs a git repository from an exposed `.git/` directory on a web server.
+**When to use:** You find `/.git/` is reachable and want to recover the source code and history.
+**How to run:** `git-dumper https://target/.git/ out/`
+
 ## Directory Fuzzing & Wordlists
 
 ### [Ffuf](./fuzzing/ffuf.nix)
@@ -25,6 +40,16 @@ This module contains tools for analyzing, scanning, and exploiting web applicati
 ### [Gobuster](./fuzzing/gobuster.nix)
 **What it is:** Directory/File, DNS and VHost busting tool written in Go.
 **When to use:** An alternative to ffuf, excellent for bruteforcing URIs, DNS subdomains, and virtual host names using a given wordlist.
+
+### [feroxbuster](./fuzzing/feroxbuster.nix)
+**What it is:** Fast recursive content discovery tool written in Rust.
+**When to use:** You want recursive directory and file brute-forcing that automatically follows discovered directories, as an alternative to ffuf/gobuster.
+**How to run:** `feroxbuster -u https://target -w wordlist.txt`
+
+### [Arjun](./fuzzing/arjun.nix)
+**What it is:** HTTP query and body parameter discovery tool.
+**When to use:** An endpoint behaves differently with hidden parameters and you want to find their names.
+**How to run:** `arjun -u https://target/endpoint`
 
 ## Exploitation
 
@@ -39,3 +64,13 @@ This module contains tools for analyzing, scanning, and exploiting web applicati
 ### [TPLmap](./exploitation/tplmap.nix)
 **What it is:** Server-Side Template Injection and Code Injection detection and exploitation tool.
 **When to use:** You are dealing with template engines (Jinja2, Twig, Freemarker) and want to exploit SSTI to achieve remote code execution.
+
+### [Dalfox](./exploitation/dalfox.nix)
+**What it is:** Fast parameter analysis and XSS scanner.
+**When to use:** You want to test reflected and DOM parameters for cross-site scripting at scale.
+**How to run:** `dalfox url https://target/search?q=1`
+
+### [flask-unsign](./exploitation/flask-unsign.nix)
+**What it is:** Tool to decode, brute-force, and craft Flask session cookies.
+**When to use:** An app uses Flask's signed client-side session cookies and you want to read them or forge one once you recover the secret key.
+**How to run:** `flask-unsign --decode --cookie '<cookie>'`

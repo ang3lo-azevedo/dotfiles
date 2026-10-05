@@ -6,10 +6,16 @@
 }: let
   sharedSettings = import ../shared-settings.nix;
   vscodiumSettings =
-    sharedSettings.sharedSettings
+    builtins.removeAttrs sharedSettings.sharedSettings [
+      "github.copilot.enable"
+      "github.copilot.chat.cli.mcp.enabled"
+    ]
     // {
       # Override color theme for VSCodium
       "workbench.colorTheme" = "Perfect Dark Theme";
+
+      # Hides the built-in chat, inline suggestions and agent UI.
+      "chat.disableAIFeatures" = true;
     };
 
   settingsJson = builtins.toJSON vscodiumSettings;

@@ -372,7 +372,8 @@ spawn-at-startup "swaybg" "-c" "#000000"
 spawn-at-startup "~/.config/swaync/scripts/start-swaync.sh"
 
 // Idle management
-spawn-at-startup "swayidle" "-w" "timeout" "601" "niri msg action power-off-monitors" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f"
+// The screens go off through monitor-brightness.sh, which puts back the brightness some of them lose
+spawn-at-startup "swayidle" "-w" "timeout" "601" "~/.config/scripts/display/monitor-brightness.sh off" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f; ~/.config/scripts/display/monitor-brightness.sh save" "after-resume" "~/.config/scripts/display/monitor-brightness.sh restore"
 
 // Clipboard history
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
@@ -542,12 +543,13 @@ window-rule {
 
 window-rule {
     match app-id=r#"^antigravity-ide$"#
-    block-out-from "screencast"
+    match app-id=r#"(?i)^(vs)?codium$"#
+
+    block-out-from "screen-capture"
     open-maximized true
 }
 
 window-rule {
-    match app-id=r#"(?i)^(vs)?codium$"#
     match app-id=r#"^dev\.zed\.Zed$"#
     open-maximized true
 }
@@ -848,5 +850,5 @@ binds {
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
-    Mod+Shift+P { power-off-monitors; }
+    Mod+Shift+P { spawn "~/.config/scripts/display/monitor-brightness.sh" "off"; }
 }

@@ -111,6 +111,13 @@ in {
       icon_theme = "Material Icon Theme";
 
       project_panel.dock = "right";
+      git_panel.dock = "right";
+      outline_panel.dock = "left";
+      debugger.dock = "bottom";
+      collaboration_panel = {
+        dock = "right";
+        button = false;
+      };
 
       # window.controlsStyle = "hidden": niri draws no decorations of its own
       window_decorations = "server";
@@ -123,7 +130,12 @@ in {
         type = "registry";
         default_config_options.mode = "auto";
       };
-      agent.enable_feedback = false;
+      agent = {
+        enable_feedback = false;
+        dock = "right";
+        flexible = true;
+        threads_sidebar.position = "right";
+      };
       title_bar = {
         #show_sign_in = false;
         show_onboarding_banner = false;
