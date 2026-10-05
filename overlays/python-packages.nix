@@ -21,6 +21,26 @@ in {
   customPython313 = prev.python313.override {packageOverrides = customOverrides;};
   customPython313Packages = final.customPython313.pkgs;
 
+  # HACK: anyio's test_tls_connectable fails on Python 3.12 in nixpkgs unstable
+  # ("server_hostname can only be specified in client mode"), which breaks
+  # everything on 3.12 that pulls httpx. Scoped to 3.12 so the cached builds
+  # for the default Python keep their hashes. An extension rather than a
+  # python312 override because netexec replaces packageOverrides with its own.
+  # Used by: netexec, the reverser_ai Binary Ninja env.
+  pythonPackagesExtensions =
+    prev.pythonPackagesExtensions
+    ++ [
+      (_pyFinal: pyPrev: {
+        anyio =
+          if pyPrev.python.pythonVersion == "3.12"
+          then
+            pyPrev.anyio.overridePythonAttrs (old: {
+              disabledTests = (old.disabledTests or []) ++ ["test_tls_connectable"];
+            })
+          else pyPrev.anyio;
+      })
+    ];
+
   # HACK: sage-tests fails in unstable with a permission error creating .pytest_cache.
   # We bypass this by completely disabling tests for sage.
   sage = prev.sage.override {requireSageTests = false;};
