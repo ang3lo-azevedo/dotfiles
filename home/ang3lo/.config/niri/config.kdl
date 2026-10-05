@@ -504,11 +504,7 @@ window-rule {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
-// Disabled: forced every Zen window, including a deliberately opened second
-// one, to open at 100% width, so a new window could never sit side by side
-// with one already open. Use Mod+F (maximize-column) per window instead when
-// a single Zen window filling the screen is actually wanted.
-/-window-rule {
+window-rule {
     match app-id="(?i)^zen"
     open-maximized true
 }
