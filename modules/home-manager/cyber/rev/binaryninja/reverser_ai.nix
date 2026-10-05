@@ -6,8 +6,8 @@
   sources = pkgs.callPackage "${inputs.ang3lo-nur}/_sources/generated.nix" {};
   reverser_ai = sources.reverser_ai.src;
 
-  # Python 3.12 environment with reverser_ai dependencies from ./requirements.txt
-  python312WithReverserAI = pkgs.python312.withPackages (ps:
+  # Python environment with reverser_ai dependencies from ./requirements.txt
+  pythonWithReverserAI = pkgs.python3.withPackages (ps:
     with ps; [
       huggingface-hub
       llama-cpp-python
@@ -22,10 +22,10 @@ in {
 
     # Provide an env script that Binary Ninja sources at launch
     file.".binaryninja/reverser_ai_env.sh".text = ''
-      export PYTHONPATH="${python312WithReverserAI}/${pkgs.python312.sitePackages}:$PYTHONPATH"
+      export PYTHONPATH="${pythonWithReverserAI}/${pkgs.python3.sitePackages}:$PYTHONPATH"
     '';
 
     # Expose the plugin dependencies to the rest of the Home Manager config (using a custom variable to avoid global pollution)
-    sessionVariables.BINJA_PYTHONPATH = "${python312WithReverserAI}/${pkgs.python312.sitePackages}";
+    sessionVariables.BINJA_PYTHONPATH = "${pythonWithReverserAI}/${pkgs.python3.sitePackages}";
   };
 }
