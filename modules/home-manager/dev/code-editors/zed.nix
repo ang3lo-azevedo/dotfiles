@@ -133,7 +133,10 @@ in {
       agent = {
         enable_feedback = false;
         dock = "right";
-        flexible = true;
+        # A flexible panel ignores default_width and opens at half the window.
+        # 300 is the narrowest the panel goes.
+        flexible = false;
+        default_width = 300;
         threads_sidebar.position = "right";
       };
       title_bar = {
