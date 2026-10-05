@@ -37,6 +37,19 @@ launch app.btop ghostty --class=app.btop -e btop
 launch equibop equibop
 launch zapfast zapfast
 
+# With all three monitors connected Discord gets the portable one to itself,
+# which leaves ZapFast alone on the social workspace
+portable=$(niri msg -j outputs | jq -r 'first(.[] | select(.model == "MSI MP165 E6") | .name) // empty')
+if [[ -n $portable && $(niri msg -j outputs | jq length) -ge 3 ]]; then
+	chat=$(win_id equibop)
+	zap=$(win_id zapfast)
+	if [[ -n $chat ]]; then
+		niri msg action move-window-to-monitor --id "$chat" "$portable"
+		niri msg action set-window-width --id "$chat" 100%
+	fi
+	[[ -n $zap ]] && niri msg action set-window-width --id "$zap" 100%
+fi
+
 # nirinit reopens Antigravity and moves its windows around by index, so the
 # nix-config window is only placed after that restore is over. Its title only
 # becomes "nix-config - ..." once the folder loads, too late for open-on-workspace.
