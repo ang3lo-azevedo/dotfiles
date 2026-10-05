@@ -1,4 +1,35 @@
-{lib, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  commit-msg = pkgs.writeShellApplication {
+    name = "zed-commit-msg";
+    runtimeInputs = [pkgs.git pkgs.wl-clipboard];
+    text = ''
+      diff=$(git diff --cached)
+      [[ -n $diff ]] || diff=$(git diff HEAD)
+      if [[ -z $diff ]]; then
+        echo "no changes to describe" >&2
+        exit 1
+      fi
+
+      {
+        echo "Recent subjects:"
+        git log -10 --format=%s
+        echo
+        echo "Status:"
+        git status --short
+        echo
+        echo "Diff:"
+        head -c 100000 <<<"$diff"
+      } | claude -p --model haiku --tools "" --no-session-persistence \
+        --system-prompt "You write git commit messages. Reply with the commit message only: no preamble, no code fences, no trailers. Match the style of the recent subjects. Keep the subject under 72 characters and add a body only when the change needs explaining." \
+        | tee /dev/stderr | wl-copy --trim-newline
+    '';
+  };
+  commitMsgTask = "commit message to clipboard";
+in {
   # Fonts come from the stylix zed target.
   programs.zed-editor = {
     enable = true;
@@ -34,6 +65,16 @@
       "typst"
     ];
 
+    userTasks = [
+      {
+        label = commitMsgTask;
+        command = lib.getExe commit-msg;
+        reveal = "no_focus";
+        hide = "on_success";
+        allow_concurrent_runs = false;
+      }
+    ];
+
     # explorer.confirmDelete = false
     userKeymaps = [
       {
@@ -42,6 +83,15 @@
           delete = ["project_panel::Trash" {skip_prompt = true;}];
           backspace = ["project_panel::Trash" {skip_prompt = true;}];
         };
+      }
+      # Takes over the default git::GenerateCommitMessage binding
+      {
+        context = "GitCommit > Editor && mode == auto_height";
+        bindings.alt-l = ["task::Spawn" {task_name = commitMsgTask;}];
+      }
+      {
+        context = "CommitEditor > Editor";
+        bindings.alt-l = ["task::Spawn" {task_name = commitMsgTask;}];
       }
     ];
 
@@ -74,12 +124,8 @@
         default_config_options.mode = "auto";
       };
       agent.enable_feedback = false;
-      agent.commit_message_model = {
-        provider = "copilot_chat";
-        model = "gpt-4.1";
-      };
       title_bar = {
-        show_sign_in = false;
+        #show_sign_in = false;
         show_onboarding_banner = false;
       };
 
