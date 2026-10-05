@@ -13,9 +13,11 @@ _: {
       "nix"
       "material-icon-theme"
       "basher"
+      "comment"
       "csv"
       "docker-compose"
       "dockerfile"
+      "git-firefly"
       "github-actions"
       "groovy"
       "html"
@@ -63,7 +65,16 @@ _: {
       # window.controlsStyle = "hidden": niri draws no decorations of its own
       window_decorations = "server";
 
+      # AI stays out of the way but reachable: predictions only on alt-\,
+      # Claude from the agent panel. disable_ai would remove both.
       edit_predictions.provider = "copilot";
+      show_edit_predictions = false;
+      agent_servers.claude-acp.type = "registry";
+      agent.enable_feedback = false;
+      title_bar = {
+        show_sign_in = false;
+        show_onboarding_banner = false;
+      };
 
       languages.Nix = {
         language_servers = ["nil" "!nixd"];

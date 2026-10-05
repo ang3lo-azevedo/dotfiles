@@ -67,6 +67,8 @@ in {
 
     # Custom base16 color scheme
     base16Scheme = {
+      # Zed rejects the generated theme without it: "unspecified" is not a valid appearance
+      variant = "dark";
       base00 = "000000"; # Default Background
       base01 = "0d0d0d"; # Lighter Background (status bars, line numbers, sidebars)
       base02 = "1c1c1c"; # Selection Background
