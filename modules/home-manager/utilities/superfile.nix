@@ -17,7 +17,7 @@ in {
       show_folder_size = true;
       show_hidden = true;
       ignore_missing_fields = true;
-      editor = "antigravity-ide";
+      editor = "";
       metadata = true;
     };
   };
