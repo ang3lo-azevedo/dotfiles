@@ -30,8 +30,18 @@ in {
     # Unpatched, wluma retries that forever: it floods the journal (hundreds of lines a
     # second) and burns CPU. The patch clamps the target to what the device accepts and
     # stops retrying a value the device refused. Drop this once nixpkgs moves past 4.11.
+    #
+    # wluma takes the brightness it finds at startup as set by hand at the current hour, so
+    # after a night spent stopped it holds the daytime brightness the night ramp put back.
+    # The second patch lets night-ramp.sh name the hour that brightness dates from
+    # (WLUMA_START_HOUR): wluma then moves on to what the current hour calls for.
     package = pkgs.wluma.overrideAttrs (old: {
-      patches = (old.patches or []) ++ [./wluma-unreachable-target.patch];
+      patches =
+        (old.patches or [])
+        ++ [
+          ./wluma-unreachable-target.patch
+          ./wluma-start-hour.patch
+        ];
     });
     settings = {
       # The laptop exposes no ambient light sensor, so the time of day stands in for it

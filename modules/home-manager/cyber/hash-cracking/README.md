@@ -9,6 +9,11 @@ This module contains tools for identifying and cracking password hashes. See the
 **When to use:** You have an unknown hash and need to know what algorithm it is before cracking it.
 **How to run:** `haiti '<hash>'`
 
+### [hashID](./hashid.nix)
+**What it is:** A classic hash type identifier covering a large set of formats, with hashcat mode output.
+**When to use:** A second opinion to Haiti, or when you want its broader format database.
+**How to run:** `hashid -m '<hash>'`
+
 ## Cracking
 
 ### [Hashcat](./hashcat.nix)

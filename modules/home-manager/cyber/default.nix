@@ -1,6 +1,7 @@
 {
   imports = [
     ./forensics
+    ./recon
     ./rev
     ./web
     ./pwn
