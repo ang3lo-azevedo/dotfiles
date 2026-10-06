@@ -24,10 +24,8 @@
 
 ## General Stuff
 
-- [ ] See about winleapp, ileapp, aleapp, linpeas and winpeas
-- [ ] Add quickvm, quickgui and distrobox configs for ctfs
+- [x] Add quickvm, quickgui and distrobox configs for ctfs
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
-- [x] Create a readme for the rev tools and the other missing ones
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500

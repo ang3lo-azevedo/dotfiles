@@ -96,11 +96,6 @@ if [ "$target" -gt 0 ] && systemctl --user is-active --quiet wluma; then
 	# So we automatically pause wluma at night.
 	systemctl --user stop wluma
 	touch "$RUNTIME/night-ramp-stopped-wluma"
-elif [ "$target" -eq 0 ] && [ -e "$RUNTIME/night-ramp-stopped-wluma" ]; then
-	rm -f "$RUNTIME/night-ramp-stopped-wluma"
-	if [ ! -e "$AUTO_OFF" ]; then
-		systemctl --user start wluma
-	fi
 fi
 
 declare -A base applied
@@ -142,3 +137,16 @@ for id in "${!applied[@]}"; do
 	# Not a bare "&&": a false test on the last screen would become the exit status
 	if [ "${applied[$id]}" -gt 0 ]; then echo "${applied[$id]} ${base[$id]} $id"; fi
 done >"$STATE"
+
+# Only now that the screens are back up: wluma starts from the brightness it finds
+if [ "$target" -eq 0 ] && [ -e "$RUNTIME/night-ramp-stopped-wluma" ]; then
+	rm -f "$RUNTIME/night-ramp-stopped-wluma"
+	if [ ! -e "$AUTO_OFF" ]; then
+		# That brightness dates from when the ramp began. Told so, wluma moves on from there
+		# to what this time of day calls for, instead of holding it (wluma.nix)
+		systemctl --user set-environment WLUMA_START_HOUR=$((start / 60))
+		systemctl --user reset-failed wluma
+		systemctl --user start wluma
+		systemctl --user unset-environment WLUMA_START_HOUR
+	fi
+fi

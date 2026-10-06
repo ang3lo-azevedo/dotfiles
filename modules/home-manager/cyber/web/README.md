@@ -74,3 +74,8 @@ This module contains tools for analyzing, scanning, and exploiting web applicati
 **What it is:** Tool to decode, brute-force, and craft Flask session cookies.
 **When to use:** An app uses Flask's signed client-side session cookies and you want to read them or forge one once you recover the secret key.
 **How to run:** `flask-unsign --decode --cookie '<cookie>'`
+
+### [XSStrike](./exploitation/xsstrike.nix)
+**What it is:** XSS detection suite with a crawler, payload generation, and fuzzing.
+**When to use:** You want deeper XSS discovery than a single-shot scanner, including context analysis and WAF-aware payloads, alongside Dalfox.
+**How to run:** `xsstrike -u "https://target/search?q=1"`

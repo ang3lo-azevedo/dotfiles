@@ -11,6 +11,8 @@ RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
 # Checked by the wluma unit (wluma.nix) so it also stays off across logins
 AUTO_OFF="${XDG_STATE_HOME:-$HOME/.local/state}/wluma-disabled"
+# Written by night-ramp.sh, empty unless it has screens dimmed
+RAMP_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-brightness"
 
 cc_output() {
 	local out
@@ -194,9 +196,16 @@ auto)
 		case "${SWAYNC_TOGGLE_STATE:-$(systemctl --user is-active --quiet wluma && echo false || echo true)}" in
 		true)
 			rm -f "$AUTO_OFF"
-			# Quick clicks would otherwise trip systemd's start limit
-			systemctl --user reset-failed wluma
-			systemctl --user start wluma
+			if [ -s "$RAMP_STATE" ]; then
+				# The night ramp keeps wluma stopped while it dims: switch the ramp off instead.
+				# It starts wluma itself once the screens are back up
+				touch "$RUNTIME/night-ramp-stopped-wluma"
+				SWAYNC_TOGGLE_STATE=false "$(dirname "$(readlink -f "$0")")/night-ramp.sh" mode toggle
+			else
+				# Quick clicks would otherwise trip systemd's start limit
+				systemctl --user reset-failed wluma
+				systemctl --user start wluma
+			fi
 			;;
 		*)
 			mkdir -p "$(dirname "$AUTO_OFF")" && touch "$AUTO_OFF"
