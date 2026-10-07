@@ -6,6 +6,8 @@
     ./git.nix
     ./code-editors
     ./adb.nix
+    ./make.nix
+    ./go.nix
     ./latex.nix
     ./typst.nix
     ./game-dev

@@ -4,8 +4,9 @@
 # "step" is for the brightness keys: without an OUTPUT and with the "all" mode off, it acts on the focused output.
 # "auto" is wluma, which lowers the brightness set here depending on the screen content and time of day.
 # "off" powers the screens off and puts their brightness back when they wake: some forget it (see restore_output).
+# "cap" brings back down a screen that is above what it can take with the screens now connected.
 # Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]
-#        monitor-brightness.sh save | restore [OUTPUT] | off
+#        monitor-brightness.sh save | restore [OUTPUT] | off | cap
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
@@ -39,11 +40,13 @@ ddc_bus() {
 	return 1
 }
 
-# The MP165 draws its power from the USB cable and browns out at full brightness:
-# it drops the link within seconds at 100, 80 is the highest value known to hold
+# The MP165 draws its power from the USB cable and browns out when it is the third screen:
+# it drops the link within seconds above 70. As the only external screen it holds at 100
 max_brightness() {
-	case "$(niri msg --json outputs | jq -r --arg output "$1" '.[$output].model // empty')" in
-	"MSI MP165 E6") echo 80 ;;
+	local outputs
+	outputs=$(niri msg --json outputs)
+	case "$(jq -r --arg output "$1" '.[$output].model // empty' <<<"$outputs")" in
+	"MSI MP165 E6") [ "$(jq length <<<"$outputs")" -ge 3 ] && echo 70 || echo 100 ;;
 	*) echo 100 ;;
 	esac
 }
@@ -220,6 +223,23 @@ auto)
 save)
 	save_outputs
 	;;
+cap)
+	# What a screen can take depends on the others, so this runs as they come and go
+	# (external-monitor.sh). wluma reads the file before every change it makes (wluma.nix)
+	outputs=$(niri msg --json outputs)
+	for output in $(ddc_outputs); do
+		max=$(max_brightness "$output")
+		echo "$max" >"$RUNTIME/wluma-max-$(jq -r --arg output "$output" '.[$output].model' <<<"$outputs")"
+		[ "$max" -lt 100 ] || continue
+		# A screen that was just plugged in takes a moment to answer
+		for _ in 1 2 3 4 5; do
+			bus=$(ddc_bus "$output") && current=$(ddcutil --bus "$bus" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
+			[[ $current =~ ^[0-9]+$ ]] && break
+			sleep 1
+		done
+		[[ $current =~ ^[0-9]+$ ]] && [ "$current" -gt "$max" ] && set_output "$output" "$max"
+	done
+	;;
 restore)
 	# Each output in its own subshell: they must not share the lock descriptor
 	for output in ${2:-$(ddc_outputs)}; do
@@ -244,7 +264,7 @@ off)
 	) >/dev/null 2>&1 &
 	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle] | save | restore [OUTPUT] | off" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle] | save | restore [OUTPUT] | off | cap" >&2
 	exit 1
 	;;
 esac

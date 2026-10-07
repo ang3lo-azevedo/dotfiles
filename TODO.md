@@ -24,6 +24,7 @@
 
 ## General Stuff
 
+- [x] Add antigravity, copilot and opencode to zed
 - [x] Add quickvm, quickgui and distrobox configs for ctfs
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings

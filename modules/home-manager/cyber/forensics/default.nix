@@ -5,6 +5,7 @@
     ./memory
     ./net
     ./steg
+    ./triage
     ./utils
     ./windows
   ];

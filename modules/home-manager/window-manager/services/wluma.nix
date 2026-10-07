@@ -35,12 +35,17 @@ in {
     # after a night spent stopped it holds the daytime brightness the night ramp put back.
     # The second patch lets night-ramp.sh name the hour that brightness dates from
     # (WLUMA_START_HOUR): wluma then moves on to what the current hour calls for.
+    #
+    # The portable monitor browns out above a brightness that depends on the other screens
+    # connected. The third patch keeps wluma under the limit monitor-brightness.sh writes
+    # to $XDG_RUNTIME_DIR/wluma-max-<model>.
     package = pkgs.wluma.overrideAttrs (old: {
       patches =
         (old.patches or [])
         ++ [
           ./wluma-unreachable-target.patch
           ./wluma-start-hour.patch
+          ./wluma-brightness-cap.patch
         ];
     });
     settings = {
