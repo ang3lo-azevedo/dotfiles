@@ -123,12 +123,20 @@ in {
       window_decorations = "server";
 
       # AI stays out of the way but reachable: predictions only on alt-\,
-      # Claude from the agent panel. disable_ai would remove both.
+      # agents from the agent panel. disable_ai would remove both.
       edit_predictions.provider = "copilot";
-      show_edit_predictions = false;
-      agent_servers.claude-acp = {
-        type = "registry";
-        default_config_options.mode = "auto";
+      show_edit_predictions = true;
+      agent_servers = {
+        claude-acp = {
+          type = "registry";
+          default_config_options.mode = "auto";
+        };
+        antigravity-acp = {
+          type = "registry";
+          default_config_options.model = "gemini-pro-agent";
+        };
+        github-copilot-cli.type = "registry";
+        opencode.type = "registry";
       };
       agent = {
         enable_feedback = false;
@@ -151,7 +159,11 @@ in {
 
       lsp.nil = {
         binary.path = "nil";
-        settings.formatting.command = ["nixfmt"];
+        settings = {
+          formatting.command = ["nixfmt"];
+          # Unset, nil asks to fetch missing flake inputs on every start
+          nix.flake.autoArchive = true;
+        };
       };
     };
   };

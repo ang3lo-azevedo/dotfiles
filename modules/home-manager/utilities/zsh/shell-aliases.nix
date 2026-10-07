@@ -10,6 +10,7 @@
     code = "$EDITOR";
     btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
     chainsaw-hunt = "chainsaw hunt --mapping ${pkgs.chainsaw-rules}/share/chainsaw/mappings/sigma-event-logs-all.yml --sigma ${pkgs.chainsaw-rules}/share/chainsaw/sigma/rules";
+    blackarch = "distrobox enter blackarch";
     phone = "gio mount -li | awk -F= '{if(index($2,\"mtp://\") != 0) system(\"gio mount \"$2)}'; yy /run/user/1000/gvfs/mtp*";
 
     # NixOS related aliases

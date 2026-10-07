@@ -71,6 +71,8 @@
     "nix.serverPath" = "nil";
     "nix.serverSettings" = {
       nil.formatting.command = ["nixfmt"];
+      # Unset, nil asks to fetch missing flake inputs on every start
+      nil.nix.flake.autoArchive = true;
     };
 
     "[nix]" = {

@@ -1,0 +1,26 @@
+--- a/src/brightness/ddcutil.rs
++++ b/src/brightness/ddcutil.rs
+@@ -85,8 +85,22 @@
+         }
+     }
+ 
++    // A screen may hold less than its full range depending on what else is connected.
++    // monitor-brightness.sh writes the value it can take as screens come and go, so the
++    // file is read again every time.
++    fn cap(&self) -> u64 {
++        std::env::var("XDG_RUNTIME_DIR")
++            .ok()
++            .and_then(|dir| {
++                std::fs::read_to_string(format!("{dir}/wluma-max-{}", self.identifier)).ok()
++            })
++            .and_then(|value| value.trim().parse().ok())
++            .unwrap_or(self.max_brightness)
++    }
++
+     pub fn clamp(&self, value: u64) -> u64 {
+-        value.clamp(self.min_brightness, self.max_brightness)
++        let max = self.max_brightness.min(self.cap()).max(self.min_brightness);
++        value.clamp(self.min_brightness, max)
+     }
+ 
+     pub async fn set(&mut self, value: u64) -> Result<u64> {

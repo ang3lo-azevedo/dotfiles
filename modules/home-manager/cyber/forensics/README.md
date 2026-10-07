@@ -7,6 +7,11 @@
 **When to use:** You have PCAPs, binary malware files, or system logs and need a visual, unified interface to analyze them against Suricata, YARA, and Sigma rules. Perfect for multi-artifact incidents.
 **How to run:** Drop files in `~/socrates-data` and run `so-crates`.
 
+### [YARA](./triage/yara.nix)
+**What it is:** Pattern-matching engine that scans files and memory dumps against rules describing malware families or any byte and string pattern.
+**When to use:** You have a folder of extracted files, a carved binary, or a process dump and want to know which known signatures hit, or you are writing a rule for an indicator you found.
+**How to run:** `yara -r rules.yar extracted/` (add `-s` to print the matching strings)
+
 ## Windows Forensics ([windows/](./windows/))
 
 ### [Chainsaw](./windows/triage/chainsaw.nix)
@@ -104,6 +109,16 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 **What it is:** The complete disk forensics platform.
 **When to use:** You have a full raw disk image (`.dd`, `.E01`) or logical partition and need to analyze file systems, recover deleted files, search by keywords, or generate forensic case reports.
 
+### [libewf](./files/libewf.nix)
+**What it is:** Library and tools for EnCase / Expert Witness (`.E01`, `.Ex01`) evidence images.
+**When to use:** You were handed an `.E01` and need to check it, read its acquisition metadata, or expose it as a raw image that `mount`, Sleuthkit, or any other tool can open.
+**How to run:** `ewfinfo image.E01`, `ewfverify image.E01`, then `ewfmount image.E01 /mnt/ewf` and work on `/mnt/ewf/ewf1`
+
+### [libguestfs](./files/libguestfs.nix)
+**What it is:** Tools for reading virtual machine disks (`.vmdk`, `.vhdx`, `.qcow2`, `.vdi`) without booting them.
+**When to use:** The evidence is a VM disk and you want its file system mounted read-only, or a quick listing of what it holds.
+**How to run:** `guestmount -a disk.vmdk -i --ro /mnt/vm` (`guestunmount /mnt/vm` when done), or `guestfish --ro -a disk.vmdk -i` for a shell inside the image
+
 ### [Dislocker](./files/dislocker.nix)
 **What it is:** BitLocker volume decryptor for Linux.
 **When to use:** A Windows disk image or partition is BitLocker-encrypted and you have the recovery key, user password, or a `.bek` file.
@@ -121,6 +136,16 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 ### [PDF Tools](./files/pdf/)
 **What it is:** PDF analysis and cracking tools.
 **When to use:** You need to brute-force a password-protected PDF or extract images/text streams from malicious PDFs.
+
+### [oletools](./files/oletools.nix)
+**What it is:** Analysis tools for Microsoft Office and OLE2 files: `olevba` extracts and deobfuscates VBA macros, `oleid` flags risky features, `rtfobj` and `oleobj` pull out embedded objects.
+**When to use:** You have a suspicious `.doc`, `.xlsm`, `.rtf`, or similar and need the macro source, the auto-exec triggers, or the embedded payload.
+**How to run:** `oleid file.docm`, then `olevba --decode file.docm`
+
+### [libpff](./files/libpff.nix)
+**What it is:** Library and tools for Outlook `.pst` and `.ost` mailboxes.
+**When to use:** You recovered a mailbox and need its messages, attachments, and deleted items as plain files.
+**How to run:** `pffexport -m all mailbox.pst` (writes `mailbox.pst.export/`, plus `.recovered/` for deleted items)
 
 ### [Scalpel](./files/scalpel.nix)
 **What it is:** File carver that recovers files by their headers and footers.
@@ -193,6 +218,11 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 **What it is:** Network Forensic Analysis Tool (NFAT) for Windows (run via Mono/Wine) or native platforms.
 **When to use:** You have a PCAP file and want to extract files, images, emails, and credentials automatically without manually carving streams in Wireshark.
 
+### [Zeek](./net/zeek.nix)
+**What it is:** Network analysis framework that turns a capture into structured logs (`conn.log`, `dns.log`, `http.log`, `files.log`, ...).
+**When to use:** The PCAP is too large to click through in Wireshark and you want to query connections, DNS, and HTTP as tables, or extract every transferred file.
+**How to run:** `zeek -C -r capture.pcap` in an empty directory, then `zeek-cut id.orig_h id.resp_h query < dns.log`
+
 ## General Utilities ([utils/](./utils/))
 
 ### [Binutils](./utils/binutils.nix)
@@ -202,3 +232,8 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 ### [Unzip & FFmpeg](./utils/unzip.nix)
 **What it is:** Archive and multimedia utilities.
 **When to use:** Decompressing zip files and analyzing/converting video and audio formats.
+
+### [VisiData](./utils/visidata.nix)
+**What it is:** Terminal spreadsheet for large CSV, JSON, and SQLite files.
+**When to use:** A tool produced a timeline with hundreds of thousands of rows (Hayabusa, analyzeMFT, Volatility) and you need to sort, filter, and pivot it without a GUI.
+**How to run:** `vd timeline.csv` (`[` / `]` sort, `|` select by regex, `"` open selected rows, `Shift+F` frequency table)
