@@ -94,6 +94,8 @@ input {
     touch {
         off
 
+
+
         map-to-output "eDP-1"
     }
 
@@ -397,6 +399,9 @@ spawn-at-startup "~/.config/niri/scripts/right-screen.sh"
 
 // Rebuilds the multi-monitor layout on hotplug
 spawn-at-startup "~/.config/niri/scripts/external-monitor.sh"
+
+// Sends new mpv windows to the workspace above the browser's
+spawn-at-startup "~/.config/niri/scripts/mpv-workspace.sh"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.

@@ -5,8 +5,9 @@
 # "auto" is wluma, which lowers the brightness set here depending on the screen content and time of day.
 # "off" powers the screens off and puts their brightness back when they wake: some forget it (see restore_output).
 # "cap" brings back down a screen that is above what it can take with the screens now connected.
+# "undim" takes wluma's lowering off every screen, run as wluma stops (wluma.nix).
 # Usage: monitor-brightness.sh get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle]
-#        monitor-brightness.sh save | restore [OUTPUT] | off | cap
+#        monitor-brightness.sh save | restore [OUTPUT] | off | cap | undim
 
 RUNTIME="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 ALL_MODE="$RUNTIME/monitor-brightness-all"
@@ -240,6 +241,30 @@ cap)
 		[[ $current =~ ^[0-9]+$ ]] && [ "$current" -gt "$max" ] && set_output "$output" "$max"
 	done
 	;;
+undim)
+	# wluma notes the brightness it is lowering each screen from, under the name it knows the screen by.
+	# Not through niri: this also runs at logout, when it is already gone
+	for file in "$RUNTIME"/wluma-base-*; do
+		[ -e "$file" ] || continue
+		name=${file##*/wluma-base-}
+		value=$(cat "$file")
+		# A later stop must not undo a brightness set by hand while wluma was off
+		rm -f "$file"
+		[[ $value =~ ^[0-9]+$ ]] || continue
+		case "$name" in
+		# wluma counts in the units of the backlight device, not in percent
+		eDP*) brightnessctl -c backlight -q set "$value" ;;
+		*)
+			# What wluma lowers from can be above what the screen takes (see cap)
+			max=$(cat "$RUNTIME/wluma-max-$name" 2>/dev/null)
+			[[ $max =~ ^[0-9]+$ ]] || max=100
+			[ "$value" -gt "$max" ] && value=$max
+			ddcutil --model "$name" --noverify setvcp 10 "$value" &
+			;;
+		esac
+	done
+	wait
+	;;
 restore)
 	# Each output in its own subshell: they must not share the lock descriptor
 	for output in ${2:-$(ddc_outputs)}; do
@@ -264,7 +289,7 @@ off)
 	) >/dev/null 2>&1 &
 	;;
 *)
-	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle] | save | restore [OUTPUT] | off | cap" >&2
+	echo "Usage: $0 get [OUTPUT] | set <0-100> [OUTPUT] | step <up|down> [OUTPUT] | mode [toggle] | auto [toggle] | save | restore [OUTPUT] | off | cap | undim" >&2
 	exit 1
 	;;
 esac

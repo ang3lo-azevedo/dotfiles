@@ -94,6 +94,8 @@ fi
 if [ "$target" -gt 0 ] && systemctl --user is-active --quiet wluma; then
 	# wluma owns the brightness while it runs: dimming under it would be learned as a preference and drift.
 	# So we automatically pause wluma at night.
+	# Stopping it also takes its own dimming off the screens (wluma.nix): the brightness
+	# noted below as the one to come back to must not be one wluma had lowered
 	systemctl --user stop wluma
 	touch "$RUNTIME/night-ramp-stopped-wluma"
 fi
@@ -142,11 +144,7 @@ done >"$STATE"
 if [ "$target" -eq 0 ] && [ -e "$RUNTIME/night-ramp-stopped-wluma" ]; then
 	rm -f "$RUNTIME/night-ramp-stopped-wluma"
 	if [ ! -e "$AUTO_OFF" ]; then
-		# That brightness dates from when the ramp began. Told so, wluma moves on from there
-		# to what this time of day calls for, instead of holding it (wluma.nix)
-		systemctl --user set-environment WLUMA_START_HOUR=$((start / 60))
 		systemctl --user reset-failed wluma
 		systemctl --user start wluma
-		systemctl --user unset-environment WLUMA_START_HOUR
 	fi
 fi

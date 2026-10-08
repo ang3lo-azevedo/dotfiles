@@ -1,0 +1,64 @@
+--- a/src/predictor/controller/manual.rs
++++ b/src/predictor/controller/manual.rs
+@@ -87,7 +87,10 @@
+                 .expect("user_rx closed unexpectedly")
+                 .or_else(|| panic!("Did not receive initial brightness value"));
+ 
+-            self.process_brightness_change(self.last_brightness.unwrap(), lux, luma);
++            // Nothing is taken off while wluma is stopped: the screens are put back to their
++            // pre-reduction brightness as it exits, so the one found here is not a lowered one
++            // and adding a reduction to it would raise it on every start.
++            self.set_pre_reduction_brightness(self.last_brightness.unwrap());
+         }
+ 
+         let current_brightness = self
+@@ -146,9 +149,22 @@
+ 
+     fn process_brightness_change(&mut self, new_brightness: u64, lux: &str, luma: u8) {
+         let brightness_reduction = self.get_brightness_reduction(new_brightness, lux, luma);
+-        self.pre_reduction_brightness = Some(new_brightness + brightness_reduction);
++        self.set_pre_reduction_brightness(new_brightness + brightness_reduction);
+         self.last_brightness = Some(new_brightness);
+     }
++
++    // Also noted where the script run as wluma stops can find it: wluma leaves the screen
++    // at the lowered brightness, and whatever reads it next would take that as set by hand.
++    fn set_pre_reduction_brightness(&mut self, value: u64) {
++        self.pre_reduction_brightness = Some(value);
++
++        if let Ok(dir) = std::env::var("XDG_RUNTIME_DIR") {
++            let path = format!("{dir}/wluma-base-{}", self.output_name);
++            if let Err(err) = std::fs::write(&path, value.to_string()) {
++                log::warn!("Unable to write {path}: {err}");
++            }
++        }
++    }
+ }
+ 
+ #[cfg(test)]
+@@ -229,13 +245,13 @@
+         user_tx.send(100).await?;
+ 
+         controller.process(ALS_DIM, 50).await;
+-        assert_eq!(prediction_rx.recv().await?, 100);
++        assert_eq!(prediction_rx.recv().await?, 70);
+ 
+         controller.process(ALS_DIM, 10).await;
+-        assert_eq!(prediction_rx.recv().await?, 120);
++        assert_eq!(prediction_rx.recv().await?, 90);
+ 
+         controller.process(ALS_DIM, 80).await;
+-        assert_eq!(prediction_rx.recv().await?, 89);
++        assert_eq!(prediction_rx.recv().await?, 59);
+ 
+         Ok(())
+     }
+@@ -247,7 +263,7 @@
+         // Initial brightness is used to predict right away
+         user_tx.send(100).await?;
+         controller.process(ALS_DIM, 50).await;
+-        assert_eq!(prediction_rx.recv().await?, 100);
++        assert_eq!(prediction_rx.recv().await?, 70);
+ 
+         // Consequent user change causes prediction only after cooldown
+         user_tx.send(123).await?;
