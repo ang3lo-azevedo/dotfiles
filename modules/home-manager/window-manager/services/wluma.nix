@@ -31,10 +31,11 @@ in {
     # second) and burns CPU. The patch clamps the target to what the device accepts and
     # stops retrying a value the device refused. Drop this once nixpkgs moves past 4.11.
     #
-    # wluma takes the brightness it finds at startup as set by hand at the current hour, so
-    # after a night spent stopped it holds the daytime brightness the night ramp put back.
-    # The second patch lets night-ramp.sh name the hour that brightness dates from
-    # (WLUMA_START_HOUR): wluma then moves on to what the current hour calls for.
+    # wluma exits leaving each screen at what it had lowered it to, and takes the brightness
+    # it finds at startup as set by hand. Whatever reads a screen in between (night-ramp.sh,
+    # the next login) then keeps the lowered value as the real one, and it never comes back.
+    # The second patch makes wluma note the brightness it is lowering from, which ExecStopPost
+    # below puts back, and take the one found at startup as not lowered yet.
     #
     # The portable monitor browns out above a brightness that depends on the other screens
     # connected. The third patch keeps wluma under the limit monitor-brightness.sh writes
@@ -44,7 +45,7 @@ in {
         (old.patches or [])
         ++ [
           ./wluma-unreachable-target.patch
-          ./wluma-start-hour.patch
+          ./wluma-pre-reduction.patch
           ./wluma-brightness-cap.patch
         ];
     });
@@ -112,6 +113,7 @@ in {
     Unit.ConditionPathExists = "!%S/wluma-disabled";
     # Notes the screens wluma can see, so output-watch.sh can tell which ones it missed
     Service.ExecStartPre = "-%h/.config/scripts/display/output-watch.sh record";
+    Service.ExecStopPost = "-%h/.config/scripts/display/monitor-brightness.sh undim";
   };
 
   # wluma never looks for screens again after starting, and at login it starts before the
