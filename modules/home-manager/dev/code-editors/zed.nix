@@ -29,6 +29,7 @@
     '';
   };
   commitMsgTask = "commit message to clipboard";
+  rightDockWidth = 300;
 in {
   # Fonts come from the stylix zed target.
   programs.zed-editor = {
@@ -110,13 +111,21 @@ in {
       theme = lib.mkForce "Perfect Dark";
       icon_theme = "Material Icon Theme";
 
-      project_panel.dock = "right";
-      git_panel.dock = "right";
+      # Every panel of the right dock opens at the width of the agent panel
+      project_panel = {
+        dock = "right";
+        default_width = rightDockWidth;
+      };
+      git_panel = {
+        dock = "right";
+        default_width = rightDockWidth;
+      };
       outline_panel.dock = "left";
       debugger.dock = "bottom";
       collaboration_panel = {
         dock = "right";
         button = false;
+        default_width = rightDockWidth;
       };
 
       # window.controlsStyle = "hidden": niri draws no decorations of its own
@@ -144,8 +153,11 @@ in {
         # A flexible panel ignores default_width and opens at half the window.
         # 300 is the narrowest the panel goes.
         flexible = false;
-        default_width = 300;
-        threads_sidebar.position = "right";
+        default_width = rightDockWidth;
+        threads_sidebar = {
+          position = "right";
+          default_width = 200;
+        };
       };
       title_bar = {
         #show_sign_in = false;

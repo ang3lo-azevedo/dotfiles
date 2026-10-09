@@ -48,12 +48,13 @@ duration=$(diff_minutes "$sunset" "$start")
 if is_between "$now" "$start" "$sunset"; then
 	progress=$(diff_minutes "$now" "$start")
 	echo $((level * progress / duration))
-elif is_between "$now" "$sunset" "$sunrise"; then
-	echo "$level"
 else
-	sunrise_end=$(((sunrise + duration) % 1440))
-	if is_between "$now" "$sunrise" "$sunrise_end"; then
-		progress=$(diff_minutes "$now" "$sunrise")
+	# wlsunset fades back to day over the same duration, ending at sunrise
+	dawn=$(((sunrise - duration + 1440) % 1440))
+	if is_between "$now" "$sunset" "$dawn"; then
+		echo "$level"
+	elif is_between "$now" "$dawn" "$sunrise"; then
+		progress=$(diff_minutes "$now" "$dawn")
 		echo $((level * (duration - progress) / duration))
 	else
 		echo 0

@@ -119,6 +119,7 @@ cat <<'EOF'
 | `xddxdd-nur` | bambu-studio-bin and other NUR packages |
 | `nixpkgs-xr` | OpenXR / VR packages for NixOS |
 | `antigravity-nix` | Google Antigravity tool packaging |
+| `nixvirt` | Declarative libvirt domains |
 | `samsung-galaxy-book-linux-fixes` | Kernel/module fixes for Samsung Galaxy Book (non-flake src) |
 | `libfprint-src` | libfprint fork with EgisTec SDCP fingerprint support (non-flake src) |
 | `firefox-addons` | Firefox add-on packages for Home Manager |
