@@ -77,6 +77,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # NixVirt (declarative libvirt domains)
+    nixvirt = {
+      url = "github:AshleyYakeley/NixVirt";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Gaze facial authentication
     gaze = {
       url = "github:GunduLabs/gaze";
