@@ -96,6 +96,7 @@ input {
 
 
 
+
         map-to-output "eDP-1"
     }
 
@@ -560,7 +561,7 @@ window-rule {
     match app-id=r#"^antigravity-ide$"#
     match app-id=r#"(?i)^(vs)?codium$"#
 
-    block-out-from "screen-capture"
+    // block-out-from "screen-capture"
     open-maximized true
 }
 

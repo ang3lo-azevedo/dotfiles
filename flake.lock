@@ -901,11 +901,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1791560476,
-        "narHash": "sha256-ApjNEc2sWgv1+0oeWWY4JdqrH8irQZ712nK4dT7O0HU=",
+        "lastModified": 1791648149,
+        "narHash": "sha256-Zh/IZ2KToCwLm+tloptV5I8PCv5SYIP6//OeLT6FLMA=",
         "owner": "GunduLabs",
         "repo": "gaze",
-        "rev": "6939f9812b37d33d310d9ac95fa2a7c473ebca86",
+        "rev": "b584f4700fcebc758f5c1869a9fcc51dc29001e2",
         "type": "github"
       },
       "original": {
@@ -2021,11 +2021,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1791636837,
-        "narHash": "sha256-H0soMiAHrh07O6fADXvhswxfCnsXqxz81QsyQBdd48Y=",
+        "lastModified": 1791658617,
+        "narHash": "sha256-6HSfiLQhAq8+jVRTDX0X/4/sgqPCvRYe0N2Z/smtPNk=",
         "owner": "pwndbg",
         "repo": "pwndbg",
-        "rev": "bbc1e2d5e0333d66ea11b7d8bcebbce475caa94c",
+        "rev": "23eb5e67b2a89070a8d6c7a32610c0fdf345d8f8",
         "type": "github"
       },
       "original": {
