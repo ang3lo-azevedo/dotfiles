@@ -12,6 +12,7 @@
     ]);
 
   imports = [
+    ./default-apps.nix
     ./sqlitebrowser.nix
     ./hyprfm.nix
     ./keyring

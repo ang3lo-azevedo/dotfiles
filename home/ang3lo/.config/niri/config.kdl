@@ -481,6 +481,12 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
+// The guest resizes its desktop to the window, so a maximized window is a full-size desktop.
+window-rule {
+    match app-id=r#"^windows-forensics$"#
+    open-maximized true
+}
+
 window-rule {
     match app-id=r#"^app\.nix-config-term$"#
     open-on-workspace "nix-config"
