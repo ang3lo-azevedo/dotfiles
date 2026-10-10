@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   openPdfTask = "typst: open pdf";
 in {
   home.packages = with pkgs; [
@@ -8,6 +12,9 @@ in {
 
   # Reloads on its own whenever tinymist rewrites the PDF.
   programs.zathura.enable = true;
+
+  # mkBefore: the browser module also claims PDFs and the first entry wins
+  xdg.mimeApps.defaultApplications."application/pdf" = lib.mkBefore ["org.pwmt.zathura.desktop"];
 
   programs.zed-editor = {
     userSettings.lsp.tinymist = {

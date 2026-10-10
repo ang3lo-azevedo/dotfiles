@@ -3,6 +3,7 @@
   inputs,
   lib,
   pkgs,
+  profileName,
   ...
 }: let
   vmDir = "${config.home.homeDirectory}/vms/windows-forensics";
@@ -31,6 +32,92 @@
     hash = "sha256-d2KUNXBbwn3X0lJenSCE9y26tf2/MQ6BL5EzL+GNAOs=";
   };
 
+  zed = config.programs.zed-editor;
+  zen = config.programs.zen-browser;
+  zenFile = name: config.home.file."${zen.profilesPath}/${zen.profiles.${profileName}.path}/${name}".source;
+
+  # The host's Zed and Zen setup, laid out the way Windows expects it. Left out:
+  # the Nix language server and the commit message task, which need Linux
+  # binaries, and Zen's spaces and mods, which the host only applies at activation.
+  guestConfig = let
+    zedSettings =
+      removeAttrs zed.userSettings ["lsp" "languages" "window_decorations"]
+      // {
+        auto_install_extensions = lib.genAttrs zed.extensions (_: true);
+        # nothing else updates it there
+        auto_update = true;
+      };
+    zedKeymap = builtins.filter (k: !(lib.hasInfix "task::Spawn" (builtins.toJSON k))) zed.userKeymaps;
+    zenPolicies.policies =
+      zen.policies
+      // {
+        DisableAppUpdate = false;
+        # no account on a machine that opens untrusted evidence
+        DisableFirefoxAccounts = true;
+      };
+    # The default search engine is signed with the name of the profile folder,
+    # so the folder keeps the host's name
+    # Zen makes itself a fresh profile unless its install already owns one. It
+    # names the install by a hash of the folder it is installed in, this is the
+    # one for C:\Program Files\Zen Browser.
+    install = "F0DC299D809B9700";
+    profile = "Profiles/${profileName}";
+    installsIni = lib.generators.toINI {} {
+      ${install} = {
+        Default = profile;
+        Locked = 1;
+      };
+    };
+    profilesIni = lib.generators.toINI {} {
+      "Install${install}" = {
+        Default = profile;
+        Locked = 1;
+      };
+      General = {
+        StartWithLastProfile = 1;
+        Version = 2;
+      };
+      Profile0 = {
+        Default = 1;
+        IsRelative = 1;
+        Name = profileName;
+        Path = profile;
+      };
+    };
+    json = name: value: pkgs.writeText name (builtins.toJSON value);
+    fonts = with config.stylix.fonts; [monospace sansSerif];
+  in
+    pkgs.runCommand "windows-forensics-config" {nativeBuildInputs = [pkgs.fontconfig];} ''
+      profile=$out/zen/appdata/Profiles/${profileName}
+      mkdir -p $out/zed/themes $out/zen/program/distribution $profile/chrome $out/fonts
+
+      cp ${json "settings.json" zedSettings} $out/zed/settings.json
+      cp ${json "keymap.json" zedKeymap} $out/zed/keymap.json
+      ${lib.concatMapStrings (theme: ''
+        cp ${config.home.file."${config.xdg.configHome}/zed/themes/${theme}.json".source} $out/zed/themes/${theme}.json
+      '') (lib.attrNames zed.themes)}
+
+      cp ${json "policies.json" zenPolicies} $out/zen/program/distribution/policies.json
+      cp ${pkgs.writeText "profiles.ini" profilesIni} $out/zen/appdata/profiles.ini
+      cp ${pkgs.writeText "installs.ini" installsIni} $out/zen/appdata/installs.ini
+      ${lib.concatMapStrings (file: ''
+        cp ${zenFile file} $profile/${file}
+      '') ["user.js" "containers.json" "search.json.mozlz4" "chrome/userChrome.css"]}
+      cp -rL ${zenFile "extensions"} $profile/extensions
+
+      # the settings name these fonts and Windows has neither
+      for family in ${lib.escapeShellArgs (map (font: font.name) fonts)}; do
+        found=
+        while read -r font; do
+          if fc-scan --format '%{family[0]}\n' "$font" | grep -xF "$family" >/dev/null; then
+            cp "$font" $out/fonts/
+            found=1
+          fi
+        done < <(find -L ${lib.concatMapStringsSep " " (font: "${font.package}") fonts} -name '*.[ot]tf')
+        [ -n "$found" ]
+      done
+    '';
+
   # Built from the answer file embedded in the quickget script, which expects the
   # Windows, virtio-win and unattended discs as D:, E: and F:.
   unattendedIso = pkgs.runCommand "windows-forensics-unattended.iso" {nativeBuildInputs = [pkgs.cdrtools];} ''
@@ -51,7 +138,8 @@
     cp ${spiceVdagent} cd/spice-vdagent-x64-0.10.0.msi
     # the host share only works once this script has run, so it travels on the disc
     cp ${./windows-forensics-tools.ps1} cd/install-tools.ps1
-    mkisofs -quiet -J -o $out cd
+    cp -r ${guestConfig} cd/config
+    mkisofs -quiet -J -joliet-long -o $out cd
   '';
 
   domain = inputs.nixvirt.lib.domain.writeXML {
@@ -286,7 +374,8 @@
         exit 1
       fi
 
-      sdl-freerdp /v:"$address" /u:${windowsUser} /p:quickemu /cert:ignore \
+      # niri matches its window rule for the VM on this
+      SDL_APP_ID=windows-forensics sdl-freerdp /v:"$address" /u:${windowsUser} /p:quickemu /cert:ignore \
         /dynamic-resolution +clipboard "$@" || true
     '';
   };

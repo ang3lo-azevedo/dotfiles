@@ -1,12 +1,15 @@
 #Requires -RunAsAdministrator
-# Sets up the windows-forensics VM: clock, the Windows-only forensic tools, and the
-# host share. Safe to run again, it only installs what is missing.
+# Sets up the windows-forensics VM: clock, the Windows-only forensic tools, the host
+# share, and Zed and Zen configured like on the host. Safe to run again, it only
+# installs what is missing.
 
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $tools = 'C:\Tools'
+# the host's editor and browser configuration, next to this script on the setup disc
+$config = Join-Path $PSScriptRoot 'config'
 $failed = @()
 
 function Step($name, [scriptblock]$body) {
@@ -17,9 +20,23 @@ function Step($name, [scriptblock]$body) {
     }
 }
 
+# Files copied off the disc arrive read-only, and both programs rewrite their own
+function CopyConfig($from, $to) {
+    New-Item -ItemType Directory -Force -Path $to | Out-Null
+    Copy-Item (Join-Path $from '*') $to -Recurse -Force
+    Get-ChildItem $to -Recurse -File | ForEach-Object { $_.IsReadOnly = $false }
+}
+
 Step 'Time zone' {
     # quickemu hands the guest the host's local time
     Set-TimeZone -Id 'GMT Standard Time'
+}
+
+Step 'Power' {
+    # Windows does not come back from sleep on the virtual display, only a reset
+    # of the VM recovers it
+    powercfg /change standby-timeout-ac 0
+    powercfg /change hibernate-timeout-ac 0
 }
 
 Step 'Tools folder' {
@@ -61,6 +78,35 @@ Step 'Zimmerman tools' {
     Invoke-WebRequest -UseBasicParsing -OutFile $script `
         -Uri 'https://raw.githubusercontent.com/EricZimmerman/Get-ZimmermanTools/master/Get-ZimmermanTools.ps1'
     & $script -Dest $dest -NetVersion 9
+}
+
+Step 'Fonts' {
+    $key = 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
+    foreach ($font in Get-ChildItem -LiteralPath (Join-Path $config 'fonts')) {
+        Copy-Item -LiteralPath $font.FullName -Destination (Join-Path $env:WINDIR 'Fonts') -Force
+        [Microsoft.Win32.Registry]::SetValue($key, "$($font.BaseName) (TrueType)", $font.Name)
+    }
+}
+
+Step 'Zed' {
+    # Chocolatey's zed package is an unrelated tool
+    if (-not (Test-Path (Join-Path $env:LOCALAPPDATA 'Programs\Zed\Zed.exe'))) {
+        $setup = Join-Path $env:TEMP 'Zed-x86_64.exe'
+        Invoke-WebRequest -UseBasicParsing -OutFile $setup -Uri 'https://zed.dev/api/releases/stable/latest/Zed-x86_64.exe'
+        Start-Process $setup -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART' -Wait
+    }
+    CopyConfig (Join-Path $config 'zed') (Join-Path $env:APPDATA 'Zed')
+}
+
+Step 'Zen' {
+    $program = Join-Path $env:ProgramFiles 'Zen Browser'
+    if (-not (Test-Path (Join-Path $program 'zen.exe'))) {
+        $setup = Join-Path $env:TEMP 'zen.installer.exe'
+        Invoke-WebRequest -UseBasicParsing -OutFile $setup -Uri 'https://github.com/zen-browser/desktop/releases/latest/download/zen.installer.exe'
+        Start-Process $setup -ArgumentList '/S' -Wait
+    }
+    CopyConfig (Join-Path $config 'zen\program') $program
+    CopyConfig (Join-Path $config 'zen\appdata') (Join-Path $env:APPDATA 'zen')
 }
 
 Step 'Host share' {
