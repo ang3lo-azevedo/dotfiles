@@ -24,6 +24,7 @@
 
 ## General Stuff
 
+- [ ] Add rgrep
 - [ ] Make the third screen have the waybar extended when connected 
 - [ ] Add quickvm, quickgui and distrobox configs for ctfs
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html

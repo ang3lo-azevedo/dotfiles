@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  home.packages = [pkgs.motrix-next];
+  home.packages = [pkgs.rayburst];
 }

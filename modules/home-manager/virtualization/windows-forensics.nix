@@ -87,7 +87,12 @@
     json = name: value: pkgs.writeText name (builtins.toJSON value);
     fonts = with config.stylix.fonts; [monospace sansSerif];
   in
-    pkgs.runCommand "windows-forensics-config" {nativeBuildInputs = [pkgs.fontconfig];} ''
+    pkgs.runCommand "windows-forensics-config" {
+      nativeBuildInputs = [pkgs.fontconfig];
+      # fc-scan complains on every call when it finds no config and no cache folder
+      FONTCONFIG_FILE = pkgs.makeFontsConf {fontDirectories = [];};
+    } ''
+      export XDG_CACHE_HOME=$TMPDIR
       profile=$out/zen/appdata/Profiles/${profileName}
       mkdir -p $out/zed/themes $out/zen/program/distribution $profile/chrome $out/fonts
 

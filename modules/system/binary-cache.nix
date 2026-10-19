@@ -11,8 +11,9 @@
       "https://ang3lo.cachix.org"
       # Official cache for community flakes (home-manager, disko, impermanence, stylix)
       "https://nix-community.cachix.org"
-      # Lantian's cache (custom networking tools, CachyOS kernels)
-      "https://attic.xuyh0120.win/lantian"
+      # Lantian's cache (attic.xuyh0120.win) removed with its key on 2026-10-19:
+      # its servers were compromised (xddxdd/nix-cachyos-kernel#110). Re-add only
+      # after the owner publishes a new signing key.
       # Proxmox NixOS cache (pre-compiled guest agents and VM tools)
       "https://cache.saumon.network/proxmox-nixos"
       # Berberman cache (apple-emoji, fcitx5 themes, nvfetcher)
@@ -23,7 +24,6 @@
     extra-trusted-public-keys = [
       "ang3lo.cachix.org-1:RckESjXE0fJr+FTfC4akKPi3+EBgpyPQLmZU23N4y3E="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="

@@ -6,7 +6,7 @@
     ./intellij-idea.nix
     ./opencode.nix
     ./claude-code.nix
-    ./cursor
+    #./cursor
     ./zed.nix
   ];
 }

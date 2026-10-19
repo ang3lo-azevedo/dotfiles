@@ -4,6 +4,7 @@
     ./java
     ./android
     ./git.nix
+    ./lazygit.nix
     ./code-editors
     ./adb.nix
     ./make.nix
