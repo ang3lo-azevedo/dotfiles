@@ -16,6 +16,10 @@ environment {
     CHAT_APP "flare"
     YOUTUBE_PLAYER "Grayjay"
 
+    // xwayland-satellite does not reparent windows, and Java's AWT draws nothing
+    // (a black or grey window) unless told so: Autopsy, Burp Suite, Ghidra
+    _JAVA_AWT_WM_NONREPARENTING "1"
+
 /*     // Display used for xwayland
     // DISPLAY ":0"
 

@@ -24,9 +24,6 @@
 
 ## General Stuff
 
-- [ ] Add rgrep
-- [ ] Make the third screen have the waybar extended when connected 
-- [ ] Add quickvm, quickgui and distrobox configs for ctfs
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"
