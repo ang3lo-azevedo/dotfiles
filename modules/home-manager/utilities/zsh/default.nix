@@ -7,6 +7,7 @@
     ./ripgrep.nix # Fast recursive grep
     ./shell-aliases.nix # Custom shell aliases
     ./starship.nix # Customizable shell prompt
+    ./tealdeer.nix # tldr pages: short command examples
     ./zoxide.nix # Smarter cd command
   ];
 

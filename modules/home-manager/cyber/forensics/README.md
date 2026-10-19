@@ -162,6 +162,55 @@ See the [memory forensics guide](./memory/README.md) for capturing memory, symbo
 **When to use:** You have a suspicious PDF and want to see if it carries JavaScript, auto-open actions, or embedded files, then dump the offending object.
 **How to run:** `pdfid file.pdf`, then `pdf-parser.py --search javascript file.pdf`
 
+## Browser Forensics ([browser/](./browser/))
+
+### [Hindsight](./browser/hindsight.nix)
+**What it is:** Parser for Chrome and Chromium-based browser profiles: history, downloads, cookies, cache, autofill, LocalStorage and IndexedDB.
+**When to use:** You have a browser profile folder and need a timeline of what the user did in it.
+**How to run:** `hindsight.py -i <profile-dir> -o <output-name>` (`hindsight_gui.py` for the web UI)
+
+## LEAPP Family ([leapp/](./leapp/))
+
+### [ALEAPP & iLEAPP](./leapp/)
+**What it is:** Parsers that turn a phone extraction into an HTML report, plus TSV, KML and timeline output: ALEAPP for Android, iLEAPP for iOS. iLEAPP reads Unified Logs without a Mac.
+**When to use:** You have a full file system extraction, backup or tar/zip/image of an Android or iOS device and need messages, locations, app usage and system history pulled out of it.
+**How to run:** `aleapp -i <extraction> -o <report-dir>` or `ileapp -i <extraction> -o <report-dir>` (`aleapp-gui` and `ileapp-gui` for the GUI)
+
+### [RLEAPP](./leapp/rleapp.nix)
+**What it is:** Parser for the data returns that providers such as Google, Meta, Snapchat and Apple produce for warrants and account takeouts.
+**When to use:** You received a provider return or a personal data takeout archive and want it as a single searchable report.
+**How to run:** `rleapp -i <return-dir> -o <report-dir>` (`rleapp-gui` for the GUI)
+
+### [VLEAPP](./leapp/vleapp.nix)
+**What it is:** Parser for vehicle infotainment and telematics extractions.
+**When to use:** You have an extraction from a car head unit and need connected devices, call logs, contacts and location history.
+**How to run:** `vleapp -i <extraction> -o <report-dir>` (`vleapp-gui` for the GUI)
+
+### [DLEAPP](./leapp/dleapp.nix)
+**What it is:** Parser for desktop artifacts: Electron and Chromium apps, Firefox, Telegram and Wire, plus Windows system artifacts (registry, event logs, SRUM, WebCache).
+**When to use:** You have a Windows or macOS disk image or a copied user profile and want app chats, browser data and system history in one report.
+**How to run:** `dleapp -i <image-or-folder> -o <report-dir>` (`dleapp-gui` for the GUI)
+
+### [GLEAPP](./leapp/gleapp.nix)
+**What it is:** Image and video triage: ingests folders, extraction archives and disk images, then dedups, hashes against hash sets, detects faces and maps GPS metadata.
+**When to use:** A case has thousands of photos and videos to review, or you need to match media against a known hash set.
+**How to run:** `gleapp web` for the browser UI, `gleapp-desktop` for its own window, or `gleapp -c <case> ingest <source>` from the CLI. Visual similarity search fails because it needs OpenCV 5.
+
+### [cLEAPP & lLEAPP](./leapp/)
+**What it is:** Older community LEAPPs by Mark McKinnon: cLEAPP for ChromeOS (Chrome, Android app data, system logs) and lLEAPP for Linux (wtmp/btmp logins, crontabs, Apache logs, Docker and browser data). Neither has been updated since 2023.
+**When to use:** You have a ChromeOS or Linux file system extraction and none of the maintained tools covers it.
+**How to run:** `cleapp -t fs -i <extraction> -o <report-dir>` or `lleapp -t fs -i <extraction> -o <report-dir>` (`-t` also takes `tar`, `zip`, `gz` and `tgz`; `cleapp-gui` and `lleapp-gui` for the GUI).
+
+### [Batch-LEAPP](./leapp/batch-leapp.nix)
+**What it is:** Runs any one LEAPP tool over every extraction archive and disk image in a folder, then writes a combined HTML index and SHA-256 manifest.
+**When to use:** You have many devices of the same kind to process in one go.
+**How to run:** `batch-leapp <input-dir> <output-dir> --leapp $(command -v ileapp)` (any LEAPP command works, add `--dry-run` to preview; `batch-leapp-gui` for the GUI)
+
+### [LAVA](./leapp/lava.nix)
+**What it is:** The LEAPP Artifact Viewer App, a desktop viewer for the output of every LEAPP tool.
+**When to use:** You want to search, filter and tag artifacts across one or more LEAPP reports instead of clicking through the HTML.
+**How to run:** `lava`, then open the `.lava` file in the report folder.
+
 ## Steganography ([steg/](./steg/))
 
 ### [Steghide](./steg/steghide.nix)

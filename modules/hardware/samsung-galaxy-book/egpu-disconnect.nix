@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   egpu-disconnect = pkgs.writeShellApplication {
     name = "egpu-disconnect";
+    runtimeInputs = [pkgs.psmisc];
     text = ''
       # AMD devices (vendor 1002): on this laptop only the eGPU has any.
       # Deepest first, so the card goes before the bridges it sits behind
@@ -32,10 +33,47 @@
           done
           sleep 2
         fi
-        exec sudo "$0"
+
+        # wluma keeps the monitors' DDC buses open, and the driver unbind
+        # waits in i2c_del_adapter until every handle on them is closed
+        wluma_was_active=false
+        if systemctl --user is-active --quiet wluma.service; then
+          wluma_was_active=true
+          echo "Stopping wluma..."
+          systemctl --user stop wluma.service
+        fi
+
+        status=0
+        sudo "$0" || status=$?
+
+        # Restarted even on failure: it only finds the screens still connected
+        if $wluma_was_active; then
+          systemctl --user start wluma.service
+        fi
+        exit "$status"
       fi
 
       echo "Safely disconnecting eGPU..."
+
+      # Unbinding with a DDC bus still open blocks forever, and the cable then
+      # gets pulled from a half-removed device
+      held=false
+      for dev in "''${devices[@]}"; do
+        for bus in "$dev"/i2c-* "$dev"/drm/card*/card*-*/i2c-*; do
+          [ -e "$bus" ] || continue
+          node="/dev/$(basename "$bus")"
+          if holders=$(fuser "$node" 2>/dev/null) && [ -n "$holders" ]; then
+            for pid in $holders; do
+              echo "$node is held by $pid: $(tr '\0' ' ' < "/proc/$pid/cmdline" | cut -c1-100)" >&2
+            done
+            held=true
+          fi
+        done
+      done
+      if $held; then
+        echo "Close those programs first: do NOT unplug the cable." >&2
+        exit 1
+      fi
 
       for dev in "''${devices[@]}"; do
         # Already gone along with a device removed before it
