@@ -4,6 +4,7 @@
     ./direnv.nix # Per-directory environment variables
     ./eza.nix # A modern replacement for ls
     ./fzf.nix # Command-line fuzzy finder
+    ./ripgrep.nix # Fast recursive grep
     ./shell-aliases.nix # Custom shell aliases
     ./starship.nix # Customizable shell prompt
     ./zoxide.nix # Smarter cd command

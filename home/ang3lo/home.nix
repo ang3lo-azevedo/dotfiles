@@ -5,7 +5,7 @@
     stateVersion = "26.05";
     sessionVariables = {
       EDITOR = "antigravity-ide";
-      BROWSER = "zen-browser";
+      BROWSER = "zen-beta";
       TERMINAL = "ghostty";
       EXPLORER = "$TERMINAL -e yazi";
       MUSIC_PLAYER = "spotify";

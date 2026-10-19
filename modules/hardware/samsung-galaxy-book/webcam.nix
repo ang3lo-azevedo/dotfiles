@@ -17,6 +17,9 @@
     # Dim rooms otherwise run the sensor at 15.5x analog gain, where its
     # per-channel black offset drifts and shadows turn green.
     lowNoise.enable = true;
+    # 1.5 underexposes faces against a bright window.
+    exposureTarget = 1.7;
+    systray.enable = true;
     # In a dim room AGC runs the sensor at max analog gain and the image fills
     # with colour speckle; a 3x3 median on all planes costs ~11ms/frame at
     # 1080p on one core.
