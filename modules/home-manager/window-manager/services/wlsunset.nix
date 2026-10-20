@@ -85,6 +85,8 @@ in {
       # The script is symlinked from the repo with the other waybar scripts, so edits take effect without rebuilding.
       night-ramp = {
         Unit.Description = "Dim the screens towards sunset and restore them at sunrise";
+        # When wluma starts it at login, wlsunset is still writing the sun times the ramp reads
+        Unit.After = ["wlsunset.service"];
         Service = {
           Type = "oneshot";
           ExecStart = "%h/.config/scripts/display/night-ramp.sh";

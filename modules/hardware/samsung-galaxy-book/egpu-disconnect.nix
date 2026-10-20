@@ -18,6 +18,23 @@
         exit 1
       fi
 
+      # After the Thunderbolt link drops by itself the devices stay registered,
+      # and the sysfs vendor file still reports what it read at probe time, but
+      # the config space reads all ones. Unbinding a device in that state never
+      # returns, and the process cannot be killed
+      gone=()
+      for dev in "''${devices[@]}"; do
+        if [ "$(od -An -tx2 -N2 "$dev/config" 2>/dev/null | tr -d ' ')" = ffff ]; then
+          gone+=("$(basename "$dev")")
+        fi
+      done
+      if [ "''${#gone[@]}" -gt 0 ]; then
+        echo "The eGPU is already off the bus (''${gone[*]}): the Thunderbolt link dropped." >&2
+        echo "There is nothing left to disconnect safely, and unbinding it now would hang." >&2
+        echo "The cable can be unplugged. Reboot to clear the stale devices from the kernel and niri." >&2
+        exit 1
+      fi
+
       if [ "$(id -u)" -ne 0 ]; then
         # The card must not be driving a screen when it is detached, and only
         # the session can tell the compositor to let go of its outputs

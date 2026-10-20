@@ -2,6 +2,14 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
+    # FIXME: flake.lock holds nixpkgs and nixpkgs-unstable at fe13242281a6 (2026-10-15).
+    # Later revisions make aggregateModules require a .ko.cer for every kernel module,
+    # which the CachyOS kernel below does not ship (xddxdd/nix-cachyos-kernel#111,
+    # NixOS/nixpkgs#575192). Update both once the kernel in use is built against
+    # nixpkgs from 2026-10-13 or later; see the FIXME on nix-cachyos-kernel for which
+    # one and when. Leave them alone until then: the other inputs can update normally.
+    # On 09063bd1f2b3 these also failed to build, so check them on the next update:
+    # bulk_extractor, audacity, pplpy (sage), khal and PowerShell 7.0.0 (networkminer).
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -125,6 +133,22 @@
     };
 
     # Input for CachyOS Kernel
+    # FIXME: The release branch is stuck on nixpkgs from 2026-09-27, whose kernel has no
+    # modules.cer, and that keeps the nixpkgs pin above in place. Release only advances
+    # once its Hydra builds pass, and its build and cache servers have been down since
+    # 2026-10-15 (#110); master is already on newer nixpkgs, but nothing there is cached.
+    #   Around 2026-10-24: `nix flake update chaotic nix-cachyos-kernel`, then check the
+    #   nixpkgs date each pins in flake.lock. chaotic's main moved to 2026-10-17 on
+    #   2026-10-20; its nyxpkgs-unstable branch (the cached one used here) follows once
+    #   its builds pass.
+    #   If this release has moved past 2026-10-13: update nixpkgs, nothing else to do.
+    #   Around 2026-11-03, if it still has not: switch boot.kernelPackages
+    #   (hosts/pc-angelo) to chaotic's linuxPackages_cachyos-lto once nyxpkgs-unstable
+    #   has passed 2026-10-13, add nyx-cache.chaotic.cx to the substituters, then
+    #   update nixpkgs. That kernel is generic x86-64: no v3 build of it is cached.
+    #   Sooner only for a security fix in nixpkgs that cannot wait.
+    #   Not cache.xinux.uz: a third-party mirror of this same kernel, so no modules.cer
+    #   either, and its key would be trusted for every path on the system.
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };

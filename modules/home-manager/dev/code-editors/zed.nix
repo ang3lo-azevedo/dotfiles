@@ -37,6 +37,16 @@ in {
 
     themes.perfect-dark = import ./zed-perfect-dark.nix;
 
+    # Language servers Zed cannot fetch itself: it builds gopls with `go install`, and
+    # the Semgrep and PowerShell extensions only wrap a binary that must already be there
+    extraPackages = with pkgs; [
+      gopls
+      powershell
+      # FIXME: Back to unstable's semgrep once its semgrep-core (1.180.0) stops making
+      # patchelf abort; the same patchelf assertion breaks PowerShell 7.0.0 in msbuild
+      stable.semgrep
+    ];
+
     # Zed counterparts of shared-extensions.nix. Languages Zed ships built in
     # (C/C++, Go, Python, Markdown) need no extension.
     extensions = [
@@ -107,6 +117,8 @@ in {
 
       autosave.after_delay.milliseconds = 1000;
       relative_line_numbers = "enabled";
+      # Inferred types and parameter names inline, from the language servers
+      inlay_hints.enabled = true;
       # mkForce: the stylix zed target sets its own base16 theme
       theme = lib.mkForce "Perfect Dark";
       icon_theme = "Material Icon Theme";
