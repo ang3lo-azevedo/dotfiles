@@ -111,9 +111,15 @@ in {
   # automatic brightness off also holds across logins
   systemd.user.services.wluma = {
     Unit.ConditionPathExists = "!%S/wluma-disabled";
-    # Notes the screens wluma can see, so output-watch.sh can tell which ones it missed
-    Service.ExecStartPre = "-%h/.config/scripts/display/output-watch.sh record";
-    Service.ExecStopPost = "-%h/.config/scripts/display/monitor-brightness.sh undim";
+    Service = {
+      # Notes the screens wluma can see, so output-watch.sh can tell which ones it missed
+      ExecStartPre = "-%h/.config/scripts/display/output-watch.sh record";
+      ExecStopPost = "-%h/.config/scripts/display/monitor-brightness.sh undim";
+      # At night wluma must not hold the screens until the next timer run, up to five minutes
+      # after a login or a replugged screen: the ramp stops it and dims them right away.
+      # Not blocking, as the ramp waits on a stop of this very unit
+      ExecStartPost = "-${pkgs.systemd}/bin/systemctl --user start --no-block night-ramp.service";
+    };
   };
 
   # wluma never looks for screens again after starting, and at login it starts before the

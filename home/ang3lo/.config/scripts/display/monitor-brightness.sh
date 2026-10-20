@@ -122,6 +122,21 @@ restore_output() {
 	done
 }
 
+# The MP165 drops DDC writes now and then. A missed one here leaves the screen at what
+# wluma had lowered it to, and night-ramp.sh, which stops wluma, then notes that as the
+# brightness to come back to every morning
+undim_ddc() {
+	local current
+	for _ in 1 2 3 4 5; do
+		ddcutil --model "$1" --noverify setvcp 10 "$2" 2>/dev/null
+		current=$(ddcutil --model "$1" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
+		[ "$current" = "$2" ] && return 0
+		sleep 1
+	done
+	echo "$1: brightness not put back to $2 (reads ${current:-nothing})" >&2
+	return 1
+}
+
 step_output() {
 	local bus sign=+ max current target
 	[ "$2" = down ] && sign=-
@@ -259,7 +274,7 @@ undim)
 			max=$(cat "$RUNTIME/wluma-max-$name" 2>/dev/null)
 			[[ $max =~ ^[0-9]+$ ]] || max=100
 			[ "$value" -gt "$max" ] && value=$max
-			ddcutil --model "$name" --noverify setvcp 10 "$value" &
+			undim_ddc "$name" "$value" &
 			;;
 		esac
 	done
