@@ -2,14 +2,11 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    # FIXME: flake.lock holds nixpkgs and nixpkgs-unstable at fe13242281a6 (2026-10-15).
-    # Later revisions make aggregateModules require a .ko.cer for every kernel module,
-    # which the CachyOS kernel below does not ship (xddxdd/nix-cachyos-kernel#111,
-    # NixOS/nixpkgs#575192). Update both once the kernel in use is built against
-    # nixpkgs from 2026-10-13 or later; see the FIXME on nix-cachyos-kernel for which
-    # one and when. Leave them alone until then: the other inputs can update normally.
-    # On 09063bd1f2b3 these also failed to build, so check them on the next update:
-    # bulk_extractor, audacity, pplpy (sage), khal and PowerShell 7.0.0 (networkminer).
+    # FIXME: From 2026-10-13 nixpkgs requires a .ko.cer for every kernel module
+    # (NixOS/nixpkgs#575192). Since the update to 02c087f3fe67 the kernel comes from chaotic
+    # instead of nix-cachyos-kernel, and audacity, bulk_extractor, khal and networkminer
+    # come from pkgs.stable; each has a FIXME saying what to wait for. Check them after
+    # every nixpkgs update.
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -133,22 +130,13 @@
     };
 
     # Input for CachyOS Kernel
-    # FIXME: The release branch is stuck on nixpkgs from 2026-09-27, whose kernel has no
-    # modules.cer, and that keeps the nixpkgs pin above in place. Release only advances
-    # once its Hydra builds pass, and its build and cache servers have been down since
-    # 2026-10-15 (#110); master is already on newer nixpkgs, but nothing there is cached.
-    #   Around 2026-10-24: `nix flake update chaotic nix-cachyos-kernel`, then check the
-    #   nixpkgs date each pins in flake.lock. chaotic's main moved to 2026-10-17 on
-    #   2026-10-20; its nyxpkgs-unstable branch (the cached one used here) follows once
-    #   its builds pass.
-    #   If this release has moved past 2026-10-13: update nixpkgs, nothing else to do.
-    #   Around 2026-11-03, if it still has not: switch boot.kernelPackages
-    #   (hosts/pc-angelo) to chaotic's linuxPackages_cachyos-lto once nyxpkgs-unstable
-    #   has passed 2026-10-13, add nyx-cache.chaotic.cx to the substituters, then
-    #   update nixpkgs. That kernel is generic x86-64: no v3 build of it is cached.
-    #   Sooner only for a security fix in nixpkgs that cannot wait.
-    #   Not cache.xinux.uz: a third-party mirror of this same kernel, so no modules.cer
-    #   either, and its key would be trusted for every path on the system.
+    # FIXME: Not in use until its release branch moves past nixpkgs from 2026-09-27: that
+    # kernel has no modules.cer, so hosts/pc-angelo takes chaotic's linuxPackages_cachyos-lto
+    # for now. Release only advances once its Hydra builds pass, and its build and cache
+    # servers have been down since 2026-10-15 (#110, #111). When it moves, switch
+    # boot.kernelPackages back for the cached x86-64-v3 build.
+    # Not cache.xinux.uz: a third-party mirror of this same kernel, and its key would be
+    # trusted for every path on the system.
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
     };
@@ -308,6 +296,9 @@
 
       # Cache for nix-gaming packages (wine, lutris, etc.)
       "https://nix-gaming.cachix.org"
+
+      # Chaotic-Nyx: the CachyOS kernel in use (hosts/pc-angelo) and proton-cachyos
+      "https://nyx-cache.chaotic.cx"
     ];
     extra-trusted-public-keys = [
       "ang3lo.cachix.org-1:RckESjXE0fJr+FTfC4akKPi3+EBgpyPQLmZU23N4y3E="
@@ -315,6 +306,7 @@
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported

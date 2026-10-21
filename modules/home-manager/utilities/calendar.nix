@@ -2,6 +2,9 @@
   programs = {
     khal = {
       enable = true;
+      # FIXME: Back to the default once khal 0.14.1 builds: from nixpkgs 09063bd1f2b3 on it no
+      # longer produces its man page output. Also used by khal-notify below
+      package = pkgs.stable.khal;
       locale = {
         timeformat = "%H:%M";
         dateformat = "%Y-%m-%d";
@@ -52,7 +55,7 @@
       touch "$NOTIFIED_FILE"
 
       # Use full path to khal if possible, or assume it's in PATH from home-manager
-      export PATH="$PATH:${pkgs.khal}/bin:${pkgs.coreutils}/bin:${pkgs.gnugrep}/bin:${pkgs.libnotify}/bin"
+      export PATH="$PATH:${pkgs.stable.khal}/bin:${pkgs.coreutils}/bin:${pkgs.gnugrep}/bin:${pkgs.libnotify}/bin"
 
       events=$(khal list now 15m --notstarted --format "{start-time}|{title}" 2>/dev/null)
 

@@ -24,7 +24,7 @@
 
 ## General Stuff
 
-- [ ] Add spotify wavebar extension
+- [x] Add spotify wavebar extension
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"

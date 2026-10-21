@@ -145,8 +145,10 @@ in {
 
       # AI stays out of the way but reachable: predictions only on alt-\,
       # agents from the agent panel. disable_ai would remove both.
-      edit_predictions.provider = "copilot";
-      show_edit_predictions = true;
+      # Zeta, Zed's own model: needs a signed-in Zed account on a plan that includes it
+      edit_predictions.provider = "zed";
+      # The language servers complete as you type; alt-\ (editor::ShowEditPrediction) asks Zeta
+      show_edit_predictions = false;
       agent_servers = {
         claude-acp = {
           type = "registry";

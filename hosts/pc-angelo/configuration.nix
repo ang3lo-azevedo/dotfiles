@@ -43,7 +43,12 @@ in {
   time.hardwareClockInLocalTime = true;
 
   boot = {
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+    # FIXME: Back to the line below once nix-cachyos-kernel releases against nixpkgs from
+    # 2026-10-13 or later (see flake.nix):
+    #   kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v3;
+    # Chaotic's build ships the modules.cer that nixpkgs now requires, and comes from
+    # nyx-cache, but only for generic x86-64: a v3 build of it would be compiled here
+    kernelPackages = inputs.chaotic.legacyPackages.${pkgs.stdenv.hostPlatform.system}.linuxPackages_cachyos-lto;
 
     initrd = {
       luks.devices."cryptroot" = {
