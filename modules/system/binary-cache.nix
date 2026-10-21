@@ -20,6 +20,8 @@
       "https://berberman.cachix.org"
       # Cache for nix-gaming packages (wine, lutris, etc.)
       "https://nix-gaming.cachix.org"
+      # Chaotic-Nyx: the CachyOS kernel in use (hosts/pc-angelo) and proton-cachyos
+      "https://nyx-cache.chaotic.cx"
     ];
     extra-trusted-public-keys = [
       "ang3lo.cachix.org-1:RckESjXE0fJr+FTfC4akKPi3+EBgpyPQLmZU23N4y3E="
@@ -27,6 +29,7 @@
       "proxmox-nixos:D9RYSWpQQC/msZUWphOY2I5RLH5Dd6yQcaHIuug7dWM="
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
     ];
   };
 }

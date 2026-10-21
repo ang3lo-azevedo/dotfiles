@@ -160,6 +160,39 @@
           renderAllTabs = true;
           showTabNumbers = true;
         };
+        # Links to embed fixers, so posts show their media in Discord. Each fixer was checked
+        # to return an embed for a real post. The "://" anchor leaves links already pointing
+        # at a fixer untouched, and only post paths are matched: profiles gain nothing.
+        # Delimited with flags: a pattern ending in "/" would lose it and the "g" flag
+        textReplace = {
+          enable = true;
+          regexRules = let
+            rule = name: find: replace: {
+              inherit name find replace;
+              onlyIfIncludes = "";
+              scope = "myMessages";
+            };
+          in [
+            (rule "Twitter/X through fxtwitter"
+              ''/https?:\/\/(?:www\.|mobile\.)?(?:twitter|x)\.com(?=\/)/gi''
+              "https://fxtwitter.com")
+            # instagramez.com and ddinstagram.com returned no embed
+            (rule "Instagram through InstaFix"
+              ''/https?:\/\/(?:www\.)?instagram\.com(?=\/(?:p|reels?|tv)\/)/gi''
+              "https://uuinstagram.com")
+            # fxTikTok; vm.tiktok.com short links are left alone, untested there
+            (rule "TikTok through fxTikTok"
+              ''/https?:\/\/(?:www\.|m\.)?tiktok\.com(?=\/@[^\s\/]+\/video\/)/gi''
+              "https://tnktok.com")
+            # rxddit.com answered with a 502; /s/ share links are left alone, untested there
+            (rule "Reddit through vxreddit"
+              ''/https?:\/\/(?:www\.|old\.|new\.)?reddit\.com(?=\/r\/[^\s\/]+\/comments\/)/gi''
+              "https://vxreddit.com")
+            (rule "Bluesky through FxBluesky"
+              ''/https?:\/\/bsky\.app(?=\/profile\/[^\s\/]+\/post\/)/gi''
+              "https://fxbsky.app")
+          ];
+        };
         middleClickTweaks.enable = true;
         showHiddenChannels.enable = true;
         previewMessage.enable = true;
