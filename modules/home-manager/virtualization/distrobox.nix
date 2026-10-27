@@ -13,11 +13,11 @@ in {
     enable = true;
 
     containers = {
-      #kali = {
-      #  image = "docker.io/kalilinux/kali-rolling:latest";
-      #  home = boxHome "kali";
-      #  additional_packages = "kali-linux-headless";
-      #};
+      kali = {
+        image = "docker.io/kalilinux/kali-rolling:latest";
+        home = boxHome "kali";
+        additional_packages = "kali-linux-headless";
+      };
 
       blackarch = {
         image = "docker.io/library/archlinux:latest";

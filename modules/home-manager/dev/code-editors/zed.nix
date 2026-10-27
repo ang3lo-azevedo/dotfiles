@@ -42,8 +42,8 @@ in {
     extraPackages = with pkgs; [
       gopls
       powershell
-      # FIXME: Back to unstable's semgrep once its semgrep-core (1.180.0) stops making
-      # patchelf abort; the same patchelf assertion breaks PowerShell 7.0.0 in msbuild
+      # FIXME: Back to unstable's semgrep once its semgrep-core binary stops aborting
+      # patchelf during fixup with "Assertion `splitIndex == -1' failed" (still on 1.180.0)
       stable.semgrep
     ];
 

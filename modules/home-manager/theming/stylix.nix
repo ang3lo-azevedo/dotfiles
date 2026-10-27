@@ -14,6 +14,9 @@ in {
     targets = {
       zen-browser.colors.enable = true;
       vscode.colors.enable = false;
+      # rofi is not used (programs.rofi.enable is false), and stylix themes it through
+      # the pre-rename programs.rofi.font option, which warns on every evaluation
+      rofi.enable = false;
 
       gtk.extraCss = ''
         /* Force all GTK animations to be very fast */

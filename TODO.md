@@ -11,20 +11,21 @@
 # Wiki
 
 - [ ] Add autocpu-freq to the wiki
-- [ ] Add Binja & IDA Pro auto updates (probably with secrets) and wiki info about them
 - [ ] See to use this as base for wiki https://xieby1.github.io/nix_config/
 
 # Ideas
 ## Waybar Stuff
 
 - [ ] Make if possible to click the privacy icons to disable camera and microphone
-- [ ] See about brigtness control on both monitors
-- [x] Add nightlight slider to swaync
-
 
 ## General Stuff
 
-- [x] Add spotify wavebar extension
+- [x] Fix build errors and see if are there better, more understandable ways to show the build errors
+- [ ] See if it is worth it to change to doas
+- [x] Add bloodhound
+- [ ] Add Sharphound
+- [ ] Fix text replace equibop
+- [ ] Add a way to easily disable the dns stuff for public wifi connecting
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"

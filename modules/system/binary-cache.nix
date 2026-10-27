@@ -11,16 +11,17 @@
       "https://ang3lo.cachix.org"
       # Official cache for community flakes (home-manager, disko, impermanence, stylix)
       "https://nix-community.cachix.org"
-      # Lantian's cache (attic.xuyh0120.win) removed with its key on 2026-10-19:
-      # its servers were compromised (xddxdd/nix-cachyos-kernel#110). Re-add only
-      # after the owner publishes a new signing key.
+      # Lantian's cache for the nix-cachyos-kernel x86-64-v3 build. Moved here with a new
+      # key after the 2026-10-15 server compromise (#110): the old attic.xuyh0120.win
+      # endpoint and its key EeAUQ+... are dead and must not be trusted
+      "https://cache.lantian.pub/lantian"
       # Proxmox NixOS cache (pre-compiled guest agents and VM tools)
       "https://cache.saumon.network/proxmox-nixos"
       # Berberman cache (apple-emoji, fcitx5 themes, nvfetcher)
       "https://berberman.cachix.org"
       # Cache for nix-gaming packages (wine, lutris, etc.)
       "https://nix-gaming.cachix.org"
-      # Chaotic-Nyx: the CachyOS kernel in use (hosts/pc-angelo) and proton-cachyos
+      # Chaotic-Nyx: proton-cachyos (steam), now that the kernel is back on nix-cachyos-kernel
       "https://nyx-cache.chaotic.cx"
     ];
     extra-trusted-public-keys = [
@@ -30,6 +31,7 @@
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
+      "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
     ];
   };
 }
