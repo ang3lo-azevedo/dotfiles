@@ -4,9 +4,15 @@ This module contains tools for enumerating, attacking, and exploiting Microsoft 
 
 ## Enumeration & Analysis
 
-### [BloodHound](./bloodhound.nix)
-**What it is:** Active Directory domain privilege escalation mapping tool.
+### BloodHound CE
+**What it is:** Active Directory domain privilege escalation mapping tool. The legacy Electron app is dead upstream, so this is BloodHound Community Edition (SpecterOps), a web UI backed by PostgreSQL + Neo4j. It runs as a NixOS service defined in [`modules/system/services/bloodhound-ce.nix`](../../../../system/services/bloodhound-ce.nix).
 **When to use:** You need to visualize the complex attack paths, permissions, and trusts in an AD environment to find the shortest path to Domain Admin.
+**How to run:** `bloodhound` starts the stack on demand and opens http://localhost:8080/ (login `admin` / `BloodHoundLocal1!`), then follows the API log; Ctrl+C stops BloodHound CE and both databases. Ingest with RustHound-CE or bloodhound-python, then query from the UI or with BloodHound-QuickWin.
+
+### [BloodHound-QuickWin](./bloodhound-quickwin.nix)
+**What it is:** kaluche's `bhqc.py`, which runs a batch of Cypher queries against a BloodHound Neo4j database to surface common attack paths and quick wins.
+**When to use:** You have already ingested data into BloodHound's Neo4j (e.g. with RustHound-CE) and want a fast text summary (kerberoastable users, AS-REP roasting, unconstrained delegation, passwords in descriptions, etc.) without clicking through the GUI.
+**How to run:** `bloodhound-quickwin -b bolt://127.0.0.1:7687 -u neo4j -p <password>` (add `--heavy` for ACL/relationship queries)
 
 ### [Enum4linux-ng](./enum4linux-ng.nix)
 **What it is:** Next generation version of enum4linux, a tool for enumerating information from Windows and Samba systems.
@@ -15,6 +21,11 @@ This module contains tools for enumerating, attacking, and exploiting Microsoft 
 ### [NetExec](./netexec.nix)
 **What it is:** A network service exploitation tool that helps automate assessing the security of large Active Directory networks (successor to CrackMapExec).
 **When to use:** You have compromised a credential/hash and want to spray it across the domain to find where you have local admin access, or you want to dump SAM/LSA secrets from remote machines en masse.
+
+### [ldapsearch](./ldapsearch.nix)
+**What it is:** The OpenLDAP command-line client for querying an LDAP/Active Directory server directly.
+**When to use:** You have domain credentials (or anonymous/null access) and want to read raw directory objects: users, groups, computers, attributes like userAccountControl or servicePrincipalName, without a heavier collector.
+**How to run:** `ldapsearch -x -H ldap://dc.corp.local -D user@corp.local -w pass -b "dc=corp,dc=local" "(objectClass=user)"`
 
 ### [RustHound-CE](./rusthound-ce.nix)
 **What it is:** BloodHound Community Edition data collector written in Rust.

@@ -17,6 +17,10 @@
   home.packages = with pkgs; [
     nixfmt
     nil
+    # nom renders the live build tree and points at the exact derivation that failed;
+    # nvd prints the package version diff after a switch. Both drive the rebuild aliases
+    nix-output-monitor
+    nvd
     cargo
     tmux
   ];

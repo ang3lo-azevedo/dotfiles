@@ -9,6 +9,7 @@
     ./cpak.nix
     ./xdg-portal.nix
     ./logind.nix
+    ./bloodhound-ce.nix
     #./suwayomi.nix
     # ./docker-compose.nix
     # ./stacks

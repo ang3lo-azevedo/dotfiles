@@ -12,12 +12,16 @@
     btop = "WIDTH=$(niri msg -j focused-window | jq -r '.layout.window_size[0]'); niri msg action set-column-width 33%; command btop; niri msg action set-column-width $WIDTH";
     chainsaw-hunt = "chainsaw hunt --mapping ${pkgs.chainsaw-rules}/share/chainsaw/mappings/sigma-event-logs-all.yml --sigma ${pkgs.chainsaw-rules}/share/chainsaw/sigma/rules";
     blackarch = "distrobox enter blackarch";
+    kali = "distrobox enter kali";
     phone = "gio mount -li | awk -F= '{if(index($2,\"mtp://\") != 0) system(\"gio mount \"$2)}'; yy /run/user/1000/gvfs/mtp*";
 
     # NixOS related aliases
+    # internal-json + nom turns the raw -L build wall into a live tree that names the
+    # derivation that failed; --keep-going lets nom collect every failure in one pass.
+    # On success nvd prints what package versions actually changed in the new generation.
     fmt = "(cd ~/nix-config && pre-commit run --all-files)";
-    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' -L --keep-going";
-    hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo'";
+    rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f /run/current-system); sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' --log-format internal-json -v --keep-going |& nom --json && nvd diff \"$before\" /run/current-system";
+    hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f ~/.local/state/nix/profiles/home-manager 2>/dev/null); home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo' --log-format internal-json -v |& nom --json && nvd diff \"$before\" ~/.local/state/nix/profiles/home-manager";
     update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
     upgrade = "sudo -v && git -C ~/nix-config pull && update && rebuild";
     u = "upgrade";

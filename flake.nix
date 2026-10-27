@@ -2,11 +2,9 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    # FIXME: From 2026-10-13 nixpkgs requires a .ko.cer for every kernel module
-    # (NixOS/nixpkgs#575192). Since the update to 02c087f3fe67 the kernel comes from chaotic
-    # instead of nix-cachyos-kernel, and audacity, bulk_extractor, khal and networkminer
-    # come from pkgs.stable; each has a FIXME saying what to wait for. Check them after
-    # every nixpkgs update.
+    # FIXME: bulk_extractor still comes from pkgs.stable, and zed's semgrep too, after the
+    # nixpkgs breakage around 2026-10-13; each has its own FIXME saying what to wait for.
+    # Check them after every nixpkgs update (audacity, khal and networkminer build again).
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -129,12 +127,13 @@
       flake = false;
     };
 
-    # Input for CachyOS Kernel
-    # FIXME: Not in use until its release branch moves past nixpkgs from 2026-09-27: that
-    # kernel has no modules.cer, so hosts/pc-angelo takes chaotic's linuxPackages_cachyos-lto
-    # for now. Release only advances once its Hydra builds pass, and its build and cache
-    # servers have been down since 2026-10-15 (#110, #111). When it moves, switch
-    # boot.kernelPackages back for the cached x86-64-v3 build.
+    # Input for CachyOS Kernel (x86-64-v3 build, used by hosts/pc-angelo)
+    # The release branch moved to kernel 7.3.0 on nixpkgs from 2026-10-23 on 2026-10-24,
+    # so its modules now carry the .cer nixpkgs requires since 2026-10-13 (#111). Its
+    # cache moved to cache.lantian.pub/lantian after the 2026-10-15 server compromise
+    # (#110); the release branch's own nixConfig still lists the old attic.xuyh0120.win
+    # endpoint, but Nix ignores an input's nixConfig, so the cache we trust is set in the
+    # nixConfig below and in modules/system/binary-cache.nix.
     # Not cache.xinux.uz: a third-party mirror of this same kernel, and its key would be
     # trusted for every path on the system.
     nix-cachyos-kernel = {
@@ -284,9 +283,10 @@
       # Official cache for community flakes (home-manager, disko, impermanence, stylix)
       "https://nix-community.cachix.org"
 
-      # Lantian's cache (attic.xuyh0120.win) removed with its key on 2026-10-19:
-      # its servers were compromised (xddxdd/nix-cachyos-kernel#110). Re-add only
-      # after the owner publishes a new signing key.
+      # Lantian's cache for the nix-cachyos-kernel x86-64-v3 build. Moved here with a new
+      # key after the 2026-10-15 server compromise (#110): the old attic.xuyh0120.win
+      # endpoint and its key EeAUQ+... are dead and must not be trusted
+      "https://cache.lantian.pub/lantian"
 
       # Proxmox NixOS cache (pre-compiled guest agents and VM tools)
       "https://cache.saumon.network/proxmox-nixos"
@@ -307,6 +307,7 @@
       "berberman.cachix.org-1:UHGhodNXVruGzWrwJ12B1grPK/6Qnrx2c3TjKueQPds="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="
+      "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
     ];
     # Allow evaluation of packages that are not available for the detected host
     # platform (e.g. pypy on 32-bit). This makes flake builds accept unsupported

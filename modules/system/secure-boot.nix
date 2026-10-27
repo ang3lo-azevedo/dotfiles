@@ -4,9 +4,6 @@
   ...
 }: {
   boot = {
-    # lanzaboote replaces systemd-boot and adds Secure Boot signing.
-    # initrd.systemd must be true for lanzaboote to work (it patches the initrd).
-    initrd.systemd.enable = true;
     lanzaboote = {
       enable = true;
       # Keys are stored on /persist so they survive the impermanence wipe.
