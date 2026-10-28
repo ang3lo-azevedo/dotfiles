@@ -311,10 +311,22 @@
   # the coarsened-timer cost this line was meant to avoid, most noticeably as
   # sluggishness on JS-heavy pages like search results, which is what made
   # Chromium (no such throttling by default) feel faster on the same click.
+  # -JSMathFdlibm: fingerprinting protection swaps the native libm Math functions
+  # (sin, cos, tan, exp, log, pow) for fdlibm's software implementations so the
+  # last-bit rounding is identical on every CPU. Those routines run several times
+  # slower than the hardware ones, so any math or trig heavy page (maps, canvas
+  # animation, charting, WebGL, games) pays a per-call cost. A newer Firefox base
+  # added this target to +AllTargets, which is why the sluggishness that
+  # -ReduceTimerPrecision already cured returned after a Zen update. Excluding it
+  # restores native Math; canvas/WebGL randomization below still covers that vector.
+  # -CanvasRandomization: perturbs the pixels returned by getImageData / toDataURL
+  # on every canvas read, which stalls canvas heavy pages and the extension popups
+  # that paint through a canvas. It defeats canvas fingerprinting, but "strict"
+  # tracking protection already blocks the third-party trackers that would read it.
   # -MediaDevices: with it set, enumerateDevices() reports one fake "Internal
   # Camera" and "Internal Microphone" whatever is connected, so sites like
   # Google Meet cannot offer a second webcam or microphone.
-  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-ReduceTimerPrecision,-MediaDevices";
+  "privacy.fingerprintingProtection.overrides" = "+AllTargets,-CSSPrefersColorScheme,-JSDateTimeUTC,-ReduceTimerPrecision,-JSMathFdlibm,-CanvasRandomization,-MediaDevices";
   # Force dark mode for page content regardless of fingerprinting protection state.
   # 0 = follow browser, 1 = light, 2 = dark, 3 = follow system
   "layout.css.prefers-color-scheme.content-override" = 3;

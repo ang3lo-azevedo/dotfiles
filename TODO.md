@@ -20,17 +20,16 @@
 
 ## General Stuff
 
+- [ ] Fix Motrix Next always asking for the new permissions
 - [x] Fix build errors and see if are there better, more understandable ways to show the build errors
 - [ ] See if it is worth it to change to doas
 - [x] Add bloodhound
 - [ ] Add Sharphound
-- [ ] Fix text replace equibop
-- [ ] Add a way to easily disable the dns stuff for public wifi connecting
+- [x] Add a way to easily disable the dns stuff for public wifi connecting
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"
 - [ ] Add this https://github.com/bottlesdevs/programs/issues/500
-- [ ] Fix the login face and fingerprint stuff and the keyguard not being automatically unlocked
 - [ ] Fix when opening a new window instead of resizing the current one so both fit on the screen it is making the current one full screen
 - [ ] Create a crosswatch/floppy mpv scrobbler
 - [ ] Make nix config open on second screen

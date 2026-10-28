@@ -22,6 +22,13 @@ in {
   firefoxAddons =
     (prev.firefoxAddons or {})
     // {
+      equicord-web = mkXpi {
+        guid = "firefox@equicord.org";
+        pname = "equicord-web";
+        version = "1.15.13.0";
+        url = "https://addons.mozilla.org/firefox/downloads/file/5162914/equicord_web-1.15.13.0.xpi";
+        sha256 = "8b754bff4a4e95fef537ceb7afaf286381ba718265db18d2c5c22c3ab3e40c9f";
+      };
       wappalyzer = mkXpi {
         guid = "wappalyzer@crunchlabz.com";
         pname = "wappalyzer";

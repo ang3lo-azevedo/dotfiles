@@ -76,6 +76,27 @@
     };
   };
 
+  # Escape hatch for captive portals (hotel / airport / cafe wifi). The forced
+  # encrypted-DNS chain above cannot resolve a portal's login page: before you
+  # authenticate, the portal only permits DNS to its own resolver. `captive-dns on`
+  # drops a /run override that points resolved at the network's DHCP DNS and stops
+  # dnscrypt-proxy, so the portal loads; `captive-dns off` restores the secure setup.
+  # The override lives in /run, so a reboot always reverts to encrypted DNS even if
+  # you forget to turn it back off.
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "captive-dns";
+      runtimeInputs = with pkgs; [
+        systemd
+        networkmanager
+        iproute2
+        gawk
+        coreutils
+      ];
+      text = builtins.readFile ./scripts/captive-dns.sh;
+    })
+  ];
+
   # Prevent NetworkManager from pushing DHCP-provided DNS servers into systemd-resolved,
   # which would bypass dnscrypt-proxy. mkForce overrides the default set by resolved.nix.
   networking.networkmanager.dns = lib.mkForce "none";
