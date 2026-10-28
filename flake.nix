@@ -13,6 +13,13 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
+    # FIXME: last nixpkgs that still ships EOL packages our deps need: openssl_3_6
+    # (xddxdd's openssl-ech) and fuse2 (memprocfs' FUSE mount). Drop this pin once
+    # xddxdd moves off openssl_3_6 and dmatools' memprocfs builds against fuse3.
+    nixpkgs-eol = {
+      url = "github:NixOS/nixpkgs/3a32588c117116d2bf0edc33915981398fab2b00";
+    };
+
     # Latest stable branch of nixpkgs, used for version rollback
     nixpkgs-stable = {
       url = "github:nixos/nixpkgs/nixos-26.05";
@@ -141,9 +148,14 @@
     };
 
     # xddxdd's NUR packages (bambu-studio-bin and others)
+    # FIXME: follows nixpkgs-eol, not our main nixpkgs, because xddxdd's openssl-ech
+    # builds on openssl_3_6, which our newer nixpkgs dropped (EOL 2026-11-01) and whose
+    # mere access throws while the package set evaluates, even though nothing we consume
+    # pulls openssl-ech in (bambu only uses the regular openssl 3.5.9). Restore
+    # follows = "nixpkgs" once xddxdd moves off openssl_3_6.
     xddxdd-nur = {
       url = "github:xddxdd/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-eol";
     };
 
     # Input for Zen Browser
@@ -432,6 +444,28 @@
       inputs.firefox-addons.overlays.default
       (import ./overlays/firefox-addons.nix)
       inputs.nix-vscode-extensions.overlays.default
+      # FIXME: ltex 13.1.0 no longer bundles a JDK, so nix-vscode-extensions'
+      # postInstall (rm -r lib/ltex-ls-*/jdk-*) matches nothing and fails under
+      # nullglob with "missing operand". We point the extension at pkgs.ltex-ls via
+      # settings, so the bundled-server patching is moot; drop it. Remove this overlay
+      # once upstream fixes the extension's builder.
+      (_: prev: {
+        nix-vscode-extensions =
+          prev.nix-vscode-extensions
+          // {
+            vscode-marketplace =
+              prev.nix-vscode-extensions.vscode-marketplace
+              // {
+                valentjn =
+                  prev.nix-vscode-extensions.vscode-marketplace.valentjn
+                  // {
+                    vscode-ltex = prev.nix-vscode-extensions.vscode-marketplace.valentjn.vscode-ltex.overrideAttrs (_: {
+                      postInstall = "";
+                    });
+                  };
+              };
+          };
+      })
       inputs.antigravity-nix.overlays.default
       inputs.dmatools.overlays.default
       (
