@@ -58,11 +58,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1793183290,
-        "narHash": "sha256-f5S25a/3IhZs8pOtvz9zUxmug5nvdz8I2tjbZFmS0Gc=",
+        "lastModified": 1793196397,
+        "narHash": "sha256-Asqx2UvQcmFJmNnUbe8sGPQTD9PXoXT+y2s/SsN5oSE=",
         "ref": "refs/heads/main",
-        "rev": "27ec90e65baf9c86574ba2d1daa2da031f88ff31",
-        "revCount": 86,
+        "rev": "e29a4eb1a62a65fe59c41e2623a52443d16a52a6",
+        "revCount": 87,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -247,11 +247,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792957186,
-        "narHash": "sha256-y6KhfAld3ZuQs9QfTEDEdoZYUD78cYDpwXlhvmMSFZg=",
+        "lastModified": 1793187631,
+        "narHash": "sha256-dO6cPSuBkktEPgOuH25/gMUhHPoSJ4RdGTqkPLJhz7k=",
         "owner": "Containerpak",
         "repo": "cpak",
-        "rev": "d0a4f8791cee787383423e2cb5e886289b0c4e2b",
+        "rev": "25a50b905be8a21bfba91371ad494c94578cd824",
         "type": "github"
       },
       "original": {
@@ -900,11 +900,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793113992,
-        "narHash": "sha256-iSccKp54vUgfW0PLZQXTqUq3JkXxz+VeFPwnFjEaO1k=",
+        "lastModified": 1793194188,
+        "narHash": "sha256-7zu16WwkUoplzLgP9zuJ3Nj7Nxokvs8JZinvS+o8Liw=",
         "owner": "GunduLabs",
         "repo": "gaze",
-        "rev": "7758f8a06c931bf5ba4981345fdb681bb37873bb",
+        "rev": "5fcec36e491b3c24f442dcadcdf775b7cac6043f",
         "type": "github"
       },
       "original": {
@@ -1044,11 +1044,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793124281,
-        "narHash": "sha256-KdGTOgYXgMDA/ymTV10yLMt9tOjz9EmTgnTvaD+bhe4=",
+        "lastModified": 1793193205,
+        "narHash": "sha256-X6xa6sGA7RnJQuZGbFMC+K+KToWAlBDCCjJXfTwEPsw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1e3ebeb683d055d1675d3f64e6d2b186cb2ee504",
+        "rev": "095fef2f265c3c0da4fe315efba8f8a04495ab34",
         "type": "github"
       },
       "original": {
@@ -1377,11 +1377,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1793185232,
-        "narHash": "sha256-aXO7eXeG/guEQHyBo64cyjvoUzE6DW4nyF0qSQl0b58=",
+        "lastModified": 1793187122,
+        "narHash": "sha256-CSOV4cGvaiM1hz+M6ucX+bs5SIPsMJDccqH6ccuZo/g=",
         "owner": "4evy",
         "repo": "nixcord",
-        "rev": "e6606b12959cd571b18ceb050b74990d8ce99a42",
+        "rev": "5eafee578fbe3d57147198f89a01912d02ae28ff",
         "type": "github"
       },
       "original": {
@@ -2422,11 +2422,11 @@
         "pre-commit-hooks": "pre-commit-hooks_3"
       },
       "locked": {
-        "lastModified": 1793161095,
-        "narHash": "sha256-YPF3EnrUpLnYOP3gBumg39AYO8KZ7ncI7AapkcXOd3g=",
+        "lastModified": 1793192882,
+        "narHash": "sha256-YB0YfTjtQ1rTSlB1W3eEOl2gq0hmJFCdj1d8JBGhwko=",
         "ref": "refs/heads/main",
-        "rev": "d912dac10199be7c836b21176d6a646ef4d9832f",
-        "revCount": 33,
+        "rev": "dc597d1a49f018c763a3f4047cde342216550a3a",
+        "revCount": 35,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/th3m1ghtyduck-nur"
       },

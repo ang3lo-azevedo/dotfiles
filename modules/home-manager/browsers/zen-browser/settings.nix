@@ -34,6 +34,12 @@
   "widget.use-xdg-desktop-portal.mime-handler" = 1;
   # Without this, extensions need to be enabled manually after first install
   "extensions.autoDisableScopes" = 0;
+  # Extensions are managed declaratively by Nix, so Firefox must not update them
+  # itself. A background auto-update of a Nix-pinned add-on re-fires its onInstalled
+  # handler, which is what makes Wappalyzer reopen its upgrade page on every launch.
+  # Nix delivers new versions on rebuild instead.
+  "extensions.update.enabled" = false;
+  "extensions.update.autoUpdateDefault" = false;
   "pinned-tab-manager.restore-pinned-tabs-to-pinned-url" = true;
   # Allow userChrome.css to be loaded to speed up UI animations
   "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -132,12 +138,12 @@
   # Disable IPv6 DNS resolution. If your ISP/router advertises IPv6 but routes it poorly,
   # Firefox will wait up to 5 seconds for IPv6 to time out before falling back to IPv4.
   "network.dns.disableIPv6" = true;
-  # Encrypted Client Hello: hides the SNI field from ISPs during TLS handshake.
-  # Requires HTTPS DNS records to deliver the ECH config. (Crucial for privacy)
-  "network.dns.echconfig.enabled" = true;
-  # Fetch HTTPS DNS records so ECH can activate. Goes through the system resolver
-  # (dnscrypt-proxy), which caches aggressively, no per-query overhead after warmup.
-  "network.dns.use_https_rr_as_altsvc" = true;
+  # Encrypted Client Hello would hide the SNI field from ISPs, but it needs HTTPS (type
+  # 65) DNS records, and fetching those through dnscrypt-proxy stalls page loads ~30s on
+  # cold domains. Disabled: SNI is visible to the network again, but pages load promptly.
+  "network.dns.echconfig.enabled" = false;
+  # No HTTPS-RR lookups either: same cold-query stall as ECH above, so keep it off too.
+  "network.dns.use_https_rr_as_altsvc" = false;
   # Use the system resolver (dnscrypt-proxy) instead of browser-level DoH.
   # Mode 2 (browser DoH) bypasses dnscrypt-proxy entirely, so its cache never helps
   # and HTTPS record queries go cold to Quad9 on every new domain, causing 20 s+ loads.
@@ -148,9 +154,13 @@
   # Hardware Acceleration settings for smoother scrolling and rendering
   "gfx.webrender.all" = true;
   "media.ffmpeg.vaapi.enabled" = true;
-  # Fix for extension popups and UI rendering very slowly on Wayland when fractional scaling is used (e.g. 150% in Niri)
-  # NOTE: Disabling this breaks canvas sub-pixel rendering, which makes the xterm.js cursor invisible!
-  "widget.wayland.fractional-scale.enabled" = true;
+  # Wayland fractional-scale protocol. When true, Zen renders its surfaces directly at
+  # the compositor's fractional scale (1.5x in Niri); on current Zen that path is slow
+  # for extension popups and panels (seconds to open). False makes Zen render at the next
+  # integer scale (2x) and lets Niri downscale to 1.5x, which opens popups instantly.
+  # NOTE: false breaks canvas sub-pixel rendering, so the xterm.js cursor can go invisible
+  # in web terminals; flip back to true if that matters more than popup speed.
+  "widget.wayland.fractional-scale.enabled" = false;
 
   # Better-Zen: Network Speed Tweaks
   # HTTP/3 stays on despite the tweak lists that turn it off. Cloudflare, Google
