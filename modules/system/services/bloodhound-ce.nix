@@ -21,13 +21,17 @@
     work_dir = "${dataDir}/work";
     graph_driver = "neo4j";
     database = {
-      addr = "localhost:5432";
+      # 127.0.0.1, not localhost: BloodHound resolves "localhost" to ::1 first, but the
+      # backends listen on IPv4 only, so the IPv6 attempt is refused before any fallback.
+      addr = "127.0.0.1:5432";
       username = "bloodhound";
       secret = "bloodhound";
       database = "bloodhound";
     };
     neo4j = {
-      addr = "localhost:7687";
+      # neo4j's bolt.listenAddress is 127.0.0.1:7687 (IPv4). Using "localhost" here made
+      # BloodHound dial [::1]:7687 and crash-loop with "connection refused"; pin to IPv4.
+      addr = "127.0.0.1:7687";
       username = "neo4j";
       secret = "neo4j";
       database = "neo4j";
@@ -127,11 +131,12 @@ in {
 
       preStart = ''
         mkdir -p ${dataDir}/work
-        if [ ! -f ${configFile} ]; then
-          jwt=$(head -c 32 /dev/urandom | base64 -w0)
-          sed "s|@JWT@|$jwt|" ${configTemplate} > ${configFile}
-          chmod 600 ${configFile}
-        fi
+        # Regenerate every start so config changes (e.g. the backend addresses) always
+        # take effect. The JWT signing key is re-randomised each start, which only
+        # invalidates existing login sessions, fine for an on-demand single-user tool.
+        jwt=$(head -c 32 /dev/urandom | base64 -w0)
+        sed "s|@JWT@|$jwt|" ${configTemplate} > ${configFile}
+        chmod 600 ${configFile}
       '';
 
       serviceConfig = {

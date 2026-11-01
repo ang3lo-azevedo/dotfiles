@@ -17,6 +17,13 @@ in {
         image = "docker.io/kalilinux/kali-rolling:latest";
         home = boxHome "kali";
         additional_packages = "kali-linux-headless";
+        # tpm-udev's postinst runs systemd-tmpfiles, which chowns the host TPM nodes
+        # (/dev/tpm0, ...). That is not permitted in the rootless container and aborts
+        # distrobox's package setup with exit 100. The postinst does not exist yet when
+        # this hook runs, so mask the tmpfiles config instead: a same-named empty file in
+        # /etc/tmpfiles.d overrides the one the package ships in /usr/lib/tmpfiles.d.
+        # Only applies when the container is created, so recreate it after changing this.
+        pre_init_hooks = "mkdir -p /etc/tmpfiles.d && : > /etc/tmpfiles.d/tpm-udev.conf";
       };
 
       blackarch = {

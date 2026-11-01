@@ -19,6 +19,7 @@
             # touch equivalent of scrolling the trigger bar (touch does not emit scroll
             # events, so the on-scroll toggle alone is unreachable by finger).
             exec ${pkgs.lisgd}/bin/lisgd -d /dev/input/$TOUCH_EVENT \
+              -t 50 \
               -g "3,RL,*,*,${pkgs.niri}/bin/niri msg action focus-column-right" \
               -g "3,LR,*,*,${pkgs.niri}/bin/niri msg action focus-column-left" \
               -g "3,DU,*,*,${pkgs.niri}/bin/niri msg action focus-workspace-down" \
