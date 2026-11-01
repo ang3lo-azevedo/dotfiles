@@ -12,6 +12,7 @@ environment {
     EXPLORER "${TERMINAL} -e yazi"
     SYSTEM_MONITOR "${TERMINAL} --class=app.btop -e btop"
     UPGRADE "${TERMINAL} --class=app.upgrade -e zsh -ic 'u; exec zsh'"
+    EDIT_CONFIG "${EDITOR} /home/ang3lo/nix-config"
     MUSIC_PLAYER "spotify"
     DISCORD "equibop"
     CHAT_APP "flare"
@@ -97,6 +98,7 @@ input {
     }
 
     touch {
+        off
 
 
 
@@ -603,7 +605,16 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+Shift+1 hotkey-overlay-title="Show Hotkey Overlay" { show-hotkey-overlay; }
     Mod+T hotkey-overlay-title="Open a Terminal" { spawn "sh" "-c" "eval \"exec ${TERMINAL}\""; }
-    Mod+Ctrl+Shift+U hotkey-overlay-title="Upgrade System" { spawn "sh" "-c" "eval \"exec ${UPGRADE}\""; }
+    // Copilot key (keyd one-shot leader) then U -> keyd emits KEY_F13 -> system update.
+    // Under xkb's evdev keymap KEY_F13 carries the keysym XF86Tools (not "F13"), so the
+    // bind must name XF86Tools or niri never receives it. The Copilot key holds Meta+Shift
+    // around the f23, so keyd emits those modifiers with the key: bind both the bare and
+    // modified forms so a slow U (mods already released) or a fast U (mods still held) land.
+    XF86Tools hotkey-overlay-title="Upgrade System (Copilot+U)" { spawn "sh" "-c" "eval \"exec ${UPGRADE}\""; }
+    Mod+Shift+XF86Tools repeat=false { spawn "sh" "-c" "eval \"exec ${UPGRADE}\""; }
+    // Copilot then N -> keyd emits KEY_F14 (keysym XF86Launch5) -> open the nix config.
+    XF86Launch5 hotkey-overlay-title="Edit Nix Config (Copilot+N)" { spawn "sh" "-c" "eval \"exec ${EDIT_CONFIG}\""; }
+    Mod+Shift+XF86Launch5 repeat=false { spawn "sh" "-c" "eval \"exec ${EDIT_CONFIG}\""; }
     Ctrl+Shift+Escape hotkey-overlay-title="System Monitor" { spawn "sh" "-c" "eval \"exec ${SYSTEM_MONITOR}\""; }
     Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
     Mod+Period hotkey-overlay-title="Pick an Emoji" { spawn "bemoji"; }
@@ -696,8 +707,8 @@ binds {
     Mod+Shift+Up    { move-window-to-monitor-up; }
     Mod+Shift+Right { move-window-to-monitor-right; }
     Mod+Shift+H     { move-window-to-monitor-left; }
-    Mod+Shift+J     { move-window-to-monitor-down; }
-    Mod+Shift+K     { move-window-to-monitor-up; }
+    Mod+Shift+J     { move-window-down; }
+    Mod+Shift+K     { move-window-up; }
     Mod+Shift+L     { move-window-to-monitor-right; }
 
     Mod+Shift+Ctrl+Left  { focus-monitor-left; }

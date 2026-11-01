@@ -23,6 +23,19 @@ in {
             # and Fn+F9 emits 'f9'. Swap so F9 = F9 and Fn+F9 cycles backlight.
             "kbdillumtoggle" = "f9";
             "f9" = "command(cycle-kbd-backlight)";
+            # The Copilot key sends meta+shift+f23 as a momentary tap, so it cannot be
+            # held as a modifier. Use f23 as a one-shot leader: tap Copilot, then a
+            # letter, to fire an action (Copilot then U = system update).
+            "f23" = "oneshot(copilot)";
+          };
+          # Leader layer, active for the single keypress after the Copilot key. Each
+          # letter maps to a spare F-key that niri binds to a command. Note niri binds
+          # by xkb keysym, and the evdev keymap gives these F-keys XF86 symbols rather
+          # than F13.. names (f13 -> XF86Tools, f14 -> XF86Launch5, f15 -> XF86Launch6),
+          # so the niri side must name that keysym, not "F13".
+          copilot = {
+            "u" = "f13";
+            "n" = "f14";
           };
         };
       };

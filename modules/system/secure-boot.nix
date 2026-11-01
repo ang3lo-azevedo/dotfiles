@@ -20,8 +20,10 @@
         # These three cover the full pre-OS trust chain without tying to kernel (PCR 9).
         pcrs = [0 4 7];
       };
-      # systemd-pcrlock enforces a hard cap of 4 stored generations under Measured Boot.
-      configurationLimit = 4;
+      # systemd-pcrlock caps stored generations at 4 under Measured Boot, but each
+      # lanzaboote UKI (kernel + initrd) is ~110 MB and the ESP is only 511 MB: 4 kept
+      # plus the new one written during install overflows it, so hold 3 (peak 440 MB).
+      configurationLimit = 3;
     };
     loader.systemd-boot = {
       # lanzaboote conflicts with systemd-boot; mkForce overrides the default true.

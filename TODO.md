@@ -20,6 +20,9 @@
 
 ## General Stuff
 
+- [ ] add this https://github.com/shirai91/nx2android
+- [ ] Replace all the redacted commits to come from me
+- [ ] Make niri have the vim motions
 - [ ] Fix Motrix Next always asking for the new permissions
 - [x] Fix build errors and see if are there better, more understandable ways to show the build errors
 - [ ] See if it is worth it to change to doas

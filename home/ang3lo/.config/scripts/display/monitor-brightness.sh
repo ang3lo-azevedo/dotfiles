@@ -42,12 +42,12 @@ ddc_bus() {
 }
 
 # The MP165 draws its power from the USB cable and browns out when it is the third screen:
-# it drops the link within seconds above 70. As the only external screen it holds at 100
+# it drops the link within seconds above 60. As the only external screen it holds at 100
 max_brightness() {
 	local outputs
 	outputs=$(niri msg --json outputs)
 	case "$(jq -r --arg output "$1" '.[$output].model // empty' <<<"$outputs")" in
-	"MSI MP165 E6") [ "$(jq length <<<"$outputs")" -ge 3 ] && echo 70 || echo 100 ;;
+	"MSI MP165 E6") [ "$(jq length <<<"$outputs")" -ge 3 ] && echo 60 || echo 100 ;;
 	*) echo 100 ;;
 	esac
 }

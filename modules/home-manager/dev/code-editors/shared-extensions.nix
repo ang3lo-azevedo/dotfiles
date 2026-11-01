@@ -93,8 +93,8 @@
     # Log File Highlighter
     "emilast.logfilehighlighter"
 
-    # LTeX - LanguageTool grammar/spell checking
-    "valentjn.vscode-ltex"
+    # LTeX+ - LanguageTool grammar/spell checking (maintained fork of valentjn.vscode-ltex)
+    "ltex-plus.vscode-ltex-plus"
 
     # Makefile Tools
     #"ms-vscode.makefile-tools"

@@ -1,11 +1,11 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     texliveFull
-    ltex-ls
+    ltex-ls-plus
   ];
 
   programs.vscode.profiles.default.userSettings = {
-    "ltex.ltex-ls.path" = "${pkgs.ltex-ls}/bin/ltex-ls";
+    "ltex.ltex-ls.path" = "${pkgs.ltex-ls-plus}/bin/ltex-ls-plus";
   };
 
   home.file.".latexmkrc".text = ''

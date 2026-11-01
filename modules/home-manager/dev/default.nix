@@ -21,6 +21,8 @@
     # nvd prints the package version diff after a switch. Both drive the rebuild aliases
     nix-output-monitor
     nvd
+    # Interactive browser for a derivation's dependency tree and closure sizes
+    nix-tree
     cargo
     tmux
   ];

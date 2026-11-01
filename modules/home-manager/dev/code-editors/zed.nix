@@ -159,7 +159,13 @@ in {
           default_config_options.model = "gemini-pro-agent";
         };
         github-copilot-cli.type = "registry";
-        opencode.type = "registry";
+        # Run the Nix-provided opencode in ACP mode instead of the registry type, which
+        # makes Zed download its own opencode build (2.2.2) on every launch. Nix pins the
+        # version and updates it on rebuild.
+        opencode = {
+          command = lib.getExe pkgs.opencode;
+          args = ["acp"];
+        };
       };
       agent = {
         enable_feedback = false;

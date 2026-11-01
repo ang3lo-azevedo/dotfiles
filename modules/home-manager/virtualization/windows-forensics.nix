@@ -41,7 +41,11 @@
   # binaries, and Zen's spaces and mods, which the host only applies at activation.
   guestConfig = let
     zedSettings =
-      removeAttrs zed.userSettings ["lsp" "languages" "window_decorations"]
+      removeAttrs zed.userSettings [
+        "lsp"
+        "languages"
+        "window_decorations"
+      ]
       // {
         auto_install_extensions = lib.genAttrs zed.extensions (_: true);
         # nothing else updates it there
@@ -85,13 +89,20 @@
       };
     };
     json = name: value: pkgs.writeText name (builtins.toJSON value);
-    fonts = with config.stylix.fonts; [monospace sansSerif];
+    fonts = with config.stylix.fonts; [
+      monospace
+      sansSerif
+    ];
   in
-    pkgs.runCommand "windows-forensics-config" {
+    pkgs.runCommand "windows-forensics-config"
+    {
       nativeBuildInputs = [pkgs.fontconfig];
+      # tiny copy/mkisofs jobs, not worth a round trip to the remote builder
+      preferLocalBuild = true;
       # fc-scan complains on every call when it finds no config and no cache folder
       FONTCONFIG_FILE = pkgs.makeFontsConf {fontDirectories = [];};
-    } ''
+    }
+    ''
       export XDG_CACHE_HOME=$TMPDIR
       profile=$out/zen/appdata/Profiles/${profileName}
       mkdir -p $out/zed/themes $out/zen/program/distribution $profile/chrome $out/fonts
@@ -99,15 +110,26 @@
       cp ${json "settings.json" zedSettings} $out/zed/settings.json
       cp ${json "keymap.json" zedKeymap} $out/zed/keymap.json
       ${lib.concatMapStrings (theme: ''
-        cp ${config.home.file."${config.xdg.configHome}/zed/themes/${theme}.json".source} $out/zed/themes/${theme}.json
+        cp ${
+          config.home.file."${config.xdg.configHome}/zed/themes/${theme}.json".source
+        } $out/zed/themes/${theme}.json
       '') (lib.attrNames zed.themes)}
 
       cp ${json "policies.json" zenPolicies} $out/zen/program/distribution/policies.json
       cp ${pkgs.writeText "profiles.ini" profilesIni} $out/zen/appdata/profiles.ini
       cp ${pkgs.writeText "installs.ini" installsIni} $out/zen/appdata/installs.ini
-      ${lib.concatMapStrings (file: ''
-        cp ${zenFile file} $profile/${file}
-      '') ["user.js" "containers.json" "search.json.mozlz4" "chrome/userChrome.css"]}
+      ${
+        lib.concatMapStrings
+        (file: ''
+          cp ${zenFile file} $profile/${file}
+        '')
+        [
+          "user.js"
+          "containers.json"
+          "search.json.mozlz4"
+          "chrome/userChrome.css"
+        ]
+      }
       cp -rL ${zenFile "extensions"} $profile/extensions
 
       # the settings name these fonts and Windows has neither
@@ -125,27 +147,33 @@
 
   # Built from the answer file embedded in the quickget script, which expects the
   # Windows, virtio-win and unattended discs as D:, E: and F:.
-  unattendedIso = pkgs.runCommand "windows-forensics-unattended.iso" {nativeBuildInputs = [pkgs.cdrtools];} ''
-    mkdir cd
-    sed -n '/unattended\/autounattend\.xml"$/,/^EOF$/p' ${pkgs.quickemu}/bin/.quickget-wrapped \
-      | sed '1d;$d' > cd/autounattend.xml
-    grep -q '</unattend>' cd/autounattend.xml
-    sed -i 's/[A-Z0-9]\{5\}\(-[A-Z0-9]\{5\}\)\{4\}/${ltscSetupKey}/g' cd/autounattend.xml
-    grep -q '${ltscSetupKey}' cd/autounattend.xml
-    # quickget names the Windows account after itself
-    sed -i '/<Model>/!s|>Quickemu<|>${windowsUser}<|g' cd/autounattend.xml
-    grep -q '<Username>${windowsUser}</Username>' cd/autounattend.xml
-    # loading the QXL display driver blanks the screen and hangs setup on 24H2
-    sed -i '/<PathAndCredentials/{N;/qxldod/{N;d}}' cd/autounattend.xml
-    ! grep -q qxldod cd/autounattend.xml
-    # the answer file installs both under these names
-    cp ${spiceWebdavd} cd/spice-webdavd-x64-latest.msi
-    cp ${spiceVdagent} cd/spice-vdagent-x64-0.10.0.msi
-    # the host share only works once this script has run, so it travels on the disc
-    cp ${./windows-forensics-tools.ps1} cd/install-tools.ps1
-    cp -r ${guestConfig} cd/config
-    mkisofs -quiet -J -joliet-long -o $out cd
-  '';
+  unattendedIso =
+    pkgs.runCommand "windows-forensics-unattended.iso"
+    {
+      nativeBuildInputs = [pkgs.cdrtools];
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir cd
+      sed -n '/unattended\/autounattend\.xml"$/,/^EOF$/p' ${pkgs.quickemu}/bin/.quickget-wrapped \
+        | sed '1d;$d' > cd/autounattend.xml
+      grep -q '</unattend>' cd/autounattend.xml
+      sed -i 's/[A-Z0-9]\{5\}\(-[A-Z0-9]\{5\}\)\{4\}/${ltscSetupKey}/g' cd/autounattend.xml
+      grep -q '${ltscSetupKey}' cd/autounattend.xml
+      # quickget names the Windows account after itself
+      sed -i '/<Model>/!s|>Quickemu<|>${windowsUser}<|g' cd/autounattend.xml
+      grep -q '<Username>${windowsUser}</Username>' cd/autounattend.xml
+      # loading the QXL display driver blanks the screen and hangs setup on 24H2
+      sed -i '/<PathAndCredentials/{N;/qxldod/{N;d}}' cd/autounattend.xml
+      ! grep -q qxldod cd/autounattend.xml
+      # the answer file installs both under these names
+      cp ${spiceWebdavd} cd/spice-webdavd-x64-latest.msi
+      cp ${spiceVdagent} cd/spice-vdagent-x64-0.10.0.msi
+      # the host share only works once this script has run, so it travels on the disc
+      cp ${./windows-forensics-tools.ps1} cd/install-tools.ps1
+      cp -r ${guestConfig} cd/config
+      mkisofs -quiet -J -joliet-long -o $out cd
+    '';
 
   domain = inputs.nixvirt.lib.domain.writeXML {
     type = "kvm";
@@ -175,7 +203,10 @@
         path = "${config.xdg.configHome}/libvirt/qemu/nvram/windows-forensics_VARS.fd";
       };
       # an empty disk falls through to the Windows installer
-      boot = [{dev = "hd";} {dev = "cdrom";}];
+      boot = [
+        {dev = "hd";}
+        {dev = "cdrom";}
+      ];
     };
     features = {
       acpi = {};
@@ -348,7 +379,10 @@
   # The password is the one quickget's answer file sets.
   rdp = pkgs.writeShellApplication {
     name = "windows-forensics";
-    runtimeInputs = [pkgs.freerdp pkgs.gawk];
+    runtimeInputs = [
+      pkgs.freerdp
+      pkgs.gawk
+    ];
     text = ''
       ${virsh} domstate windows-forensics | grep -q running || ${virsh} start windows-forensics
 
@@ -403,7 +437,10 @@ in {
   };
 
   home = {
-    packages = [pkgs.virt-viewer rdp];
+    packages = [
+      pkgs.virt-viewer
+      rdp
+    ];
 
     activation = {
       # The session daemon inherits the PATH of whichever client starts it. When
@@ -424,8 +461,14 @@ in {
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      uris = ["qemu:///system" uri];
-      autoconnect = ["qemu:///system" uri];
+      uris = [
+        "qemu:///system"
+        uri
+      ];
+      autoconnect = [
+        "qemu:///system"
+        uri
+      ];
     };
     # virt-manager keeps guest resizing off per VM, keyed by the UUID without dashes
     "org/virt-manager/virt-manager/vms/${lib.replaceStrings ["-"] [""] uuid}".resize-guest = 1;
