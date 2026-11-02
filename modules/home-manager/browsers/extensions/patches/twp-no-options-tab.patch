@@ -1,0 +1,12 @@
+--- a/background/background.js
++++ b/background/background.js
+@@ -146,7 +146,8 @@
+ }
+ chrome.runtime.onInstalled.addListener(details => {
+   if (details.reason == "install") {
+-    tabsCreate(chrome.runtime.getURL("/options/options.html"));
++    // Disabled by nix-config: --load-extension reinstalls this extension
++    // on every launch, which reopened the options tab.
+     twpConfig.onReady(async () => {
+       if (chrome.i18n.getUILanguage() === "zh-CN") {
+         twpConfig.set("pageTranslatorService", "bing");
