@@ -20,6 +20,9 @@
 
 ## General Stuff
 
+- [x] Make the VM bypass the Safe Exam Browser detections
+- [ ] Fix Unity3D error
+- [ ] add this https://github.com/smarkyie/NSP-Box
 - [ ] add this https://github.com/shirai91/nx2android
 - [ ] Replace all the redacted commits to come from me
 - [ ] Make niri have the vim motions

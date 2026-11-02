@@ -28,8 +28,14 @@
   services.fstrim.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.doCheckByDefault = false;
+  # gtk2 is deprecated/broken in current nixpkgs but still required by lutris.
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      doCheckByDefault = false;
+      problems.handlers."gtk+".broken = "warn";
+    };
+  };
 
   nix.settings = {
     experimental-features = [

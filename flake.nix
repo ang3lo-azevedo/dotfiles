@@ -413,6 +413,7 @@
         "ventoy-1.1.18"
         "sidequest-1.4.1"
       ];
+      problems.handlers."gtk+".broken = "warn";
     };
 
     # One overlay set feeds both the NixOS package set (consumed by
@@ -428,6 +429,7 @@
             allowUnfree = true;
             allowBroken = true;
             permittedInsecurePackages = prev.config.permittedInsecurePackages or [];
+            problems.handlers."gtk+".broken = "warn";
           };
           overlays = [
             (import ./overlays/python-packages.nix)

@@ -166,6 +166,13 @@
       # loading the QXL display driver blanks the screen and hangs setup on 24H2
       sed -i '/<PathAndCredentials/{N;/qxldod/{N;d}}' cd/autounattend.xml
       ! grep -q qxldod cd/autounattend.xml
+      # Do not install the QEMU guest agent or the SPICE agents: their services
+      # and drivers are a common VM-detection signal.
+      sed -i 's#msiexec /i E:\\guest-agent\\qemu-ga-x86_64.msi /quiet /passive /qn#cmd /c rem skip qemu-ga#' cd/autounattend.xml
+      sed -i 's#msiexec /i F:\\spice-webdavd-x64-latest.msi /quiet /passive /qn#cmd /c rem skip webdavd#' cd/autounattend.xml
+      sed -i 's#msiexec /i F:\\spice-vdagent-x64-0.10.0.msi /quiet /passive /qn#cmd /c rem skip vdagent#' cd/autounattend.xml
+      # Use the inbox basic display driver instead of the VirtIO-GPU driver.
+      sed -i '/pnputil \/add-driver E:\\\\viogpudo/d' cd/autounattend.xml
       # the answer file installs both under these names
       cp ${spiceWebdavd} cd/spice-webdavd-x64-latest.msi
       cp ${spiceVdagent} cd/spice-vdagent-x64-0.10.0.msi
@@ -207,17 +214,116 @@
         {dev = "hd";}
         {dev = "cdrom";}
       ];
+      smbios.mode = "sysinfo";
     };
+    # Spoofed SMBIOS data so the guest reports a real physical laptop instead of
+    # a QEMU/KVM virtual machine.
+    sysinfo = {
+      type = "smbios";
+      bios = {
+        entry = [
+          {
+            name = "vendor";
+            value = "Dell Inc.";
+          }
+          {
+            name = "version";
+            value = "1.15.0";
+          }
+          {
+            name = "date";
+            value = "10/12/2023";
+          }
+        ];
+      };
+      system = {
+        entry = [
+          {
+            name = "manufacturer";
+            value = "Dell Inc.";
+          }
+          {
+            name = "product";
+            value = "Latitude 5420";
+          }
+          {
+            name = "version";
+            value = "1.0";
+          }
+          {
+            name = "serial";
+            value = "ABC1234";
+          }
+          {
+            name = "sku";
+            value = "0A5D";
+          }
+          {
+            name = "family";
+            value = "Latitude";
+          }
+        ];
+      };
+      baseBoard = {
+        entry = [
+          {
+            name = "manufacturer";
+            value = "Dell Inc.";
+          }
+          {
+            name = "product";
+            value = "0X4FXN";
+          }
+          {
+            name = "version";
+            value = "A00";
+          }
+          {
+            name = "serial";
+            value = "ABC1234";
+          }
+        ];
+      };
+      chassis = {
+        entry = [
+          {
+            name = "manufacturer";
+            value = "Dell Inc.";
+          }
+          {
+            name = "type";
+            value = "10";
+          }
+          {
+            name = "version";
+            value = "1.0";
+          }
+          {
+            name = "serial";
+            value = "ABC1234";
+          }
+        ];
+      };
+    };
+    # Hide the KVM/hypervisor signature so the guest looks like bare metal. Hyper-V
+    # enlightenments are deliberately omitted: they publish a "Microsoft Hv"
+    # signature in CPUID leaf 0x40000000 that VM detectors scan for.
     features = {
       acpi = {};
       apic = {};
-      hyperv.mode = "passthrough";
       vmport.state = false;
+      kvm.hidden.state = true;
     };
     cpu = {
       mode = "host-passthrough";
       check = "none";
       migratable = false;
+      feature = [
+        {
+          policy = "disable";
+          name = "hypervisor";
+        }
+      ];
     };
     clock = {
       offset = "localtime";
@@ -232,10 +338,6 @@
         }
         {
           name = "hpet";
-          present = false;
-        }
-        {
-          name = "hypervclock";
           present = true;
         }
       ];
@@ -253,9 +355,10 @@
           };
           source.file = "${vmDir}/disk.qcow2";
           target = {
-            dev = "vda";
-            bus = "virtio";
+            dev = "sdd";
+            bus = "sata";
           };
+          serial = "WD-WCC4N1234567";
         }
         # The answer file expects these three as D:, E: and F:. The Windows ISO is
         # optional because a service downloads it and it may not be there yet.
@@ -318,17 +421,13 @@
       interface = {
         type = "bridge";
         source.bridge = "virbr0";
-        mac.address = "52:54:00:f0:4e:51";
-        model.type = "virtio";
+        # OUI of a real NIC vendor instead of QEMU's 52:54:00 range
+        mac.address = "00:14:22:11:22:33";
+        # Intel e1000 instead of VirtIO-Net so the PCI vendor ID is not 1af4
+        model.type = "e1000e";
       };
+      # No QEMU guest agent channel: the agent is a common VM-detection signal.
       channel = [
-        {
-          type = "unix";
-          target = {
-            type = "virtio";
-            name = "org.qemu.guest_agent.0";
-          };
-        }
         {
           type = "spicevmc";
           target = {
@@ -355,11 +454,14 @@
         image.compression = "off";
       };
       sound.model = "ich9";
+      # Standard VGA instead of VirtIO-GPU: SEB flags virtual display adapters, and
+      # RDP provides its own dynamic resolution regardless.
       video.model = {
-        type = "virtio";
+        type = "vga";
         heads = 1;
         primary = true;
       };
+      memballoon.model = "none";
       redirdev = [
         {
           bus = "usb";
@@ -403,7 +505,7 @@
       echo "waiting for Windows to report its address..."
       address=""
       for _ in $(seq 90); do
-        address=$(${virsh} domifaddr windows-forensics --source agent 2>/dev/null \
+        address=$(${virsh} domifaddr windows-forensics --source lease 2>/dev/null \
           | awk '$3 == "ipv4" && $4 ~ /^192\.168\.122\./ { sub("/.*", "", $4); print $4; exit }' || true)
         [[ -n $address ]] && break
         sleep 2
