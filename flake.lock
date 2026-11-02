@@ -58,11 +58,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1793659097,
-        "narHash": "sha256-n3LXH4dP9RRYqj+0iMFV1zcsKdX2EDhClXPYWZGXITY=",
+        "lastModified": 1793660057,
+        "narHash": "sha256-AeYHG9aH1FpqVIynXsHPoZoWCa/aYkvcFZ9BxxlR6w4=",
         "ref": "refs/heads/main",
-        "rev": "773a5ad98880bfde74b9bbf8698ad337dc2c2d1e",
-        "revCount": 112,
+        "rev": "3cecb7f68109a7c7787ce4071bc9a130a48b26bb",
+        "revCount": 114,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },

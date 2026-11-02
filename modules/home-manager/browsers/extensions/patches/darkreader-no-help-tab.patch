@@ -1,0 +1,12 @@
+--- a/background/index.js
++++ b/background/index.js
+@@ -7217,7 +7217,8 @@
+     {
+         chrome.runtime.onInstalled.addListener(({reason}) => {
+             if (reason === "install") {
+-                chrome.tabs.create({url: getHelpURL()});
++                // Disabled by nix-config: --load-extension reinstalls this
++                // extension on every launch, which reopened this tab.
+             }
+         });
+         chrome.runtime.setUninstallURL(UNINSTALL_URL);
