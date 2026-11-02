@@ -4,5 +4,6 @@
     ./networking
     ./binary-cache.nix
     ./configuration.nix
+    ./security.nix
   ];
 }
