@@ -112,31 +112,18 @@ Step 'Zen' {
 Step 'Host share' {
     # The driver comes with the virtio drivers, the service that mounts the share
     # as Z: only ships on the virtio-win disc
-    if (-not (Get-Service VirtioFsSvc -ErrorAction SilentlyContinue)) {
+    if (-not (Get-Service HostShareSvc -ErrorAction SilentlyContinue)) {
         $disc = Get-Volume | Where-Object { $_.DriveLetter -and (Test-Path "$($_.DriveLetter):\viofs\w11\amd64\virtiofs.exe") } |
             Select-Object -First 1
         if (-not $disc) { throw 'virtio-win disc not found' }
-        $dir = Join-Path $env:ProgramFiles 'VirtIO-FS'
+        $dir = Join-Path $env:ProgramFiles 'HostShare'
         New-Item -ItemType Directory -Force -Path $dir | Out-Null
-        Copy-Item "$($disc.DriveLetter):\viofs\w11\amd64\virtiofs.exe" $dir -Force
-        New-Service -Name VirtioFsSvc -DisplayName 'VirtIO-FS Service' -StartupType Automatic `
-            -BinaryPathName "`"$dir\virtiofs.exe`"" -DependsOn 'WinFsp.Launcher' | Out-Null
+        # Rename the binary so the process name is not a VM-detection signal.
+        Copy-Item "$($disc.DriveLetter):\viofs\w11\amd64\virtiofs.exe" (Join-Path $dir 'hostshare.exe') -Force
+        New-Service -Name HostShareSvc -DisplayName 'Host Share Service' -StartupType Automatic `
+            -BinaryPathName "`"$dir\hostshare.exe`"" -DependsOn 'WinFsp.Launcher' | Out-Null
     }
-    Start-Service VirtioFsSvc
-}
-
-Step 'Display auto-resize' {
-    # The GPU driver alone keeps a fixed resolution, following the viewer window
-    # is done by a service that only ships on the virtio-win disc
-    if (-not (Get-Service vgpusrv -ErrorAction SilentlyContinue)) {
-        $src = Get-Volume | Where-Object DriveLetter | ForEach-Object { "$($_.DriveLetter):\viogpudo\w11\amd64" } |
-            Where-Object { Test-Path "$_\vgpusrv.exe" } | Select-Object -First 1
-        if (-not $src) { throw 'virtio-win disc not found' }
-        $dir = Join-Path $env:ProgramFiles 'VirtIO-GPU'
-        New-Item -ItemType Directory -Force -Path $dir | Out-Null
-        Copy-Item "$src\vgpusrv.exe", "$src\viogpuap.exe" $dir -Force
-        & "$dir\vgpusrv.exe" -i | Out-Null
-    }
+    Start-Service HostShareSvc
 }
 
 Step 'Remote Desktop' {
