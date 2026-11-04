@@ -1,23 +1,17 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }: let
-  # Built in pkgs/ang3lo-nur from the latest release tag, which nvfetcher tracks there.
-  # The on-state switch knob is hardcoded white, which vanishes on the white
-  # accent, so draw it in on_accent like every other shape on the accent
-  zapfast = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.zapfast.overrideAttrs (old: {
-    postPatch =
-      (old.postPatch or "")
-      + ''
-        substituteInPlace src/ui/widgets.rs \
-          --replace-fail \
-            'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(Color32::WHITE)' \
-            'egui::Rgba::from(palette.secondary)..=egui::Rgba::from(palette.on_accent)'
-      '';
-  });
+  # Use the nixpkgs zapfast so it substitutes from cache.nixos.org instead of
+  # compiling the Rust source locally; nixpkgs is at version parity with the NUR
+  # build (0.21.1), and the NUR package stays available in pkgs/ang3lo-nur.
+  # Trade off: this drops a source patch that recolored the on-state
+  # switch knob from hardcoded white to on_accent, so on a near-white accent the
+  # knob loses contrast. Keeping that fix needs an overrideAttrs postPatch (which
+  # changes the source and forces a local rebuild), or the fix landing upstream.
+  inherit (pkgs) zapfast;
   colors = config.lib.stylix.colors.withHashtag;
 
   # Links and read receipts are derived by ZapFast from accent. Bubbles are set explicitly:

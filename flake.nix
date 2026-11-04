@@ -536,6 +536,17 @@
           doInstallCheck = false;
         });
         */
+        # HACK: remove once nixpkgs fixes opencode's node_modules hash. The pinned
+        # outputHash for the bun install fixed-output derivation is stale: bun
+        # deterministically produces the value below on both local and remote
+        # builders, but nixpkgs still expects the old one, so every build fails on
+        # a fixed-output hash mismatch. A version bump rebuilds node_modules, so
+        # this hash must be rechecked whenever opencode is updated.
+        opencode = prev.opencode.overrideAttrs (old: {
+          node_modules = old.node_modules.overrideAttrs (_: {
+            outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
+          });
+        });
       })
       (
         _: prev:
