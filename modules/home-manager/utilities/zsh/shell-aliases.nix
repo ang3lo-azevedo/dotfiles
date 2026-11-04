@@ -27,12 +27,12 @@
     # instant instead of paying (or blocking on) the next cache miss.
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f /run/current-system); sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' --log-format internal-json -v --keep-going |& nom --json && nvd diff \"$before\" /run/current-system; fastfetch --structure packages --logo none > /dev/null 2>&1";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f ~/.local/state/nix/profiles/home-manager 2>/dev/null); home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo' --log-format internal-json -v |& nom --json && nvd diff \"$before\" ~/.local/state/nix/profiles/home-manager; fastfetch --structure packages --logo none > /dev/null 2>&1";
-    # eglantine tracks an upstream AppImage that nvfetcher cannot template (tag in
-    # the path, commit in the filename, prereleases), so its updater runs here after
-    # the submodule pull and commits any bump locally; the ang3lo-nur relock that
-    # follows then picks it up. A network/API failure is swallowed so it never blocks
-    # the rest of the update.
-    update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && { (cd pkgs/ang3lo-nur && bash pkgs/eglantine/update.sh && { git diff --quiet -- pkgs/eglantine/default.nix || git commit -q -m \"eglantine: bump to latest AppImage pre-release\" pkgs/eglantine/default.nix; }) || echo \"eglantine update skipped\"; } && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
+    # eglantine, lichii and pokedinner track upstream AppImages that nvfetcher cannot
+    # template (tag in the path, commit in the filename, prereleases), so their updaters
+    # run here after the submodule pull and commit any bump locally; the ang3lo-nur relock
+    # that follows then picks it up. A network/API failure is swallowed so it never
+    # blocks the rest of the update.
+    update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && { (cd pkgs/ang3lo-nur && bash pkgs/eglantine/update.sh && { git diff --quiet -- pkgs/eglantine/default.nix || git commit -q -m \"eglantine: bump to latest AppImage pre-release\" pkgs/eglantine/default.nix; }) || echo \"eglantine update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/lichii/update.sh && { git diff --quiet -- pkgs/lichii/default.nix || git commit -q -m \"lichii: bump to latest AppImage pre-release\" pkgs/lichii/default.nix; }) || echo \"lichii update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/pokedinner/update.sh && { git diff --quiet -- pkgs/pokedinner/default.nix || git commit -q -m \"pokedinner: bump to latest AppImage pre-release\" pkgs/pokedinner/default.nix; }) || echo \"pokedinner update skipped\"; } && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
     upgrade = "sudo -v && git -C ~/nix-config pull && update && rebuild";
     u = "upgrade";
     rb = "rebuild";

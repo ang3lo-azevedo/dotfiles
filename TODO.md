@@ -20,18 +20,14 @@
 
 ## General Stuff
 
-- [x] Make the VM bypass the Safe Exam Browser detections
-- [ ] Fix Unity3D error
-- [ ] add this https://github.com/smarkyie/NSP-Box
-- [ ] add this https://github.com/shirai91/nx2android
+- [ ] Fix Zen folders
+- [ ] Add blender
+- [ ] Add glm (OpenGL Math)
 - [ ] Replace all the redacted commits to come from me
 - [ ] Make niri have the vim motions
 - [ ] Fix Motrix Next always asking for the new permissions
-- [x] Fix build errors and see if are there better, more understandable ways to show the build errors
 - [ ] See if it is worth it to change to doas
-- [x] Add bloodhound
 - [ ] Add Sharphound
-- [x] Add a way to easily disable the dns stuff for public wifi connecting
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"

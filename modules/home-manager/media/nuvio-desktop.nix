@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     (symlinkJoin {
       name = "nuvio-desktop";
-      paths = [inputs.self.packages.${pkgs.system}.nuvio];
+      paths = [inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.nuvio];
       buildInputs = [makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/nuvio \

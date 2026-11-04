@@ -4,6 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    inputs.self.packages.${pkgs.system}.onlinefix-linux
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.onlinefix-linux
   ];
 }

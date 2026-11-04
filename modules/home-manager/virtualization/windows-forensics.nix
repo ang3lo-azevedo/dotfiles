@@ -145,12 +145,37 @@
       done
     '';
 
+  # Runs at the first logon (see the RunOnce entry below). It finds the setup
+  # disc by the script it carries, since the disc's drive letter is not fixed,
+  # and keeps the window open so the tool install can be watched and any failed
+  # step read. Passed to powershell base64-encoded so the answer file carries no
+  # nested quoting.
+  toolsLauncher = pkgs.writeText "windows-forensics-launch.ps1" ''
+    $ErrorActionPreference = 'Continue'
+    $script = Get-PSDrive -PSProvider FileSystem |
+      ForEach-Object { Join-Path $_.Root 'install-tools.ps1' } |
+      Where-Object { Test-Path $_ } |
+      Select-Object -First 1
+    if ($script) {
+      & $script
+    } else {
+      Write-Warning 'install-tools.ps1 was not found on any drive'
+    }
+    Write-Host ""
+    Write-Host "Setup finished. Press Enter to close this window."
+    [void](Read-Host)
+  '';
+
   # Built from the answer file embedded in the quickget script, which expects the
   # Windows, virtio-win and unattended discs as D:, E: and F:.
   unattendedIso =
     pkgs.runCommand "windows-forensics-unattended.iso"
     {
-      nativeBuildInputs = [pkgs.cdrtools];
+      # glibc.bin carries iconv, used to encode the first-logon launcher
+      nativeBuildInputs = [
+        pkgs.cdrtools
+        pkgs.glibc.bin
+      ];
       preferLocalBuild = true;
     }
     ''
@@ -160,19 +185,36 @@
       grep -q '</unattend>' cd/autounattend.xml
       sed -i 's/[A-Z0-9]\{5\}\(-[A-Z0-9]\{5\}\)\{4\}/${ltscSetupKey}/g' cd/autounattend.xml
       grep -q '${ltscSetupKey}' cd/autounattend.xml
-      # quickget names the Windows account after itself
+      # quickget names the registered owner after itself
       sed -i '/<Model>/!s|>Quickemu<|>${windowsUser}<|g' cd/autounattend.xml
-      grep -q '<Username>${windowsUser}</Username>' cd/autounattend.xml
+      grep -q '<RegisteredOwner>${windowsUser}</RegisteredOwner>' cd/autounattend.xml
       # loading the QXL display driver blanks the screen and hangs setup on 24H2
       sed -i '/<PathAndCredentials/{N;/qxldod/{N;d}}' cd/autounattend.xml
       ! grep -q qxldod cd/autounattend.xml
       # Do not install the QEMU guest agent or the SPICE agents: their services
-      # and drivers are a common VM-detection signal.
-      sed -i 's#msiexec /i E:\\guest-agent\\qemu-ga-x86_64.msi /quiet /passive /qn#cmd /c rem skip qemu-ga#' cd/autounattend.xml
+      # and drivers are a common VM-detection signal. The now-spare guest-agent
+      # command instead registers the forensic tools setup to run at first logon,
+      # once the desktop and network are up, rather than during OOBE.
+      enc=$(iconv -f UTF-8 -t UTF-16LE ${toolsLauncher} | base64 -w0)
+      sed -i 's#msiexec /i E:\\guest-agent\\qemu-ga-x86_64.msi /quiet /passive /qn#reg add "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce" /v InstallForensicTools /t REG_SZ /d "powershell -NoProfile -ExecutionPolicy Bypass -WindowStyle Normal -EncodedCommand @ENCODED@" /f#' cd/autounattend.xml
+      sed -i 's#<Description>Install Virtio Guest Agent</Description>#<Description>Schedule the forensic tools setup for first logon</Description>#' cd/autounattend.xml
+      sed -i "s|@ENCODED@|$enc|" cd/autounattend.xml
+      grep -q EncodedCommand cd/autounattend.xml
       sed -i 's#msiexec /i F:\\spice-webdavd-x64-latest.msi /quiet /passive /qn#cmd /c rem skip webdavd#' cd/autounattend.xml
       sed -i 's#msiexec /i F:\\spice-vdagent-x64-0.10.0.msi /quiet /passive /qn#cmd /c rem skip vdagent#' cd/autounattend.xml
       # Use the inbox basic display driver instead of the VirtIO-GPU driver.
-      sed -i '/pnputil \/add-driver E:\\\\viogpudo/d' cd/autounattend.xml
+      sed -i 's#.*pnputil.*/add-driver.*viogpudo.*#<CommandLine>cmd /c rem skip viogpudo</CommandLine>#' cd/autounattend.xml
+      # On 24H2 the answer file provisioning the account itself (autologon plus a
+      # local account, and the OOBE account screens it hides) aborts setup with
+      # "Windows could not complete the installation". Drop that provisioning so
+      # OOBE sets up the first user interactively. SkipMachineOOBE and SkipUserOOBE
+      # have likewise been deprecated since Windows 8 and abort the same way. The
+      # forensic tools still install afterwards through FirstLogonCommands.
+      sed -i '/<SkipUserOOBE>/d;/<SkipMachineOOBE>/d' cd/autounattend.xml
+      sed -i '/<AutoLogon>/,/<\/AutoLogon>/d' cd/autounattend.xml
+      sed -i '/<UserAccounts>/,/<\/UserAccounts>/d' cd/autounattend.xml
+      sed -i '/<HideLocalAccountScreen>/d;/<HideOnlineAccountScreens>/d' cd/autounattend.xml
+      ! grep -qE 'SkipUserOOBE|SkipMachineOOBE|<AutoLogon>|<UserAccounts>' cd/autounattend.xml
       # the answer file installs both under these names
       cp ${spiceWebdavd} cd/spice-webdavd-x64-latest.msi
       cp ${spiceVdagent} cd/spice-vdagent-x64-0.10.0.msi
