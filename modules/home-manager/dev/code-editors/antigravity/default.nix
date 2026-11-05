@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./settings.nix
+    ./cli-settings.nix
     ./extensions.nix
     ./filter-bypass.nix
   ];
