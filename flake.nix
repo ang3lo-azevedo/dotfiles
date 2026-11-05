@@ -87,6 +87,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Antigravity safety-filter lifecycle hook plugin
+    # https://github.com/v1ktorrr0x/antigravity-filter-bypass
+    antigravity-filter-bypass = {
+      url = "github:v1ktorrr0x/antigravity-filter-bypass";
+      flake = false;
+    };
+
     # NixVirt (declarative libvirt domains)
     nixvirt = {
       url = "github:AshleyYakeley/NixVirt";

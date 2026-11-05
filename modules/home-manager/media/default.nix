@@ -10,6 +10,7 @@
     #./harbor.nix
     ./inkscape.nix
     ./gimp.nix
+    ./blender.nix
     ./kdenlive.nix
     ./obs.nix
     ./audacity.nix

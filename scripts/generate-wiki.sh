@@ -119,6 +119,7 @@ cat <<'EOF'
 | `xddxdd-nur` | bambu-studio-bin and other NUR packages |
 | `nixpkgs-xr` | OpenXR / VR packages for NixOS |
 | `antigravity-nix` | Google Antigravity tool packaging |
+| `antigravity-filter-bypass` | Antigravity safety-filter Stop hook plugin (non-flake src) |
 | `nixvirt` | Declarative libvirt domains |
 | `samsung-galaxy-book-linux-fixes` | Kernel/module fixes for Samsung Galaxy Book (non-flake src) |
 | `libfprint-src` | libfprint fork with EgisTec SDCP fingerprint support (non-flake src) |
@@ -261,7 +262,7 @@ done
 
 # Standalone system modules
 h3 "Core"
-for f in configuration.nix secure-boot.nix impermanence.nix reduce-disk-usage.nix binary-cache.nix auto-upgrade.nix pc.nix disko.nix; do
+for f in configuration.nix secure-boot.nix impermanence.nix reduce-disk-usage.nix binary-cache.nix auto-upgrade.nix pc.nix disko.nix ssl-certs.nix; do
 	fp="$REPO_ROOT/modules/system/$f"
 	[ -f "$fp" ] && {
 		enables=$(extract_enables "$fp")

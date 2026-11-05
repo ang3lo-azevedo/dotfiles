@@ -2,9 +2,13 @@
   imports = [
     ./settings.nix
     ./extensions.nix
+    ./filter-bypass.nix
   ];
 
   home.packages = with pkgs; [
+    # Antigravity CLI, exposes the `agy` command.
+    google-antigravity-cli
+
     (symlinkJoin {
       name = "google-antigravity-ide-fixed";
       paths = [google-antigravity-ide];

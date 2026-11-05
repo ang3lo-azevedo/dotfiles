@@ -14,12 +14,13 @@
     enable = true;
     launchAtLogin = true;
 
-    # For now use the nixpkgs build instead of the NUR source build: openlogi is
-    # a GPUI/Rust workspace whose local compile is heavy, and cache.nixos.org
+    # Use the nixpkgs build instead of the NUR source build: openlogi is a
+    # GPUI/Rust workspace whose local compile is heavy, and cache.nixos.org
     # already has the nixpkgs binary, so this substitutes instead of building.
     # The NUR module stays imported for its udev rules and agent user service;
-    # only the package is swapped. Trade-off: nixpkgs lags the NUR release
-    # (0.6.25 vs 0.9.0), so remove this line to go back to the latest from source.
+    # only the package is swapped. nixpkgs currently ships the same release the
+    # NUR tracks (0.9.0), so there is no version trade-off; remove this line only
+    # if nixpkgs falls behind and the newer release from source is needed.
     package = pkgs.openlogi;
   };
 }

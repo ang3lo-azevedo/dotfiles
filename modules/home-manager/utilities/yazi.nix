@@ -116,16 +116,23 @@
         path="$4"
         out="$5"
 
+        # --gtk-single-instance=false forces a standalone ghostty window instead
+        # of handing the command to the running ghostty daemon. Under single
+        # instance mode "ghostty -e" returns immediately, so termfilechooser reads
+        # its (still empty) result file before yazi writes the selection and the
+        # file dialog does nothing. Standalone mode blocks until yazi exits.
+        term="ghostty --gtk-single-instance=false -e"
+
         if [ "$save" = "1" ]; then
-            ghostty -e ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$path"
+            $term ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$path"
         elif [ "$directory" = "1" ]; then
-            ghostty -e ${pkgs.yazi}/bin/yazi --chooser-file="$out" --cwd-file="$out.1" "$path"
+            $term ${pkgs.yazi}/bin/yazi --chooser-file="$out" --cwd-file="$out.1" "$path"
             if [ ! -s "$out" ] && [ -s "$out.1" ]; then
                 cat "$out.1" > "$out"
             fi
             rm -f "$out.1"
         else
-            ghostty -e ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$path"
+            $term ${pkgs.yazi}/bin/yazi --chooser-file="$out" "$path"
         fi
       '';
     };
