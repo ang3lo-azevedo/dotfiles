@@ -20,14 +20,12 @@
 
 ## General Stuff
 
+- [ ] Finish the ctfs repo
 - [ ] Fix Zen folders
 - [ ] Add bitwright plugins https://github.com/valeria-org/bitwright/tree/main/tools/plugins
-- [x] Add blender
-- [x] Replace all the redacted commits to come from me
 - [ ] Make niri have the vim motionsll
 - [ ] Fix Motrix Next always asking for the new permissions
 - [ ] See if it is worth it to change to doas
-- [ ] Add Sharphound
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"

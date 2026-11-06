@@ -100,10 +100,6 @@
     '')
   ];
 
-  xdg.mimeApps.defaultApplications = {
-    "inode/directory" = ["yazi.desktop"];
-  };
-
   xdg.configFile = {
     "xdg-desktop-portal-termfilechooser/yazi-wrapper.sh" = {
       executable = true;
