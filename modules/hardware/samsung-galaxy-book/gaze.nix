@@ -8,8 +8,21 @@
   services.gaze = {
     enable = true;
 
-    # "primary" picks the first color node, which is a raw IPU7 node here.
-    settings.cameras.rgb = "/dev/video${toString config.hardware.samsungGalaxyBook.webcamFixBook5.loopbackVideoNr}";
+    settings = {
+      # "primary" picks the first color node, which is a raw IPU7 node here.
+      cameras.rgb = "/dev/video${toString config.hardware.samsungGalaxyBook.webcamFixBook5.loopbackVideoNr}";
+
+      # Encrypt enrolled face templates at rest (TPM sealed). Interim hardening:
+      # the root btrfs LV spans an unencrypted LVM PV (nvme0n1p3), so ~half of
+      # the filesystem, including these templates, can sit in cleartext on disk.
+      # Sealing protects them wherever btrfs places them. This does not fix the
+      # underlying partial encryption: the real fix is whole-disk LUKS, which
+      # needs a reinstall with luksSizeGB = null in disko.nix. Note the TPM here
+      # has no PCR policy, so a local root or live-USB attacker could still
+      # unseal; the gain is against offline theft of the powered-off disk.
+      # Turning this on invalidates existing plain templates: re-enroll after.
+      storage.encrypt_templates = true;
+    };
 
     # sudo stays fingerprint-only: exclude it from gaze's default PAM wiring.
     pam.defaultServices = ["polkit-1"];

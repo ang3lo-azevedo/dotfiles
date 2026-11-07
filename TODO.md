@@ -20,10 +20,9 @@
 
 ## General Stuff
 
-- [ ] Finish the ctfs repo
 - [ ] Fix Zen folders
 - [ ] Add bitwright plugins https://github.com/valeria-org/bitwright/tree/main/tools/plugins
-- [ ] Make niri have the vim motionsll
+- [ ] Make niri have the vim motions
 - [ ] Fix Motrix Next always asking for the new permissions
 - [ ] See if it is worth it to change to doas
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html

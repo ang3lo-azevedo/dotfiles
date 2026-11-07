@@ -100,9 +100,22 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Gaze facial authentication
+    # Gaze facial authentication. Pinned to v0.3.10: gaze 0.4.x refuses any
+    # non-PCI/USB camera as an anti-spoofing measure, which rejects the
+    # v4l2loopback node (/dev/video50) the Samsung IPU7 webcam relay feeds. On
+    # this hardware that loopback is the only usable camera, and 0.4.x exposes no
+    # setting to allow it, so stay on the last release that reads the loopback.
+    # Revisit when upstream adds a way to trust a specific virtual camera.
     gaze = {
-      url = "github:GunduLabs/gaze";
+      url = "github:GunduLabs/gaze/v0.3.10";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Horizon launcher (Minecraft Java rewritten in Rust), packaged native/FHS-free
+    # with a nix-ld module. Pinned to a commit: the repo is brand new and tracks a
+    # moving main. See modules/system/horizon.nix.
+    horizon = {
+      url = "github:forge-sa/Horizon-NixOS/df1e6e67fae3603e7ef1845589941313d162b353";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

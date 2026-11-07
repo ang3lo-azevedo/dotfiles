@@ -9,5 +9,7 @@
     ./nx2android.nix
     ./orchid.nix
     ./pokedinner.nix
+    ./shared-data.nix
+    ./smiley-eglantine.nix
   ];
 }

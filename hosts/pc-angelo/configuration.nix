@@ -38,6 +38,7 @@ in {
     "${inputs.self}/modules/system/pc.nix"
     "${inputs.self}/modules/system/impermanence.nix"
     "${inputs.self}/modules/system/nixbuild"
+    "${inputs.self}/modules/system/horizon.nix"
   ];
 
   time.hardwareClockInLocalTime = true;
