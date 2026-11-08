@@ -8,6 +8,7 @@
     ./steamidra.nix
     ./onlinefix.nix
     ./prismlauncher.nix
+    ./hookshot.nix
     ./vr
     ./emulators
   ];

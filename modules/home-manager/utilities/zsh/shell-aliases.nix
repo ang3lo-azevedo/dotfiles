@@ -1,4 +1,33 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # ang3lo-nur emulator/game packages whose upstreams ship AppImages nvfetcher
+  # cannot template (tag in the path, commit in the filename, or prerelease-only).
+  # The `update` alias runs each one's update.sh after the submodule pull; add a
+  # package here to include it. The list is the single source of truth.
+  nurAppImageUpdaters = [
+    "eglantine"
+    "lichii"
+    "pokedinner"
+    "nemyu"
+    "orchid"
+    "smiley-eglantine"
+    "hookshot"
+  ];
+
+  # One package's updater: run it, commit the pin in the submodule if it changed,
+  # and swallow any network/API failure so it never blocks the rest of the update.
+  mkUpdater = name: ''{ (cd pkgs/ang3lo-nur && bash pkgs/${name}/update.sh && { git diff --quiet -- pkgs/${name}/default.nix || git commit -q -m "${name}: bump to latest upstream AppImage" pkgs/${name}/default.nix; }) || echo "${name} update skipped"; }'';
+
+  # Pull the submodules, run every updater, then relock so the bumps land. The
+  # per-package commits are why the ang3lo-nur relock afterwards picks them up.
+  updateAlias = pkgs.lib.concatStringsSep " && " (
+    ["(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes"]
+    ++ map mkUpdater nurAppImageUpdaters
+    ++ [
+      "nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config"
+      "nix flake update --accept-flake-config)"
+    ]
+  );
+in {
   programs.zsh.shellAliases = {
     # Tool related alises
     "7z" = "7zz";
@@ -27,12 +56,9 @@
     # instant instead of paying (or blocking on) the next cache miss.
     rebuild = "sudo -v && git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f /run/current-system); sudo nixos-rebuild switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#pc-angelo' --log-format internal-json -v --keep-going |& nom --json && nvd diff \"$before\" /run/current-system; fastfetch --structure packages --logo none > /dev/null 2>&1";
     hmrebuild = "git -C ~/nix-config add -N . 2>/dev/null; fmt || true; before=$(readlink -f ~/.local/state/nix/profiles/home-manager 2>/dev/null); home-manager switch --accept-flake-config --impure --flake 'path:/home/ang3lo/nix-config#ang3lo' --log-format internal-json -v |& nom --json && nvd diff \"$before\" ~/.local/state/nix/profiles/home-manager; fastfetch --structure packages --logo none > /dev/null 2>&1";
-    # eglantine, lichii, pokedinner, nemyu, orchid and smiley-eglantine track upstream AppImages that nvfetcher cannot
-    # template (tag in the path, commit in the filename, prereleases), so their updaters
-    # run here after the submodule pull and commit any bump locally; the ang3lo-nur relock
-    # that follows then picks it up. A network/API failure is swallowed so it never
-    # blocks the rest of the update.
-    update = "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes && { (cd pkgs/ang3lo-nur && bash pkgs/eglantine/update.sh && { git diff --quiet -- pkgs/eglantine/default.nix || git commit -q -m \"eglantine: bump to latest AppImage pre-release\" pkgs/eglantine/default.nix; }) || echo \"eglantine update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/lichii/update.sh && { git diff --quiet -- pkgs/lichii/default.nix || git commit -q -m \"lichii: bump to latest AppImage pre-release\" pkgs/lichii/default.nix; }) || echo \"lichii update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/pokedinner/update.sh && { git diff --quiet -- pkgs/pokedinner/default.nix || git commit -q -m \"pokedinner: bump to latest AppImage pre-release\" pkgs/pokedinner/default.nix; }) || echo \"pokedinner update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/nemyu/update.sh && { git diff --quiet -- pkgs/nemyu/default.nix || git commit -q -m \"nemyu: bump to latest AppImage pre-release\" pkgs/nemyu/default.nix; }) || echo \"nemyu update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/orchid/update.sh && { git diff --quiet -- pkgs/orchid/default.nix || git commit -q -m \"orchid: bump to latest AppImage release\" pkgs/orchid/default.nix; }) || echo \"orchid update skipped\"; } && { (cd pkgs/ang3lo-nur && bash pkgs/smiley-eglantine/update.sh && { git diff --quiet -- pkgs/smiley-eglantine/default.nix || git commit -q -m \"smiley-eglantine: bump to latest AppImage pre-release\" pkgs/smiley-eglantine/default.nix; }) || echo \"smiley-eglantine update skipped\"; } && nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config && nix flake update --accept-flake-config)";
+    # Updates the mpv/NUR submodules, runs each AppImage updater (see the
+    # nurAppImageUpdaters list above), then relocks the flake inputs.
+    update = updateAlias;
     upgrade = "sudo -v && git -C ~/nix-config pull && update && rebuild";
     u = "upgrade";
     rb = "rebuild";
