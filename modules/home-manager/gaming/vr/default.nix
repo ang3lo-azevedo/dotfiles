@@ -6,5 +6,6 @@
     ./kaon.nix
     ./jackify.nix
     ./owmods-gui.nix
+    ./vrcd.nix
   ];
 }

@@ -7,6 +7,11 @@
   # main gets several commits a day and each one would be a full local rebuild.
   imports = [inputs.ang3lo-nur.nixosModules.openlogi];
 
+  # nixpkgs 26.11 gained its own programs.openlogi module, which collides with the
+  # upstream module imported above (both declare the same options). Drop the nixpkgs
+  # copy: the upstream one is a superset, adding launchAtLogin and the agent user service.
+  disabledModules = ["programs/openlogi.nix"];
+
   # Importing the upstream module (rather than adding the plain nixpkgs
   # package) also installs the udev rules the agent needs for /dev/uinput,
   # /dev/hidraw*, and the mouse's /dev/input/event* node.

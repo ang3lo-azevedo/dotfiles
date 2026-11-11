@@ -6,11 +6,10 @@
   nurAppImageUpdaters = [
     "eglantine"
     "lichii"
+    "cheezyemu"
     "pokedinner"
     "nemyu"
-    "orchid"
     "smiley-eglantine"
-    "hookshot"
   ];
 
   # One package's updater: run it, commit the pin in the submodule if it changed,
@@ -20,7 +19,9 @@
   # Pull the submodules, run every updater, then relock so the bumps land. The
   # per-package commits are why the ang3lo-nur relock afterwards picks them up.
   updateAlias = pkgs.lib.concatStringsSep " && " (
-    ["(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes"]
+    [
+      "(cd ~/nix-config && git submodule update --remote --merge home/ang3lo/.config/mpv pkgs/ang3lo-nur pkgs/th3m1ghtyduck-nur pkgs/samsung-galaxy-book-linux-fixes"
+    ]
     ++ map mkUpdater nurAppImageUpdaters
     ++ [
       "nix flake update mpv-config ang3lo-nur th3m1ghtyduck-nur samsung-galaxy-book-linux-fixes --accept-flake-config"

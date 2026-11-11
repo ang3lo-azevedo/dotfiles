@@ -14,7 +14,8 @@
   home.activation.fixConfigFiles = lib.hm.dag.entryAfter ["linkGeneration"] ''
     for config_file in \
       "$HOME/.config/dorion/config.json" \
-      "$HOME/.config/equibop/settings/settings.json"; do
+      "$HOME/.config/equibop/settings/settings.json" \
+      "$HOME/.config/equibop/settings/quickCss.css"; do
       if [ -L "$config_file" ]; then
         real_file=$(readlink -f "$config_file")
         rm "$config_file"
@@ -74,14 +75,30 @@
       # advertises both capture and output), so reach it through PipeWire.
       # Chromium keeps only the last --enable-features, which would drop the
       # WaylandWindowDecorations the upstream wrapper passes, so repeat it.
-      package = pkgs.equibop.overrideAttrs (old: {
-        postFixup =
-          (old.postFixup or "")
-          + ''
-            wrapProgram $out/bin/equibop \
-              --add-flags "--enable-features=WaylandWindowDecorations,WebRtcPipeWireCamera"
-          '';
-      });
+      # Use symlinkJoin to wrap the binary rather than overrideAttrs so we don't
+      # invalidate the Hydra cache and trigger a 10-minute compile + upload to nn.
+      # Nixcord invokes .override { withMiddleClickScroll = ...; }, so expose .override.
+      package = let
+        wrapEquibop = eq:
+          (pkgs.symlinkJoin {
+            name = "equibop-${eq.version}";
+            paths = [eq];
+            nativeBuildInputs = [pkgs.makeBinaryWrapper];
+            postBuild = ''
+              wrapProgram $out/bin/equibop \
+                --add-flags "--enable-features=WaylandWindowDecorations,WebRtcPipeWireCamera"
+            '';
+            passthru =
+              (eq.passthru or {})
+              // {
+                override = args: wrapEquibop (eq.override args);
+              };
+          })
+          // {
+            override = args: wrapEquibop (eq.override args);
+          };
+      in
+        wrapEquibop pkgs.equibop;
       settings = {
         discordBranch = "stable";
         tray = true;
@@ -173,24 +190,31 @@
               scope = "myMessages";
             };
           in [
-            (rule "Twitter/X through fxtwitter"
-              ''/https?:\/\/(?:www\.|mobile\.)?(?:twitter|x)\.com(?=\/)/gi''
-              "https://fxtwitter.com")
+            (
+              rule "Twitter/X through fxtwitter" ''/https?:\/\/(?:www\.|mobile\.)?(?:twitter|x)\.com(?=\/)/gi''
+              "https://fxtwitter.com"
+            )
             # instagramez.com and ddinstagram.com returned no embed
-            (rule "Instagram through InstaFix"
+            (
+              rule "Instagram through InstaFix"
               ''/https?:\/\/(?:www\.)?instagram\.com(?=\/(?:p|reels?|tv)\/)/gi''
-              "https://uuinstagram.com")
+              "https://uuinstagram.com"
+            )
             # fxTikTok; vm.tiktok.com short links are left alone, untested there
-            (rule "TikTok through fxTikTok"
-              ''/https?:\/\/(?:www\.|m\.)?tiktok\.com(?=\/@[^\s\/]+\/video\/)/gi''
-              "https://tnktok.com")
+            (
+              rule "TikTok through fxTikTok" ''/https?:\/\/(?:www\.|m\.)?tiktok\.com(?=\/@[^\s\/]+\/video\/)/gi''
+              "https://tnktok.com"
+            )
             # rxddit.com answered with a 502; /s/ share links are left alone, untested there
-            (rule "Reddit through vxreddit"
+            (
+              rule "Reddit through vxreddit"
               ''/https?:\/\/(?:www\.|old\.|new\.)?reddit\.com(?=\/r\/[^\s\/]+\/comments\/)/gi''
-              "https://vxreddit.com")
-            (rule "Bluesky through FxBluesky"
-              ''/https?:\/\/bsky\.app(?=\/profile\/[^\s\/]+\/post\/)/gi''
-              "https://fxbsky.app")
+              "https://vxreddit.com"
+            )
+            (
+              rule "Bluesky through FxBluesky" ''/https?:\/\/bsky\.app(?=\/profile\/[^\s\/]+\/post\/)/gi''
+              "https://fxbsky.app"
+            )
           ];
         };
         middleClickTweaks.enable = true;

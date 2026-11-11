@@ -1,6 +1,7 @@
 {
   imports = [
     ./cemu.nix
+    ./cheezyemu.nix
     ./eglantine.nix
     ./lichii.nix
     ./nemyu.nix

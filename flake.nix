@@ -453,6 +453,7 @@
           };
           overlays = [
             (import ./overlays/python-packages.nix)
+            (import ./overlays/build-fixes.nix)
           ];
         };
         stable = import nixpkgs-stable {
@@ -463,6 +464,9 @@
         };
       })
       (import ./overlays/python-packages.nix)
+      (import ./overlays/build-fixes.nix)
+      (import ./overlays/android-studio-local-build.nix)
+      (import ./overlays/appimage-local-build.nix)
       inputs.firefox-addons.overlays.default
       (import ./overlays/firefox-addons.nix)
       inputs.nix-vscode-extensions.overlays.default
@@ -501,35 +505,7 @@
       (_: _: {
         xr = inputs.nixpkgs-xr.packages."x86_64-linux";
       })
-      (_: prev: {
-        # HACK: remove once nixpkgs fixes brial and xml-security-c for GCC 16.
-        # GCC 16 defaults to C++20, where std::accumulate moves its accumulator
-        # (brial's functor takes it by non-const reference) and streaming
-        # char16_t* into a narrow ostream is deleted (xml-security-c's xtest).
-        brial = prev.brial.overrideAttrs (old: {
-          env =
-            (old.env or {})
-            // {
-              CXXFLAGS = "-O2 -std=gnu++17";
-            };
-        });
-        xml-security-c = prev.xml-security-c.overrideAttrs (old: {
-          env =
-            (old.env or {})
-            // {
-              CXXFLAGS = "-O2 -std=gnu++17";
-            };
-        });
-        # HACK: silence deprecated import-environment warning in niri-session causing orange text on TTY
-        niri = prev.niri.overrideAttrs (old: {
-          postInstall =
-            (old.postInstall or "")
-            + ''
-              if [ -f $out/bin/niri-session ]; then
-                sed -i 's/systemctl --user import-environment$/systemctl --user import-environment 2>\/dev\/null/g' $out/bin/niri-session
-              fi
-            '';
-        });
+      (_: _: {
         # The block below contains a custom override for Niri that pulls from the main branch
         # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
         # the system uses the default, stable `niri` package from Nixpkgs instead.
@@ -556,17 +532,6 @@
           doInstallCheck = false;
         });
         */
-        # HACK: remove once nixpkgs fixes opencode's node_modules hash. The pinned
-        # outputHash for the bun install fixed-output derivation is stale: bun
-        # deterministically produces the value below on both local and remote
-        # builders, but nixpkgs still expects the old one, so every build fails on
-        # a fixed-output hash mismatch. A version bump rebuilds node_modules, so
-        # this hash must be rechecked whenever opencode is updated.
-        opencode = prev.opencode.overrideAttrs (old: {
-          node_modules = old.node_modules.overrideAttrs (_: {
-            outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
-          });
-        });
       })
       (
         _: prev:
@@ -690,6 +655,7 @@
         };
         overlays = [
           (import ./overlays/python-packages.nix)
+          (import ./overlays/build-fixes.nix)
         ];
       };
       inherit inputs;

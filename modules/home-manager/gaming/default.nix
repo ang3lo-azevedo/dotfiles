@@ -9,6 +9,7 @@
     ./onlinefix.nix
     ./prismlauncher.nix
     ./hookshot.nix
+    ./lichii-shader-sync.nix
     ./vr
     ./emulators
   ];

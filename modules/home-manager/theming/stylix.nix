@@ -21,8 +21,8 @@ in {
       gtk.extraCss = ''
         /* Force all GTK animations to be very fast */
         * {
-          transition-duration: 0.1s !important;
-          animation-duration: 0.1s !important;
+          transition-duration: 0.1s;
+          animation-duration: 0.1s;
         }
 
         /* adw-gtk3's light variant hardcodes near-black text on GTK3 message dialog buttons */

@@ -12,6 +12,12 @@ final: prev: let
         version = "1.3.1";
         name = "python-registry-1.3.1";
       });
+
+      # HACK: geopandas tests fail on Python 3.14 with pyarrow/shapely deprecations
+      # Used by: folium -> aleapp
+      geopandas = pyPrev.geopandas.overridePythonAttrs (_: {
+        doCheck = false;
+      });
     };
 in {
   customPythonOverrides = customOverrides;

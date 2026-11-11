@@ -20,8 +20,12 @@
     {
       hostName = "eu.nixbuild.net";
       system = "x86_64-linux";
-      maxJobs = 100;
-      supportedFeatures = ["benchmark" "big-parallel"];
+      maxJobs = 16;
+      speedFactor = 1;
+      supportedFeatures = [
+        "benchmark"
+        "big-parallel"
+      ];
     }
   ];
 }

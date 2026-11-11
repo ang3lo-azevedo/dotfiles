@@ -51,6 +51,7 @@
     ./zapfast.nix
     ./ayugram.nix
     ./betterbird.nix
+    ./zoom.nix
     ./restic-browser.nix
     ./ventoy.nix
     ./calendar.nix

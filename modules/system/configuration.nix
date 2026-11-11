@@ -46,6 +46,15 @@
       "root"
       "ang3lo"
     ];
+    # Custom system feature "local" prevents lightweight wrappers, FHS rootfs,
+    # and AppImage extractions from being offloaded over SSH to eu.nixbuild.net.
+    system-features = [
+      "benchmark"
+      "big-parallel"
+      "kvm"
+      "nixos-test"
+      "local"
+    ];
     # These cap local builds only: anything nixbuild.net (see
     # modules/system/nixbuild) cannot take still runs on this machine.
     # "auto" jobs times unlimited cores oversubscribes the 8 cores against a

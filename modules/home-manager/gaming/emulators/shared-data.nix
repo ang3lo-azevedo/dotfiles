@@ -13,17 +13,32 @@
   # is itself named eglantine, so it already writes there and needs no redirect.
   # The rest get their three XDG roots symlinked onto eglantine's.
   canonical = "eglantine";
-  forks = ["eden" "nemyu" "orchid" "lichii"];
-  roots = [".config" ".local/share" ".cache"];
+  forks = [
+    "eden"
+    "nemyu"
+    "orchid"
+    "lichii"
+    "cheezyemu"
+    "cheezy"
+  ];
+  roots = [
+    ".config"
+    ".local/share"
+    ".cache"
+  ];
 
   link = config.lib.file.mkOutOfStoreSymlink;
   home = config.home.homeDirectory;
 in {
-  home.file = builtins.listToAttrs (lib.concatMap (root:
-    map (fork: {
-      name = "${root}/${fork}";
-      value.source = link "${home}/${root}/${canonical}";
-    })
-    forks)
-  roots);
+  home.file = builtins.listToAttrs (
+    lib.concatMap (
+      root:
+        map (fork: {
+          name = "${root}/${fork}";
+          value.source = link "${home}/${root}/${canonical}";
+        })
+        forks
+    )
+    roots
+  );
 }

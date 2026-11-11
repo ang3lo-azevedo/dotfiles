@@ -1,0 +1,29 @@
+# Force the Android Studio unwrapped derivation to build locally.
+#
+# Android Studio is unfree, so Hydra never caches it: every version bump has to
+# be built somewhere. With distributed builds on (modules/system/nixbuild), Nix
+# sends the "-unwrapped" step to the remote builder, which first uploads its
+# ~1.5 GiB source tarball. That is minutes of upstream bandwidth for a step that
+# only untars the tarball and runs wrapProgram, no compilation.
+#
+# The nixpkgs wrapper already sets preferLocalBuild, but the unwrapped derivation
+# does not. It is built with the plain "stdenv", so spread a stdenv whose
+# mkDerivation injects preferLocalBuild and requiredSystemFeatures = ["local"]
+# to force the unpack to happen locally from the tarball we already hold.
+_: prev: {
+  android-studio = prev.android-studio.override {
+    stdenv =
+      prev.stdenv
+      // {
+        mkDerivation = args:
+          prev.stdenv.mkDerivation (
+            args
+            // {
+              preferLocalBuild = true;
+              allowSubstitutes = false;
+              requiredSystemFeatures = (args.requiredSystemFeatures or []) ++ ["local"];
+            }
+          );
+      };
+  };
+}

@@ -1,12 +1,17 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }: {
   imports = [inputs.gaze.nixosModules.default];
 
   services.gaze = {
     enable = true;
+    # zstd-sys 2.1.0 in gaze requires system libzstd to link successfully
+    package = inputs.gaze.packages.${pkgs.stdenv.hostPlatform.system}.gaze.overrideAttrs (old: {
+      buildInputs = (old.buildInputs or []) ++ [pkgs.zstd];
+    });
 
     settings = {
       # "primary" picks the first color node, which is a raw IPU7 node here.
