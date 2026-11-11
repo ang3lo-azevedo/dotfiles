@@ -58,11 +58,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1794408915,
-        "narHash": "sha256-WhwthvPQ7pTLSxTuT9HR/PmuX+nDcRkOmo1yuo2PiB8=",
+        "lastModified": 1794413182,
+        "narHash": "sha256-/8wWHa1bvNnFvlWGz1QnTVNBA0N8Ecuy85lFiQM9GQs=",
         "ref": "refs/heads/main",
-        "rev": "d11aaf4bf98abf42be8f2d97cc50c283a92f95cf",
-        "revCount": 206,
+        "rev": "d4f7e88271b2f5a1b37862857908366aece4fcad",
+        "revCount": 207,
         "type": "git",
         "url": "file:///home/ang3lo/nix-config/pkgs/ang3lo-nur"
       },
@@ -1415,11 +1415,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1794384920,
-        "narHash": "sha256-6wopA38JvVKkaKa5MkmyAOtt+ac/5LBmHJU/On3BbLM=",
+        "lastModified": 1794413137,
+        "narHash": "sha256-ikAoQw2rwVFR/EzSnx5W8ZmjDuqXimUpd8J+CU/c/Jc=",
         "owner": "4evy",
         "repo": "nixcord",
-        "rev": "41a8518b8a21937e0f0407878d8947e112954b37",
+        "rev": "f3dc40382dcb7537c52e1dc56aea42eb4ef48a5d",
         "type": "github"
       },
       "original": {

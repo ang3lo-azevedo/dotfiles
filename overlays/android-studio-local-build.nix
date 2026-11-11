@@ -10,6 +10,11 @@
 # does not. It is built with the plain "stdenv", so spread a stdenv whose
 # mkDerivation injects preferLocalBuild and requiredSystemFeatures = ["local"]
 # to force the unpack to happen locally from the tarball we already hold.
+#
+# Substitution stays enabled (no allowSubstitutes = false): if nixbuild already has
+# this version cached, pull that working build rather than rebuilding. This guards
+# against a non-deterministic local rebuild diverging from the cached output, the
+# failure mode that broke the buildFHSEnv rootfs packages (see appimage-local-build).
 _: prev: {
   android-studio = prev.android-studio.override {
     stdenv =
@@ -20,7 +25,6 @@ _: prev: {
             args
             // {
               preferLocalBuild = true;
-              allowSubstitutes = false;
               requiredSystemFeatures = (args.requiredSystemFeatures or []) ++ ["local"];
             }
           );
