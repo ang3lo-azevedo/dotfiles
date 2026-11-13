@@ -169,6 +169,21 @@ in {
       };
       agent = {
         enable_feedback = false;
+
+        # Route the agent and the built-in commit-message generator through GitHub
+        # Copilot Chat instead of zed.dev, whose free student plan is metered and runs
+        # out. Both keys are set because an error on either falls back to the other,
+        # and an unset default_model falls back to zed.dev. gpt-4o is a Copilot base
+        # model, so it does not spend the plan's monthly premium-request allowance.
+        default_model = {
+          provider = "copilot_chat";
+          model = "gpt-4o";
+        };
+        commit_message_model = {
+          provider = "copilot_chat";
+          model = "gpt-4o";
+        };
+
         dock = "right";
         # A flexible panel ignores default_width and opens at half the window.
         # 300 is the narrowest the panel goes.

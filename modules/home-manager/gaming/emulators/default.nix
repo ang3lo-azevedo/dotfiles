@@ -8,7 +8,7 @@
     ./nsp-box.nix
     ./nup.nix
     ./nx2android.nix
-    ./orchid.nix
+    ./nx2navi.nix
     ./pokedinner.nix
     ./shared-data.nix
     ./smiley-eglantine.nix

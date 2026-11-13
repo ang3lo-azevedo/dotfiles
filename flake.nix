@@ -81,6 +81,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Module-system wrapper builder: declares env/flags wrappers as options
+    # instead of hand-rolled symlinkJoin + wrapProgram. Only its lib is used.
+    nix-wrapper-modules = {
+      url = "github:nix-community/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Reproducible neovim: plain-Lua config with nix-pinned plugins and LSPs.
+    # Declares no nixpkgs input of its own (it uses the host pkgs), so no follows.
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
     # Antigravity (Google Antigravity packaging)
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";

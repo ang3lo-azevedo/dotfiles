@@ -16,7 +16,6 @@
   forks = [
     "eden"
     "nemyu"
-    "orchid"
     "lichii"
     "cheezyemu"
     "cheezy"
