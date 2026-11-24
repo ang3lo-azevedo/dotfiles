@@ -10,6 +10,10 @@
       character = {
         success_symbol = "[❯](bold green)";
         error_symbol = "[❯](bold red)";
+        vimcmd_symbol = "[❮](bold blue)";
+        vimcmd_replace_one_symbol = "[❮](bold purple)";
+        vimcmd_replace_symbol = "[❮](bold purple)";
+        vimcmd_visual_symbol = "[❮](bold yellow)";
       };
 
       package = {
@@ -26,7 +30,7 @@
       };
 
       git_state = {
-        format = "[\($state( $progress_current of $progress_total)\)]($style) ";
+        format = "[\\($state( $progress_current of $progress_total)\\)]($style) ";
       };
 
       git_status = {
@@ -34,8 +38,8 @@
         style = "bold red";
         # Text labels for git status
         conflicted = "conflicted ";
-        ahead = "⇡\($count\) ";
-        behind = "⇣\($count\) ";
+        ahead = "⇡\\($count\\) ";
+        behind = "⇣\\($count\\) ";
         diverged = "⇕ ";
         up_to_date = "✓ ";
         untracked = "untracked ";

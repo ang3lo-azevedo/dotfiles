@@ -3,6 +3,7 @@
     ./mpv/mpv.nix
     #./davinci-resolve
     ./grayjay.nix
+    ./aiostreams-desktop.nix
     #./stremio.nix
     #./stremio-enhanced.nix
     #./playtorrio-v2.nix

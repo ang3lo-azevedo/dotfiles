@@ -1,5 +1,35 @@
-{inputs, ...}: let
+{
+  inputs,
+  config,
+  ...
+}: let
   utils = inputs.nixCats.utils;
+
+  # Drive neovim's colours from stylix base16, but keep neovim's editor background
+  # at #0a0a0a (deep dark, avoiding OLED #000000) with #111111 for statusline/sidebars.
+  stylixBase16 = let
+    c = config.lib.stylix.colors.withHashtag;
+  in {
+    inherit
+      (c)
+      base03
+      base04
+      base05
+      base06
+      base07
+      base08
+      base09
+      base0A
+      base0B
+      base0C
+      base0D
+      base0E
+      base0F
+      ;
+    base00 = "#0a0a0a";
+    base01 = "#111111";
+    base02 = "#1c1c1c";
+  };
 in {
   imports = [
     inputs.nixCats.homeModule
@@ -34,6 +64,49 @@ in {
           tree-sitter
           nixd
           stylua
+          # clangd for C/C++ LSP and completion (enabled in init.lua servers).
+          clang-tools
+          # LSP servers for the languages used in the Zed config.
+          gopls
+          go # gofmt, and the go toolchain gopls needs
+          pyright
+          ruff # python lint + ruff_format formatter
+          bash-language-server
+          tinymist # typst LSP & preview engine
+          websocat # websocket bridge for typst-preview.nvim
+          alejandra # nix formatter (format-on-save via conform)
+          # Clipboard integration on Wayland (wl-copy, wl-paste).
+          wl-clipboard
+          # Copilot inline suggestions and lazygit integration.
+          copilot-language-server
+          lazygit
+          # Google Antigravity CLI for AI chat and assistance.
+          google-antigravity-cli
+          # Claude Code CLI, Node.js, and ACP bridges for CodeCompanion/Zed
+          claude-code
+          nodejs
+          (writeShellScriptBin "claude-agent-acp" ''
+            exec ${pkgs.nodejs}/bin/npx -y @agentclientprotocol/claude-agent-acp "$@"
+          '')
+          (writeShellScriptBin "gemini" ''
+            args=()
+            is_acp=false
+            for arg in "$@"; do
+              if [ "$arg" = "--experimental-acp" ]; then
+                is_acp=true
+              elif [ "$arg" = "--yolo" ]; then
+                args+=("--dangerously-skip-permissions")
+              else
+                args+=("$arg")
+              fi
+            done
+
+            if [ "$is_acp" = true ] || [ "''${1:-}" = "acp" ]; then
+              exec ${pkgs.google-antigravity-cli}/bin/agy acp "''${args[@]}"
+            else
+              exec ${pkgs.google-antigravity-cli}/bin/agy "''${args[@]}"
+            fi
+          '')
         ];
         kickstart-debug = [
           delve
@@ -69,6 +142,29 @@ in {
           todo-comments-nvim
           mini-nvim
           nvim-treesitter.withAllGrammars
+          # Custom additions (configured in lua/custom/plugins): Copilot inline
+          # suggestions, lazygit, and Antigravity AI.
+          copilot-lua
+          copilot-cmp
+          friendly-snippets
+          lazygit-nvim
+          codecompanion-nvim
+          lspkind-nvim
+          nvim-surround
+          trouble-nvim
+          flash-nvim
+          nvim-ts-autotag
+          typst-preview-nvim
+          (pkgs.vimUtils.buildVimPlugin {
+            pname = "antigravity-cli.nvim";
+            version = "unstable-2026-03-24";
+            src = pkgs.fetchFromGitHub {
+              owner = "NakLast";
+              repo = "antigravity-cli.nvim";
+              rev = "main";
+              hash = "sha256-WFmvFexY0B/1NOdlPmdGCVu/Kv8XGekkMRk8H8mmnio=";
+            };
+          })
         ];
         kickstart-debug = [
           nvim-dap
@@ -126,6 +222,9 @@ in {
 
           # The JetBrainsMono Nerd Font is already installed, so enable glyph icons.
           have_nerd_font = true;
+
+          # The stylix base16 palette, read in lua via nixCats('base16').
+          base16 = stylixBase16;
         };
       };
     };

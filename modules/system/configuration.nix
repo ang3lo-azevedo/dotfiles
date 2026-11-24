@@ -66,6 +66,10 @@
     http-connections = 128;
     # cache.nixos.org often has HTTP/2 framing issues causing retries.
     http2 = false;
+    # Prevent indefinitely stalled downloads and connections
+    connect-timeout = 10;
+    stalled-download-timeout = 30;
+    download-attempts = 3;
     # Use hard links in the store to save disk space during builds.
     keep-outputs = true;
   };

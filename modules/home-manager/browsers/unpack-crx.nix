@@ -8,6 +8,9 @@ in
   }:
     pkgs.stdenv.mkDerivation {
       name = "chromium-extension-${id}";
+      preferLocalBuild = true;
+      allowSubstitutes = true;
+      requiredSystemFeatures = ["local"];
       src = pkgs.fetchurl {
         url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=113.0&x=id%3D${id}%26installsource%3Dondemand%26uc";
         sha256 = hash;

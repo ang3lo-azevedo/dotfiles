@@ -264,7 +264,6 @@ Plus fixes in `postPatch`:
 ## Known limitations
 
 - **vol-rs:** no Python plugins (`-p` is accepted but ignored), and no Linux or macOS symbol download (it reuses Volatility 3's, see [Symbols](#symbols)). Both are covered by the fallback. The fallback only triggers when vol-rs *fails*: a vol-rs plugin that returns different results with exit code 0 goes unnoticed. Known cases, routed to Volatility 3 by the shim:
-  - **timeliner** ([vol-rs#7](https://github.com/daffainfo/vol-rs/issues/7), marked `FIXME(vol-rs)` in [vol-shim.sh](../../../../../pkgs/ang3lo-nur/pkgs/volatility-toolkit/vol-shim.sh)): with `--plugin-filter` both tools print the same rows, but an unfiltered run uses a different plugin order than Volatility 3 2.28.2. Volatility's timeliner prints the rows so far again after each plugin, so the order changes the totals: 87,235 rows from vol-rs against 137,769 on Volatility's Windows 10 test dump. Drop the rule once they match.
   - **macOS:** not compared, since no macOS dump was available, and upstream has not run those plugins on a real capture either. It goes to Volatility 3 as a precaution.
 
   Fixed in vol-rs 1.0.2 and checked against Volatility 3 on its own test images (`linux-sample-1.bin`, `win-10_19041-2025_03.dmp`): `windows.cmdscan`/`consoles` ([vol-rs#5](https://github.com/daffainfo/vol-rs/issues/5)), the Linux plugins ([vol-rs#6](https://github.com/daffainfo/vol-rs/issues/6)) and Windows crash dumps ([vol-rs#4](https://github.com/daffainfo/vol-rs/issues/4)) now give identical output.

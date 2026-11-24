@@ -19,12 +19,28 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = ["git" "sudo"];
+      plugins = [
+        "git"
+        "sudo"
+      ];
     };
 
     history = {
       size = 10000;
       path = "$HOME/.zsh_history";
     };
+
+    initContent = ''
+      # Load Gemini API age secrets if available
+      for p in /run/agenix /run/secrets; do
+        if [[ -z "$GOOGLE_GEMINI_BASE_URL" && -f "$p/gemini_base_url" ]]; then
+          export GOOGLE_GEMINI_BASE_URL="$(< "$p/gemini_base_url")"
+        fi
+        if [[ -z "$GEMINI_API_KEY" && -f "$p/gemini_api_key" ]]; then
+          export GEMINI_API_KEY="$(< "$p/gemini_api_key")"
+          export OPENAI_API_KEY="$GEMINI_API_KEY"
+        fi
+      done
+    '';
   };
 }

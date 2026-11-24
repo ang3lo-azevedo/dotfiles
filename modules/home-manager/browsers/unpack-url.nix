@@ -9,6 +9,9 @@ in
   }:
     pkgs.stdenv.mkDerivation {
       inherit name;
+      preferLocalBuild = true;
+      allowSubstitutes = true;
+      requiredSystemFeatures = ["local"];
       src = pkgs.fetchurl {
         inherit url;
         sha256 = hash;

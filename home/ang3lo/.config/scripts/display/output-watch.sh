@@ -22,6 +22,17 @@ if [ "$1" = record ]; then
 fi
 
 declare -A before now
+
+# Restore screens already connected at startup when wluma is not active
+if ! systemctl --user is-active --quiet wluma; then
+	for output in $(outputs | cut -f1); do
+		"$SCRIPTS/monitor-brightness.sh" restore "$output" &
+	done
+fi
+while IFS=$'\t' read -r output model; do
+	before[$output]=$model
+done < <(outputs)
+
 udevadm monitor --udev --subsystem-match=drm | while read -r _; do
 	# One hotplug is a burst of events, and the screen takes a moment to show up in niri
 	while read -r -t 5 _; do :; done

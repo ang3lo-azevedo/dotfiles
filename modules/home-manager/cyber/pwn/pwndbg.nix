@@ -3,7 +3,12 @@
   inputs,
   ...
 }: let
-  pwndbg = inputs.pwndbg.packages.${pkgs.unstable.stdenv.hostPlatform.system}.default;
+  pwndbg =
+    inputs.pwndbg.packages.${pkgs.unstable.stdenv.hostPlatform.system}.default.overrideAttrs
+    (old: {
+      preferLocalBuild = true;
+      requiredSystemFeatures = (old.requiredSystemFeatures or []) ++ ["local"];
+    });
 in {
   home.packages = [pwndbg];
 

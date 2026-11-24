@@ -2,9 +2,7 @@
   description = "NixOS systems and tools by ang3lo-azevedo";
 
   inputs = {
-    # FIXME: bulk_extractor still comes from pkgs.stable, and zed's semgrep too, after the
-    # nixpkgs breakage around 2026-10-13; each has its own FIXME saying what to wait for.
-    # Check them after every nixpkgs update (audacity, khal and networkminer build again).
+    # Check after every nixpkgs update (audacity, khal, networkminer, bulk_extractor, semgrep build again).
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
@@ -13,9 +11,8 @@
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
-    # FIXME: last nixpkgs that still ships EOL packages our deps need: openssl_3_6
-    # (xddxdd's openssl-ech) and fuse2 (memprocfs' FUSE mount). Drop this pin once
-    # xddxdd moves off openssl_3_6 and dmatools' memprocfs builds against fuse3.
+    # Last nixpkgs that still ships EOL packages our deps need: fuse2 (memprocfs'
+    # FUSE mount). Drop this pin once dmatools' memprocfs builds against fuse3.
     nixpkgs-eol = {
       url = "github:NixOS/nixpkgs/3a32588c117116d2bf0edc33915981398fab2b00";
     };
@@ -179,14 +176,9 @@
     };
 
     # xddxdd's NUR packages (bambu-studio-bin and others)
-    # FIXME: follows nixpkgs-eol, not our main nixpkgs, because xddxdd's openssl-ech
-    # builds on openssl_3_6, which our newer nixpkgs dropped (EOL 2026-11-01) and whose
-    # mere access throws while the package set evaluates, even though nothing we consume
-    # pulls openssl-ech in (bambu only uses the regular openssl 3.5.9). Restore
-    # follows = "nixpkgs" once xddxdd moves off openssl_3_6.
     xddxdd-nur = {
       url = "github:xddxdd/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs-eol";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Input for Zen Browser
@@ -291,12 +283,6 @@
     nirinit = {
       url = "github:amaanq/nirinit";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # niri main branch, patched with shake-to-find-cursor (PR #2797)
-    niri-main = {
-      url = "github:niri-wm/niri";
-      flake = false;
     };
 
     # Pre-commit hooks for Nix
@@ -481,28 +467,6 @@
       inputs.firefox-addons.overlays.default
       (import ./overlays/firefox-addons.nix)
       inputs.nix-vscode-extensions.overlays.default
-      # FIXME: ltex 13.1.0 no longer bundles a JDK, so nix-vscode-extensions'
-      # postInstall (rm -r lib/ltex-ls-*/jdk-*) matches nothing and fails under
-      # nullglob with "missing operand". We point the extension at pkgs.ltex-ls via
-      # settings, so the bundled-server patching is moot; drop it. Remove this overlay
-      # once upstream fixes the extension's builder.
-      (_: prev: {
-        nix-vscode-extensions =
-          prev.nix-vscode-extensions
-          // {
-            vscode-marketplace =
-              prev.nix-vscode-extensions.vscode-marketplace
-              // {
-                valentjn =
-                  prev.nix-vscode-extensions.vscode-marketplace.valentjn
-                  // {
-                    vscode-ltex = prev.nix-vscode-extensions.vscode-marketplace.valentjn.vscode-ltex.overrideAttrs (_: {
-                      postInstall = "";
-                    });
-                  };
-              };
-          };
-      })
       inputs.antigravity-nix.overlays.default
       inputs.dmatools.overlays.default
       (
@@ -516,34 +480,6 @@
       (_: _: {
         xr = inputs.nixpkgs-xr.packages."x86_64-linux";
       })
-      (_: _: {
-        # The block below contains a custom override for Niri that pulls from the main branch
-        # and applies PR #2797 (shake-to-find-cursor). It is currently commented out so that
-        # the system uses the default, stable `niri` package from Nixpkgs instead.
-        /*
-        # HACK: drop this override once PR #2797 lands in a niri release and
-        # nixpkgs packages that release.
-        # Track niri main with PR #2797 (pointer/tablet input events) applied
-        # until it lands in a stable release.
-        niri = prev.niri.overrideAttrs (_: {
-          src = inputs.niri-main;
-          version = "26.4.0-pr2797";
-          patches = [
-            (prev.fetchpatch {
-              url = "https://github.com/niri-wm/niri/pull/2797.patch";
-              hash = "sha256-ZJiXdYT7on+hAoU2Sh0RlfDE4a0Ta/JYtMC5jUU6Wf8=";
-            })
-          ];
-          cargoDeps = prev.rustPlatform.fetchCargoVendor {
-            pname = "niri-main-pr2797";
-            version = "26.4.0-pr2797";
-            src = inputs.niri-main;
-            hash = "sha256-aNovCzrTtmqTO33YtZap47npdN73zXC1bap5q5dZvZk=";
-          };
-          doInstallCheck = false;
-        });
-        */
-      })
       (
         _: prev:
           {
@@ -556,6 +492,7 @@
             system = prev.stdenv.hostPlatform.system;
           })
       )
+      (import ./overlays/local-builds.nix)
     ];
 
     # Configuration for pc-angelo

@@ -17,6 +17,20 @@
   --button-filled-brand-background: var(--base07) !important;
   --control-brand-foreground-new: var(--base07) !important;
 
+  /*
+   * The Stylix theme only maps --bg-base-secondary/tertiary and the surface
+   * overlays, so Discord's visual-refresh paints the main window with its own
+   * defaults: --bg-base-primary and the base-low family resolve to white. Pin
+   * them to the dark base colors the rest of the theme uses.
+   */
+  --bg-base-primary: var(--base00) !important;
+  --bg-base-low: var(--base00) !important;
+  --bg-base-lower: var(--base00) !important;
+  --bg-base-lowest: var(--base00) !important;
+  --bg-surface-high: var(--base02) !important;
+  --bg-surface-higher: var(--base02) !important;
+  --bg-surface-highest: var(--base02) !important;
+
   --control-primary-text-default: var(--base00) !important;
   --control-primary-text-hover: var(--base00) !important;
   --control-primary-text-active: var(--base00) !important;
@@ -217,6 +231,31 @@
 /* The Home logo ignores the inherited text color */
 .wrapper__6e9f8.selected__6e9f8 .childWrapper__6e9f8 :is(svg, path),
 .wrapper__6e9f8:hover .childWrapper__6e9f8 :is(svg, path) {
+  color: var(--base00) !important;
+  fill: var(--base00) !important;
+}
+
+/*
+ * The hashed guild-nav classes above go stale on Discord updates, which leaves
+ * the Discord/Home logo white on the white accent blob. data-list-item-id is a
+ * stable id, so flip the logo only when its blob is the accent: selected, or
+ * hovered. At rest the blob is dark and the logo must stay light.
+ */
+[data-list-item-id="guildsnav___home"][class*="selected"] :is(svg, path),
+[data-list-item-id="guildsnav___home"] [class*="selected"] :is(svg, path),
+[data-list-item-id="guildsnav___home"]:hover :is(svg, path) {
+  color: var(--base00) !important;
+  fill: var(--base00) !important;
+}
+
+/*
+ * Text and icons on filled brand buttons. Discord paints these with its --white
+ * tokens, which the Stylix theme maps to a light gray that disappears on the
+ * white accent, and the hashed selectors above miss newer buttons. Match the
+ * stable look/color class prefixes so a rotated hash suffix still resolves.
+ */
+button[class*="lookFilled"][class*="colorBrand"],
+button[class*="lookFilled"][class*="colorBrand"] :is(span, div, svg, path) {
   color: var(--base00) !important;
   fill: var(--base00) !important;
 }

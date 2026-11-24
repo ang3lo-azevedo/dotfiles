@@ -19,4 +19,6 @@ in {
   "restic_password.age".publicKeys = usersAndSystems;
   "nextcloud_caldav.age".publicKeys = usersAndSystems;
   "nixbuild_key.age".publicKeys = usersAndSystems;
+  "gemini_api_key.age".publicKeys = usersAndSystems;
+  "gemini_base_url.age".publicKeys = usersAndSystems;
 }

@@ -14,6 +14,7 @@
   home.activation.fixConfigFiles = lib.hm.dag.entryAfter ["linkGeneration"] ''
     for config_file in \
       "$HOME/.config/dorion/config.json" \
+      "$HOME/.config/equibop/settings.json" \
       "$HOME/.config/equibop/settings/settings.json" \
       "$HOME/.config/equibop/settings/quickCss.css"; do
       if [ -L "$config_file" ]; then
@@ -86,7 +87,7 @@
             nativeBuildInputs = [pkgs.makeBinaryWrapper];
             postBuild = ''
               wrapProgram $out/bin/equibop \
-                --add-flags "--enable-features=WaylandWindowDecorations,WebRtcPipeWireCamera"
+                --add-flags "--enable-features=WaylandWindowDecorations,WebRtcPipeWireCamera,WebRTCPipeWireCapturer"
             '';
             passthru =
               (eq.passthru or {})
@@ -103,7 +104,7 @@
         discordBranch = "stable";
         tray = true;
         minimizeToTray = true;
-        arRPC = true;
+        arRPC = false;
         trayColor = "";
         trayMainOverride = false;
         splashColor = "rgb(219, 220, 223)";

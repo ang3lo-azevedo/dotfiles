@@ -50,7 +50,7 @@
         IdentityFile = "~/.ssh/gitlab_ist";
       };
 
-      "github.com" = {
+      "github.com gist.github.com" = {
         User = "git";
         IdentityFile = "~/.ssh/key";
         IdentitiesOnly = "yes";

@@ -7,8 +7,7 @@
   ];
 
   home.packages = with pkgs; [
-    # Antigravity CLI, exposes the `agy` command.
-    google-antigravity-cli
+    # Note: Antigravity CLI (`agy`) is provided with agenix secret loading via ../gemini-cli.nix
 
     (symlinkJoin {
       name = "google-antigravity-ide-fixed";

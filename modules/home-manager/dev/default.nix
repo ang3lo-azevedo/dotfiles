@@ -12,6 +12,7 @@
     ./latex.nix
     ./typst.nix
     ./game-dev
+    ./tmux.nix
   ];
 
   home.packages = with pkgs; [
@@ -24,6 +25,5 @@
     # Interactive browser for a derivation's dependency tree and closure sizes
     nix-tree
     cargo
-    tmux
   ];
 }

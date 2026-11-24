@@ -23,8 +23,6 @@
 - [ ] Fix Zen folders
 - [ ] Add bitwright plugins https://github.com/valeria-org/bitwright/tree/main/tools/plugins
 - [ ] Make niri have the vim motions
-- [ ] Fix Motrix Next always asking for the new permissions
-- [ ] See if it is worth it to change to doas
 - [ ] see if is there any blackarch tool worth adding https://blackarch.org/tools.html
 - [ ] Sync all the browsers settings
 - [ ] Add rest of discord addons and make middle click open on a "new tab"
@@ -101,8 +99,8 @@
 - [ ] Fix Zen extension settings
 - [ ] Add android ROM building tools for Voltage https://docs.robotnix.org/development.html
 - [ ] Fix cursor
-- [ ] Add tmux
-- [ ] Add neovim
+- [x] Add tmux
+- [x] Add neovim
 - [ ] Add LaTeX
 - [ ] Improve overlays
 - [ ] Make some choices be true of false options

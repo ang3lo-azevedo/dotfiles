@@ -56,7 +56,10 @@ in {
       };
       systemd = {
         # HACK: Remove pkgs.openssl workaround once Nixpkgs fixes libssl.so.4 missing in initrd
-        storePaths = [pkgs.libxcrypt-legacy pkgs.openssl];
+        storePaths = [
+          pkgs.libxcrypt-legacy
+          pkgs.openssl
+        ];
       };
     };
 
@@ -125,6 +128,17 @@ in {
       wifi-env = {
         file = inputs.self + "/secrets/wifi-env.age";
       };
+
+      gemini_api_key =
+        userSecretConfig
+        // {
+          file = inputs.self + "/secrets/gemini_api_key.age";
+        };
+      gemini_base_url =
+        userSecretConfig
+        // {
+          file = inputs.self + "/secrets/gemini_base_url.age";
+        };
     };
   };
 
@@ -183,13 +197,17 @@ in {
       "PasswordManagerEnabled" = false;
       "SyncDisabled" = true;
       "SpellcheckEnabled" = true;
-      "SpellcheckLanguage" = ["pt-PT" "en-US"];
+      "SpellcheckLanguage" = [
+        "pt-PT"
+        "en-US"
+      ];
 
       "DefaultSearchProviderEnabled" = true;
       "DefaultSearchProviderSearchURL" = config.home-manager.users.ang3lo.my.browsers.search.url;
       "DefaultSearchProviderName" = config.home-manager.users.ang3lo.my.browsers.search.name;
 
-      "OverrideSecurityRestrictionsOnInsecureOrigin" = config.home-manager.users.ang3lo.my.browsers.insecureOriginsAsSecure;
+      "OverrideSecurityRestrictionsOnInsecureOrigin" =
+        config.home-manager.users.ang3lo.my.browsers.insecureOriginsAsSecure;
     };
   in {
     "chromium/policies/managed/helium.json".text = policyJson;

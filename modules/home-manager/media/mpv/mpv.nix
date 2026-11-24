@@ -3,8 +3,22 @@
   config,
   ...
 }: let
+  vapoursynthWithPlugins = pkgs.vapoursynth.withPlugins [pkgs.vapoursynth-mvtools];
+
   mpvWithVapourSynth = pkgs.mpv.override {
-    mpv-unwrapped = pkgs.mpv-unwrapped.override {vapoursynthSupport = true;};
+    mpv-unwrapped = pkgs.mpv-unwrapped.override {
+      vapoursynthSupport = true;
+      vapoursynth = vapoursynthWithPlugins;
+    };
+    extraMakeWrapperArgs = [
+      "--prefix"
+      "LD_LIBRARY_PATH"
+      ":"
+      "${vapoursynthWithPlugins}/lib"
+      "--set"
+      "VSSCRIPT_PATH"
+      "${vapoursynthWithPlugins}/lib/libvapoursynth-script.so"
+    ];
   };
 
   /*
@@ -90,12 +104,20 @@ in {
   home.packages = [
     mpvWithVapourSynth
     pkgs.mpv-handler
-    pkgs.vapoursynth
-    pkgs.vapoursynth-mvtools
+    vapoursynthWithPlugins
     pkgs.python3Packages.vapoursynth
     pkgs.python3Packages.guessit
     (pkgs.writeShellScriptBin "mpv-python" ''
-      exec ${pkgs.python3.withPackages (ps: with ps; [guessit requests subliminal])}/bin/python3 "$@"
+      exec ${
+        pkgs.python3.withPackages (
+          ps:
+            with ps; [
+              guessit
+              requests
+              subliminal
+            ]
+        )
+      }/bin/python3 "$@"
     '')
     pkgs.socat
   ];

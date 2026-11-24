@@ -4,7 +4,7 @@
   ...
 }: let
   version = "2.14.18";
-  vendorHash = "sha256-32I5R+ZSnEVyvwSeoKZDP1tstvAESRd6jrLkbe6Qvgo=";
+  vendorHash = "sha256-lxRSKn7Edlw/lyHDJhkSMdSZsUxqwXIW8jwa/CIqWgM=";
   cpakPackage = pkgs.buildGoModule {
     pname = "cpak";
     inherit version vendorHash;

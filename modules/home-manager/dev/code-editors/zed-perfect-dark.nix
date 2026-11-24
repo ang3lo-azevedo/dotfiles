@@ -7,21 +7,21 @@ let
   border = "#2a2a2a";
   borderStrong = "#444444";
   guide = "#333333";
-  dim = "#777777";
+  dim = "#686868";
   muted = "#999999";
-  text = "#bbbbbb";
+  text = "#d4d4d4";
   white = "#ffffff";
   highlight = "#ffffff33";
   highlightStrong = "#ffffff44";
   transparent = "#00000000";
 
-  red = "#f56464";
-  pink = "#f05b8d";
-  orange = "#f99902";
-  green = "#58c760";
-  cyan = "#14cbb7";
-  blue = "#62a6ff";
-  purple = "#b675f1";
+  red = "#e06c75";
+  pink = "#d884b8";
+  orange = "#d19a66";
+  green = "#98c379";
+  cyan = "#56b6c2";
+  blue = "#61afef";
+  purple = "#c678dd";
 
   status = name: color: {
     "${name}" = color;

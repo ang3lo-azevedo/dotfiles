@@ -108,6 +108,8 @@ input {
 
 
 
+
+
         map-to-output "eDP-1"
     }
 
@@ -389,6 +391,7 @@ spawn-at-startup "~/.config/swaync/scripts/start-swaync.sh"
 // Idle management
 // The screens go off through monitor-brightness.sh, which puts back the brightness some of them lose
 spawn-at-startup "swayidle" "-w" "timeout" "601" "~/.config/scripts/display/monitor-brightness.sh off" "timeout" "600" "swaylock -f" "before-sleep" "swaylock -f; ~/.config/scripts/display/monitor-brightness.sh save" "after-resume" "~/.config/scripts/display/monitor-brightness.sh restore"
+spawn-at-startup "~/.config/scripts/display/monitor-brightness.sh" "restore"
 
 // Clipboard history
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
@@ -636,7 +639,7 @@ binds {
     // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // Fn keys
-    F1 hotkey-overlay-title="Open Nix Config" { spawn "sh" "-c" "exec ${EDITOR} ~/nix-config"; }
+    Mod+F1 hotkey-overlay-title="Open Nix Config" { spawn "sh" "-c" "exec ${EDITOR} ~/nix-config"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -895,4 +898,7 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { spawn "~/.config/scripts/display/monitor-brightness.sh" "off"; }
+}
+debug {
+    force-pipewire-invalid-modifier
 }

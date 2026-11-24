@@ -29,7 +29,6 @@ in {
       blackarch = {
         image = "docker.io/library/archlinux:latest";
         home = boxHome "blackarch";
-        # TODO: See if curl is necessary
         additional_packages = "curl";
         # init hooks run on every start, so only bootstrap the repo once
         init_hooks = "grep -q blackarch /etc/pacman.conf || { curl -fsSL -o /tmp/strap.sh https://blackarch.org/strap.sh && bash /tmp/strap.sh; }";

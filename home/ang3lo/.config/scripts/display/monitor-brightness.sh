@@ -15,6 +15,8 @@ ALL_MODE="$RUNTIME/monitor-brightness-all"
 AUTO_OFF="${XDG_STATE_HOME:-$HOME/.local/state}/wluma-disabled"
 # Written by night-ramp.sh, empty unless it has screens dimmed
 RAMP_STATE="${XDG_STATE_HOME:-$HOME/.local/state}/night-ramp-brightness"
+# Persisted across reboots for screens that forget their brightness
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/monitor-brightness"
 
 cc_output() {
 	local out
@@ -53,7 +55,7 @@ max_brightness() {
 }
 
 set_output() {
-	local bus state target applied="" value=$2 max
+	local bus state target applied="" value=$2 max outputs model
 	case "$1" in
 	eDP*) brightnessctl -c backlight -q set "$2%" ;;
 	*)
@@ -62,6 +64,10 @@ set_output() {
 		[ "$value" -gt "$max" ] && value=$max
 		state="$RUNTIME/monitor-brightness-$1"
 		echo "$value" >"$state"
+		mkdir -p "$STATE_DIR" && echo "$value" >"$STATE_DIR/$1"
+		outputs=$(niri msg --json outputs 2>/dev/null)
+		model=$(jq -r --arg output "$1" '.[$output].model // empty' <<<"$outputs" 2>/dev/null)
+		[ -n "$model" ] && echo "$value" >"$STATE_DIR/model-$model"
 		# DDC writes are far slower than slider drag events: a single worker
 		# keeps applying the latest requested value, the other calls just record it
 		exec 9>"$state.lock"
@@ -76,14 +82,20 @@ set_output() {
 
 # Read back once the keys are released: a read after every press would slow down a held key
 record_later() {
-	local state="$RUNTIME/monitor-brightness-$1" stamp current
+	local state="$RUNTIME/monitor-brightness-$1" stamp current outputs model
 	stamp=$(date +%s%N)
 	echo "$stamp" >"$state.pending"
 	(
 		sleep 1
 		[ "$(cat "$state.pending")" = "$stamp" ] || exit 0
 		current=$(ddcutil --bus "$2" getvcp 10 --brief | awk '{print $4}')
-		[[ $current =~ ^[0-9]+$ ]] && echo "$current" >"$state"
+		if [[ $current =~ ^[0-9]+$ ]]; then
+			echo "$current" >"$state"
+			mkdir -p "$STATE_DIR" && echo "$current" >"$STATE_DIR/$1"
+			outputs=$(niri msg --json outputs 2>/dev/null)
+			model=$(jq -r --arg output "$1" '.[$output].model // empty' <<<"$outputs" 2>/dev/null)
+			[ -n "$model" ] && echo "$current" >"$STATE_DIR/model-$model"
+		fi
 	) >/dev/null 2>&1 9>&- &
 }
 
@@ -94,22 +106,35 @@ ddc_outputs() {
 # Records what each screen is at now, for restore_output.
 # wluma and the screen's own buttons change the brightness behind this script's back
 save_outputs() {
-	local output bus current
+	local output bus current outputs model
+	outputs=$(niri msg --json outputs 2>/dev/null)
 	for output in $(ddc_outputs); do
 		# A screen in standby may answer with anything
 		grep -qsx On /sys/class/drm/card*-"$output"/dpms || continue
 		bus=$(ddc_bus "$output") || continue
 		current=$(ddcutil --bus "$bus" getvcp 10 --brief 2>/dev/null | awk '{print $4}')
-		[[ $current =~ ^[0-9]+$ ]] && echo "$current" >"$RUNTIME/monitor-brightness-$output"
+		if [[ $current =~ ^[0-9]+$ ]]; then
+			echo "$current" >"$RUNTIME/monitor-brightness-$output"
+			mkdir -p "$STATE_DIR" && echo "$current" >"$STATE_DIR/$output"
+			model=$(jq -r --arg output "$output" '.[$output].model // empty' <<<"$outputs" 2>/dev/null)
+			[ -n "$model" ] && echo "$current" >"$STATE_DIR/model-$model"
+		fi
 	done
 }
 
 # The G27C4 does not keep a brightness set over DDC: after a power-off or a replug
 # it comes back at the one from its own menu. Puts back the last one recorded here.
 restore_output() {
-	local bus saved current
+	local bus saved current outputs model
 	saved=$(cat "$RUNTIME/monitor-brightness-$1" 2>/dev/null)
+	[ -n "$saved" ] || saved=$(cat "$STATE_DIR/$1" 2>/dev/null)
+	if [ -z "$saved" ]; then
+		outputs=$(niri msg --json outputs 2>/dev/null)
+		model=$(jq -r --arg output "$1" '.[$output].model // empty' <<<"$outputs" 2>/dev/null)
+		[ -n "$model" ] && saved=$(cat "$STATE_DIR/model-$model" 2>/dev/null)
+	fi
 	[ -n "$saved" ] || return 0
+	echo "$saved" >"$RUNTIME/monitor-brightness-$1"
 	# It still reports the old value for a couple of seconds after waking, then jumps:
 	# keep looking for a while and put it back once
 	for _ in 1 2 3 4 5 6 7 8 9 10; do

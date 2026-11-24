@@ -7,6 +7,7 @@
     ./neovim
     ./opencode.nix
     ./claude-code.nix
+    ./gemini-cli.nix
     #./cursor
     ./zed.nix
   ];

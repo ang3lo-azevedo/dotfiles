@@ -1,19 +1,35 @@
 {pkgs, ...}: let
-  # Office 365 installer (bottlesdevs/programs#500) needs success_codes/skip_if_files_exist support, newer than the 67.4 release
-  bottles-unwrapped = pkgs.bottles-unwrapped.overrideAttrs (_: {
-    version = "67.4-unstable-2026-09-29";
-    src = pkgs.fetchFromGitHub {
-      owner = "bottlesdevs";
-      repo = "bottles";
-      rev = "44651052435c57fd4d0acb682d6490edadbcd52d";
-      hash = "sha256-8mqBlyo0l4Iv/3YD2QOlfpBJhGPNRch3h8w4yW5M2yM=";
+  bottles-unwrapped = let
+    unwrapped =
+      (pkgs.bottles-unwrapped.override {
+        removeWarningPopup = true;
+      }).overrideAttrs
+      (_: {
+        preferLocalBuild = true;
+      });
+  in
+    unwrapped
+    // {
+      override = args:
+        (pkgs.bottles-unwrapped.override (
+          args
+          // {
+            removeWarningPopup = true;
+          }
+        )).overrideAttrs
+        (_: {
+          preferLocalBuild = true;
+        });
     };
-  });
 
-  bottles = pkgs.bottles.override {
-    inherit bottles-unwrapped;
-    removeWarningPopup = true;
-  };
+  bottles =
+    (pkgs.bottles.override {
+      inherit bottles-unwrapped;
+      removeWarningPopup = true;
+    }).overrideAttrs
+    (_: {
+      preferLocalBuild = true;
+    });
 in {
   # proxy.usebottles.com is down and the fallback sources are pinned to commits that predate
   # the experimental soda runners, the Microsoft 365 installers and their office-runtime/selawik deps
@@ -21,6 +37,7 @@ in {
     (pkgs.symlinkJoin {
       name = "bottles-${bottles.version}";
       paths = [bottles];
+      preferLocalBuild = true;
       nativeBuildInputs = [pkgs.makeWrapper];
       postBuild = ''
         for bin in bottles bottles-cli; do

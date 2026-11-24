@@ -25,5 +25,11 @@
     };
   };
 
+  # Prevent nixos-rebuild switch from restarting nirinit and re-opening all windows mid-session
+  systemd.user.services.nirinit = {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
+
   environment.systemPackages = [config.services.nirinit.package];
 }

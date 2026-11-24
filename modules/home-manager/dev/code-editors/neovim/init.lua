@@ -116,9 +116,8 @@ vim.g.have_nerd_font = nixCats 'have_nerd_font'
 
 -- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+-- Relative line numbers (matches the Zed relative_line_numbers setting).
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -127,9 +126,24 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- Both unnamed and plus registers sync with the system clipboard.
+vim.opt.clipboard = 'unnamed,unnamedplus'
+
+-- Explicit Wayland clipboard provider using wl-clipboard
+if vim.env.WAYLAND_DISPLAY then
+  vim.g.clipboard = {
+    name = 'wl-clipboard',
+    copy = {
+      ['+'] = 'wl-copy',
+      ['*'] = 'wl-copy --primary',
+    },
+    paste = {
+      ['+'] = 'wl-paste --no-newline',
+      ['*'] = 'wl-paste --primary --no-newline',
+    },
+    cache_enabled = 1,
+  }
+end
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -172,6 +186,10 @@ vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+
+-- Clipboard keymaps: explicitly yank selection or line to system clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = '[Y]ank to system clipboard' })
+vim.keymap.set('n', '<leader>Y', '"+Y', { desc = '[Y]ank line to system clipboard' })
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -217,6 +235,89 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- Generate a commit message with Antigravity (Gemini), on <M-a>.
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'antigravity commit message on <M-a>',
+  group = vim.api.nvim_create_augroup('commit-msg-antigravity', { clear = true }),
+  pattern = 'gitcommit',
+  callback = function(event)
+    vim.keymap.set('n', '<M-a>', function()
+      local diff = vim.fn.system 'git diff --cached'
+      if vim.trim(diff) == '' then
+        diff = vim.fn.system 'git diff HEAD'
+      end
+      if vim.trim(diff) == '' then
+        vim.notify('no changes to describe', vim.log.levels.WARN)
+        return
+      end
+      local prompt = table.concat({
+        'Recent subjects:',
+        vim.fn.system 'git log -10 --format=%s',
+        '',
+        'Diff:',
+        diff:sub(1, 100000),
+      }, '\n')
+      vim.notify 'generating commit message with Antigravity / Gemini...'
+      local out = vim.fn.system({
+        'agy',
+        '-p',
+        '--system-prompt',
+        'You write git commit messages. Reply with the commit message only: no preamble, no code fences, no trailers. Match the style of the recent subjects. Keep the subject under 72 characters and add a body only when the change needs explaining.',
+      }, prompt)
+      if vim.v.shell_error ~= 0 then
+        vim.notify('agy failed: ' .. out, vim.log.levels.ERROR)
+        return
+      end
+      local lines = vim.split(vim.trim(out), '\n')
+      vim.api.nvim_buf_set_lines(event.buf, 0, 0, false, lines)
+    end, { buffer = event.buf, desc = 'Commit message (Antigravity Gemini)' })
+  end,
+})
+
+-- Generate a commit message with claude haiku, mirroring the Zed alt-l task.
+-- In a git commit buffer, <M-l> pipes the staged (or working) diff through the
+-- claude CLI and inserts the subject/body at the top. Needs `claude` on PATH
+-- (it is, via home.packages) and a network call.
+vim.api.nvim_create_autocmd('FileType', {
+  desc = 'claude-haiku commit message on <M-l>',
+  group = vim.api.nvim_create_augroup('commit-msg-claude', { clear = true }),
+  pattern = 'gitcommit',
+  callback = function(event)
+    vim.keymap.set('n', '<M-l>', function()
+      local diff = vim.fn.system 'git diff --cached'
+      if vim.trim(diff) == '' then
+        diff = vim.fn.system 'git diff HEAD'
+      end
+      if vim.trim(diff) == '' then
+        vim.notify('no changes to describe', vim.log.levels.WARN)
+        return
+      end
+      local prompt = table.concat({
+        'Recent subjects:',
+        vim.fn.system 'git log -10 --format=%s',
+        '',
+        'Diff:',
+        diff:sub(1, 100000),
+      }, '\n')
+      vim.notify 'generating commit message...'
+      local out = vim.fn.system({
+        'claude',
+        '-p',
+        '--model',
+        'haiku',
+        '--system-prompt',
+        'You write git commit messages. Reply with the commit message only: no preamble, no code fences, no trailers. Match the style of the recent subjects. Keep the subject under 72 characters and add a body only when the change needs explaining.',
+      }, prompt)
+      if vim.v.shell_error ~= 0 then
+        vim.notify('claude failed: ' .. out, vim.log.levels.ERROR)
+        return
+      end
+      local lines = vim.split(vim.trim(out), '\n')
+      vim.api.nvim_buf_set_lines(event.buf, 0, 0, false, lines)
+    end, { buffer = event.buf, desc = 'Commit message (claude haiku)' })
   end,
 })
 
@@ -323,6 +424,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
 
       -- Document existing key chains
       require('which-key').add {
+        { '<leader>a', group = '[A]ntigravity' },
+        { '<leader>a_', hidden = true },
         { '<leader>c', group = '[C]ode' },
         { '<leader>c_', hidden = true },
         { '<leader>d', group = '[D]ocument' },
@@ -331,12 +434,16 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         { '<leader>r_', hidden = true },
         { '<leader>s', group = '[S]earch' },
         { '<leader>s_', hidden = true },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[T]oggle / [T]ypst' },
         { '<leader>t_', hidden = true },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>w_', hidden = true },
+        { '<leader>x', group = 'Trouble / Diagnostics' },
+        { '<leader>x_', hidden = true },
         {
           mode = { 'v' },
+          { '<leader>a', group = '[A]ntigravity' },
+          { '<leader>a_', hidden = true },
           { '<leader>h', group = 'Git [H]unk' },
           { '<leader>h_', hidden = true },
         },
@@ -619,6 +726,8 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           --
           -- This may be unwanted, since they displace some of your code
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            -- On by default (matches the Zed inlay_hints.enabled setting); toggle with <leader>th.
+            vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
             end, '[T]oggle Inlay [H]ints')
@@ -645,9 +754,18 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       -- NOTE: nixCats: there is help in nixCats for lsps at `:h nixCats.LSPs` and also `:h nixCats.luaUtils`
       local servers = {}
-      -- servers.clangd = {},
-      -- servers.gopls = {},
-      -- servers.pyright = {},
+      -- LSPs for the languages used in the Zed config. Binaries come from nix
+      -- (see lspsAndRuntimeDeps in default.nix), not mason.
+      servers.clangd = {}
+      servers.gopls = {}
+      servers.pyright = {}
+      servers.ruff = {}
+      servers.bashls = {}
+      servers.tinymist = {
+        settings = {
+          exportPdf = 'onSave',
+        },
+      }
       -- servers.rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
       --
@@ -752,6 +870,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        nix = { 'alejandra' },
+        go = { 'gofmt' },
+        python = { 'ruff_format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -783,14 +904,12 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
         end)()),
         dependencies = {
           -- `friendly-snippets` contains a variety of premade snippets.
-          --    See the README about individual language/framework/plugin snippets:
-          --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
       },
       'saadparwaiz1/cmp_luasnip',
@@ -800,11 +919,23 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+
+      -- GitHub Copilot completion source for nvim-cmp
+      {
+        'zbirenbaum/copilot-cmp',
+        config = function()
+          require('copilot_cmp').setup()
+        end,
+      },
+
+      -- VS Code-like pictograms for completion items
+      'onsails/lspkind.nvim',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
+      local lspkind = require 'lspkind'
       luasnip.config.setup {}
 
       cmp.setup {
@@ -814,16 +945,46 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+        formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
+          format = lspkind.cmp_format {
+            mode = 'symbol_text',
+            maxwidth = 50,
+            ellipsis_char = '...',
+            show_labelDetails = true,
+            symbol_map = {
+              Copilot = '',
+            },
+          },
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
-        --
-        -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
           ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+          -- Super-Tab mapping: navigates cmp popup menu, expands snippets, or falls back to indent
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -833,16 +994,9 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
           ['<C-y>'] = cmp.mapping.confirm { select = true },
-
-          -- If you prefer more traditional completion keymaps,
-          -- you can uncomment the following lines
-          --['<CR>'] = cmp.mapping.confirm { select = true },
-          --['<Tab>'] = cmp.mapping.select_next_item(),
-          --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
-          --  Generally you don't need this, because nvim-cmp will display
-          --  completions whenever it has completion options available.
           ['<C-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
@@ -863,38 +1017,72 @@ require('nixCatsUtils.lazyCat').setup(nixCats.pawsible { 'allPlugins', 'start', 
               luasnip.jump(-1)
             end
           end, { 'i', 's' }),
-
-          -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-          --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'path' },
+          { name = 'copilot', group_index = 2 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'luasnip', group_index = 2 },
+          { name = 'path', group_index = 2 },
         },
       }
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  { -- Colorscheme.
+    -- NOTE: nixCats: under nix this is themed from the system stylix base16
+    -- palette (passed in as nixCats('base16')) via mini.base16, so neovim matches
+    -- the rest of the desktop. Outside nix it falls back to tokyonight.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    dependencies = { 'echasnovski/mini.nvim' }, -- mini.base16 must be available
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+      local base16 = require('nixCatsUtils').isNixCats and nixCats 'base16' or nil
+      local palette = nil
 
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      if type(base16) == 'table' then
+        palette = base16
+      elseif type(base16) == 'string' and vim.fn.filereadable(base16) == 1 then
+        palette = {}
+        for line in io.lines(base16) do
+          local k, v = line:match "^(base%x%x):%s*['\"]?(%x+)['\"]?"
+          if k and v then
+            palette[k] = '#' .. v
+          end
+        end
+        if not palette.base00 then
+          palette = nil
+        end
+      end
+
+      -- Ensure editor background matches Zed's #0a0a0a deep dark background
+      if palette and (palette.base00 == '#000000' or palette.base00 == '000000' or palette.base00 == '#121212') then
+        palette.base00 = '#0a0a0a'
+        palette.base01 = '#111111'
+        palette.base02 = '#1c1c1c'
+      end
+
+      if not palette then
+        palette = {
+          base00 = '#0a0a0a',
+          base01 = '#111111',
+          base02 = '#1c1c1c',
+          base03 = '#686868',
+          base04 = '#999999',
+          base05 = '#d4d4d4',
+          base06 = '#ededed',
+          base07 = '#ffffff',
+          base08 = '#e06c75',
+          base09 = '#d19a66',
+          base0A = '#e5c07b',
+          base0B = '#98c379',
+          base0C = '#56b6c2',
+          base0D = '#61afef',
+          base0E = '#c678dd',
+          base0F = '#d884b8',
+        }
+      end
+
+      require('mini.base16').setup { palette = palette, use_cterm = true }
     end,
   },
 

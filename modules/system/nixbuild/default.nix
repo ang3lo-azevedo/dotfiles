@@ -2,7 +2,10 @@
   programs.ssh.extraConfig = ''
     Host eu.nixbuild.net
       PubkeyAcceptedKeyTypes ssh-ed25519
-      ServerAliveInterval 60
+      ServerAliveInterval 15
+      ServerAliveCountMax 3
+      ConnectTimeout 10
+      TCPKeepAlive yes
       IdentityFile ${config.age.secrets.nixbuild_key.path}
   '';
 
